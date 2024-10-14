@@ -1,18 +1,4 @@
 {
-  "name": "iotboard",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --fix",
-    "format": "prettier --write src/"
-  },
   "dependencies": {
     "pinia": "^2.2.4",
     "vue": "^3.5.11",
@@ -29,6 +15,7 @@
     "@vue/eslint-config-typescript": "^14.0.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "code-inspector-plugin": "^0.17.1",
     "eslint": "^9.12.0",
     "eslint-plugin-vue": "^9.28.0",
     "jsdom": "^25.0.1",
@@ -38,5 +25,19 @@
     "vite": "^5.4.8",
     "vitest": "^2.1.2",
     "vue-tsc": "^2.1.6"
-  }
+  },
+  "name": "iotboard",
+  "private": true,
+  "scripts": {
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build",
+    "dev": "vite",
+    "format": "prettier --write src/",
+    "lint": "eslint . --fix",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "type-check": "vue-tsc --build --force"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }
