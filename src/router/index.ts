@@ -6,7 +6,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: '/editor',
+    },
+    {
+      path: '/editor',
+      name: 'editor',
       component: HomeView,
     },
     {
