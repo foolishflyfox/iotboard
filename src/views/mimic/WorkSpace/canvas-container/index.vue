@@ -3,14 +3,31 @@
 </template>
 
 <script setup lang="ts">
-import { Leafer, Rect } from 'leafer-ui';
+import { Leafer, Rect, App } from 'leafer-ui';
+import { Ruler } from 'leafer-x-ruler';
 
 defineOptions({
   name: 'CanvasContainer',
 });
 
 onMounted(() => {
-  const leafer = new Leafer({ view: 'mimicCanvasContainer' });
+  const app = new App({
+    view: 'mimicCanvasContainer',
+    tree: {},
+    editor: {},
+  });
+  const ruler = new Ruler(app);
+
+  // 添加自定义主题
+  ruler.addTheme('custom1', {
+    backgroundColor: '#fff',
+    textColor: 'gray',
+    borderColor: 'gray',
+    highlightColor: 'rgba(22,93,255,0.75)',
+  });
+
+  // 切换主题
+  ruler.changeTheme('custom1');
 
   const rect = new Rect({
     x: 0,
@@ -22,7 +39,7 @@ onMounted(() => {
     draggable: true,
   });
 
-  leafer.add(rect);
+  app.tree.add(rect);
 });
 </script>
 

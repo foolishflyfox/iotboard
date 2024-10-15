@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    "moduleResolution": "node",
     "paths": {
       "@/*": ["./src/*"]
     },
