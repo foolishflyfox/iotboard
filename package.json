@@ -20,10 +20,12 @@
     "eslint": "^9.12.0",
     "eslint-plugin-vue": "^9.28.0",
     "jsdom": "^25.0.1",
+    "naive-ui": "^2.40.1",
     "npm-run-all2": "^6.2.3",
     "prettier": "^3.3.3",
     "typescript": "~5.5.4",
     "unocss": "^0.63.4",
+    "unplugin-auto-import": "^0.18.3",
     "vite": "^5.4.8",
     "vitest": "^2.1.2",
     "vue-tsc": "^2.1.6"
