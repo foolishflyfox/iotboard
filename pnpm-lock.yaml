@@ -12,8 +12,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       leafer-x-ruler:
-        specifier: ^1.0.12
-        version: 1.0.12
+        specifier: ^1.0.13
+        version: 1.0.13
       pinia:
         specifier: ^2.2.4
         version: 2.2.4(typescript@5.5.4)(vue@3.5.12(typescript@5.5.4))
@@ -1841,8 +1841,8 @@ packages:
   leafer-ui@1.0.5:
     resolution: {integrity: sha512-pY/6O8jnKaPQKJ6wzYAw0aYdcfVUp5lZlgE+RT3V8IWzNewBTvGSc6P0ZS0OIvGrLbjZJEufLj4xxlbp6yiUDw==}
 
-  leafer-x-ruler@1.0.12:
-    resolution: {integrity: sha512-DpyjRhMEcDJxNgkirjn6JH+Z+YtOD307I4TblTv+JzpNPq8qXnH+LLa1fVwgaZKtpAQEMxzJQbzmTiV+ddAV8A==}
+  leafer-x-ruler@1.0.13:
+    resolution: {integrity: sha512-cWpxvrRtMyrgbd1En7p0DNhPQmAe/vL0rFBrzEMrN6Dq41nnDdj83DsvD9svxhBxdPlu9RRr1EvdRlI/uy4gWg==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -4550,7 +4550,7 @@ snapshots:
       '@leafer/partner': 1.0.5
       '@leafer/web': 1.0.5
 
-  leafer-x-ruler@1.0.12:
+  leafer-x-ruler@1.0.13:
     dependencies:
       '@leafer-in/editor': 1.0.5
       '@leafer-ui/core': 1.0.5
