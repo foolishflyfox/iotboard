@@ -10,6 +10,6 @@ function increment() {
   <main>
     <h1 class="text-green-600">XXXX</h1>
     <div>count = {{ count }}</div>
-    <n-button @click="increment">++</n-button>
+    <n-button @click="increment" type="warning">++</n-button>
   </main>
 </template>
