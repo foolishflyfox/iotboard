@@ -7,11 +7,11 @@ import WorkSpace from './WorkSpace/index.vue';
 
 <template>
   <main class="bg-[#f7f7f7] h-full flex-col">
-    <mimic-head />
+    <MimicHead />
     <div class="flex-1 flex">
-      <left-panel />
-      <work-space class="flex-1" />
-      <right-panel />
+      <LeftPanel />
+      <WorkSpace class="flex-1" />
+      <RightPanel />
     </div>
   </main>
 </template>
