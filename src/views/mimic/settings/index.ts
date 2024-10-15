@@ -5,3 +5,5 @@ export const headHeight = 32;
 export const leftPanelWidth = 250;
 // 右边栏宽度
 export const rightPanelWidth = 350;
+// 工作区头部高度
+export const studioHeight = 24;
