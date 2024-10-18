@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@leafer-in/view": "^1.0.5",
+    "leafer-editor": "^1.0.5",
     "leafer-ui": "^1.0.5",
     "leafer-x-ruler": "^1.0.13",
     "pinia": "^2.2.4",

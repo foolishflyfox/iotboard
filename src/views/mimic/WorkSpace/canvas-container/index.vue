@@ -3,8 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { Leafer, Rect, App } from 'leafer-ui';
+import { Leafer, Rect, App, LeafHelper, ZoomEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
+import '@leafer-in/view';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -13,21 +14,35 @@ defineOptions({
 onMounted(() => {
   const app = new App({
     view: 'mimicCanvasContainer',
+    // ground: {},
     tree: {},
-    editor: {},
+    editor: {
+      circle: {
+        pointType: 'button',
+        cursor: 'pointer',
+        event: {
+          tap: function () {
+            alert('button');
+          },
+        },
+      }, // 变为自定义按钮
+    },
   });
   const ruler = new Ruler(app);
 
   // 添加自定义主题
   ruler.addTheme('custom1', {
     backgroundColor: '#fff',
-    textColor: 'gray',
-    borderColor: 'gray',
-    highlightColor: 'rgba(22,93,255,0.75)',
+    textColor: '#000',
+    borderColor: '#000',
+    highlightColor: 'rgba(22,93,255,0.3)',
   });
 
   // 切换主题
   ruler.changeTheme('custom1');
+
+  // 添加底图
+  app.tree.add(Rect.one({ width: 500, height: 300, fill: 'white' }));
 
   const rect = new Rect({
     x: 0,
@@ -37,9 +52,12 @@ onMounted(() => {
     fill: '#32cd79',
     cornerRadius: [50, 80, 0, 80],
     draggable: true,
+    editable: true,
   });
 
   app.tree.add(rect);
+
+  app.tree.zoom('fit', 80);
 });
 </script>
 
