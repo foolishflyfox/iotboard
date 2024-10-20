@@ -3,7 +3,7 @@
     <div class="bg-red">工具区</div>
     <HeadIconContainer
       :svg-component="RulerLine"
-      :is-active="v"
+      :is-active="rulerVisible"
       @click="changeRulerVisible"
     />
   </div>
@@ -12,14 +12,16 @@
 <script setup lang="ts">
 import RulerLine from '@/components/icons/RulerLine.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
 
 defineOptions({
   name: 'HeadTools',
 });
 
-const v = ref(false);
+const { rulerVisible } = toRefs(useMimicWorkspaceStatus());
+
 function changeRulerVisible() {
-  v.value = !v.value;
+  rulerVisible.value = !rulerVisible.value;
 }
 </script>
 

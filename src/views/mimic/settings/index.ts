@@ -12,4 +12,5 @@ export const studioHeight = 24;
 export const headIconSetting = {
   hoverColor: '#00bfff66',
   activeColor: '#00bfff',
+  sideLength: 24,
 };

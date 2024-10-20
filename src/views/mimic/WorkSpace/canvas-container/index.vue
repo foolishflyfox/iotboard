@@ -6,10 +6,15 @@
 import { Leafer, Rect, App, LeafHelper, ZoomEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
+import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
 
 defineOptions({
   name: 'CanvasContainer',
 });
+
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+
+const { rulerVisible } = toRefs(mimicWorkspaceStatus);
 
 onMounted(() => {
   const app = new App({
@@ -29,6 +34,10 @@ onMounted(() => {
     },
   });
   const ruler = new Ruler(app);
+
+  watchEffect(() => {
+    ruler.enabled = rulerVisible.value;
+  });
 
   // 添加自定义主题
   ruler.addTheme('custom1', {

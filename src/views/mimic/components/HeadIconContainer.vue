@@ -1,10 +1,11 @@
 <template>
   <HoverContainer
-    :hover-bg-color="headIconSetting.hoverColor"
-    :active-bg-color="headIconSetting.activeColor"
+    :hover-bg-color="hoverColor"
+    :active-bg-color="activeColor"
     :is-active="isActive"
+    border-radius="15%"
   >
-    <component :is="svgComponent" width="24px" height="24px" />
+    <component :is="svgComponent" :width="svgWidth" :height="svgHeight" />
   </HoverContainer>
 </template>
 
@@ -16,6 +17,10 @@ defineProps<{
   svgComponent: Component;
   isActive?: boolean;
 }>();
+
+const { hoverColor, activeColor, sideLength } = headIconSetting;
+const svgWidth = `${sideLength}px`;
+const svgHeight = svgWidth;
 </script>
 
 <style scoped></style>

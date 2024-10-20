@@ -3,6 +3,7 @@
     <template #trigger>
       <div
         class="current-color hover-color default-style"
+        :style="{ borderRadius }"
         @click="emit('click')"
       >
         <slot></slot>
@@ -22,6 +23,7 @@ const props = withDefaults(
     activeBgColor?: string;
     isActive?: boolean;
     cursor?: Cursor;
+    borderRadius?: string;
   }>(),
   { cursor: 'pointer' },
 );
