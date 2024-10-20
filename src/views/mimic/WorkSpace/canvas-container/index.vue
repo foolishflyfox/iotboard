@@ -17,15 +17,15 @@ onMounted(() => {
     // ground: {},
     tree: {},
     editor: {
-      circle: {
-        pointType: 'button',
-        cursor: 'pointer',
-        event: {
-          tap: function () {
-            alert('button');
-          },
-        },
-      }, // 变为自定义按钮
+      // circle: {
+      //   pointType: 'button',
+      //   cursor: 'pointer',
+      //   event: {
+      //     tap: function () {
+      //       alert('button');
+      //     },
+      //   },
+      // }, // 变为自定义按钮
     },
   });
   const ruler = new Ruler(app);

@@ -18,11 +18,24 @@ export default defineConfig({
     vue(),
     vueJsx(),
     AutoImport({
-      imports: ['vue', 'vue-router', 'pinia'],
-      dts: 'src/typings/auto-import.d.ts',
+      imports: [
+        'vue',
+        'vue-router',
+        'pinia',
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
+        },
+      ],
+      dts: 'src/types/auto/auto-import.d.ts',
     }),
     Components({
-      dts: 'src/typings/components.d.ts',
+      dirs: ['src/components'],
+      dts: 'src/types/auto/components.d.ts',
       resolvers: [NaiveUiResolver()],
     }),
     codeInspectorPlugin({ bundler: 'vite' }),
@@ -31,6 +44,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@mimic': fileURLToPath(new URL('./src/views/mimic', import.meta.url)),
     },
   },
 });
