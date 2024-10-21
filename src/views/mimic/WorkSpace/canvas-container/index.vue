@@ -41,6 +41,8 @@ onMounted(() => {
       // }, // 变为自定义按钮
     },
   });
+  app.tree.name = 'tree';
+  app.tree.zIndex = 0;
   const ruler = new Ruler(app);
 
   watchEffect(() => {
@@ -62,6 +64,7 @@ onMounted(() => {
   app.tree.add(Rect.one({ width: 500, height: 300, fill: 'white' }));
 
   const rect = new Rect({
+    // id: '12332',
     x: 0,
     y: 0,
     width: 200,
@@ -73,10 +76,11 @@ onMounted(() => {
   });
 
   const myObj = new CustomRect({
+    id: '12332',
     x: 100,
     y: 100,
     width: 150,
-    height: 200,
+    height: 300,
     fill: 'orange',
     draggable: true,
     editable: true,
@@ -87,6 +91,24 @@ onMounted(() => {
 
   app.tree.zoom('fit', 80);
   console.log(app.toJSON());
+
+  console.log('app.id = ', app.id);
+  console.log('tree.id = ', app.tree.id);
+  console.log('rect.id = ', rect.id);
+  console.log('myObj.id = ', myObj.id);
+  console.log('@@@1', app.findId('12332'));
+  console.log('@@@2', app.tree.findId('12332'));
+  console.log('@@@3', app.ground);
+  console.log('@@@4', app.tree.tag);
+  console.log('@@@5', app.find('Leafer'));
+  for (const leafer of app.find('Leafer')) {
+    console.log('name =', leafer.name, 'zIndex', leafer.zIndex);
+  }
+  console.log('1: ', rect.zIndex);
+  console.log('2: ', myObj.zIndex);
+  setTimeout(() => {
+    myObj.zIndex = -1;
+  }, 3000);
 });
 </script>
 
