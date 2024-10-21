@@ -3,10 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import { Leafer, Rect, App, LeafHelper, ZoomEvent } from 'leafer-editor';
+import {
+  Leafer,
+  Rect,
+  App,
+  LeafHelper,
+  ZoomEvent,
+  registerUI,
+} from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
+import { CustomRect } from '@mimic/custom';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -64,9 +72,21 @@ onMounted(() => {
     editable: true,
   });
 
+  const myObj = new CustomRect({
+    x: 100,
+    y: 100,
+    width: 150,
+    height: 200,
+    fill: 'orange',
+    draggable: true,
+    editable: true,
+  });
+
   app.tree.add(rect);
+  app.tree.add(myObj);
 
   app.tree.zoom('fit', 80);
+  console.log(app.toJSON());
 });
 </script>
 

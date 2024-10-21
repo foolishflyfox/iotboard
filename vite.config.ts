@@ -47,4 +47,12 @@ export default defineConfig({
       '@mimic': fileURLToPath(new URL('./src/views/mimic', import.meta.url)),
     },
   },
+  esbuild: {
+    target: 'es2022',
+    tsconfigRaw: {
+      compilerOptions: {
+        useDefineForClassFields: true,
+      },
+    },
+  },
 });
