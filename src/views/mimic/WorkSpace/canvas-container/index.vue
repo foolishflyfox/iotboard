@@ -30,7 +30,7 @@ onMounted(() => {
   const app = new App({
     view: 'mimicCanvasContainer',
     // ground: {},
-    tree: { usePartRender: false },
+    tree: { usePartRender: true },
     editor: {
       // circle: {
       //   pointType: 'button',
@@ -144,6 +144,7 @@ onMounted(() => {
     width: 400,
     height: 400,
     draggable: true,
+    editable: true,
   });
   app.tree.add(gauge);
 });

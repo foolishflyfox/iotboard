@@ -68,8 +68,7 @@ export class CustomGauge extends UI {
     console.log('beginPath =', canvas.beginPath);
     // __draw(): void {
     // const canvas = this.__hitCanvas!;
-    // const { ctx } = canvas;
-    const ctx = canvas!;
+    const ctx = canvas!.context;
     const obj = this.__;
     // const x = obj.x!;
     // const y = obj.y!;
@@ -87,7 +86,7 @@ export class CustomGauge extends UI {
     const arc_angle = Math.PI * 2;
 
     // 内环
-    ctx.beginPath?.();
+    ctx.beginPath();
     const gra = ctx.createLinearGradient(cx, cy - r_in, cx, cy + r_in);
     gra.addColorStop(0, '#3485DB');
     gra.addColorStop(1, '#1A3494');
@@ -96,12 +95,10 @@ export class CustomGauge extends UI {
     ctx.fill();
 
     // 外环
-    ctx.beginPath?.();
+    ctx.beginPath();
     ctx.strokeStyle = '#E2E7FB';
-    // lineWidth -> strokeWidth
-    ctx.strokeWidth = 25;
-    ctx.strokeCap = 'round';
-
+    ctx.lineWidth = 25;
+    ctx.lineCap = 'round';
     const start_out = 1 / 4 + 1 / 12;
     const end_out = 1 + 1 / 6;
 
@@ -109,17 +106,16 @@ export class CustomGauge extends UI {
     ctx.stroke();
 
     // 外环数值进度
-    // todo
-    const data = { value: 99.2, unit: 'km/h', min: '0', max: '300' };
+    const data = { value: 68.3, unit: 'km/h', min: 0, max: 300 };
     const valComp = Number(data.value);
     const val = isNaN(valComp) ? 0 : valComp;
     const unit = data.unit;
     const max = Number(data.max);
     const min = Number(data.min);
 
-    ctx.beginPath?.();
-    ctx.strokeWidth = 40;
-    ctx.strokeCap = 'round';
+    ctx.beginPath();
+    ctx.lineWidth = 40;
+    ctx.lineCap = 'round';
     // // 每个刻度18°，左下右下各留2个刻度空间
     const start = 1 / 4 + ((1 / 4) * 2) / 5;
     const end = 1 + ((1 / 4) * 3) / 5;
@@ -141,7 +137,7 @@ export class CustomGauge extends UI {
 
     // 第二步
     if (val > max / 2) {
-      ctx.beginPath?.();
+      ctx.beginPath();
       const gra2_2 = ctx.createLinearGradient(
         x + width / 2,
         y + height * 0.1,
@@ -164,7 +160,7 @@ export class CustomGauge extends UI {
     // 量程提示圆弧
     const start_range = ((1 / 4) * 4) / 5;
     const end_range = 1 / 4 + ((1 / 4) * 1) / 5;
-    ctx.beginPath?.();
+    ctx.beginPath();
     const gra4 = ctx.createLinearGradient(
       x + width / 3,
       height,
@@ -175,7 +171,7 @@ export class CustomGauge extends UI {
     gra4.addColorStop(0.5, '#488CDF');
     gra4.addColorStop(1, '#F4F5F8');
     ctx.strokeStyle = gra4;
-    ctx.strokeWidth = 8;
+    ctx.lineWidth = 8;
     ctx.arc(cx, cy, r_out, arc_angle * start_range, arc_angle * end_range);
     ctx.stroke();
 
@@ -195,7 +191,7 @@ export class CustomGauge extends UI {
         theta += (18 * Math.PI) / 180;
         continue;
       }
-      ctx.beginPath?.();
+      ctx.beginPath();
       const line_begin = {
         x: cx + Math.cos(theta) * (r_out - 30),
         y: cy + Math.sin(theta) * (r_out - 30),
@@ -206,7 +202,7 @@ export class CustomGauge extends UI {
       };
       ctx.moveTo(line_begin.x, line_begin.y);
       ctx.lineTo(line_end.x, line_end.y);
-      ctx.strokeWidth = 6;
+      ctx.lineWidth = 6;
       ctx.strokeStyle = '#3639CB';
       ctx.stroke();
       theta += (18 * Math.PI) / 180;
@@ -216,13 +212,13 @@ export class CustomGauge extends UI {
     const clockRadius = width / 2;
     ctx.save();
     ctx.translate(clockRadius, clockRadius);
-    ctx.beginPath?.();
+    ctx.beginPath();
 
     ctx.save();
     // 20表示所有刻度份数，7表示起始刻度
     const theta2 = (((20 - 4) * (val / max) + 7) * 2 * Math.PI) / 20;
     ctx.rotate(theta2);
-    ctx.beginPath?.();
+    ctx.beginPath();
     ctx.moveTo(-10, -8);
     ctx.lineTo(-10, 8);
     ctx.lineTo((width / 2) * 0.9, 4);
