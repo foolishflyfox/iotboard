@@ -1,4 +1,4 @@
-import { Leafer, UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
 import type {
   IUIInputData,
   ILeaferCanvas,
@@ -7,8 +7,8 @@ import type {
 } from 'leafer-ui';
 
 // 定义数据
-
 interface ICustomGaugeInputData extends IUIInputData {}
+
 interface ICustomGaugeData extends IUIData {}
 
 class CustomGaugeData extends UIData implements ICustomGaugeData {}
@@ -26,7 +26,6 @@ export class CustomGauge extends UI {
 
   constructor(data: ICustomGaugeInputData) {
     super(data);
-    // ...
   }
 
   // 1. 如果通过width、height属性无法确定图形 bounds，需要重写此函数手动计算bounds
@@ -64,10 +63,6 @@ export class CustomGauge extends UI {
 
   // 4. 绘制自定义内容
   __draw(canvas: ILeaferCanvas): void {
-    console.log('canvas =', canvas);
-    console.log('beginPath =', canvas.beginPath);
-    // __draw(): void {
-    // const canvas = this.__hitCanvas!;
     const ctx = canvas!.context;
     const obj = this.__;
     // const x = obj.x!;
@@ -76,13 +71,14 @@ export class CustomGauge extends UI {
     const y = 0;
     const width = obj.width!;
     const height = obj.height!;
+    const side = Math.min(width, height);
 
     canvas.setStrokeOptions(this.__); // 绘制描边前，需要设置一下描边选项（可选）。
     const cx = x + width / 2;
     const cy = y + height / 2;
 
-    const r_in = (Math.min(width, height) / 2) * 0.65;
-    const r_out = (Math.min(width, height) / 2) * 0.9;
+    const r_in = (side / 2) * 0.65;
+    const r_out = (side / 2) * 0.9;
     const arc_angle = Math.PI * 2;
 
     // 内环
@@ -97,7 +93,7 @@ export class CustomGauge extends UI {
     // 外环
     ctx.beginPath();
     ctx.strokeStyle = '#E2E7FB';
-    ctx.lineWidth = 25;
+    ctx.lineWidth = side * 0.05;
     ctx.lineCap = 'round';
     const start_out = 1 / 4 + 1 / 12;
     const end_out = 1 + 1 / 6;
@@ -114,7 +110,7 @@ export class CustomGauge extends UI {
     const min = Number(data.min);
 
     ctx.beginPath();
-    ctx.lineWidth = 40;
+    ctx.lineWidth = side * 0.1;
     ctx.lineCap = 'round';
     // // 每个刻度18°，左下右下各留2个刻度空间
     const start = 1 / 4 + ((1 / 4) * 2) / 5;
@@ -209,9 +205,9 @@ export class CustomGauge extends UI {
     }
 
     // 量程指针
-    const clockRadius = width / 2;
+    const clockRadius = side / 2;
     ctx.save();
-    ctx.translate(clockRadius, clockRadius);
+    ctx.translate(width / 2, height / 2);
     ctx.beginPath();
 
     ctx.save();
@@ -221,11 +217,11 @@ export class CustomGauge extends UI {
     ctx.beginPath();
     ctx.moveTo(-10, -8);
     ctx.lineTo(-10, 8);
-    ctx.lineTo((width / 2) * 0.9, 4);
-    ctx.lineTo((width / 2) * 0.9, -4);
+    ctx.lineTo(clockRadius * 0.9, 4);
+    ctx.lineTo(clockRadius * 0.9, -4);
     const gra3 = ctx.createLinearGradient(-10, -8, (width / 2) * 0.9, 4);
-    gra3.addColorStop(0, '#275EB9');
-    gra3.addColorStop(1, '#5878E2');
+    gra3.addColorStop(0, '#B9275E66');
+    gra3.addColorStop(0.6, '#E25878ff');
     ctx.fillStyle = gra3;
     ctx.fill();
     ctx.restore();
@@ -236,8 +232,9 @@ export class CustomGauge extends UI {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#FFF';
 
-    ctx.font = '60px Arial bolder';
-    ctx.fillText(valComp.toString(), cx, cy - 20);
-    ctx.fillText(unit, cx, cy + 40);
+    const fontSize = Math.round(side * 0.12);
+    ctx.font = fontSize + 'px Arial bolder';
+    ctx.fillText(valComp.toString(), cx, cy - fontSize / 3);
+    ctx.fillText(unit, cx, cy + (fontSize * 2) / 3);
   }
 }

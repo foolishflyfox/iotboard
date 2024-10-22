@@ -12,13 +12,9 @@ import {
 export interface ICustomPen extends IPen {
   createShapes(): void;
 }
-
-// 定义数据
-
 export interface ICustomPenInputData extends IPenInputData {
   size?: number;
 }
-
 export interface ICustomPenData extends IPenData {
   size?: number;
 }
@@ -31,25 +27,18 @@ export class CustomPenData extends PenData implements ICustomPenData {
     (this.__leaf as CustomPen).createShapes();
   }
 }
-
-// 定义类
-
 @registerUI()
 export class CustomPen extends Pen implements ICustomPen {
   public get __tag() {
     return 'CustomPen';
   }
-
   @dataProcessor(CustomPenData)
   public declare __: ICustomPenData;
-
   @boundsType(0)
   public declare size: number; // 增加自定义属性， 注意必须加上 declare 关键词
-
   constructor(data: ICustomPenInputData) {
     super(data);
   }
-
   // 根据size创建组合图形
   public createShapes(): void {
     this.clear(); // 清除之前创建的路径

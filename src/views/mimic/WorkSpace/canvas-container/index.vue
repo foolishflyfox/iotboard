@@ -94,22 +94,6 @@ onMounted(() => {
 
   app.tree.zoom('fit', 25);
   console.log(app.toJSON());
-
-  console.log('app.id = ', app.id);
-  console.log('tree.id = ', app.tree.id);
-  console.log('rect.id = ', rect.id);
-  console.log('myObj.id = ', myObj.id);
-  console.log('@@@1', app.findId('12332'));
-  console.log('@@@2', app.tree.findId('12332'));
-  console.log('@@@3', app.ground);
-  console.log('@@@4', app.tree.tag);
-  console.log('@@@5', app.find('Leafer'));
-  for (const leafer of app.find('Leafer')) {
-    console.log('name =', leafer.name, 'zIndex', leafer.zIndex);
-  }
-  console.log('1: ', rect.zIndex);
-  console.log('2: ', myObj.zIndex);
-  console.log('@@@6', myObj.toJSON());
   // setTimeout(() => {
   //   myObj.zIndex = -1;
   // }, 3000);
@@ -121,11 +105,28 @@ onMounted(() => {
     editable: true,
   });
 
-  app.tree.add(customPen);
+  // app.tree.add(customPen);
+  // console.log(customPen.toString());
+  // app.tree.add({
+  //   tag: 'CustomPen',
+  //   size: 30,
+  //   draggable: true,
+  //   editable: true,
+  //   fill: 'blue',
+  //   children: [
+  //     {
+  //       tag: 'Path',
+  //       path: [23, 0, 0, 30, 30, 10, 27, 15, 15, 7.5],
+  //       windingRule: 'evenodd',
+  //       fill: '#FF4B4B',
+  //     },
+  //     { tag: 'Path', x: 15, y: 15, path: [27, 0, 0, 6], fill: '#FEB027' },
+  //   ],
+  // });
 
-  setTimeout(() => {
-    customPen.size = 100; // 2秒后放大尺寸
-  }, 2000);
+  // setTimeout(() => {
+  //   customPen.size = 100; // 2秒后放大尺寸
+  // }, 2000);
 
   const custom = new Custom({
     x: 130,
@@ -137,6 +138,16 @@ onMounted(() => {
   });
 
   app.tree.add(custom);
+  // app.tree.add({
+  //   tag: 'CustomGauge',
+  //   x: 137.324411555908,
+  //   y: -34.330186233129325,
+  //   width: 374.3107786966027,
+  //   height: 340.8214230785311,
+  //   rotation: 22.25,
+  //   draggable: true,
+  //   editable: true,
+  // });
 
   const gauge = new CustomGauge({
     x: 0,
@@ -146,7 +157,21 @@ onMounted(() => {
     draggable: true,
     editable: true,
   });
-  app.tree.add(gauge);
+  // app.tree.add(gauge);
+  // console.log(gauge.toString());
+  app.tree.add({
+    tag: 'CustomGauge',
+    x: 136.1777825312438,
+    y: -14.158673381395346,
+    width: 400,
+    height: 400,
+    rotation: 19.52,
+    draggable: true,
+    editable: true,
+  });
+
+  // console.log('###', myObj.toJSON());
+  // (window as any).guage = gauge;
 });
 </script>
 
