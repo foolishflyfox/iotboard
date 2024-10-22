@@ -92,7 +92,7 @@ onMounted(() => {
   app.tree.add(rect);
   app.tree.add(myObj);
 
-  app.tree.zoom('fit', 80);
+  app.tree.zoom('fit', 25);
   console.log(app.toJSON());
 
   console.log('app.id = ', app.id);
