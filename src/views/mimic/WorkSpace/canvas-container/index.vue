@@ -15,6 +15,7 @@ import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
 import { CustomRect } from '@mimic/custom';
+import { CustomPen } from '@mimic/custom/CustomPen';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -76,6 +77,7 @@ onMounted(() => {
   });
 
   const myObj = new CustomRect({
+    top: 20,
     id: '12332',
     x: 100,
     y: 100,
@@ -106,9 +108,23 @@ onMounted(() => {
   }
   console.log('1: ', rect.zIndex);
   console.log('2: ', myObj.zIndex);
+  console.log('@@@6', myObj.toJSON());
+  // setTimeout(() => {
+  //   myObj.zIndex = -1;
+  // }, 3000);
+
+  const customPen = new CustomPen({
+    size: 30,
+    fill: 'blue',
+    draggable: true,
+    editable: true,
+  });
+
+  app.tree.add(customPen);
+
   setTimeout(() => {
-    myObj.zIndex = -1;
-  }, 3000);
+    customPen.size = 100; // 2秒后放大尺寸
+  }, 2000);
 });
 </script>
 
