@@ -189,16 +189,16 @@ export class CustomGauge extends UI {
       }
       ctx.beginPath();
       const line_begin = {
-        x: cx + Math.cos(theta) * (r_out - 30),
-        y: cy + Math.sin(theta) * (r_out - 30),
+        x: cx + Math.cos(theta) * (r_out - side * 0.095),
+        y: cy + Math.sin(theta) * (r_out - side * 0.095),
       };
       const line_end = {
-        x: cx + Math.cos(theta) * (r_out - 24),
-        y: cy + Math.sin(theta) * (r_out - 24),
+        x: cx + Math.cos(theta) * (r_out - side * 0.07),
+        y: cy + Math.sin(theta) * (r_out - side * 0.07),
       };
       ctx.moveTo(line_begin.x, line_begin.y);
       ctx.lineTo(line_end.x, line_end.y);
-      ctx.lineWidth = 6;
+      ctx.lineWidth = side * 0.02;
       ctx.strokeStyle = '#3639CB';
       ctx.stroke();
       theta += (18 * Math.PI) / 180;
