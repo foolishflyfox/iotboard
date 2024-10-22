@@ -2,10 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    // "module": "ESNext",
     "paths": {
       "@/*": ["./src/*"],
       "@mimic/*": ["./src/views/mimic/*"]
     },
+    "target": "ES2022",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
   },
   "exclude": ["src/**/__tests__/*"],

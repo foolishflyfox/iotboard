@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     HoverContainer: typeof import('./../../components/HoverContainer.vue')['default']
-    NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RulerLine: typeof import('./../../components/icons/RulerLine.vue')['default']

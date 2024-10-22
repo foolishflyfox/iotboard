@@ -15,9 +15,13 @@ UI 是所有元素和容器的基类。包含如下数据：
 - innerId: 数字类型，临时创建的内部唯一id，用于快速识别元素，按创建顺序自增；
 - innerName: 字符串类型，临时创建的内部唯一名称，用于快速识别元素，通常为 `${tag}${id}`，例如 App0, Leafer1, Rect4。
 
+## Leafer
+
+- list: 静态属性，当前创建的所有 Leafer 实例，App 也算是 Leafer 实例
+
 ## 布局
 
-## transform
+### transform
 
 - localTransform: 相对于父元素的变化矩阵，a、b、c、d、e、f 6个 number 类型属性
   - a: 水平缩放样子
