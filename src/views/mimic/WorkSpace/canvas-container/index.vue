@@ -14,8 +14,9 @@ import {
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
-import { CustomRect } from '@mimic/custom';
-import { CustomPen } from '@mimic/custom/CustomPen';
+import { CustomRect, CustomPen } from '@mimic/custom';
+import { Custom } from '../../custom/Custom';
+import { CustomGauge } from '../../custom/CustomGauge';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -29,7 +30,7 @@ onMounted(() => {
   const app = new App({
     view: 'mimicCanvasContainer',
     // ground: {},
-    tree: {},
+    tree: { usePartRender: false },
     editor: {
       // circle: {
       //   pointType: 'button',
@@ -125,6 +126,26 @@ onMounted(() => {
   setTimeout(() => {
     customPen.size = 100; // 2秒后放大尺寸
   }, 2000);
+
+  const custom = new Custom({
+    x: 130,
+    y: 120,
+    width: 200,
+    height: 50,
+    draggable: true,
+    editable: true,
+  });
+
+  app.tree.add(custom);
+
+  const gauge = new CustomGauge({
+    x: 0,
+    y: 0,
+    width: 400,
+    height: 400,
+    draggable: true,
+  });
+  app.tree.add(gauge);
 });
 </script>
 
