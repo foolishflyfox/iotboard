@@ -1,6 +1,9 @@
 // mimic 布局配置
 // 头部高度
-export const headHeight = 32;
+export const head = {
+  height: 32,
+  dividerColor: '#aaa',
+};
 // 左边栏配置
 export const leftPanel = {
   width: 320,
