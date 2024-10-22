@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    "experimentalDecorators": true,
     // "module": "ESNext",
     "paths": {
       "@/*": ["./src/*"],

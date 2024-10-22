@@ -34,5 +34,4 @@ export class CustomRect extends Rect {
 
   @dataType(0)
   public declare top: string;
-  // public foo: string = 'a';
 }
