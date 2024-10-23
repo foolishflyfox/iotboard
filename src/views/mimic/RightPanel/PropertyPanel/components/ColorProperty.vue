@@ -1,6 +1,6 @@
 <template>
   <KvPropertyContainer :label="label">
-    <n-color-picker style="width: 150px" :value />
+    <n-color-picker style="width: 150px" v-model:value="value" />
   </KvPropertyContainer>
 </template>
 
@@ -9,8 +9,9 @@ import KvPropertyContainer from './KvPropertyContainer.vue';
 
 defineProps<{
   label: string;
-  value: string;
 }>();
+
+const value = defineModel<string>();
 </script>
 
 <style scoped>

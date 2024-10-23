@@ -3,20 +3,13 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Leafer,
-  Rect,
-  App,
-  LeafHelper,
-  ZoomEvent,
-  registerUI,
-  EditorEvent,
-} from 'leafer-editor';
+import { Rect, App, EditorEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
+import { displayName } from '@mimic/constant';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -64,7 +57,16 @@ onMounted(() => {
   ruler.changeTheme('custom1');
 
   // 添加底图
-  app.tree.add(Rect.one({ width: 500, height: 300, fill: 'white' }));
+  app.tree.add(
+    Rect.one({
+      id: displayName,
+      width: 500,
+      height: 300,
+      fill: '#00bfff33',
+      name: displayName,
+      className: displayName,
+    }),
+  );
 
   const rect = new Rect({
     // id: '12332',
