@@ -1,14 +1,14 @@
 <template>
-  <KvPropertyContainer :label="label">
-    <n-color-picker style="width: 150px" v-model:value="value" />
-  </KvPropertyContainer>
+  <PropertyContainer :label="label">
+    <n-color-picker style="width: 100%" v-model:value="value" size="small" />
+  </PropertyContainer>
 </template>
 
 <script setup lang="ts">
-import KvPropertyContainer from './KvPropertyContainer.vue';
+import { PropertyContainer } from './containers';
 
 defineProps<{
-  label: string;
+  label?: string;
 }>();
 
 const value = defineModel<string>();

@@ -13,14 +13,12 @@ defineKey(UI.prototype, 'proxyData', {
 });
 
 // 设置元素属性时，内部同步设置代理数据
-
 UI.prototype.setProxyAttr = function (name: string, newValue: unknown): void {
   const data = this.__proxyData as any;
   if (data[name] !== newValue) data[name] = newValue;
 };
 
 // 获取元素属性时，内部优先返回代理数据
-
 UI.prototype.getProxyAttr = function (name: string): any {
   const value = (this.__proxyData as any)[name];
   return value === undefined ? this.__.__get(name) : value;

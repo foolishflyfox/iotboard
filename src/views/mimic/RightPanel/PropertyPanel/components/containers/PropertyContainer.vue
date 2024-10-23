@@ -1,18 +1,21 @@
 <template>
   <div class="kv-property">
-    <span class="property-label">{{ label }}</span>
-    <slot />
+    <span v-if="!isEmpty(label)" class="property-label w-5em">{{ label }}</span>
+    <div class="flex-1 flex justify-end">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { isEmpty } from 'lodash-es';
 defineProps<{
-  label: string;
+  label?: string;
 }>();
 </script>
 
 <style scoped>
-@import './property-item.css';
+@import '../property-item.css';
 
 .kv-property {
   display: flex;
@@ -20,5 +23,7 @@ defineProps<{
   align-items: center;
   margin: 3px 10px;
   /* background-color: orange; */
+}
+.single-v-property {
 }
 </style>
