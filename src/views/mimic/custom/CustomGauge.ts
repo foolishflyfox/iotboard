@@ -82,7 +82,13 @@ export class CustomGauge extends UI {
     const { context } = hitCanvas;
     const { x, y, width, height } = this.__layout.boxBounds;
     context.beginPath();
-    context.rect(x, y, width, height);
+    context.arc(
+      x + width / 2,
+      y + height / 2,
+      (Math.min(width, height) / 2) * 0.95,
+      0,
+      Math.PI * 2,
+    );
   }
 
   // 3. 碰撞检测(可选), 不重写此方法时，需要元素有fill或stroke值。

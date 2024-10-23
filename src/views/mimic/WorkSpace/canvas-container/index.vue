@@ -159,6 +159,9 @@ onMounted(() => {
   });
   app.tree.add(gauge);
   setTimeout(() => {
+    // console.log('x = ', gauge.x);
+    gauge.x = 80;
+    gauge.y = 60;
     gauge.value = '56';
   }, 3000);
   // console.log(gauge.toString());
