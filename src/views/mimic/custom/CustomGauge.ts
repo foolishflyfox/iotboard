@@ -1,4 +1,4 @@
-import { UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
 import type {
   IUIInputData,
   ILeaferCanvas,
@@ -7,11 +7,38 @@ import type {
 } from 'leafer-ui';
 
 // 定义数据
-interface ICustomGaugeInputData extends IUIInputData {}
+interface ICustomGaugeInputData extends IUIInputData {
+  min?: string;
+  max?: string;
+  unit?: string;
+  value?: string;
+}
 
-interface ICustomGaugeData extends IUIData {}
+interface ICustomGaugeData extends IUIData {
+  min?: string;
+  max?: string;
+  unit?: string;
+  value?: string;
+}
 
-class CustomGaugeData extends UIData implements ICustomGaugeData {}
+class CustomGaugeData extends UIData implements ICustomGaugeData {
+  protected _min?: string;
+  protected _max?: string;
+  protected _unit?: string;
+  protected _value?: string;
+  protected setMin(v: string) {
+    this._min = v;
+  }
+  protected setMax(v: string) {
+    this._max = v;
+  }
+  protected setUnit(v: string) {
+    this._unit = v;
+  }
+  protected setValue(v: string) {
+    this._value = v;
+  }
+}
 
 // 定义类
 
@@ -23,6 +50,18 @@ export class CustomGauge extends UI {
 
   @dataProcessor(CustomGaugeData)
   public declare __: ICustomGaugeData;
+
+  @boundsType('0')
+  public declare min: string;
+
+  @boundsType('300')
+  public declare max: string;
+
+  @boundsType('30')
+  public declare value: string;
+
+  @boundsType('km/h')
+  public declare unit: string;
 
   constructor(data: ICustomGaugeInputData) {
     super(data);
@@ -64,6 +103,7 @@ export class CustomGauge extends UI {
   // 4. 绘制自定义内容
   __draw(canvas: ILeaferCanvas): void {
     const ctx = canvas!.context;
+    // const ctx = this.__hitCanvas?.context!;
     const obj = this.__;
     // const x = obj.x!;
     // const y = obj.y!;
@@ -102,12 +142,12 @@ export class CustomGauge extends UI {
     ctx.stroke();
 
     // 外环数值进度
-    const data = { value: 68.3, unit: 'km/h', min: 0, max: 300 };
-    const valComp = Number(data.value);
+    //const data = { value: 68.3, unit: 'km/h', min: 0, max: 300 };
+    const valComp = Number(this.value);
     const val = isNaN(valComp) ? 0 : valComp;
-    const unit = data.unit;
-    const max = Number(data.max);
-    const min = Number(data.min);
+    const unit = this.unit;
+    const max = Number(this.max);
+    const min = Number(this.min);
 
     ctx.beginPath();
     ctx.lineWidth = side * 0.1;

@@ -157,18 +157,21 @@ onMounted(() => {
     draggable: true,
     editable: true,
   });
-  // app.tree.add(gauge);
+  app.tree.add(gauge);
+  setTimeout(() => {
+    gauge.value = '56';
+  }, 3000);
   // console.log(gauge.toString());
-  app.tree.add({
-    tag: 'CustomGauge',
-    x: 136.1777825312438,
-    y: -14.158673381395346,
-    width: 400,
-    height: 400,
-    rotation: 19.52,
-    draggable: true,
-    editable: true,
-  });
+  // app.tree.add({
+  //   tag: 'CustomGauge',
+  //   x: 136.1777825312438,
+  //   y: -14.158673381395346,
+  //   width: 400,
+  //   height: 400,
+  //   rotation: 19.52,
+  //   draggable: true,
+  //   editable: true,
+  // });
 
   // console.log('###', myObj.toJSON());
   // (window as any).guage = gauge;
