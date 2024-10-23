@@ -69,8 +69,8 @@ onMounted(() => {
     // id: '12332',
     x: 0,
     y: 0,
-    width: 200,
-    height: 200,
+    width: 30,
+    height: 30,
     fill: '#32cd79',
     cornerRadius: [50, 80, 0, 80],
     draggable: true,
@@ -90,7 +90,7 @@ onMounted(() => {
   });
 
   app.tree.add(rect);
-  app.tree.add(myObj);
+  // app.tree.add(myObj);
 
   app.tree.zoom('fit', 25);
   console.log(app.toJSON());
@@ -137,7 +137,7 @@ onMounted(() => {
     editable: true,
   });
 
-  app.tree.add(custom);
+  // app.tree.add(custom);
   // app.tree.add({
   //   tag: 'CustomGauge',
   //   x: 137.324411555908,
@@ -150,7 +150,7 @@ onMounted(() => {
   // });
 
   const gauge = new CustomGauge({
-    x: 0,
+    x: 50,
     y: 0,
     width: 400,
     height: 400,
@@ -158,12 +158,12 @@ onMounted(() => {
     editable: true,
   });
   app.tree.add(gauge);
-  setTimeout(() => {
-    // console.log('x = ', gauge.x);
-    gauge.x = 80;
-    gauge.y = 60;
-    gauge.value = '56';
-  }, 3000);
+  // setTimeout(() => {
+  //   // console.log('x = ', gauge.x);
+  //   gauge.x = 80;
+  //   gauge.y = 60;
+  //   gauge.value = '56';
+  // }, 3000);
   // console.log(gauge.toString());
   // app.tree.add({
   //   tag: 'CustomGauge',

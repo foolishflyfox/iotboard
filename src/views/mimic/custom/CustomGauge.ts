@@ -87,15 +87,10 @@ export class CustomGauge extends UI {
   // 2. 绘制碰撞路径
   __drawHitPath(hitCanvas: ILeaferCanvas): void {
     const { context } = hitCanvas;
-    const { x, y, width, height } = this.__layout.boxBounds;
+    const { width, height } = this.__layout.boxBounds;
+    context.scale(width! / 400, height! / 400);
     context.beginPath();
-    context.arc(
-      x + width / 2,
-      y + height / 2,
-      (Math.min(width, height) / 2) * 0.95,
-      0,
-      Math.PI * 2,
-    );
+    context.arc(200, 200, 200 * 0.95, 0, Math.PI * 2);
   }
 
   // 3. 碰撞检测(可选), 不重写此方法时，需要元素有fill或stroke值。
@@ -120,18 +115,21 @@ export class CustomGauge extends UI {
     const obj = this.__;
     // const x = obj.x!;
     // const y = obj.y!;
+    // this.scaleX = obj.width! / 400;
+    // this.scaleY = obj.height! / 400;
+    ctx.scale(obj.width! / 400, obj.height! / 400);
     const x = 0;
     const y = 0;
-    const width = obj.width!;
-    const height = obj.height!;
+    const width = 400;
+    const height = 400;
     const side = Math.min(width, height);
 
     canvas.setStrokeOptions(this.__); // 绘制描边前，需要设置一下描边选项（可选）。
     const cx = x + width / 2;
     const cy = y + height / 2;
 
-    const r_in = (side / 2) * 0.65;
-    const r_out = (side / 2) * 0.9;
+    const r_in = (Math.min(width, height) / 2) * 0.65;
+    const r_out = (Math.min(width, height) / 2) * 0.9;
     const arc_angle = Math.PI * 2;
 
     // 内环
@@ -146,7 +144,7 @@ export class CustomGauge extends UI {
     // 外环
     ctx.beginPath();
     ctx.strokeStyle = '#E2E7FB';
-    ctx.lineWidth = side * 0.05;
+    ctx.lineWidth = 25;
     ctx.lineCap = 'round';
     const start_out = 1 / 4 + 1 / 12;
     const end_out = 1 + 1 / 6;
@@ -155,7 +153,6 @@ export class CustomGauge extends UI {
     ctx.stroke();
 
     // 外环数值进度
-    //const data = { value: 68.3, unit: 'km/h', min: 0, max: 300 };
     const valComp = Number(this.value);
     const val = isNaN(valComp) ? 0 : valComp;
     const unit = this.unit;
@@ -163,7 +160,7 @@ export class CustomGauge extends UI {
     const min = Number(this.min);
 
     ctx.beginPath();
-    ctx.lineWidth = side * 0.1;
+    ctx.lineWidth = 40;
     ctx.lineCap = 'round';
     // // 每个刻度18°，左下右下各留2个刻度空间
     const start = 1 / 4 + ((1 / 4) * 2) / 5;
@@ -225,15 +222,13 @@ export class CustomGauge extends UI {
     ctx.stroke();
 
     // 量程范围文字
-
-    ctx.font = Math.round(side * 0.09) + 'px Arial';
-    const offset = side * 0.1;
-    const max_x = cx + Math.cos((4 * 18 * Math.PI) / 180) * (r_out + offset);
-    const max_y = cy + Math.sin((4 * 18 * Math.PI) / 180) * (r_out + offset);
+    ctx.font = '20px Arial';
+    const max_x = cx + Math.cos((4 * 18 * Math.PI) / 180) * (r_out + 24);
+    const max_y = cy + Math.sin((4 * 18 * Math.PI) / 180) * (r_out + 24);
     ctx.fillText(max.toString(), max_x, max_y - 2);
-    const min_x = cx + Math.cos((6 * 18 * Math.PI) / 180) * (r_out + offset);
-    const min_y = cy + Math.sin((6 * 18 * Math.PI) / 180) * (r_out + offset);
-    ctx.fillText(min.toString(), min_x - 10, min_y - 2);
+    const min_x = cx + Math.cos((6 * 18 * Math.PI) / 180) * (r_out + 24);
+    const min_y = cy + Math.sin((6 * 18 * Math.PI) / 180) * (r_out + 24);
+    ctx.fillText(min.toString(), min_x - 12, min_y - 2);
 
     // 20个刻度线
     let theta = 0;
@@ -244,25 +239,25 @@ export class CustomGauge extends UI {
       }
       ctx.beginPath();
       const line_begin = {
-        x: cx + Math.cos(theta) * (r_out - side * 0.095),
-        y: cy + Math.sin(theta) * (r_out - side * 0.095),
+        x: cx + Math.cos(theta) * (r_out - 30),
+        y: cy + Math.sin(theta) * (r_out - 30),
       };
       const line_end = {
-        x: cx + Math.cos(theta) * (r_out - side * 0.07),
-        y: cy + Math.sin(theta) * (r_out - side * 0.07),
+        x: cx + Math.cos(theta) * (r_out - 24),
+        y: cy + Math.sin(theta) * (r_out - 24),
       };
       ctx.moveTo(line_begin.x, line_begin.y);
       ctx.lineTo(line_end.x, line_end.y);
-      ctx.lineWidth = side * 0.02;
+      ctx.lineWidth = 6;
       ctx.strokeStyle = '#3639CB';
       ctx.stroke();
       theta += (18 * Math.PI) / 180;
     }
 
     // 量程指针
-    const clockRadius = side / 2;
+    const clockRadius = width / 2;
     ctx.save();
-    ctx.translate(width / 2, height / 2);
+    ctx.translate(clockRadius, clockRadius);
     ctx.beginPath();
 
     ctx.save();
@@ -272,8 +267,8 @@ export class CustomGauge extends UI {
     ctx.beginPath();
     ctx.moveTo(-10, -8);
     ctx.lineTo(-10, 8);
-    ctx.lineTo(clockRadius * 0.9, 4);
-    ctx.lineTo(clockRadius * 0.9, -4);
+    ctx.lineTo((width / 2) * 0.9, 4);
+    ctx.lineTo((width / 2) * 0.9, -4);
     const gra3 = ctx.createLinearGradient(-10, -8, (width / 2) * 0.9, 4);
     gra3.addColorStop(0, '#B9275E66');
     gra3.addColorStop(0.6, '#E25878ff');
@@ -287,9 +282,8 @@ export class CustomGauge extends UI {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#FFF';
 
-    const fontSize = Math.round(side * 0.12);
-    ctx.font = fontSize + 'px Arial bolder';
-    ctx.fillText(valComp.toString(), cx, cy - fontSize / 3);
-    ctx.fillText(unit, cx, cy + (fontSize * 2) / 3);
+    ctx.font = '60px Arial bolder';
+    ctx.fillText(valComp.toString(), cx, cy - 20);
+    ctx.fillText(unit, cx, cy + 40);
   }
 }
