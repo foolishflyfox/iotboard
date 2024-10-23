@@ -13,6 +13,10 @@
     <div>填充</div>
     <div>颜色</div>
     <HeadVerticalDivider />
+    <div>○</div>
+    <div>矩形</div>
+    <div>线</div>
+    <HeadVerticalDivider />
     <div>线样式</div>
     <div>线宽</div>
     <HeadVerticalDivider />
