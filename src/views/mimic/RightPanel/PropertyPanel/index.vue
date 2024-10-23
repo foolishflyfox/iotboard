@@ -1,6 +1,8 @@
 <template>
   <div>
-    <template v-if="selectedUI === null"> 图纸配置 </template>
+    <template v-if="selectedUI === null">
+      <DisplayProperty />
+    </template>
     <template v-else-if="_.isArray(selectedUI)">
       多元素配置:
       <div>均匀分布</div>
@@ -11,8 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { useMimicWorkspaceStatus } from '@mimic/stores';
 import * as _ from 'lodash-es';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
+import DisplayProperty from './DisplayProperty.vue';
 
 defineOptions({
   name: 'PropertyPanel',
