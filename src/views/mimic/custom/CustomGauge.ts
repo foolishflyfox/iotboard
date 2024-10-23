@@ -1,17 +1,11 @@
-import {
-  UI,
-  registerUI,
-  dataProcessor,
-  UIData,
-  boundsType,
-  ResizeEvent,
-} from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
 import type {
   IUIInputData,
   ILeaferCanvas,
   IRadiusPointData,
   IUIData,
 } from 'leafer-ui';
+import { autoId } from '@mimic/decorates';
 
 // 定义数据
 interface ICustomGaugeInputData extends IUIInputData {
@@ -50,6 +44,7 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 // 定义类
 
 @registerUI()
+@autoId()
 export class CustomGauge extends UI {
   public get __tag() {
     return 'CustomGauge';

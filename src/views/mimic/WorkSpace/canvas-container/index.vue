@@ -10,13 +10,13 @@ import {
   LeafHelper,
   ZoomEvent,
   registerUI,
+  EditorEvent,
 } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
-import { CustomRect, CustomPen } from '@mimic/custom';
-import { Custom } from '../../custom/Custom';
-import { CustomGauge } from '../../custom/CustomGauge';
+import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
+import { selectHandler } from '@mimic/event-handler';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -45,6 +45,7 @@ onMounted(() => {
   });
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
+  app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
 
   watchEffect(() => {
@@ -152,18 +153,12 @@ onMounted(() => {
   const gauge = new CustomGauge({
     x: 50,
     y: 0,
-    width: 400,
-    height: 400,
+    width: 80,
+    height: 80,
     draggable: true,
     editable: true,
   });
   app.tree.add(gauge);
-  // setTimeout(() => {
-  //   // console.log('x = ', gauge.x);
-  //   gauge.x = 80;
-  //   gauge.y = 60;
-  //   gauge.value = '56';
-  // }, 3000);
   // console.log(gauge.toString());
   // app.tree.add({
   //   tag: 'CustomGauge',
