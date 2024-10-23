@@ -1,4 +1,11 @@
-import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
+import {
+  UI,
+  registerUI,
+  dataProcessor,
+  UIData,
+  boundsType,
+  ResizeEvent,
+} from 'leafer-ui';
 import type {
   IUIInputData,
   ILeaferCanvas,
@@ -218,13 +225,15 @@ export class CustomGauge extends UI {
     ctx.stroke();
 
     // 量程范围文字
-    ctx.font = '20px Arial';
-    const max_x = cx + Math.cos((4 * 18 * Math.PI) / 180) * (r_out + 24);
-    const max_y = cy + Math.sin((4 * 18 * Math.PI) / 180) * (r_out + 24);
+
+    ctx.font = Math.round(side * 0.09) + 'px Arial';
+    const offset = side * 0.1;
+    const max_x = cx + Math.cos((4 * 18 * Math.PI) / 180) * (r_out + offset);
+    const max_y = cy + Math.sin((4 * 18 * Math.PI) / 180) * (r_out + offset);
     ctx.fillText(max.toString(), max_x, max_y - 2);
-    const min_x = cx + Math.cos((6 * 18 * Math.PI) / 180) * (r_out + 24);
-    const min_y = cy + Math.sin((6 * 18 * Math.PI) / 180) * (r_out + 24);
-    ctx.fillText(min.toString(), min_x - 12, min_y - 2);
+    const min_x = cx + Math.cos((6 * 18 * Math.PI) / 180) * (r_out + offset);
+    const min_y = cy + Math.sin((6 * 18 * Math.PI) / 180) * (r_out + offset);
+    ctx.fillText(min.toString(), min_x - 10, min_y - 2);
 
     // 20个刻度线
     let theta = 0;
