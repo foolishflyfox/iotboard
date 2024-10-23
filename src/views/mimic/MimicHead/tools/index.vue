@@ -1,9 +1,6 @@
 <template>
   <div class="h-full flex-y-center tool-container">
     <HeadVerticalDivider />
-    <div>均匀分布</div>
-    <div>左/中/右对齐</div>
-    <HeadVerticalDivider />
     <HeadIconContainer
       :svg-component="RulerLine"
       :is-active="rulerVisible"
@@ -15,7 +12,7 @@
 <script setup lang="ts">
 import RulerLine from '@/components/icons/RulerLine.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
-import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
+import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 
 defineOptions({

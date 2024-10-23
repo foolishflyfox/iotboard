@@ -14,7 +14,7 @@ import {
 } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
-import { useMimicWorkspaceStatus } from '@/stores/mimic-workspace-status';
+import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
 
