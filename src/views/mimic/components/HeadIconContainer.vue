@@ -1,13 +1,13 @@
 <template>
   <HoverContainer
-    :hover-bg-color="hoverColor"
+    :hover-bg-color="hasHoverColor ? hoverColor : undefined"
     :active-bg-color="activeColor"
     :is-active="isActive"
     :tooltip
     border-radius="15%"
   >
     <template v-if="vicons">
-      <n-button text>
+      <n-button text :focusable="false">
         <n-icon :component="vicons" :size="sideLength" />
       </n-button>
     </template>
@@ -21,12 +21,18 @@
 import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
 
-defineProps<{
-  svgComponent?: Component;
-  vicons?: Component;
-  isActive?: boolean;
-  tooltip?: string;
-}>();
+withDefaults(
+  defineProps<{
+    svgComponent?: Component;
+    vicons?: Component;
+    isActive?: boolean;
+    tooltip?: string;
+    hasHoverColor?: boolean;
+  }>(),
+  {
+    hasHoverColor: true,
+  },
+);
 
 const { hoverColor, activeColor, sideLength } = headIconSetting;
 const svgWidth = `${sideLength}px`;

@@ -4,6 +4,7 @@
     <HeadIconContainer
       :vicons="PageFit16Regular"
       tooltip="窗口自适应大小"
+      :has-hover-color="false"
       @click="viewAutoFit"
     />
     <HeadIconContainer
