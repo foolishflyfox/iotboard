@@ -1,1 +1,1 @@
-export const displayId = 'fIotDisplayElement';
+export const displayBaseMapId = 'fIotDisplayElement';

@@ -9,7 +9,7 @@ import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
-import { displayId } from '@mimic/constant';
+import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
 
@@ -61,14 +61,16 @@ onMounted(() => {
   ruler.changeTheme('custom1');
 
   // 添加底图
-  app.tree.add(
-    Rect.one({
-      id: displayId,
-      width: 500,
-      height: 300,
-      fill: '#00bfff33',
-    }),
-  );
+  const displayBaseMap = new Rect({
+    id: displayBaseMapId,
+    width: 500,
+    height: 300,
+    fill: '#00bfff33',
+    data: {
+      sizeType: 'custom',
+    },
+  });
+  app.tree.add(displayBaseMap);
 
   const rect = new Rect({
     // id: '12332',

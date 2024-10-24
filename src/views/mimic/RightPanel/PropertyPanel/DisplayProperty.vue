@@ -6,23 +6,24 @@
 </template>
 
 <script setup lang="ts">
-import type { Rect } from 'leafer-ui';
 import { ColorProperty, DisplaySizeProperty } from './components';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { findUiById } from '@mimic/utils';
+import type { UI } from 'leafer-ui';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const displayProxyData = computed(
-  () =>
-    (findUiById(mimicWorkspaceStatus.selectedUiId) as any).proxyData as Rect,
+  () => (findUiById(mimicWorkspaceStatus.selectedUiId) as UI).proxyData,
 );
 
 const bgColor = computed({
   get: () => {
-    return displayProxyData.value.fill as string;
+    return displayProxyData.value?.fill as string;
   },
   set: (v: string) => {
-    displayProxyData.value.fill = v;
+    if (displayProxyData.value) {
+      displayProxyData.value.fill = v;
+    }
   },
 });
 </script>

@@ -1,5 +1,7 @@
 import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
+import { displayBaseMapId } from '@mimic/constant';
+import type { UI } from 'leafer-ui';
 
 /** 页面自适应 */
 export function viewAutoFit() {
@@ -16,4 +18,9 @@ export function findUiById(id?: null | string | string[]) {
     return id.map(id => mimicVar.app!.tree.findId(id));
   }
   return mimicVar.app?.tree.findId(id);
+}
+
+/** 获取图纸的底图元素 */
+export function getDisplayBaseMap() {
+  return findUiById(displayBaseMapId) as UI;
 }

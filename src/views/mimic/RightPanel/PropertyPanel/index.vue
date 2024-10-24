@@ -9,7 +9,7 @@
       <div>均匀分布</div>
       <div>左/中/右对齐</div>
     </template>
-    <template v-else-if="selectedUI?.id === displayId">
+    <template v-else-if="selectedUI?.id === displayBaseMapId">
       <DisplayProperty />
     </template>
     <template v-else> 单元素配置 </template>
@@ -20,7 +20,7 @@
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
-import { displayId } from '@mimic/constant';
+import { displayBaseMapId } from '@mimic/constant';
 import { findUiById } from '@mimic/utils';
 
 defineOptions({
@@ -32,7 +32,7 @@ const { selectedUiId } = toRefs(useMimicWorkspaceStatus());
 const selectedUI = computed(() => findUiById(selectedUiId.value));
 
 onMounted(() => {
-  if (_.isNil(selectedUI.value)) selectedUiId.value = displayId;
+  if (_.isNil(selectedUI.value)) selectedUiId.value = displayBaseMapId;
 });
 </script>
 
