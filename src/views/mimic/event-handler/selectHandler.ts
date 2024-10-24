@@ -2,7 +2,7 @@ import type { EditorEvent, IUI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { ShallowRef } from 'vue';
-import { displayName } from '@mimic/constant';
+import { displayId } from '@mimic/constant';
 import { isNil } from 'lodash-es';
 
 // todo: 修改直接将 ui 挂载到 pinia 下，而是将 id 挂载到 pinia 下
@@ -15,14 +15,12 @@ export function selectHandler(event: EditorEvent) {
   if (ui === null) {
     // 没有选中任何UI元素
     // selectedUI.value = null;
-    mimicWorkspaceStatus.selectedUiId =
-      event.editor.app.tree?.findOne(`.${displayName}`)?.id || null;
+    mimicWorkspaceStatus.selectedUiId = displayId;
   } else if (_.isArray(ui)) {
     if (_.isEmpty(ui)) {
       // 没有选中任何UI元素
       // selectedUI.value =
-      mimicWorkspaceStatus.selectedUiId =
-        event.editor.app.tree?.findOne(`.${displayName}`)?.id || null;
+      mimicWorkspaceStatus.selectedUiId = displayId;
     } else {
       // 选中的是多个UI元素
       // selectedUI.value = ui;

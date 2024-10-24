@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-yellow-100" id="mimicCanvasContainer"></div>
+  <div class="bg-white" id="mimicCanvasContainer"></div>
 </template>
 
 <script setup lang="ts">
@@ -9,7 +9,7 @@ import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
-import { displayName } from '@mimic/constant';
+import { displayId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
 
@@ -62,12 +62,10 @@ onMounted(() => {
   // 添加底图
   app.tree.add(
     Rect.one({
-      id: displayName,
+      id: displayId,
       width: 500,
       height: 300,
       fill: '#00bfff33',
-      name: displayName,
-      className: displayName,
     }),
   );
 

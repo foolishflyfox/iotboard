@@ -1,5 +1,3 @@
-import type { IUI } from 'leafer-ui';
-
 export const useMimicWorkspaceStatus = defineStore(
   'mimic-workspace-status',
   () => {

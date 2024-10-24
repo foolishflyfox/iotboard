@@ -1,1 +1,1 @@
-export const displayName = 'fIotDisplayElement';
+export const displayId = 'fIotDisplayElement';
