@@ -10,6 +10,7 @@ import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
 import { displayName } from '@mimic/constant';
+import { mimicVar } from '@mimic/global';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -38,6 +39,7 @@ onMounted(() => {
   });
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
+  mimicVar.app = app;
   app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
 
@@ -96,7 +98,6 @@ onMounted(() => {
   // app.tree.add(myObj);
 
   app.tree.zoom('fit', 25);
-  console.log(app.toJSON());
   // setTimeout(() => {
   //   myObj.zIndex = -1;
   // }, 3000);
@@ -109,7 +110,6 @@ onMounted(() => {
   });
 
   // app.tree.add(customPen);
-  // console.log(customPen.toString());
   // app.tree.add({
   //   tag: 'CustomPen',
   //   size: 30,
@@ -161,7 +161,6 @@ onMounted(() => {
     editable: true,
   });
   app.tree.add(gauge);
-  // console.log(gauge.toString());
   // app.tree.add({
   //   tag: 'CustomGauge',
   //   x: 136.1777825312438,
@@ -173,7 +172,6 @@ onMounted(() => {
   //   editable: true,
   // });
 
-  // console.log('###', myObj.toJSON());
   // (window as any).guage = gauge;
 });
 </script>

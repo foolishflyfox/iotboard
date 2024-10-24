@@ -41,7 +41,6 @@ export class Custom extends UI {
 
   // 2. 绘制碰撞路径
   __drawHitPath(hitCanvas: ILeaferCanvas): void {
-    // console.log('###');
     const { context } = hitCanvas;
     // const { context } = this.__hitCanvas!;
     const { x, y, width, height } = this.__layout.boxBounds;
