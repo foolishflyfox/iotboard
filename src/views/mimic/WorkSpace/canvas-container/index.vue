@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { Rect, App, EditorEvent } from 'leafer-editor';
+import { Rect, App, EditorEvent, ResizeEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -41,6 +41,7 @@ onMounted(() => {
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
   mimicVar.app = app;
+  app.tree.on(ResizeEvent.RESIZE, viewAutoFit);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
 
