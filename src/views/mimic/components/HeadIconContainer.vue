@@ -1,36 +1,42 @@
 <template>
   <HoverContainer
     :hover-bg-color="hasHoverColor ? hoverColor : undefined"
-    :active-bg-color="activeColor"
     :is-active="isActive"
     :tooltip
     border-radius="15%"
   >
-    <template v-if="vicons">
-      <n-button text :focusable="false">
+    <n-button text :focusable="false">
+      <template v-if="_.isNil(isActive)">
+        <!-- 触发型图标 -->
         <n-icon :component="vicons" :size="sideLength" />
-      </n-button>
-    </template>
-    <template v-else-if="svgComponent">
-      <component :is="svgComponent" :width="svgWidth" :height="svgHeight" />
-    </template>
+      </template>
+      <template v-else>
+        <!-- 保持型图标 -->
+        <n-icon
+          :component="vicons"
+          :size="sideLength"
+          :color="isActive ? headIconSetting.activeColor : undefined"
+        />
+      </template>
+    </n-button>
   </HoverContainer>
 </template>
 
 <script setup lang="ts">
 import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
+import * as _ from 'lodash-es';
 
 withDefaults(
   defineProps<{
-    svgComponent?: Component;
-    vicons?: Component;
+    vicons: Component;
     isActive?: boolean;
     tooltip?: string;
     hasHoverColor?: boolean;
   }>(),
   {
-    hasHoverColor: true,
+    isActive: undefined,
+    hasHoverColor: false,
   },
 );
 

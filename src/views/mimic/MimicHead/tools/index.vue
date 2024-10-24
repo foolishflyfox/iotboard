@@ -8,9 +8,10 @@
       @click="viewAutoFit"
     />
     <HeadIconContainer
-      :svg-component="RulerLine"
-      :is-active="rulerVisible"
+      :vicons="Ruler"
       tooltip="显示 / 隐藏标尺"
+      :is-active="rulerVisible"
+      :has-hover-color="false"
       @click="changeRulerVisible"
     />
   </div>
@@ -23,6 +24,7 @@ import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import { PageFit16Regular } from '@vicons/fluent';
 import { viewAutoFit } from '@mimic/utils';
+import { Ruler } from '@vicons/tabler';
 
 defineOptions({
   name: 'HeadTools',
