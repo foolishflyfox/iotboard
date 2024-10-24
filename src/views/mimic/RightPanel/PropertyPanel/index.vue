@@ -12,7 +12,7 @@
     <template v-else-if="selectedUI.className === displayName">
       <DisplayProperty />
     </template>
-    <template> 当元素配置 </template>
+    <template v-else> 单元素配置 </template>
   </div>
 </template>
 
