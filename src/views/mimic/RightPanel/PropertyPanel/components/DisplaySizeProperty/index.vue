@@ -76,7 +76,6 @@ const width = computed({
   },
   set(v: number) {
     curElementProxyData.value!.width = v;
-    viewAutoFit();
   },
 });
 
@@ -86,7 +85,6 @@ const height = computed({
   },
   set(v: number) {
     curElementProxyData.value!.height = v;
-    viewAutoFit();
   },
 });
 </script>

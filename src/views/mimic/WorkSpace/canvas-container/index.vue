@@ -3,7 +3,13 @@
 </template>
 
 <script setup lang="ts">
-import { Rect, App, EditorEvent, ResizeEvent } from 'leafer-editor';
+import {
+  Rect,
+  App,
+  EditorEvent,
+  ResizeEvent,
+  PropertyEvent,
+} from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -69,7 +75,14 @@ onMounted(() => {
     data: {
       sizeType: 'custom',
     },
-    event: {},
+    event: {
+      [PropertyEvent.CHANGE]: (v: PropertyEvent) => {
+        if (v.attrName === 'width' || v.attrName === 'height') {
+          console.log('###');
+          nextTick(viewAutoFit);
+        }
+      },
+    },
   });
   app.tree.add(displayBaseMap);
 
