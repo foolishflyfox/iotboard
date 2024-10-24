@@ -11,6 +11,7 @@ import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
 import { displayName } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
+import { viewAutoFit } from '@mimic/utils';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -97,7 +98,8 @@ onMounted(() => {
   app.tree.add(rect);
   // app.tree.add(myObj);
 
-  app.tree.zoom('fit', 25);
+  // app.tree.zoom('fit', 23);
+  viewAutoFit();
   // setTimeout(() => {
   //   myObj.zIndex = -1;
   // }, 3000);
