@@ -8,13 +8,17 @@
     <PropertyContainer>
       <n-input placeholder="宽" size="small" class="mr-8px">
         <template #suffix>
-          <div><n-divider vertical />W</div>
+          <div><span class="text-12px">px</span><n-divider vertical />W</div>
         </template>
       </n-input>
-      <n-button size="small" class="bg-gray-100">转</n-button>
+      <n-button size="small" class="bg-gray-100">
+        <template #icon>
+          <n-icon><ArrowSwap24Filled /></n-icon>
+        </template>
+      </n-button>
       <n-input placeholder="高" size="small" class="ml-8px">
         <template #suffix>
-          <div><n-divider vertical />H</div>
+          <div><span class="text-12px">px</span><n-divider vertical />H</div>
         </template>
       </n-input>
     </PropertyContainer>
@@ -26,6 +30,7 @@
 import type { SelectOption } from 'naive-ui';
 import SelectProperty from './SelectProperty.vue';
 import { PropertyContainer } from './containers';
+import { ArrowSwap24Filled } from '@vicons/fluent';
 
 const sizeOptionValues = {
   a3: 'A3',

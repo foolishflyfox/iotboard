@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full bg-pink-100" :style="{ width: `${rightPanelWidth}px` }">
+  <div class="h-full" :style="{ width: `${rightPanelWidth}px` }">
     <PropertyPanel />
   </div>
 </template>

@@ -48,6 +48,9 @@ importers:
       '@unocss/preset-uno':
         specifier: ^0.63.4
         version: 0.63.4
+      '@vicons/fluent':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
         version: 5.1.4(vite@5.4.8(@types/node@20.16.11))(vue@3.5.12(typescript@5.5.4))
@@ -1085,6 +1088,9 @@ packages:
     resolution: {integrity: sha512-YK0L177GD8Kx+JtfiCJy4YyBYckAXo4ogC8LZ+pYVNXDMN+F+XItpGI/ofLRaGIaewNg+MJgGY+CQZceABEAfg==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
+
+  '@vicons/fluent@0.12.0':
+    resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
 
   '@vitejs/plugin-vue-jsx@4.0.1':
     resolution: {integrity: sha512-7mg9HFGnFHMEwCdB6AY83cVK4A6sCqnrjFYF4WIlebYAQVVJ/sC/CiTruVdrRlhrFoeZ8rlMxY9wYpPTIRhhAg==}
@@ -3729,6 +3735,8 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
+
+  '@vicons/fluent@0.12.0': {}
 
   '@vitejs/plugin-vue-jsx@4.0.1(vite@5.4.8(@types/node@20.16.11))(vue@3.5.12(typescript@5.5.4))':
     dependencies:
