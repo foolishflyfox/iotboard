@@ -1,6 +1,12 @@
 <template>
   <PropertyContainer :label="label">
-    <n-select :options v-model:value="value" size="small" :placeholder />
+    <n-select
+      :options
+      v-model:value="value"
+      size="small"
+      :placeholder
+      :filterable
+    />
   </PropertyContainer>
 </template>
 
@@ -12,6 +18,7 @@ defineProps<{
   label?: string;
   placeholder?: string;
   options: SelectOption[];
+  filterable?: boolean;
 }>();
 
 const value = defineModel<any>();
