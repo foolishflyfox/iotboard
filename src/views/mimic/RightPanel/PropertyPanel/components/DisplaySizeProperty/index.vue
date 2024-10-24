@@ -12,14 +12,15 @@
         placeholder="宽"
         size="small"
         class="mr-8px"
-        v-model:value="width"
+        :value="width"
         :show-button="false"
+        @update:value="changeWidth"
       >
         <template #suffix>
           <div><span class="text-12px">px</span><n-divider vertical />W</div>
         </template>
       </n-input-number>
-      <n-button size="small" class="bg-gray-100">
+      <n-button size="small" class="bg-gray-100" @click="swapWidthHeight">
         <template #icon>
           <n-icon><ArrowSwap24Filled /></n-icon>
         </template>
@@ -28,8 +29,9 @@
         placeholder="高"
         size="small"
         class="ml-8px"
-        v-model:value="height"
+        :value="height"
         :show-button="false"
+        @update:value="changeHeight"
       >
         <template #suffix>
           <div><span class="text-12px">px</span><n-divider vertical />H</div>
@@ -47,7 +49,6 @@ import { PropertyContainer } from '../containers';
 import { ArrowSwap24Filled } from '@vicons/fluent';
 import { titleSizeMap } from './misc';
 import { useCurElementProxyData } from '@mimic/hooks';
-import { viewAutoFit } from '@mimic/utils';
 
 defineOptions({
   name: 'DisplaySizeProperty',
@@ -66,7 +67,15 @@ const sizeType = computed({
     return curElementProxyData.value!.data!.sizeType as string;
   },
   set(v: string) {
-    return (curElementProxyData.value!.data!.sizeType = v);
+    const size = titleSizeMap.get(v);
+    if (size) {
+      width.value = size[0];
+      height.value = size[1];
+    }
+    return (curElementProxyData.value!.data = {
+      ...curElementProxyData.value!.data,
+      sizeType: v,
+    });
   },
 });
 
@@ -87,6 +96,27 @@ const height = computed({
     curElementProxyData.value!.height = v;
   },
 });
+
+function swapWidthHeight() {
+  const oldWidth = width.value;
+  width.value = height.value;
+  height.value = oldWidth;
+  sizeType.value = 'custom';
+}
+
+function changeWidth(v: number | null) {
+  if (v) {
+    width.value = v;
+    sizeType.value = 'custom';
+  }
+}
+
+function changeHeight(v: number | null) {
+  if (v) {
+    height.value = v;
+    sizeType.value = 'custom';
+  }
+}
 </script>
 
 <style scoped></style>
