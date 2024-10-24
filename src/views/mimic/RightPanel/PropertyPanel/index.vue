@@ -28,7 +28,12 @@ defineOptions({
 });
 
 const { selectedUiId } = toRefs(useMimicWorkspaceStatus());
+
 const selectedUI = computed(() => findUiById(selectedUiId.value));
+
+onMounted(() => {
+  if (_.isNil(selectedUI.value)) selectedUiId.value = displayId;
+});
 </script>
 
 <style scoped></style>
