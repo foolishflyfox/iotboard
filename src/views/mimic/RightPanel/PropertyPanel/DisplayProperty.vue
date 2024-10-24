@@ -7,22 +7,17 @@
 
 <script setup lang="ts">
 import { ColorProperty, DisplaySizeProperty } from './components';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
-import { findUiById } from '@mimic/utils';
-import type { UI } from 'leafer-ui';
+import { useCurElementProxyData } from '@mimic/hooks';
 
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const displayProxyData = computed(
-  () => (findUiById(mimicWorkspaceStatus.selectedUiId) as UI).proxyData,
-);
+const curElementProxyData = useCurElementProxyData();
 
 const bgColor = computed({
   get: () => {
-    return displayProxyData.value?.fill as string;
+    return curElementProxyData.value?.fill as string;
   },
   set: (v: string) => {
-    if (displayProxyData.value) {
-      displayProxyData.value.fill = v;
+    if (curElementProxyData.value) {
+      curElementProxyData.value.fill = v;
     }
   },
 });

@@ -45,19 +45,15 @@ import type { SelectOption } from 'naive-ui';
 import SelectProperty from '../SelectProperty.vue';
 import { PropertyContainer } from '../containers';
 import { ArrowSwap24Filled } from '@vicons/fluent';
-import { findUiById, getDisplayBaseMap } from '@mimic/utils';
-import type { IUIInputData, UI } from 'leafer-ui';
 import { titleSizeMap } from './misc';
-import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
+import { useCurElementProxyData } from '@mimic/hooks';
+import { viewAutoFit } from '@mimic/utils';
 
 defineOptions({
   name: 'DisplaySizeProperty',
 });
 
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const curElementProxyData = computed(
-  () => (findUiById(mimicWorkspaceStatus.selectedUiId) as UI).proxyData,
-);
+const curElementProxyData = useCurElementProxyData();
 
 const sizeOptions: SelectOption[] = [...titleSizeMap.keys()].map(k => ({
   label: k,
@@ -80,6 +76,7 @@ const width = computed({
   },
   set(v: number) {
     curElementProxyData.value!.width = v;
+    viewAutoFit();
   },
 });
 
@@ -89,6 +86,7 @@ const height = computed({
   },
   set(v: number) {
     curElementProxyData.value!.height = v;
+    viewAutoFit();
   },
 });
 </script>

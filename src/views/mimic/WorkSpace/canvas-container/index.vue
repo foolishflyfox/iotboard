@@ -69,6 +69,7 @@ onMounted(() => {
     data: {
       sizeType: 'custom',
     },
+    event: {},
   });
   app.tree.add(displayBaseMap);
 
