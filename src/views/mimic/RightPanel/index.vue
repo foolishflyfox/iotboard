@@ -1,10 +1,18 @@
 <template>
-  <div class="h-full" :style="{ width: `${rightPanelWidth}px` }">
-    <n-tabs type="line" animated>
+  <div
+    class="h-full border-l-[#eaeaea] border-l-1"
+    :style="{ width: `${rightPanelWidth}px` }"
+  >
+    <n-tabs
+      type="line"
+      animated
+      style="height: 100%; display: flex; flex-direction: column"
+      pane-style="flex: 1 1 0%;"
+    >
       <template #prefix>
         <span></span>
       </template>
-      <n-tab-pane name="appearance" tab="外观">
+      <n-tab-pane name="appearance" tab="外观" class="h-full">
         <PropertyPanel />
       </n-tab-pane>
       <n-tab-pane name="data" tab="数据"> 数据配置 </n-tab-pane>
@@ -21,4 +29,8 @@ defineOptions({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.n-tabs-pane-wrapper) {
+  height: 100%;
+}
+</style>

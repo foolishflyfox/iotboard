@@ -7,6 +7,7 @@
         default-value="component"
         size="medium"
         pane-class="bg-[#e8e8e8]"
+        pane-style="padding: 5px;"
         :tab-style="{
           width: `${leftPanel.shrinkWidth - 2}px`,
           fontSize: '12px',
@@ -34,9 +35,7 @@
         <n-tab-pane name="display">
           <template #tab>
             <div>
-              <n-icon size="26">
-                <AppGeneric24Filled />
-              </n-icon>
+              <n-icon size="26" :component="AppGeneric24Filled" />
               <div>图 纸</div>
             </div>
           </template>
@@ -45,9 +44,7 @@
         <n-tab-pane name="component">
           <template #tab>
             <div>
-              <n-icon size="26">
-                <Components />
-              </n-icon>
+              <n-icon size="26" :component="Components" />
               <div>组 件</div>
             </div>
           </template>
@@ -56,9 +53,7 @@
         <n-tab-pane name="resource">
           <template #tab>
             <div>
-              <n-icon size="26">
-                <ImagesOutline />
-              </n-icon>
+              <n-icon size="26" :component="ImagesOutline" />
               <div>资源</div>
             </div>
           </template>

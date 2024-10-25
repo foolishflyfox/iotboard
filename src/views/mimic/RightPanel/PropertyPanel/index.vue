@@ -1,18 +1,29 @@
 <template>
-  <div>
-    <template v-if="selectedUI === null">
-      <!-- <DisplayProperty /> -->
-      <div>空</div>
-    </template>
-    <template v-else-if="_.isArray(selectedUI)">
-      多元素配置:
-      <div>均匀分布</div>
-      <div>左/中/右对齐</div>
-    </template>
-    <template v-else-if="selectedUI?.id === displayBaseMapId">
-      <DisplayProperty />
-    </template>
-    <template v-else> 单元素配置 </template>
+  <div class="h-full">
+    <n-split
+      direction="vertical"
+      :resize-trigger-size="2"
+      :default-size="0.65"
+      :min="0.4"
+      :max="0.9"
+    >
+      <template #1>
+        <template v-if="selectedUI === null">
+          <!-- <DisplayProperty /> -->
+          <div>空</div>
+        </template>
+        <template v-else-if="_.isArray(selectedUI)">
+          多元素配置:
+          <div>均匀分布</div>
+          <div>左/中/右对齐</div>
+        </template>
+        <template v-else-if="selectedUI?.id === displayBaseMapId">
+          <DisplayProperty />
+        </template>
+        <template v-else> 单元素配置 </template>
+      </template>
+      <template #2> 图层区域 </template>
+    </n-split>
   </div>
 </template>
 
