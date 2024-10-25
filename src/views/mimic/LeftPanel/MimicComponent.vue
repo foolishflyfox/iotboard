@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-purple-300">资源区</div>
+  <div class="h-full">组件</div>
 </template>
 
 <script setup lang="ts"></script>

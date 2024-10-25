@@ -51,6 +51,9 @@ importers:
       '@vicons/fluent':
         specifier: ^0.12.0
         version: 0.12.0
+      '@vicons/ionicons5':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vicons/tabler':
         specifier: ^0.12.0
         version: 0.12.0
@@ -1094,6 +1097,9 @@ packages:
 
   '@vicons/fluent@0.12.0':
     resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
+
+  '@vicons/ionicons5@0.12.0':
+    resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}
 
   '@vicons/tabler@0.12.0':
     resolution: {integrity: sha512-3+wUFuxb7e8OzZ8Wryct1pzfA2vyoF4lwW98O9s27ZrfCGaJGNmqG+q8A7vQ92Mf+COCgxpK+rhNPTtTvaU6qw==}
@@ -3743,6 +3749,8 @@ snapshots:
       - supports-color
 
   '@vicons/fluent@0.12.0': {}
+
+  '@vicons/ionicons5@0.12.0': {}
 
   '@vicons/tabler@0.12.0': {}
 

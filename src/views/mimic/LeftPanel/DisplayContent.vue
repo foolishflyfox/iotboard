@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-purple-300">资源区</div>
+  <div>图纸区</div>
 </template>
 
 <script setup lang="ts"></script>
