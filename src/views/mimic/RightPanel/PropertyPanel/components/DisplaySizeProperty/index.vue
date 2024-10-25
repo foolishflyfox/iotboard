@@ -49,6 +49,8 @@ import { PropertyContainer } from '../containers';
 import { ArrowSwap24Filled } from '@vicons/fluent';
 import { titleSizeMap } from './misc';
 import { useCurElementProxyData } from '@mimic/hooks';
+import * as _ from 'lodash-es';
+import { updateElementData } from '@mimic/utils';
 
 defineOptions({
   name: 'DisplaySizeProperty',
@@ -72,10 +74,7 @@ const sizeType = computed({
       width.value = size[0];
       height.value = size[1];
     }
-    return (curElementProxyData.value!.data = {
-      ...curElementProxyData.value!.data,
-      sizeType: v,
-    });
+    updateElementData(curElementProxyData, 'sizeType', v);
   },
 });
 

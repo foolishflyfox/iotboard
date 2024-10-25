@@ -1,6 +1,14 @@
 <template>
   <div class="h-full" :style="{ width: `${rightPanelWidth}px` }">
-    <PropertyPanel />
+    <n-tabs type="line" animated>
+      <template #prefix>
+        <span></span>
+      </template>
+      <n-tab-pane name="appearance" tab="外观">
+        <PropertyPanel />
+      </n-tab-pane>
+      <n-tab-pane name="data" tab="数据"> 数据配置 </n-tab-pane>
+    </n-tabs>
   </div>
 </template>
 

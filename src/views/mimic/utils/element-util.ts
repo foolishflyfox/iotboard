@@ -2,6 +2,7 @@ import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 import type { UI } from 'leafer-ui';
+import { type Ref } from 'vue';
 
 /** 页面自适应 */
 export function viewAutoFit() {
@@ -23,4 +24,15 @@ export function findUiById(id?: null | string | string[]) {
 /** 获取图纸的底图元素 */
 export function getDisplayBaseMap() {
   return findUiById(displayBaseMapId) as UI;
+}
+
+/** 更新 proxyData 中的 data 对象的字段，并产生响应式 */
+export function updateElementData(
+  proxyData: Ref<{ data?: any } | undefined>,
+  fieldName: string,
+  value: any,
+) {
+  if (proxyData && proxyData.value) {
+    proxyData.value.data = { ...proxyData.value.data, [fieldName]: value };
+  }
 }
