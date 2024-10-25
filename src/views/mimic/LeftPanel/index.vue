@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex-col" :style="{ width: panelWidth }">
+  <div class="h-full flex-col" :style="{ width: `${panelAnimateWidth}px` }">
     <!-- <mimic-left-panel-head /> -->
     <div class="flex-1 flex">
       <n-tabs
@@ -7,7 +7,7 @@
         default-value="component"
         size="medium"
         pane-class="bg-[#e8e8e8]"
-        pane-style="padding: 5px;"
+        pane-style="padding: 5px; z-index: 0"
         :tab-style="{
           width: `${leftPanel.shrinkWidth - 2}px`,
           fontSize: '12px',
@@ -73,16 +73,23 @@ import { AppGeneric24Filled } from '@vicons/fluent';
 import { Components, ChevronsLeft, ChevronsRight } from '@vicons/tabler';
 import { ImagesOutline } from '@vicons/ionicons5';
 import { leftPanel } from '@/views/mimic/settings';
+import { TransitionPresets, useTransition } from '@vueuse/core';
 
 defineOptions({
   name: 'MimicLeftPanel',
 });
 
 const isExpandPane = ref(true);
-const panelWidth = computed(
-  () =>
-    `${isExpandPane.value ? leftPanel.expandWidth : leftPanel.shrinkWidth}px`,
-);
+const calcPanelWidth = () => {
+  return isExpandPane.value ? leftPanel.expandWidth : leftPanel.shrinkWidth;
+};
+const panelWidth = ref(calcPanelWidth());
+watchEffect(() => (panelWidth.value = calcPanelWidth()));
+// 为面板收缩/展开添加动画
+const panelAnimateWidth = useTransition(panelWidth, {
+  duration: 100,
+  transition: TransitionPresets.linear,
+});
 </script>
 
 <style scoped></style>

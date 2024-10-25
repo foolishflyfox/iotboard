@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 flex-col">
+  <div class="bg-gray-300 flex-col z-1">
     <MimicWorkSpaceHead />
     <CanvasContainer class="flex-1" />
   </div>
