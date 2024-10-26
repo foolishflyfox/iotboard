@@ -8,6 +8,7 @@
     :show
     size="small"
     :on-clickoutside="hideContextMenu"
+    @select="clickContextMenuHandler"
   />
 </template>
 
@@ -16,6 +17,7 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';
 import { useTimeout } from '@vueuse/core';
+import { doContextMenuAction } from './context-menu-action';
 
 // defineProps<{
 // }>();
@@ -65,6 +67,11 @@ function showNoSelectContextMenu() {
 /** 选中单个元素的右键菜单 */
 function showSingleSelectContextMenu() {
   showContextMenu();
+}
+
+function clickContextMenuHandler(action: string) {
+  doContextMenuAction(action);
+  hideContextMenu();
 }
 
 const options = [

@@ -86,7 +86,6 @@ onMounted(() => {
     event: {
       [PropertyEvent.CHANGE]: (v: PropertyEvent) => {
         if (v.attrName === 'width' || v.attrName === 'height') {
-          console.log('###');
           nextTick(viewAutoFit);
         }
       },
@@ -174,7 +173,7 @@ onMounted(() => {
     editable: true,
   });
   app.tree.add(gauge);
-  console.log(gauge.toJSON());
+  // console.log('XXX', gauge.toJSON());
   // console.log(app.toJSON());
 });
 </script>

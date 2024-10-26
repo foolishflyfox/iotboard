@@ -20,7 +20,9 @@
         <template v-else-if="selectedUI?.id === displayBaseMapId">
           <DisplayProperty />
         </template>
-        <template v-else> 单元素配置 </template>
+        <template v-else>
+          <SingleComponentProperty />
+        </template>
       </template>
       <template #2> 图层区域 </template>
     </n-split>
@@ -31,6 +33,7 @@
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
+import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
 import { findUiById } from '@mimic/utils';
 

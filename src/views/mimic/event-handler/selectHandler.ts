@@ -35,6 +35,6 @@ export function selectHandler(event: EditorEvent) {
     // 检查是否有将 leafer 或元素实例绑定了到前端框架的响应式数据，会造成大量的数据代理、覆盖方法，并拖慢布局速度。
     // selectedUI.value = ui;
     // selectedUI.value = null;
-    mimicWorkspaceStatus.selectedUiId = ui.name;
+    mimicWorkspaceStatus.selectedUiId = ui.id;
   }
 }

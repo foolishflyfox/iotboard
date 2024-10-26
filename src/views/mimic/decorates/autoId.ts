@@ -1,4 +1,5 @@
 import { isEmpty } from 'lodash-es';
+import { getUniqueId } from '@mimic/utils/common-utils';
 
 export function autoId() {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -7,11 +8,7 @@ export function autoId() {
       constructor(...args: any[]) {
         super(...args);
         if (isEmpty(this.id)) {
-          const rt = 1000;
-          this.id = (
-            Date.now() * rt +
-            Math.floor(Math.random() * rt)
-          ).toString();
+          this.id = getUniqueId();
         }
       }
     };
