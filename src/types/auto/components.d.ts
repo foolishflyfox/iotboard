@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     HoverContainer: typeof import('./../../components/HoverContainer.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NCollapse: typeof import('naive-ui')['NCollapse']
+    NCollapseItem: typeof import('naive-ui')['NCollapseItem']
     NColorPicker: typeof import('naive-ui')['NColorPicker']
     NDivider: typeof import('naive-ui')['NDivider']
     NIcon: typeof import('naive-ui')['NIcon']

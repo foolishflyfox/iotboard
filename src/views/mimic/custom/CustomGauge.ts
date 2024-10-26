@@ -6,7 +6,7 @@ import type {
   IUIData,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import { customMetas } from '@mimic/utils';
+import { customMetas, registerCustomMeta } from '@mimic/utils';
 
 // 定义数据
 interface CustomData {
@@ -40,7 +40,6 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 }
 
 // 定义类
-
 @registerUI()
 @autoId()
 export class CustomGauge extends UI {
@@ -280,3 +279,5 @@ export class CustomGauge extends UI {
     ctx.fillText(unit, cx, cy + 40);
   }
 }
+
+registerCustomMeta(customMetas.customGauge.name, CustomGauge);
