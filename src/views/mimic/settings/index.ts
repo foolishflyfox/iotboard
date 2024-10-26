@@ -7,7 +7,7 @@ export const head = {
 // 左边栏配置
 export const leftPanel = {
   expandWidth: 320,
-  shrinkWidth: 62,
+  shrinkWidth: 46,
   tabWidth: 50,
 };
 // 右边栏宽度

@@ -14,6 +14,7 @@
           backgroundColor: 'white',
           borderRadius: '12px 0 0 12px',
           border: '1px solid #ddd',
+          padding: `6px ${tabPrefixXPadding}px`,
         }"
       >
         <template #prefix>
@@ -90,6 +91,17 @@ const panelAnimateWidth = useTransition(panelWidth, {
   duration: 100,
   transition: TransitionPresets.linear,
 });
+
+// tab、prefix 的 x padding值
+const tabPrefixXPadding = 16 - (62 - leftPanel.shrinkWidth) / 2;
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.n-tabs-nav--bar-type.n-tabs-nav--left.n-tabs-nav) {
+  width: v-bind('`${leftPanel.shrinkWidth}px`');
+}
+:deep(.n-tabs-nav__prefix) {
+  padding-left: v-bind('`${tabPrefixXPadding}px`') !important;
+  padding-right: v-bind('`${tabPrefixXPadding}px`') !important;
+}
+</style>
