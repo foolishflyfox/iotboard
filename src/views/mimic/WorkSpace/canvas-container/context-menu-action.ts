@@ -15,7 +15,9 @@ export function doContextMenuAction(action: string) {
   }
 }
 
-export function exportImage(component: IUI, type: 'png' | 'jpg') {
+export async function exportImage(component: IUI, type: 'png' | 'jpg') {
   // console.log('导出图片文件', `${component.tag}.${type}`);
-  component.export(`${component.tag}.${type}`);
+  const imageName = `${component.tag}.${type}`;
+  const exportResult = await component.export(imageName);
+  // window.$message?.success(`图片 ${imageName} 导出成功`);
 }
