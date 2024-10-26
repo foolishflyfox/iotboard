@@ -69,8 +69,30 @@ function showSingleSelectContextMenu() {
 
 const options = [
   {
-    label: '删除',
+    label: '克隆',
+    key: 'copy',
+  },
+  {
+    label: () => h('div', { style: { color: 'red' } }, '删除'),
     key: 'delete',
+  },
+  {
+    type: 'divider',
+    key: 'd1',
+  },
+  {
+    label: '导出图片',
+    key: 'exportImage',
+    children: [
+      {
+        label: 'png',
+        key: 'png',
+      },
+      {
+        label: 'jpg',
+        key: 'jpg',
+      },
+    ],
   },
 ];
 
@@ -79,4 +101,8 @@ defineExpose({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.red-txt {
+  color: red;
+}
+</style>
