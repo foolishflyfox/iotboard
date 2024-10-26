@@ -178,18 +178,8 @@ onMounted(() => {
     editable: true,
   });
   app.tree.add(gauge);
-  // app.tree.add({
-  //   tag: 'CustomGauge',
-  //   x: 136.1777825312438,
-  //   y: -14.158673381395346,
-  //   width: 400,
-  //   height: 400,
-  //   rotation: 19.52,
-  //   draggable: true,
-  //   editable: true,
-  // });
-
-  // (window as any).guage = gauge;
+  console.log(gauge.toJSON());
+  // console.log(app.toJSON());
 });
 </script>
 

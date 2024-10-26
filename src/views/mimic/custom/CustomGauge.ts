@@ -6,21 +6,19 @@ import type {
   IUIData,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
+import { customMetas } from '@mimic/utils';
 
 // 定义数据
-interface ICustomGaugeInputData extends IUIInputData {
+interface CustomData {
   min?: string;
   max?: string;
   unit?: string;
   value?: string;
 }
 
-interface ICustomGaugeData extends IUIData {
-  min?: string;
-  max?: string;
-  unit?: string;
-  value?: string;
-}
+interface ICustomGaugeInputData extends IUIInputData, CustomData {}
+
+interface ICustomGaugeData extends IUIData, CustomData {}
 
 class CustomGaugeData extends UIData implements ICustomGaugeData {
   protected _min?: string;
@@ -47,7 +45,7 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 @autoId()
 export class CustomGauge extends UI {
   public get __tag() {
-    return 'CustomGauge';
+    return customMetas.customGauge.name;
   }
 
   @dataProcessor(CustomGaugeData)
