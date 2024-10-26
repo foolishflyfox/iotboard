@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-white" id="mimicCanvasContainer"></div>
+  <div
+    class="bg-white flex-1"
+    id="mimicCanvasContainer"
+    @contextmenu="contextMenuRef?.onContextMenuClick"
+  />
+  <ContextMenu ref="contextMenuRef" />
 </template>
 
 <script setup lang="ts">
@@ -18,6 +23,7 @@ import { selectHandler } from '@mimic/event-handler';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
+import ContextMenu from './ContextMenu.vue';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -26,6 +32,8 @@ defineOptions({
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
+
+const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
 onMounted(() => {
   const app = new App({
@@ -156,18 +164,6 @@ onMounted(() => {
     draggable: true,
     editable: true,
   });
-
-  // app.tree.add(custom);
-  // app.tree.add({
-  //   tag: 'CustomGauge',
-  //   x: 137.324411555908,
-  //   y: -34.330186233129325,
-  //   width: 374.3107786966027,
-  //   height: 340.8214230785311,
-  //   rotation: 22.25,
-  //   draggable: true,
-  //   editable: true,
-  // });
 
   const gauge = new CustomGauge({
     x: 50,
