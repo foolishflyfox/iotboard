@@ -1,7 +1,7 @@
 <template>
   <div
     :style="{ height: `${head.height}px` }"
-    class="bg-[#ececec] flex-y-center justify-between mx-5px"
+    class="bg-[#ececec] flex-y-center justify-between px-5px b-b b-b-[#ddd]"
   >
     <HeadOperators />
     <HeadTools />
