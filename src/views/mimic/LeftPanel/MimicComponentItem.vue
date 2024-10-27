@@ -15,16 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import type { CustomMeta } from '../utils';
+import type { CustomMeta } from '@mimic/utils';
+import { mimicVar } from '@mimic/global';
 
-defineProps<{
+const props = defineProps<{
   customMeta: CustomMeta;
 }>();
 
 const componentPath = '/preview/component';
 
 function startDragHandler(e: any) {
-  console.log('start drag', e);
+  // console.log('start drag', e);
+  mimicVar.draggingCustomMeta = props.customMeta;
 }
 </script>
 

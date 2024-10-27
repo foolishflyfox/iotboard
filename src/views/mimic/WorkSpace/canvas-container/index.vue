@@ -42,8 +42,20 @@ const dropZoneRef = ref<HTMLElement>();
 
 useDropZone(dropZoneRef);
 
-function onDrop(v: any) {
-  console.log('onDrop ', v);
+function onDrop(e: MouseEvent) {
+  // console.log('onDrop ', v);
+  console.log('onDrop ', mimicVar.draggingCustomMeta);
+  if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
+    // const customClass: any = ;
+    // const custom: any =
+    mimicVar.app.tree.add(
+      new mimicVar.draggingCustomMeta.component({
+        ...mimicVar.app.getPagePointByClient(e),
+        draggable: true,
+        editable: true,
+      }),
+    );
+  }
 }
 
 onMounted(() => {
