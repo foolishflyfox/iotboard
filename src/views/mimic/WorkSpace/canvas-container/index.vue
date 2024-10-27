@@ -2,7 +2,9 @@
   <div
     class="bg-white flex-1"
     id="mimicCanvasContainer"
+    ref="dropZoneRef"
     @contextmenu="contextMenuRef?.onContextMenuClick"
+    @drop="onDrop"
   />
   <ContextMenu ref="contextMenuRef" />
 </template>
@@ -24,6 +26,7 @@ import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
 import ContextMenu from './ContextMenu.vue';
+import { useDropZone } from '@vueuse/core';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -34,6 +37,14 @@ const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
+
+const dropZoneRef = ref<HTMLElement>();
+
+useDropZone(dropZoneRef);
+
+function onDrop(v: any) {
+  console.log('onDrop ', v);
+}
 
 onMounted(() => {
   const app = new App({

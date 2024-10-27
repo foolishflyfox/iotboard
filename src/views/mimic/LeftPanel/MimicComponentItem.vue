@@ -6,6 +6,7 @@
       :width="55"
       class="cursor-grab p-4px"
       :fallback-src="`${componentPath}/default.png`"
+      @dragstart="startDragHandler"
     />
     <div class="text-12px text-[#555] font-medium text-center cursor-default">
       {{ customMeta.label }}
@@ -21,6 +22,10 @@ defineProps<{
 }>();
 
 const componentPath = '/preview/component';
+
+function startDragHandler(e: any) {
+  console.log('start drag', e);
+}
 </script>
 
 <style scoped></style>
