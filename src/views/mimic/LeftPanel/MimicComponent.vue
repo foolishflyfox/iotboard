@@ -8,12 +8,14 @@
     <n-collapse
       class="mt-10px"
       :default-expanded-names="_.keys(componentCategories)"
+      display-directive="show"
     >
-      <n-collapse-item
-        v-for="nm of _.keys(groups)"
-        :title="componentCategories[nm as CustomCategory]"
-        :name="nm"
-      >
+      <n-collapse-item v-for="nm of _.keys(groups)" :name="nm">
+        <template #header>
+          <div class="font-bold">
+            {{ componentCategories[nm as CustomCategory] }}
+          </div>
+        </template>
         <MimicComponentItem v-for="c of groups[nm]" :custom-meta="c" />
       </n-collapse-item>
     </n-collapse>
