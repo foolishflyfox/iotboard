@@ -63,6 +63,8 @@ export class CustomGauge extends UI {
   public declare unit: string;
 
   constructor(data: ICustomGaugeInputData) {
+    data.width = data.width ?? 80;
+    data.height = data.height ?? 80;
     super(data);
   }
 
