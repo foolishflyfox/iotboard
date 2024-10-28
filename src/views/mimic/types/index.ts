@@ -1,1 +1,1 @@
-export * from './ElementPropertyUiMeta';
+export * from './element-property';

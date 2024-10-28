@@ -93,12 +93,12 @@ export const allCommonAppearancePropertyType = [
   'strokeWidth',
 ] as const;
 
-export type CommonAppearancePropertyType =
+export type AppearancePropertyType =
   (typeof allCommonAppearancePropertyType)[number];
 
 export function getCommonAppearancePropertyTypes(
-  exclude?: CommonAppearancePropertyType[],
-): CommonAppearancePropertyType[] {
+  exclude?: AppearancePropertyType[],
+): AppearancePropertyType[] {
   const result = [...allCommonAppearancePropertyType].filter(
     k => !(exclude || []).includes(k),
   );

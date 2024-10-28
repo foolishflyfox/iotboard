@@ -1,6 +1,7 @@
 import type { UI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { UICreator } from 'leafer-ui';
+import type { AppearancePropertyType } from '../types';
 
 /** 自定义组件分组 */
 export const componentCategories = {
@@ -12,7 +13,7 @@ export class CustomMeta {
   name: string;
   label: string;
   category: CustomCategory;
-  _component?: typeof UI;
+  private _component?: typeof UI;
   get component(): typeof UI {
     if (_.isNil(this._component)) {
       this._component = UICreator.list[this.name];
@@ -21,6 +22,10 @@ export class CustomMeta {
       }
     }
     return this._component!;
+  }
+  get appearancePropertyTypes() {
+    return (this.component as any)
+      .appearancePropertyTypes as AppearancePropertyType[];
   }
 
   constructor(info: {

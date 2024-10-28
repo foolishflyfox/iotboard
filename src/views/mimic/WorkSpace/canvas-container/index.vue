@@ -189,7 +189,7 @@ onMounted(() => {
 
   const gauge = new CustomGauge({
     x: 50,
-    y: 0,
+    y: 20,
     width: 80,
     height: 80,
     draggable: true,

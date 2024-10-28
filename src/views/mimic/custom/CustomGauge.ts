@@ -7,6 +7,7 @@ import type {
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import { customMetas } from '@mimic/utils';
+import { getCommonAppearancePropertyTypes } from '../types';
 
 // 定义数据
 interface CustomData {
@@ -43,6 +44,11 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 @registerUI()
 @autoId()
 export class CustomGauge extends UI {
+  static appearancePropertyTypes = getCommonAppearancePropertyTypes([
+    'fill',
+    'stroke',
+    'strokeWidth',
+  ]);
   public get __tag() {
     return customMetas.customGauge.name;
   }
