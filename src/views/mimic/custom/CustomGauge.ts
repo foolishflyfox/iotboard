@@ -88,9 +88,11 @@ export class CustomGauge extends UI {
   __drawHitPath(hitCanvas: ILeaferCanvas): void {
     const { context } = hitCanvas;
     const { width, height } = this.__layout.boxBounds;
+    context.save();
     context.scale(width! / 400, height! / 400);
     context.beginPath();
     context.arc(200, 200, 200 * 0.95, 0, Math.PI * 2);
+    context.restore();
   }
 
   // 3. 碰撞检测(可选), 不重写此方法时，需要元素有fill或stroke值。
