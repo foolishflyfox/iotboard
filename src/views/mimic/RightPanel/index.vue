@@ -5,7 +5,6 @@
   >
     <n-tabs
       type="line"
-      animated
       style="height: 100%; display: flex; flex-direction: column"
       pane-style="flex: 1 1 0%;"
     >
