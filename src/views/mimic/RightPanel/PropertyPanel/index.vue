@@ -8,22 +8,24 @@
       :max="0.9"
     >
       <template #1>
-        <template v-if="selectedUI === null">
-          <!-- <DisplayProperty /> -->
-          <div>空</div>
-        </template>
-        <template v-else-if="_.isArray(selectedUI)">
-          多元素配置:
-          <div>均匀分布</div>
-          <div>左/中/右对齐</div>
-          <div>{{ selectedUI }}</div>
-        </template>
-        <template v-else-if="selectedUI?.id === displayBaseMapId">
-          <DisplayProperty />
-        </template>
-        <template v-else>
-          <SingleComponentProperty />
-        </template>
+        <n-scrollbar style="height: 100%">
+          <template v-if="selectedUI === null">
+            <!-- <DisplayProperty /> -->
+            <div>空</div>
+          </template>
+          <template v-else-if="_.isArray(selectedUI)">
+            多元素配置:
+            <div>均匀分布</div>
+            <div>左/中/右对齐</div>
+            <div>{{ selectedUI }}</div>
+          </template>
+          <template v-else-if="selectedUI?.id === displayBaseMapId">
+            <DisplayProperty />
+          </template>
+          <template v-else>
+            <SingleComponentProperty />
+          </template>
+        </n-scrollbar>
       </template>
       <template #2> 图层区域 </template>
     </n-split>
