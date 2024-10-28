@@ -2,21 +2,28 @@
   <!-- <div>单文件配置: {{ mimicWorkspaceStatus.selectedUiId }}</div>
   <div>{{ curAppearancePropertyTypes }}</div> -->
   <div>
-    <template v-for="pt of curAppearancePropertyTypes" :key="pt">
-      <template v-if="pt === 'x'">
-        <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
-        <InputNumberProperty v-model="x" label="X坐标" @keydown.stop />
-      </template>
-      <template v-else-if="pt === 'y'">
-        <InputNumberProperty v-model="y" label="Y坐标" @keydown.stop />
-      </template>
-      <template v-else-if="pt === 'width'">
-        <InputNumberProperty v-model="width" label="宽度" @keydown.stop />
-      </template>
-      <template v-else-if="pt === 'height'">
-        <InputNumberProperty v-model="height" label="高度" @keydown.stop />
-      </template>
-    </template>
+    <n-collapse :default-expanded-names="['base', 'custom']">
+      <n-collapse-item title="基础" name="base">
+        <template v-for="pt of curAppearancePropertyTypes" :key="pt">
+          <template v-if="pt === 'x'">
+            <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
+            <InputNumberProperty v-model="x" label="X坐标" @keydown.stop />
+          </template>
+          <template v-else-if="pt === 'y'">
+            <InputNumberProperty v-model="y" label="Y坐标" @keydown.stop />
+          </template>
+          <template v-else-if="pt === 'width'">
+            <InputNumberProperty v-model="width" label="宽度" @keydown.stop />
+          </template>
+          <template v-else-if="pt === 'height'">
+            <InputNumberProperty v-model="height" label="高度" @keydown.stop />
+          </template>
+        </template>
+      </n-collapse-item>
+      <n-collapse-item title="自定义" name="custom">
+        自定义外观
+      </n-collapse-item>
+    </n-collapse>
   </div>
 </template>
 
