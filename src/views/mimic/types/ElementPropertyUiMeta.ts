@@ -6,7 +6,9 @@ export type PropertyUiType =
   | 'checkbox';
 
 /** 自定义组件，外观配置类型 */
-export interface CustomAppearanceUi {
+export interface CustomAppearancePropertyUi {
+  /** 绑定的属性名 */
+  bindPropertyName: string;
   /** 配置名，以配置项的 label 方式显示 */
   label: string;
   /** 组件类型 */
@@ -28,10 +30,18 @@ type DataGenerateType = 'static' | 'random' | 'script';
 type ConvertAccurancyType = 'round' | 'ceil' | 'floor';
 
 /** 数据面板的 UI 信息 */
-export interface CustomDataUi {
+export interface CustomDataPropertyUi {
+  /** 绑定的数据项字段名 */
+  bindDataField: string;
+  /** 配置名 */
   label: string;
   /** 数据生成方式 */
   dataGenerateType: DataGenerateType;
+  /** 详情 */
+  dataGenerateDetail:
+    | CustomDataStaticDetail
+    | CustomDataRandomDetail
+    | CustomDataScriptDetail;
 }
 
 /** 当用户选择静态数据后，静态数据的详细配置 */
@@ -60,3 +70,9 @@ export interface CustomDataRandomDetail extends NumberAccuracyProperty {
 
 /** 当用户选择脚本生成数据后的详细配置 */
 export interface CustomDataScriptDetail extends NumberAccuracyProperty {}
+
+/** 编程时需要为自定义组件设置的配置信息 */
+export interface CustomPropertyMeta {
+  appearance: CustomAppearancePropertyUi[];
+  data: CustomDataPropertyUi[];
+}
