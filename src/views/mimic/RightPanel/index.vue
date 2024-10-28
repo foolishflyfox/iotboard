@@ -12,7 +12,12 @@
       <template #prefix>
         <span></span>
       </template>
-      <n-tab-pane name="appearance" tab="外观" class="h-full">
+      <n-tab-pane
+        name="appearance"
+        tab="外观"
+        class="h-full"
+        display-directive="show"
+      >
         <PropertyPanel />
       </n-tab-pane>
       <n-tab-pane name="data" tab="数据"> 数据配置 </n-tab-pane>
