@@ -1,6 +1,12 @@
 <template>
   <div class="h-full">
-    <n-input type="text" round placeholder="搜索组件" size="small">
+    <n-input
+      type="text"
+      round
+      placeholder="搜索组件"
+      size="small"
+      @keydown.stop
+    >
       <template #suffix>
         <n-icon :component="Search" />
       </template>

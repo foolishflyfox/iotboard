@@ -4,16 +4,17 @@
   <div>
     <template v-for="pt of curAppearancePropertyTypes" :key="pt">
       <template v-if="pt === 'x'">
-        <InputNumberProperty v-model="x" label="X坐标" />
+        <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
+        <InputNumberProperty v-model="x" label="X坐标" @keydown.stop />
       </template>
       <template v-else-if="pt === 'y'">
-        <InputNumberProperty v-model="y" label="Y坐标" />
+        <InputNumberProperty v-model="y" label="Y坐标" @keydown.stop />
       </template>
       <template v-else-if="pt === 'width'">
-        <InputNumberProperty v-model="width" label="宽度" />
+        <InputNumberProperty v-model="width" label="宽度" @keydown.stop />
       </template>
       <template v-else-if="pt === 'height'">
-        <InputNumberProperty v-model="height" label="高度" />
+        <InputNumberProperty v-model="height" label="高度" @keydown.stop />
       </template>
     </template>
   </div>
@@ -34,9 +35,7 @@ const curAppearancePropertyTypes = computed(
 
 const x = computed({
   get: () => curElementProxyData.value?.x,
-  set: (v: number) => {
-    curElementProxyData.value!.x = v;
-  },
+  set: (v: number) => (curElementProxyData.value!.x = v),
 });
 
 const y = computed({
