@@ -16,6 +16,7 @@
           多元素配置:
           <div>均匀分布</div>
           <div>左/中/右对齐</div>
+          <div>{{ selectedUI }}</div>
         </template>
         <template v-else-if="selectedUI?.id === displayBaseMapId">
           <DisplayProperty />

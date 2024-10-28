@@ -21,6 +21,8 @@ export function selectHandler(event: EditorEvent) {
       // 没有选中任何UI元素
       // selectedUI.value =
       mimicWorkspaceStatus.selectedUiId = displayBaseMapId;
+    } else if (ui.length === 1) {
+      mimicWorkspaceStatus.selectedUiId = ui[0].id;
     } else {
       // 选中的是多个UI元素
       // selectedUI.value = ui;
