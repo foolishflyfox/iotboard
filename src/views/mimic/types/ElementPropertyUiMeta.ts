@@ -1,9 +1,13 @@
+import * as _ from 'lodash-es';
 /** 元素属性元信息 */
 export type PropertyUiType =
   | 'colorPicker'
   | 'input'
   | 'input-number'
   | 'checkbox';
+
+/** 转换成指定精度的方式: round - 四舍五入, ceil - 向上取整, floor - 向下取整 */
+type ConvertAccurancyType = 'round' | 'ceil' | 'floor';
 
 /** 自定义组件，外观配置类型 */
 export interface CustomAppearancePropertyUi {
@@ -17,6 +21,10 @@ export interface CustomAppearancePropertyUi {
   defaultValue?: any;
   /** 如果是 number 类型，设置修改时的单步大小 */
   step?: number;
+  /** 数据显示精度，不设置则不进行精度转换 */
+  // displayAccurancy?: number;
+  /** 精度转换类型 */
+  // convertAccurancyType?: ConvertAccurancyType;
 }
 
 /** 数据生成方式:
@@ -25,9 +33,6 @@ export interface CustomAppearancePropertyUi {
  * script - 指定脚本方式产生(弹出脚本编辑器，添加帮助文档,可搜索,添加智能提示功能)
  */
 type DataGenerateType = 'static' | 'random' | 'script';
-
-/** 转换成指定精度的方式: round - 四舍五入, ceil - 向上取整, floor - 向下取整 */
-type ConvertAccurancyType = 'round' | 'ceil' | 'floor';
 
 /** 数据面板的 UI 信息 */
 export interface CustomDataPropertyUi {
@@ -76,3 +81,31 @@ export interface CustomPropertyMeta {
   appearance: CustomAppearancePropertyUi[];
   data: CustomDataPropertyUi[];
 }
+
+// 通用属性定义
+export const allCommonAppearancePropertyType = [
+  'x',
+  'y',
+  'width',
+  'height',
+  'fill',
+  'stroke',
+  'strokeWidth',
+] as const;
+
+export type CommonAppearancePropertyType =
+  (typeof allCommonAppearancePropertyType)[number];
+
+export function getCommonAppearancePropertyTypes(
+  exclude?: CommonAppearancePropertyType[],
+): CommonAppearancePropertyType[] {
+  const result = [...allCommonAppearancePropertyType].filter(
+    k => !(exclude || []).includes(k),
+  );
+  return result;
+}
+// export const commonAppearancePropertyUis: Record<
+//   CommonAppearancePropertyType,
+//   CustomAppearancePropertyUi
+// > = {
+// };
