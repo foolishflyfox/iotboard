@@ -2,13 +2,15 @@
   "dependencies": {
     "@leafer-in/view": "^1.0.7",
     "@vueuse/core": "^11.1.0",
+    "ace-builds": "^1.36.3",
     "leafer-editor": "^1.0.7",
     "leafer-ui": "^1.0.7",
     "leafer-x-ruler": "^1.0.14",
     "lodash-es": "^4.17.21",
     "pinia": "^2.2.4",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vue3-ace-editor": "^2.2.4"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
