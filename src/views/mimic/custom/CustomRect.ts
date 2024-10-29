@@ -44,7 +44,8 @@ export class CustomRect extends Rect {
   constructor(data: ICustomRectInputData) {
     data.width = data.width ?? 80;
     data.height = data.height ?? 80;
-    data.stroke = data.stroke ?? 'black';
+    data.stroke = data.stroke ?? '#000000';
+    data.fill = data.fill ?? '#ffffff00';
     data.strokeWidth = data.strokeWidth ?? 3;
     data.cornerRadius = data.cornerRadius ?? 5;
     super(data);
