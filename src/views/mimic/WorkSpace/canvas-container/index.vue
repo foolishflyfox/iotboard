@@ -129,18 +129,16 @@ onMounted(() => {
   });
 
   const myObj = new CustomRect({
-    top: 20,
     id: '12332',
-    x: 100,
-    y: 100,
-    width: 150,
-    height: 300,
-    fill: 'orange',
+    x: 150,
+    y: 30,
+    width: 80,
+    height: 80,
     draggable: true,
     editable: true,
   });
 
-  app.tree.add(rect);
+  app.tree.add(myObj);
   // app.tree.add(myObj);
 
   // app.tree.zoom('fit', 23);

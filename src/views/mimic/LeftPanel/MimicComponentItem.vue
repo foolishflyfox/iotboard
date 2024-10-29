@@ -3,7 +3,7 @@
     <NImage
       :src="`${componentPath}/${customMeta.name}.png`"
       preview-disabled
-      :width="55"
+      :width="42"
       class="cursor-grab p-4px"
       :fallback-src="`${componentPath}/default.png`"
       @dragstart="startDragHandler"

@@ -7,17 +7,19 @@ import {
   type IRectData,
   type IRectInputData,
 } from 'leafer-ui';
+import { customMetas } from '@mimic/utils';
+import { getCommonAppearancePropertyTypes } from '@mimic/types';
 
 // 1. 定义数据接口，需要为输入数据、计算数据定义接口，js 可忽略
 // 1.1 定义数据接口，命名规范为: I + 元素名 + InputData
 export interface ICustomRectInputData extends IRectInputData {
   // 输入数据接口，需要定义为可选项
-  top?: number;
+  // top?: number;
 }
 
 // 1.2 定义计算数据接口，命名规范为: I + 元素名 + Data
 export interface ICustomRectData extends IRectData {
-  top?: number;
+  // top?: number;
 }
 
 // 2. 定义计算数据类，需要实现之前的计算数据类接口，命名规范为: 元素名 + Data
@@ -25,8 +27,10 @@ export class CustomRectData extends RectData implements ICustomRectData {}
 
 @registerUI()
 export class CustomRect extends Rect {
+  static appearancePropertyTypes = getCommonAppearancePropertyTypes();
+
   public get __tag() {
-    return 'CustomRect';
+    return customMetas.customRect.name;
   }
 
   @dataProcessor(CustomRectData)
@@ -36,6 +40,11 @@ export class CustomRect extends Rect {
   public declare top: string;
 
   constructor(data: ICustomRectInputData) {
+    data.width = data.width ?? 80;
+    data.height = data.height ?? 80;
+    data.stroke = data.stroke ?? 'black';
+    data.strokeWidth = data.strokeWidth ?? 3;
+    data.cornerRadius = data.cornerRadius ?? 5;
     super(data);
   }
 }
