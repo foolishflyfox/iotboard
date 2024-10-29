@@ -1,11 +1,6 @@
 <template>
   <PropertyContainer :label="label" :route-name="helpRouteName" @keydown.stop>
-    <n-input
-      type="textarea"
-      size="small"
-      :value="value"
-      @update:value="v => emit('update:value', v)"
-    />
+    <n-input :value="value" />
   </PropertyContainer>
 </template>
 
@@ -24,4 +19,8 @@ const emit = defineEmits<{
 }>();
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.vjs-tree) {
+  width: 100%;
+}
+</style>

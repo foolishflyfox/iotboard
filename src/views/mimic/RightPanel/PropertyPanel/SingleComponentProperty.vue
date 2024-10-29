@@ -12,11 +12,7 @@
             <!-- <template v-if="_.isString(stroke)">
               <ColorProperty v-model="stroke" label="边框颜色" />
             </template> -->
-            <StrokeProperty
-              :type="stroke.type"
-              :color="stroke.color"
-              @update:value="v => (stroke = v)"
-            />
+            <StrokeProperty :stroke="stroke" @update:value="v => (stroke = v)" />
           </template>
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
@@ -38,7 +34,7 @@ import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
-import type { IPaintType } from 'leafer-ui';
+import type { IPaint, IPaintType } from 'leafer-ui';
 
 // const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
@@ -68,7 +64,7 @@ interface Stroke extends Record<string, any> {
   type: IPaintType;
 }
 const stroke = computed({
-  get: () => curElementProxyData.value?.stroke as Stroke,
+  get: () => curElementProxyData.value?.stroke as IPaint,
   set: (v: Stroke) => (curElementProxyData.value!.stroke = v as any),
 });
 const fill = computed({

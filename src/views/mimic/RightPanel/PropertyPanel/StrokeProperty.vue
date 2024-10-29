@@ -4,15 +4,19 @@
       label="边框类型"
       placeholder="边框类型"
       :options
-      :value="type"
+      :value="stroke.type"
       size="tiny"
       @update:value="updateType"
     />
-    <template v-if="type === 'solid'">
-      <ColorProperty label="颜色" :value="color" @update:value="updateColor" />
+    <template v-if="stroke.type === 'solid'">
+      <ColorProperty label="颜色" :value="strokeColor" @update:value="updateColor" />
     </template>
-    <template v-if="type === 'linear'">
-      <JsonProperty label="渐变配置" help-route-name="LinearGradientDoc" />
+    <template v-if="stroke.type === 'linear'">
+      <JsonProperty
+        label="渐变配置"
+        help-route-name="LinearGradientDoc"
+        value="{'x': 1, 'y': 'abc'}"
+      />
     </template>
   </div>
 </template>
@@ -22,7 +26,8 @@ import type { SelectOption } from 'naive-ui';
 import SelectProperty from './components/SelectProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import JsonProperty from './components/JsonProperty.vue';
-import type { IPaintType } from 'leafer-ui';
+import type { IPaint, IPaintType } from 'leafer-ui';
+import * as _ from 'lodash-es';
 
 const options: SelectOption[] = [
   {
@@ -44,9 +49,9 @@ const options: SelectOption[] = [
 ];
 
 const props = defineProps<{
-  type: IPaintType;
-  color?: string;
+  stroke: IPaint;
 }>();
+const strokeColor = computed(() => (props.stroke as any).color as string);
 
 const emit = defineEmits<{
   'update:value': [v: any];
@@ -65,7 +70,7 @@ function updateType(newType: IPaintType) {
   emit('update:value', data);
 }
 function updateColor(newColor: string) {
-  emit('update:value', { type: props.type, color: newColor });
+  emit('update:value', { type: props.stroke.type, color: newColor });
 }
 </script>
 
