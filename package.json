@@ -2,6 +2,7 @@
   "dependencies": {
     "@leafer-in/view": "^1.0.7",
     "@vueuse/core": "^11.1.0",
+    "@wdns/vue-code-block": "^2.3.3",
     "ace-builds": "^1.36.3",
     "leafer-editor": "^1.0.7",
     "leafer-ui": "^1.0.7",

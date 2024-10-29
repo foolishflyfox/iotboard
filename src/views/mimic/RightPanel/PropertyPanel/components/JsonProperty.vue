@@ -27,7 +27,7 @@ const emit = defineEmits<{
   'update:value': [v: string];
 }>();
 
-const testData = ref("{x: 1, y:'abc'}");
+const testData = ref('{"x": 1, "y":"abc"}');
 </script>
 
 <style scoped>
