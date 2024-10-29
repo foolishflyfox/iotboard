@@ -1,17 +1,26 @@
 <template>
   <PropertyContainer :label="label">
-    <n-color-picker style="width: 100%" v-model:value="value" size="small" />
+    <n-color-picker
+      style="width: 100%"
+      :value="value"
+      @update:value="v => emit('update:value', v)"
+      size="small"
+    />
   </PropertyContainer>
 </template>
 
 <script setup lang="ts">
+import { NColorPicker } from 'naive-ui';
 import { PropertyContainer } from './containers';
 
 defineProps<{
+  value?: string;
   label?: string;
 }>();
 
-const value = defineModel<string>();
+const emit = defineEmits<{
+  'update:value': [v: string];
+}>();
 </script>
 
 <style scoped>

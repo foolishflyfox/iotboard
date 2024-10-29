@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import type { Cursor } from '@/types/css';
 import * as _ from 'lodash-es';
+import { NTooltip } from 'naive-ui';
 const props = withDefaults(
   defineProps<{
     tooltip?: string;

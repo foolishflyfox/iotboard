@@ -9,9 +9,14 @@
           <NumberProperty v-else-if="pt === 'width'" v-model="width" label="宽度" />
           <NumberProperty v-else-if="pt === 'height'" v-model="height" label="高度" />
           <template v-else-if="pt === 'stroke'">
-            <template v-if="_.isString(stroke)">
+            <!-- <template v-if="_.isString(stroke)">
               <ColorProperty v-model="stroke" label="边框颜色" />
-            </template>
+            </template> -->
+            <StrokeProperty
+              :type="stroke.type"
+              :color="stroke.color"
+              @update:value="v => (stroke = v)"
+            />
           </template>
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
@@ -26,12 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { NCollapse, NCollapseItem } from 'naive-ui';
 import { useCurElementProxyData } from '@mimic/hooks';
 import { customMetas } from '@mimic/utils';
 import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
+import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
+import type { IPaintType } from 'leafer-ui';
 
 // const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
@@ -57,9 +64,12 @@ const height = computed({
   get: () => curElementProxyData.value?.height,
   set: (v: number) => (curElementProxyData.value!.height = v),
 });
+interface Stroke extends Record<string, any> {
+  type: IPaintType;
+}
 const stroke = computed({
-  get: () => curElementProxyData.value?.stroke,
-  set: (v: string) => (curElementProxyData.value!.stroke = v),
+  get: () => curElementProxyData.value?.stroke as Stroke,
+  set: (v: Stroke) => (curElementProxyData.value!.stroke = v as any),
 });
 const fill = computed({
   get: () => curElementProxyData.value?.fill,

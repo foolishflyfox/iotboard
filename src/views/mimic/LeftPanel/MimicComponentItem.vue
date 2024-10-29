@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import type { CustomMeta } from '@mimic/utils';
 import { mimicVar } from '@mimic/global';
+import { NImage } from 'naive-ui';
 
 const props = defineProps<{
   customMeta: CustomMeta;

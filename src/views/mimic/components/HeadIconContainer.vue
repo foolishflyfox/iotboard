@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import { NButton, NIcon } from 'naive-ui';
+import { HoverContainer } from '@/components';
 import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
 import * as _ from 'lodash-es';

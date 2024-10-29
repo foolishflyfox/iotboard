@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import RulerLine from '@/components/icons/RulerLine.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';

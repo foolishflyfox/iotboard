@@ -12,6 +12,12 @@
 </template>
 
 <script setup lang="ts">
+import {
+  NLoadingBarProvider,
+  NDialogProvider,
+  NNotificationProvider,
+  NMessageProvider,
+} from 'naive-ui';
 import { defineComponent, h } from 'vue';
 import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
 

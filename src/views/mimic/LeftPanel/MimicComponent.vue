@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { NCollapse, NCollapseItem, NIcon, NInput } from 'naive-ui';
 import { Search } from '@vicons/ionicons5';
 import {
   componentCategories,

@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { NDropdown } from 'naive-ui';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';

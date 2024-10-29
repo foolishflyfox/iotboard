@@ -62,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 // import MimicLeftPanelHead from './MimicLeftPanelHead.vue';
 import DisplayContent from './DisplayContent.vue';
 import MimicComponent from './MimicComponent.vue';

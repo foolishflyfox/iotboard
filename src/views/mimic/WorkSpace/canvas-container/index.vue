@@ -112,18 +112,6 @@ onMounted(() => {
   });
   app.tree.add(displayBaseMap);
 
-  const rect = new Rect({
-    // id: '12332',
-    x: 0,
-    y: 0,
-    width: 30,
-    height: 30,
-    fill: '#32cd79',
-    cornerRadius: [50, 80, 0, 80],
-    draggable: true,
-    editable: true,
-  });
-
   const myObj = new CustomRect({
     x: 150,
     y: 30,
@@ -134,13 +122,7 @@ onMounted(() => {
   });
 
   app.tree.add(myObj);
-  // app.tree.add(myObj);
-
-  // app.tree.zoom('fit', 23);
   viewAutoFit();
-  // setTimeout(() => {
-  //   myObj.zIndex = -1;
-  // }, 3000);
 
   const customPen = new CustomPen({
     size: 30,

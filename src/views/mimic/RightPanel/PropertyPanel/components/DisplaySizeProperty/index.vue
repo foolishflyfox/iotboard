@@ -5,7 +5,7 @@
       placeholder="请选择图纸尺寸"
       :options="sizeOptions"
       :filterable="true"
-      v-model="sizeType"
+      v-model:value="sizeType"
     />
     <PropertyContainer>
       <n-input-number
@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { NInputNumber, NButton, NIcon, NDivider } from 'naive-ui';
 import type { SelectOption } from 'naive-ui';
 import SelectProperty from '../SelectProperty.vue';
 import { PropertyContainer } from '../containers';

@@ -6,8 +6,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { codeInspectorPlugin } from 'code-inspector-plugin';
 import UnoCss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -23,20 +21,10 @@ export default defineConfig({
         'vue-router',
         'pinia',
         {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-            'useNotification',
-            'useLoadingBar',
-          ],
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
         },
       ],
       dts: 'src/types/auto/auto-import.d.ts',
-    }),
-    Components({
-      dirs: ['src/components'],
-      dts: 'src/types/auto/components.d.ts',
-      resolvers: [NaiveUiResolver()],
     }),
     codeInspectorPlugin({ bundler: 'vite' }),
     UnoCss(),

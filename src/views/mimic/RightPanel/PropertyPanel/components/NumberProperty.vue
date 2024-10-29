@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { NInputNumber } from 'naive-ui';
 import { PropertyContainer } from './containers';
 
 withDefaults(

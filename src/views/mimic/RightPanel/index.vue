@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { NTabs, NTabPane } from 'naive-ui';
 import { rightPanelWidth } from '@/views/mimic/settings';
 import PropertyPanel from './PropertyPanel/index.vue';
 
