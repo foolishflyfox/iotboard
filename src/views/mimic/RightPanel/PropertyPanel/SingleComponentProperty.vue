@@ -4,25 +4,13 @@
     <n-collapse :default-expanded-names="['base', 'custom']">
       <n-collapse-item title="基础" name="base">
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
-          <template v-if="pt === 'x'">
-            <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
-            <InputNumberProperty v-model="x" label="X坐标" />
-            <!-- <ReuseTemplate><InputNumberProperty v-model="x" /></ReuseTemplate> -->
-          </template>
-          <template v-else-if="pt === 'y'">
-            <InputNumberProperty v-model="y" label="Y坐标" />
-          </template>
-          <template v-else-if="pt === 'width'">
-            <InputNumberProperty v-model="width" label="宽度" />
-          </template>
-          <template v-else-if="pt === 'height'">
-            <InputNumberProperty v-model="height" label="高度" />
-          </template>
+          <NumberProperty v-model="x" label="X坐标" v-if="pt === 'x'" />
+          <NumberProperty v-else-if="pt === 'y'" v-model="y" label="Y坐标" />
+          <NumberProperty v-else-if="pt === 'width'" v-model="width" label="宽度" />
+          <NumberProperty v-else-if="pt === 'height'" v-model="height" label="高度" />
         </template>
       </n-collapse-item>
-      <n-collapse-item title="自定义" name="custom">
-        自定义外观
-      </n-collapse-item>
+      <n-collapse-item title="自定义" name="custom"> 自定义外观 </n-collapse-item>
     </n-collapse>
   </div>
 </template>
@@ -31,14 +19,13 @@
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { useCurElementProxyData } from '@mimic/hooks';
 import { customMetas } from '@mimic/utils';
-import InputNumberProperty from './components/InputNumberProperty.vue';
+import NumberProperty from './components/NumberProperty.vue';
 
 // const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const curElementProxyData = useCurElementProxyData();
 const curAppearancePropertyTypes = computed(
-  () =>
-    customMetas[curElementProxyData.value?.tag || '']?.appearancePropertyTypes,
+  () => customMetas[curElementProxyData.value?.tag || '']?.appearancePropertyTypes,
 );
 
 const x = computed({
