@@ -1,12 +1,6 @@
 <template>
   <PropertyContainer :label="label">
-    <n-select
-      :options
-      v-model:value="value"
-      size="small"
-      :placeholder
-      :filterable
-    />
+    <n-select :options v-model:value="value" size="small" :placeholder :filterable />
   </PropertyContainer>
 </template>
 

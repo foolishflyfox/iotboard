@@ -24,8 +24,7 @@ export class CustomMeta {
     return this._component!;
   }
   get appearancePropertyTypes() {
-    return (this.component as any)
-      .appearancePropertyTypes as AppearancePropertyType[];
+    return (this.component as any).appearancePropertyTypes as AppearancePropertyType[];
   }
 
   constructor(info: {
@@ -46,11 +45,7 @@ const defaultMeta = {
   label: '',
 };
 
-function createMeta(
-  label: string,
-  category: CustomCategory,
-  component?: typeof UI,
-): CustomMeta {
+function createMeta(label: string, category: CustomCategory, component?: typeof UI): CustomMeta {
   return new CustomMeta({ ...defaultMeta, label, category, component });
 }
 

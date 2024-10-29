@@ -32,12 +32,8 @@ const emit = defineEmits<{
   click: [];
 }>();
 
-const currentBgColor = computed(() =>
-  props.isActive ? props.activeBgColor : undefined,
-);
-const currentHoverColor = computed(
-  () => currentBgColor.value || props.hoverBgColor,
-);
+const currentBgColor = computed(() => (props.isActive ? props.activeBgColor : undefined));
+const currentHoverColor = computed(() => currentBgColor.value || props.hoverBgColor);
 </script>
 
 <style scoped>

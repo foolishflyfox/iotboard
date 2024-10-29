@@ -6,9 +6,7 @@ import { UI, defineKey } from 'leafer-ui';
 
 defineKey(UI.prototype, 'proxyData', {
   get() {
-    return this.__proxyData
-      ? this.__proxyData
-      : (this.__proxyData = this.createProxyData());
+    return this.__proxyData ? this.__proxyData : (this.__proxyData = this.createProxyData());
   },
 });
 

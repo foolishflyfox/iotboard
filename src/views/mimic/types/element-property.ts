@@ -1,10 +1,6 @@
 import * as _ from 'lodash-es';
 /** 元素属性元信息 */
-export type PropertyUiType =
-  | 'colorPicker'
-  | 'input'
-  | 'input-number'
-  | 'checkbox';
+export type PropertyUiType = 'colorPicker' | 'input' | 'input-number' | 'checkbox';
 
 /** 转换成指定精度的方式: round - 四舍五入, ceil - 向上取整, floor - 向下取整 */
 type ConvertAccurancyType = 'round' | 'ceil' | 'floor';
@@ -43,10 +39,7 @@ export interface CustomDataPropertyUi {
   /** 数据生成方式 */
   dataGenerateType: DataGenerateType;
   /** 详情 */
-  dataGenerateDetail:
-    | CustomDataStaticDetail
-    | CustomDataRandomDetail
-    | CustomDataScriptDetail;
+  dataGenerateDetail: CustomDataStaticDetail | CustomDataRandomDetail | CustomDataScriptDetail;
 }
 
 /** 当用户选择静态数据后，静态数据的详细配置 */
@@ -93,15 +86,12 @@ export const allCommonAppearancePropertyType = [
   'strokeWidth',
 ] as const;
 
-export type AppearancePropertyType =
-  (typeof allCommonAppearancePropertyType)[number];
+export type AppearancePropertyType = (typeof allCommonAppearancePropertyType)[number];
 
 export function getCommonAppearancePropertyTypes(
   exclude?: AppearancePropertyType[],
 ): AppearancePropertyType[] {
-  const result = [...allCommonAppearancePropertyType].filter(
-    k => !(exclude || []).includes(k),
-  );
+  const result = [...allCommonAppearancePropertyType].filter(k => !(exclude || []).includes(k));
   return result;
 }
 // export const commonAppearancePropertyUis: Record<

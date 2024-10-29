@@ -26,9 +26,7 @@ export function selectHandler(event: EditorEvent) {
     } else {
       // 选中的是多个UI元素
       // selectedUI.value = ui;
-      mimicWorkspaceStatus.selectedUiId = ui
-        .map(ui => ui.id)
-        .filter(id => !isNil(id));
+      mimicWorkspaceStatus.selectedUiId = ui.map(ui => ui.id).filter(id => !isNil(id));
     }
   } else {
     // 选中的是单个UI元素

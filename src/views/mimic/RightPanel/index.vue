@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="h-full border-l-[#eaeaea] border-l-1"
-    :style="{ width: `${rightPanelWidth}px` }"
-  >
+  <div class="h-full border-l-[#eaeaea] border-l-1" :style="{ width: `${rightPanelWidth}px` }">
     <n-tabs
       type="line"
       style="height: 100%; display: flex; flex-direction: column"
@@ -11,19 +8,12 @@
       <template #prefix>
         <span></span>
       </template>
-      <n-tab-pane
-        name="appearance"
-        tab="外观"
-        class="h-full"
-        display-directive="show"
-      >
+      <n-tab-pane name="appearance" tab="外观" class="h-full" display-directive="show">
         <PropertyPanel />
       </n-tab-pane>
       <n-tab-pane name="data" tab="数据"> 数据配置 </n-tab-pane>
       <n-tab-pane name="event" tab="事件">
-        <div>
-          对于带控制/跳转的组件，存在该panel，纯显式类的组件不能配置事件
-        </div>
+        <div>对于带控制/跳转的组件，存在该panel，纯显式类的组件不能配置事件</div>
       </n-tab-pane>
     </n-tabs>
   </div>

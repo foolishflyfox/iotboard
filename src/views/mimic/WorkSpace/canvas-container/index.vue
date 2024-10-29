@@ -10,13 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Rect,
-  App,
-  EditorEvent,
-  ResizeEvent,
-  PropertyEvent,
-} from 'leafer-editor';
+import { Rect, App, EditorEvent, ResizeEvent, PropertyEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';

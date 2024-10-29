@@ -1,10 +1,5 @@
 import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
-import type {
-  IUIInputData,
-  ILeaferCanvas,
-  IRadiusPointData,
-  IUIData,
-} from 'leafer-ui';
+import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import { customMetas } from '@mimic/utils';
 import { getCommonAppearancePropertyTypes } from '../types';
@@ -195,13 +190,7 @@ export class CustomGauge extends UI {
       gra2_2.addColorStop(0, '#7BB9F0');
       gra2_2.addColorStop(1, '#5748DA');
       ctx.strokeStyle = gra2_2;
-      ctx.arc(
-        cx,
-        cy,
-        r_out,
-        (arc_angle * 3) / 4,
-        arc_angle * (start + turbo + 1 / 80),
-      );
+      ctx.arc(cx, cy, r_out, (arc_angle * 3) / 4, arc_angle * (start + turbo + 1 / 80));
       ctx.stroke();
     }
 
@@ -209,12 +198,7 @@ export class CustomGauge extends UI {
     const start_range = ((1 / 4) * 4) / 5;
     const end_range = 1 / 4 + ((1 / 4) * 1) / 5;
     ctx.beginPath();
-    const gra4 = ctx.createLinearGradient(
-      x + width / 3,
-      height,
-      x + (width * 2) / 3,
-      height,
-    );
+    const gra4 = ctx.createLinearGradient(x + width / 3, height, x + (width * 2) / 3, height);
     gra4.addColorStop(0, '#F4F5F8');
     gra4.addColorStop(0.5, '#488CDF');
     gra4.addColorStop(1, '#F4F5F8');

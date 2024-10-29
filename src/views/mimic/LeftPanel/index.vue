@@ -19,11 +19,7 @@
       >
         <template #prefix>
           <div class="h-30px">
-            <n-button
-              :focusable="false"
-              circle
-              @click="isExpandPane = !isExpandPane"
-            >
+            <n-button :focusable="false" circle @click="isExpandPane = !isExpandPane">
               <template #icon>
                 <n-icon size="24">
                   <ChevronsLeft v-if="isExpandPane" />
