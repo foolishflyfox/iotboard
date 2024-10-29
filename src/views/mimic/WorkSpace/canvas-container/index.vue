@@ -10,12 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { Rect, App, EditorEvent, ResizeEvent, PropertyEvent } from 'leafer-editor';
+import { Rect, App, EditorEvent, ResizeEvent, PropertyEvent, KeyEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
-import { selectHandler } from '@mimic/event-handler';
+import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { getUniqueId, viewAutoFit } from '@mimic/utils';
@@ -75,6 +75,7 @@ onMounted(() => {
   mimicVar.app = app;
   app.tree.on(ResizeEvent.RESIZE, viewAutoFit);
   app.editor.on(EditorEvent.SELECT, selectHandler);
+  app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
 
   watchEffect(() => {

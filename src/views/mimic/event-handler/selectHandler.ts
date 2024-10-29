@@ -4,7 +4,6 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { displayBaseMapId } from '@mimic/constant';
 import { isNil } from 'lodash-es';
 
-// todo: 修改直接将 ui 挂载到 pinia 下，而是将 id 挂载到 pinia 下
 export function selectHandler(event: EditorEvent) {
   // if (_.isNil(selectedUI)) {
   //   selectedUI = toRefs(useMimicWorkspaceStatus()).selectedUI;

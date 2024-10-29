@@ -3,8 +3,10 @@ import { findCurrentSelected } from '@mimic/utils';
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
+import { displayBaseMapId } from '@mimic/constant';
 
 export function doContextMenuAction(action: string) {
+  // debugger;
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   const curUi = findCurrentSelected();
 
@@ -17,9 +19,16 @@ export function doContextMenuAction(action: string) {
       exportImage(curUi, action);
     }
   } else if (action === 'delete') {
-    (curUi as IUI).destroy();
-    mimicWorkspaceStatus.selectBaseMap();
-    mimicVar.app?.editor?.cancel();
+    if (_.isNil(curUi)) {
+    } else if (_.isArray(curUi)) {
+    } else {
+      const iui = curUi as IUI;
+      if (iui.id !== displayBaseMapId) {
+        iui.destroy();
+        mimicWorkspaceStatus.selectBaseMap();
+        mimicVar.app?.editor?.cancel();
+      }
+    }
   }
 }
 
