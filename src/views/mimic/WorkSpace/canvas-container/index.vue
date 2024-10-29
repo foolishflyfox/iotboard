@@ -24,9 +24,10 @@ import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler } from '@mimic/event-handler';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
-import { viewAutoFit } from '@mimic/utils';
+import { getUniqueId, viewAutoFit } from '@mimic/utils';
 import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
+import * as _ from 'lodash-es';
 
 defineOptions({
   name: 'CanvasContainer',
@@ -46,13 +47,15 @@ function onDrop(e: MouseEvent) {
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
     // const customClass: any = ;
     // const custom: any =
-    mimicVar.app.tree.add(
-      new mimicVar.draggingCustomMeta.component({
-        ...mimicVar.app.getPagePointByClient(e),
-        draggable: true,
-        editable: true,
-      }),
-    );
+    const newElement = new mimicVar.draggingCustomMeta.component({
+      ...mimicVar.app.getPagePointByClient(e),
+      draggable: true,
+      editable: true,
+    });
+    if (_.isEmpty(newElement.id)) {
+      newElement.id = getUniqueId();
+    }
+    mimicVar.app.tree.add(newElement);
   }
 }
 
