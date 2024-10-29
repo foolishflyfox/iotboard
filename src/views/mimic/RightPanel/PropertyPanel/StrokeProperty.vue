@@ -9,9 +9,11 @@
       @update:value="updateType"
     />
     <template v-if="type === 'solid'">
-      <ColorProperty label="颜色" :value="color" />
+      <ColorProperty label="颜色" :value="color" @update:value="updateColor" />
     </template>
-    <template v-if="type === 'linear'"> </template>
+    <template v-if="type === 'linear'">
+      <JsonProperty label="渐变配置" help-route-name="LinearGradientDoc" />
+    </template>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
 import type { SelectOption } from 'naive-ui';
 import SelectProperty from './components/SelectProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
+import JsonProperty from './components/JsonProperty.vue';
 import type { IPaintType } from 'leafer-ui';
 
 const options: SelectOption[] = [
@@ -40,7 +43,7 @@ const options: SelectOption[] = [
   },
 ];
 
-defineProps<{
+const props = defineProps<{
   type: IPaintType;
   color?: string;
 }>();
@@ -53,8 +56,16 @@ function updateType(newType: IPaintType) {
   const data: Record<string, any> = { type: newType };
   if (newType === 'solid') {
     data.color = '#000000ff';
+  } else if (newType === 'linear') {
+    data.stops = [
+      { offset: 0, color: '#FF4B4B' },
+      { offset: 1, color: '#FEB027' },
+    ];
   }
   emit('update:value', data);
+}
+function updateColor(newColor: string) {
+  emit('update:value', { type: props.type, color: newColor });
 }
 </script>
 

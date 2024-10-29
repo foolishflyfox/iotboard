@@ -21,6 +21,17 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/doc',
+      name: 'doc',
+      children: [
+        {
+          path: 'LinearGradientDoc',
+          name: 'LinearGradientDoc',
+          component: () => import('../views/docs/LinearGradientDoc.vue'),
+        },
+      ],
+    },
   ],
 });
 
