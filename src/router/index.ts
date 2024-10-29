@@ -26,9 +26,9 @@ const router = createRouter({
       name: 'doc',
       children: [
         {
-          path: 'LinearGradientDoc',
-          name: 'LinearGradientDoc',
-          component: () => import('../views/docs/LinearGradientDoc.vue'),
+          path: 'StrokeLinearGradientDoc',
+          name: 'StrokeLinearGradientDoc',
+          component: () => import('../views/docs/StrokeLinearGradientDoc.vue'),
         },
       ],
     },

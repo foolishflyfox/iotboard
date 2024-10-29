@@ -14,7 +14,7 @@
     <template v-if="stroke.type === 'linear'">
       <JsonProperty
         label="渐变配置"
-        help-route-name="LinearGradientDoc"
+        help-route-name="StrokeLinearGradientDoc"
         value="{'x': 1, 'y': 'abc'}"
       />
     </template>
