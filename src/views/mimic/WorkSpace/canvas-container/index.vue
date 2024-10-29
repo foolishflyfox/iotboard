@@ -43,8 +43,6 @@ const dropZoneRef = ref<HTMLElement>();
 useDropZone(dropZoneRef);
 
 function onDrop(e: MouseEvent) {
-  // console.log('onDrop ', v);
-  console.log('onDrop ', mimicVar.draggingCustomMeta);
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
     // const customClass: any = ;
     // const custom: any =
@@ -129,7 +127,6 @@ onMounted(() => {
   });
 
   const myObj = new CustomRect({
-    id: '12332',
     x: 150,
     y: 30,
     width: 80,

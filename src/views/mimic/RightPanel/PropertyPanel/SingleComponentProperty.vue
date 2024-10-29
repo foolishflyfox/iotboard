@@ -1,6 +1,5 @@
 <template>
-  <!-- <div>单文件配置: {{ mimicWorkspaceStatus.selectedUiId }}</div>
-  <div>{{ curAppearancePropertyTypes }}</div> -->
+  <!-- <div>单文件配置: {{ mimicWorkspaceStatus.selectedUiId }}</div> -->
   <div>
     <n-collapse :default-expanded-names="['base', 'custom']">
       <n-collapse-item title="基础" name="base">
