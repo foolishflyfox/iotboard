@@ -1,17 +1,25 @@
 import type { IUI } from 'leafer-ui';
 import { findCurrentSelected } from '@mimic/utils';
 import * as _ from 'lodash-es';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicVar } from '@mimic/global';
 
 export function doContextMenuAction(action: string) {
-  const ui = findCurrentSelected();
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  const curUi = findCurrentSelected();
+
   if (action === 'png' || action === 'jpg') {
-    if (_.isNil(ui)) {
+    if (_.isNil(curUi)) {
       console.error('未选中元素，不允许导出图片');
-    } else if (_.isArray(ui)) {
+    } else if (_.isArray(curUi)) {
       console.error('选中多个元素，不允许导出图片');
     } else {
-      exportImage(ui, action);
+      exportImage(curUi, action);
     }
+  } else if (action === 'delete') {
+    (curUi as IUI).destroy();
+    mimicWorkspaceStatus.selectBaseMap();
+    mimicVar.app?.editor?.cancel();
   }
 }
 

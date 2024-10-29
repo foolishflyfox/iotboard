@@ -1,7 +1,6 @@
 import type { EditorEvent, IUI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
-import type { ShallowRef } from 'vue';
 import { displayBaseMapId } from '@mimic/constant';
 import { isNil } from 'lodash-es';
 
