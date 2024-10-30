@@ -12,6 +12,7 @@
       <ColorProperty label="颜色" :value="strokeColor" @update:value="updateColor" />
     </template>
     <template v-if="stroke.type === 'linear'">
+      <div>变为按钮，弹出编辑框</div>
       <JsonProperty
         label="渐变配置"
         help-route-name="StrokeLinearGradientDoc"
