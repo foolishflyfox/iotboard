@@ -1,6 +1,16 @@
 <template>
   <div class="blog">
-    <h1>线性渐变</h1>
+    <h1>Stroke - 线性渐变</h1>
+    <div class="reference">
+      <div>参考</div>
+      <ul>
+        <li>
+          <a href="https://www.leaferjs.com/ui/reference/property/paint/linear.html">
+            Leafer: LinearGradient
+          </a>
+        </li>
+      </ul>
+    </div>
     <hr />
     <h2>二级标题</h2>
     <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>

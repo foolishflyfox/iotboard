@@ -15,16 +15,16 @@ div.blog {
   }
   h1 {
     font-size: 34px;
-    font-weight: 600;
+    font-weight: 650;
     line-height: 40px;
   }
   h2 {
     font-size: 28px;
-    font-weight: 500;
+    font-weight: 600;
   }
   h3 {
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 550;
   }
   hr {
     color: #eee;
@@ -33,5 +33,28 @@ div.blog {
     font-size: 18px;
     letter-spacing: 1px;
     text-indent: 2em;
+  }
+
+  ul {
+    list-style: circle;
+    margin-left: 1.6em;
+  }
+
+  div {
+    margin-left: 1em;
+    font-size: 16px;
+  }
+  a {
+    color: blue;
+  }
+  a:hover {
+    color: green;
+  }
+  div.reference {
+    background-color: #eee;
+    display: inline-block;
+    padding: 0.6em 3em 0.6em 0.5em;
+    margin-bottom: 1em;
+    border-radius: 10px;
   }
 }
