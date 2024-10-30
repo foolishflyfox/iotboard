@@ -6,7 +6,7 @@
         <QuestionCircle16Filled @click="jumpTo" />
       </n-icon>
     </div>
-    <div class="flex-1 flex justify-end">
+    <div class="flex-1 flex">
       <slot />
     </div>
   </div>
