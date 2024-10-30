@@ -119,6 +119,7 @@ onMounted(() => {
     height: 80,
     draggable: true,
     editable: true,
+    stroke: { type: 'solid', color: '#00bfff' },
   });
 
   app.tree.add(myObj);
