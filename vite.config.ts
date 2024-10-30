@@ -6,6 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { codeInspectorPlugin } from 'code-inspector-plugin';
 import UnoCss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
+import { isCustomElement } from 'leafer-vue/compiler';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,7 +14,13 @@ export default defineConfig({
     port: 5180,
   },
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement,
+        },
+      },
+    }),
     vueJsx(),
     AutoImport({
       imports: [

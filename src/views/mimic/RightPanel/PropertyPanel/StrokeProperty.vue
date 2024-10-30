@@ -15,7 +15,7 @@
       <JsonProperty
         label="渐变配置"
         help-route-name="StrokeLinearGradientDoc"
-        value="{'x': 1, 'y': 'abc'}"
+        :value="JSON.stringify(_.omit(stroke, 'type'), null, 2)"
       />
     </template>
   </div>

@@ -31,24 +31,22 @@ div.blog {
   }
   p {
     font-size: 18px;
-    letter-spacing: 1px;
-    text-indent: 2em;
+    letter-spacing: 0px;
+    text-indent: 1.6em;
   }
-
+  a {
+    color: blue;
+    &:hover {
+      color: green;
+    }
+  }
   ul {
     list-style: circle;
     margin-left: 1.6em;
   }
-
   div {
-    margin-left: 1em;
+    /* margin-left: 1em; */
     font-size: 16px;
-  }
-  a {
-    color: blue;
-  }
-  a:hover {
-    color: green;
   }
   div.reference {
     background-color: #eee;
@@ -56,5 +54,8 @@ div.blog {
     padding: 0.6em 3em 0.6em 0.5em;
     margin-bottom: 1em;
     border-radius: 10px;
+  }
+  code {
+    color: deeppink;
   }
 }

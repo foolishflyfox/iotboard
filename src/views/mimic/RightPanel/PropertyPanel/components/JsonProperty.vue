@@ -2,7 +2,7 @@
   <PropertyContainer :label="label" :route-name="helpRouteName" @keydown.stop>
     <!-- <n-input :value="value" /> -->
     <v-ace-editor
-      v-model:value="testData"
+      v-model:value="innerValue"
       lang="json"
       theme="chrome"
       style="height: 100px; width: 100%"
@@ -12,22 +12,24 @@
 </template>
 
 <script setup lang="ts">
-import { NInput } from 'naive-ui';
 import PropertyContainer from './containers/PropertyContainer.vue';
 import { VAceEditor } from 'vue3-ace-editor';
 import '@mimic/utils/ace-config';
 
-defineProps<{
+const props = defineProps<{
   label?: string;
   value?: string;
   helpRouteName?: string;
 }>();
 
+const innerValue = computed({
+  get: () => props.value as string,
+  set: v => {},
+});
+
 const emit = defineEmits<{
   'update:value': [v: string];
 }>();
-
-const testData = ref('{"x": 1, "y":"abc"}');
 </script>
 
 <style scoped>

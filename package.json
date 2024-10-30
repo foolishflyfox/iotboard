@@ -6,6 +6,7 @@
     "ace-builds": "^1.36.3",
     "leafer-editor": "^1.0.7",
     "leafer-ui": "^1.0.7",
+    "leafer-vue": "^3.1.1",
     "leafer-x-ruler": "^1.0.14",
     "lodash-es": "^4.17.21",
     "pinia": "^2.2.4",

@@ -26,6 +26,9 @@ importers:
       leafer-ui:
         specifier: ^1.0.7
         version: 1.0.7
+      leafer-vue:
+        specifier: ^3.1.1
+        version: 3.1.1(leafer-ui@1.0.7)(typescript@5.5.4)
       leafer-x-ruler:
         specifier: ^1.0.14
         version: 1.0.14
@@ -1904,6 +1907,11 @@ packages:
 
   leafer-ui@1.0.7:
     resolution: {integrity: sha512-Ozl8ovf7hpTmbwx5muX6SCZN5DSRQkXIkx20CYOFYwPzs4ERBTYtpdfWZwMoFm1nkY6q2qemL8c0qpZVF4lJXw==}
+
+  leafer-vue@3.1.1:
+    resolution: {integrity: sha512-zY7cVb0mo1aVy8YHo6DsVHxGY+lB4cKObXbpWoOB5+k9xcbi5jBcAMqPrL07hc1s7Mc/Hvl4NpPeFCVxZwhX3Q==}
+    peerDependencies:
+      leafer-ui: '>= 1.0.2'
 
   leafer-x-ruler@1.0.14:
     resolution: {integrity: sha512-n5VymaIPQbAU0rJTB4x7if3Um/vQJUP/nx6qWDAFROAGVpuJzIv4mdtiE3PY4oXXZQC3xT0HLoNBDWEUdjCE2g==}
@@ -4692,6 +4700,14 @@ snapshots:
       '@leafer/interface': 1.0.7
       '@leafer/partner': 1.0.7
       '@leafer/web': 1.0.7
+
+  leafer-vue@3.1.1(leafer-ui@1.0.7)(typescript@5.5.4):
+    dependencies:
+      '@vue/runtime-core': 3.5.12
+      leafer-ui: 1.0.7
+      vue: 3.5.12(typescript@5.5.4)
+    transitivePeerDependencies:
+      - typescript
 
   leafer-x-ruler@1.0.14:
     dependencies:
