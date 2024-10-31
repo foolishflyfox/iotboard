@@ -46,6 +46,7 @@ hr {
 
 p {
   margin: 1.5em 5px !important;
+  text-indent: 1.6em;
 }
 
 table,
@@ -120,32 +121,31 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 20px 0 10px;
   padding: 0;
   font-style: bold !important;
   color: #328925 !important;
   text-align: left !important;
-  margin: 1em 5px 1em !important;
-  padding: 0.5em 1em !important;
+  margin: 0.5em 5px !important;
+  padding: 0.3em 10px !important;
   font-weight: bold;
 }
 
 h1 {
-  font-size: 24px !important;
+  font-size: 30px !important;
   border-bottom: 1px solid #ddd !important;
 }
 
 h2 {
-  font-size: 20px !important;
+  font-size: 26px !important;
   border-bottom: 1px solid #eee !important;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 h4 {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 table {
