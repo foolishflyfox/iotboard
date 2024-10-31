@@ -12,11 +12,11 @@
       <ColorProperty label="颜色" :value="strokeColor" @update:value="updateColor" />
     </template>
     <template v-if="stroke.type === 'linear'">
-      <div>变为按钮，弹出编辑框</div>
       <JsonProperty
         label="渐变配置"
         help-route-name="StrokeLinearGradientDoc"
         :value="JSON.stringify(_.omit(stroke, 'type'), null, 2)"
+        @update:value="updateLinearCfg"
       />
     </template>
   </div>
@@ -59,6 +59,7 @@ const emit = defineEmits<{
 }>();
 
 function updateType(newType: IPaintType) {
+  if (props.stroke.type === newType) return;
   const data: Record<string, any> = { type: newType };
   if (newType === 'solid') {
     data.color = '#000000ff';
@@ -72,6 +73,10 @@ function updateType(newType: IPaintType) {
 }
 function updateColor(newColor: string) {
   emit('update:value', { type: props.stroke.type, color: newColor });
+}
+function updateLinearCfg(newCfg: string) {
+  console.log('newCfg =', newCfg);
+  emit('update:value', { type: props.stroke.type, ...JSON.parse(newCfg) });
 }
 </script>
 
