@@ -221,14 +221,34 @@
       <VCodeBlock :code="JSON.stringify(demo4Cfg)" highlightjs lang="json" theme="atom-one-dark" />
     </div>
 
-    <h3>三级标题</h3>
-    <VCodeBlock
-      :code="code"
-      highlightjs
-      label="Hello World"
-      lang="javascript"
-      theme="atom-one-dark"
-    />
+    <h3>Stops</h3>
+    <p>渐变色标数组。 如果设置纯字符串颜色的数组，将会自动计算 offset。</p>
+    <h4>纯字符串颜色</h4>
+    <p>下面的例子演示了当Stops 为纯字符串颜色时的效果。</p>
+    <div class="m-0.5em p-0.5em rounded-1 border-[#aaa] border-1">
+      <LeaferApp :height="120" type="block">
+        <Leafer>
+          <Rect
+            :width="300"
+            :height
+            :cornerRadius
+            :strokeWidth
+            :stroke="{ type: 'linear', ...demo5Cfg }"
+          />
+        </Leafer>
+      </LeaferApp>
+      <div class="my-10px flex">
+        <span class="mr-10px">颜色列表:</span>
+        <n-dynamic-tags
+          :value="demo5Cfg.stops"
+          :render-tag="demo5RenderTag"
+          @update:value="demo5AddColor"
+        />
+      </div>
+      <VCodeBlock :code="JSON.stringify(demo5Cfg)" highlightjs lang="json" theme="atom-one-dark" />
+    </div>
+    <h4>带offset的色标数组</h4>
+    <p>todo</p>
   </div>
 </template>
 
@@ -236,7 +256,9 @@
 import VCodeBlock from '@wdns/vue-code-block';
 import { Leafer, Rect, type IAlign } from 'leafer-ui';
 import { LeaferApp } from 'leafer-vue';
-import { NSelect, NInputNumber } from 'naive-ui';
+import { NSelect, NInputNumber, NDynamicTags, NTag, NColorPicker } from 'naive-ui';
+import { h } from 'vue';
+import * as _ from 'lodash-es';
 
 const width = 100;
 const height = 100;
@@ -250,8 +272,6 @@ const defaultCfg = {
   cornerRadius,
   stroke: 'black',
 };
-
-const code = ref(`const foo = 'bar';`);
 
 const aligns: IAlign[] = [
   'top-left',
@@ -278,6 +298,30 @@ const demo4Cfg = reactive<any>({
   to: { type: 'percent', x: 1, y: 1 },
   stops: ['#ff0000', '#00ff00'],
 });
+const demo5Cfg = reactive<any>({
+  from: { type: 'percent', x: 0, y: 0 },
+  to: { type: 'percent', x: 1, y: 0 },
+  stops: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#00ffff', '#0000ff', '#800080'],
+});
+const demo5RenderTag = (tag: string, index: number) => {
+  return h(
+    NTag,
+    {
+      color: { color: tag, textColor: 'black' },
+      closable: true,
+      onClose: () => {
+        _.pullAt(demo5Cfg.stops, index);
+        demo5Cfg.stops = [...demo5Cfg.stops];
+      },
+    },
+    {
+      default: () => tag,
+    },
+  );
+};
+const demo5AddColor = (v: string[]) => {
+  demo5Cfg.stops = [...v];
+};
 
 onMounted(() => {
   const type = 'linear';
