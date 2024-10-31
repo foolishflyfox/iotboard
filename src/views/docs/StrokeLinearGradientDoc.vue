@@ -1,11 +1,14 @@
 <template>
-  <div class="blog">
+  <div class="doc-wrapper">
     <h1>Stroke - 线性渐变</h1>
     <div class="reference">
-      <div>参考</div>
+      <div>参考:</div>
       <ul>
         <li>
-          <a href="https://www.leaferjs.com/ui/reference/property/paint/linear.html">
+          <a
+            href="https://www.leaferjs.com/ui/reference/property/paint/linear.html"
+            target="_blank"
+          >
             Leafer: LinearGradient
           </a>
         </li>
@@ -30,7 +33,7 @@
       。下面的例子演示了这两个属性的使用。
     </p>
     <div class="m-0.5em p-0.5em rounded-1 border-[#aaa] border-1">
-      <LeaferApp :height="120" type="draw">
+      <LeaferApp :height="120" type="block">
         <Leafer>
           <Rect
             :width
@@ -45,7 +48,7 @@
         <div class="flex">
           <div class=""><span class="font-bold">from:</span></div>
           <n-select
-            class="w-8em ml-5px"
+            class="w-10em ml-5px"
             size="small"
             :options="alignOptions"
             placeholder="起始点位置"
@@ -55,7 +58,7 @@
         <div class="flex ml-2em">
           <div class=""><span class="font-bold">to:</span></div>
           <n-select
-            class="w-8em ml-5px"
+            class="w-10em ml-5px"
             size="small"
             :options="alignOptions"
             placeholder="结束点位置"
@@ -114,7 +117,7 @@ const demo2Cfg = reactive<any>({ from: 'top', to: 'bottom', stops: ['#ff0000', '
 
 onMounted(() => {
   const type = 'linear';
-  const demo1 = new Leafer({ view: 'demo1', type: 'draw' });
+  const demo1 = new Leafer({ view: 'demo1', type: 'block' });
   const gap = 150;
   demo1.add(
     new Rect({

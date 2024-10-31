@@ -1,61 +1,216 @@
-div.blog {
-  width: 60%;
-  height: 100%;
+.doc-wrapper {
+  font-size: 16px;
+  line-height: 1.8em;
+  letter-spacing: 0.1em;
+  width: 70%;
+  min-width: 900px;
+  padding: 0 0.5em 1em 0.5em;
   margin: 0 auto;
+}
+
+pre {
+  font-size: 15px;
+  line-height: 1.4em;
+  display: block !important;
+}
+
+/* 代码片断 */
+pre,
+code,
+pre tt {
+  font-family: Courier, 'Courier New', monospace;
+}
+
+code {
+  background: rgba(135, 131, 120, 0.15);
+  color: #eb5757;
+  border-radius: 4px;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+}
+
+strong,
+b {
+  color: #bf360c;
+}
+
+em,
+i {
+  color: #009688;
+}
+
+hr {
+  border: 1px solid #bf360c;
+  margin: 1.5em auto;
+}
+
+p {
+  margin: 1.5em 5px !important;
+}
+
+table,
+pre,
+dl,
+blockquote,
+q,
+ul,
+ol {
+  margin: 10px 5px;
+}
+
+ul,
+ol {
+  padding-left: 15px;
+}
+
+li {
+  margin: 10px;
+}
+
+li p {
+  margin: 10px 0 !important;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin: 0;
+  padding-left: 10px;
+}
+
+ul {
+  list-style-type: circle;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+dl dd {
+  margin: 0 0 10px;
+  padding: 0 10px;
+}
+
+blockquote,
+q {
+  border-left: 2px solid #009688;
+  padding: 0 10px;
+  color: #777;
+  quotes: none;
+  margin-left: 1em;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-style: bold !important;
+  color: #009688 !important;
+  text-align: center !important;
+  margin: 1em 5px 1em !important;
+  padding: 0.5em 1em !important;
+}
+
+h1 {
+  font-size: 24px !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+h2 {
+  font-size: 20px !important;
+  border-bottom: 1px solid #eee !important;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+table {
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 1em;
+  font: inherit;
+  border: 0;
+  margin: 0 auto;
+}
+
+tbody {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+table tr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+table tr th,
+table tr td {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  margin: 0;
   padding: 5px 10px;
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    margin: 6px 0 8px 12px;
-    letter-spacing: -0.02em;
-  }
-  h1 {
-    font-size: 34px;
-    font-weight: 650;
-    line-height: 40px;
-  }
-  h2 {
-    font-size: 28px;
-    font-weight: 600;
-  }
-  h3 {
-    font-size: 22px;
-    font-weight: 550;
-  }
-  hr {
-    color: #eee;
-  }
-  p {
-    font-size: 18px;
-    letter-spacing: 0px;
-    text-indent: 1.6em;
-  }
-  a {
-    color: blue;
-    &:hover {
-      color: green;
-    }
-  }
-  ul {
-    list-style: circle;
-    margin-left: 1.6em;
-  }
-  div {
-    /* margin-left: 1em; */
-    font-size: 16px;
-  }
-  div.reference {
-    background-color: #eee;
-    display: inline-block;
-    padding: 0.6em 3em 0.6em 0.5em;
-    margin-bottom: 1em;
-    border-radius: 10px;
-  }
-  code {
-    color: deeppink;
-  }
+}
+
+table tr th {
+  font-weight: bold;
+  color: #eee;
+  border: 1px solid #009688;
+  background-color: #009688;
+}
+
+/* 让链接在 hover 状态下显示下划线 */
+a {
+  color: #1abc9c;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#write a {
+  border-bottom: 1px solid #1abc9c;
+}
+
+#write a:hover {
+  border-bottom-color: #555;
+  color: #555;
+  text-decoration: none;
+}
+
+/* 默认不显示下划线，保持页面简洁 */
+ins,
+a {
+  text-decoration: none;
 }
