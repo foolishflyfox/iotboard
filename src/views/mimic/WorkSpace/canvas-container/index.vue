@@ -173,6 +173,7 @@ onMounted(() => {
     editable: true,
   });
   app.tree.add(gauge);
+  (window as any).gauge = gauge;
   // console.log('XXX', gauge.toJSON());
   // console.log(app.toJSON());
 });

@@ -17,22 +17,12 @@ interface ICustomGaugeInputData extends IUIInputData, CustomData {}
 interface ICustomGaugeData extends IUIData, CustomData {}
 
 class CustomGaugeData extends UIData implements ICustomGaugeData {
-  protected _min?: string;
-  protected _max?: string;
-  protected _unit?: string;
-  protected _value?: string;
-  protected setMin(v: string) {
-    this._min = v;
-  }
-  protected setMax(v: string) {
-    this._max = v;
-  }
-  protected setUnit(v: string) {
-    this._unit = v;
-  }
-  protected setValue(v: string) {
-    this._value = v;
-  }
+  // 如果需要自定义设置 value 时的逻辑，需要 定义 _xxx，并重新实现 setXxx
+  // protected _value?: string;
+  // protected setValue(v: string) {
+  //   console.log('@@@ setValue');
+  //   this._value = v;
+  // }
 }
 
 // 定义类
