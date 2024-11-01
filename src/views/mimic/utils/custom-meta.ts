@@ -45,6 +45,11 @@ const defaultMeta = {
   label: '',
 };
 
+/**
+ * 创建自定义组件元信息
+ * @param label 选择时用户看到的组件名
+ * @param category 组件所属类，用于侧边栏分类显示
+ */
 function createMeta(label: string, category: CustomCategory, component?: typeof UI): CustomMeta {
   return new CustomMeta({ ...defaultMeta, label, category, component });
 }
