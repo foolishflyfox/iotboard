@@ -16,14 +16,16 @@
             {{ componentCategories[nm as CustomCategory] }}
           </div>
         </template>
-        <MimicComponentItem v-for="c of groups[nm]" :custom-meta="c" />
+        <n-space>
+          <MimicComponentItem v-for="c of groups[nm]" :custom-meta="c" />
+        </n-space>
       </n-collapse-item>
     </n-collapse>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NCollapse, NCollapseItem, NIcon, NInput } from 'naive-ui';
+import { NCollapse, NCollapseItem, NIcon, NInput, NSpace } from 'naive-ui';
 import { Search } from '@vicons/ionicons5';
 import {
   componentCategories,
