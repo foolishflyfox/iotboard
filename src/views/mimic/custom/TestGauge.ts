@@ -19,11 +19,22 @@ interface ITestGaugeData extends IUIData, TestData {}
 class TestGaugeData extends UIData implements ITestGaugeData {
   // 如果需要自定义设置 value 时的逻辑，需要 定义 _xxx，并重新实现 setXxx
   // protected _value?: string;
-  // protected setValue(v: string) {
-  //   console.log('@@@ setValue');
-  //   this._value = v;
-  // }
+  protected setValue(v: string) {
+    console.log('@@@ setValue');
+    (this as any)._value = v;
+  }
 }
+
+// function foo(processor: any): (target: any, _key?: string) => void {
+//   return () => {
+//     console.log('YYY');
+//   };
+// }
+// function foo() {
+//   return (target: any, _key?: string) => {
+//     console.log('xxx');
+//   };
+// }
 
 // 定义类
 @registerUI()
@@ -39,9 +50,10 @@ export class TestGauge extends UI {
   }
 
   @dataProcessor(TestGaugeData)
+  // @foo()
   public declare __: ITestGaugeData;
 
-  @boundsType('0')
+  // @boundsType('0')
   public declare min: string;
 
   @boundsType('300')
@@ -263,3 +275,9 @@ export class TestGauge extends UI {
     ctx.fillText(unit, cx, cy + 40);
   }
 }
+
+// registerUI()(TestGauge);
+// dataProcessor(TestGaugeData)(TestGauge.prototype, '__');
+console.log('@@@111', TestGauge);
+console.log('@@@222', TestGauge.prototype);
+boundsType('30')(TestGauge.prototype, 'min');

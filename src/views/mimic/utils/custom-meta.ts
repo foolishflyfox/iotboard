@@ -1,7 +1,7 @@
 import type { UI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { UICreator } from 'leafer-ui';
-import type { AppearancePropertyType } from '../types';
+import type { AppearanceType } from '../types';
 
 /** 自定义组件分组 */
 export const componentCategories = {
@@ -24,7 +24,7 @@ export class CustomMeta {
     return this._component!;
   }
   get appearancePropertyTypes() {
-    return (this.component as any).appearancePropertyTypes as AppearancePropertyType[];
+    return (this.component as any).appearancePropertyTypes as AppearanceType[];
   }
 
   constructor(info: {

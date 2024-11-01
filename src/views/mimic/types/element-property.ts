@@ -76,7 +76,7 @@ export interface CustomPropertyMeta {
 }
 
 // 通用属性定义
-export const allCommonAppearancePropertyType = [
+export const allCommonAppearanceType = [
   'x',
   'y',
   'width',
@@ -86,12 +86,10 @@ export const allCommonAppearancePropertyType = [
   'strokeWidth',
 ] as const;
 
-export type AppearancePropertyType = (typeof allCommonAppearancePropertyType)[number];
+export type AppearanceType = (typeof allCommonAppearanceType)[number];
 
-export function getCommonAppearancePropertyTypes(
-  exclude?: AppearancePropertyType[],
-): AppearancePropertyType[] {
-  const result = [...allCommonAppearancePropertyType].filter(k => !(exclude || []).includes(k));
+export function getCommonAppearancePropertyTypes(exclude?: AppearanceType[]): AppearanceType[] {
+  const result = [...allCommonAppearanceType].filter(k => !(exclude || []).includes(k));
   return result;
 }
 // export const commonAppearancePropertyUis: Record<

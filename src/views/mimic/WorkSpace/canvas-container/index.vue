@@ -14,7 +14,7 @@ import { Rect, App, EditorEvent, ResizeEvent, PropertyEvent, KeyEvent } from 'le
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
-import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
+import { Custom, CustomRect, CustomPen, CustomGauge, TestGauge } from '@mimic/custom';
 import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
@@ -164,7 +164,7 @@ onMounted(() => {
     editable: true,
   });
 
-  const gauge = new CustomGauge({
+  const gauge = new TestGauge({
     x: 50,
     y: 20,
     width: 80,
