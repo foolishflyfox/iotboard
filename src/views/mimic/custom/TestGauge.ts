@@ -1,100 +1,48 @@
-import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
-import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
-import { autoId } from '@mimic/decorates';
-import { customMetas } from '@mimic/utils';
-import { getCommonAppearancePropertyTypes } from '../types';
+import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
+import { uiGenerateCustom, type UiCustomCfg } from '@mimic/utils/custom-generator';
 
-// 定义数据
-interface TestData {
-  min?: string;
-  max?: string;
-  unit?: string;
-  value?: string;
-}
-
-interface ITestGaugeInputData extends IUIInputData, TestData {}
-
-interface ITestGaugeData extends IUIData, TestData {}
-
-class TestGaugeData extends UIData implements ITestGaugeData {
-  // 如果需要自定义设置 value 时的逻辑，需要 定义 _xxx，并重新实现 setXxx
-  // protected _value?: string;
-  protected setValue(v: string) {
-    console.log('@@@ setValue');
-    (this as any)._value = v;
-  }
-}
-
-// function foo(processor: any): (target: any, _key?: string) => void {
-//   return () => {
-//     console.log('YYY');
-//   };
-// }
-// function foo() {
-//   return (target: any, _key?: string) => {
-//     console.log('xxx');
-//   };
-// }
-
-// 定义类
-@registerUI()
-@autoId()
-export class TestGauge extends UI {
-  static appearancePropertyTypes = getCommonAppearancePropertyTypes([
-    'fill',
-    'stroke',
-    'strokeWidth',
-  ]);
-  public get __tag() {
-    return customMetas.testGauge.name;
-  }
-
-  @dataProcessor(TestGaugeData)
-  // @foo()
-  public declare __: ITestGaugeData;
-
-  // @boundsType('0')
-  public declare min: string;
-
-  @boundsType('300')
-  public declare max: string;
-
-  @boundsType('30')
-  public declare value: string;
-
-  @boundsType('km/h')
-  public declare unit: string;
-
-  constructor(data: ITestGaugeInputData) {
-    data.width = data.width ?? 80;
-    data.height = data.height ?? 80;
-    super(data);
-  }
-
-  // 1. 如果通过width、height属性无法确定图形 bounds，需要重写此函数手动计算bounds
-  __updateBoxBounds(): void {
-    const box = this.__layout.boxBounds;
-    const { width, height } = this.__;
+const cfg: UiCustomCfg = {
+  tag: 'testGauge',
+  customPropertyCfgs: {
+    value: {
+      setter: function (v: string) {
+        console.log('@@@### setValue');
+        (this as any)._value = v;
+      },
+      defaultValue: 66,
+    },
+    min: {
+      defaultValue: 11,
+    },
+    max: {
+      defaultValue: 100,
+    },
+    unit: { defaultValue: 'km/h' },
+  },
+  excludeAppearances: ['fill', 'stroke', 'strokeWidth'],
+  defaultAppearanceValues: {
+    width: 80,
+    height: 80,
+  },
+  updateBoxBounds: function () {
+    const box = (this as any).__layout.boxBounds;
+    const { width, height } = (this as any).__;
     box.x = 0;
     box.y = 0;
     box.width = width!;
     box.height = height!;
-  }
-
-  // 2. 绘制碰撞路径
-  __drawHitPath(hitCanvas: ILeaferCanvas): void {
+  },
+  drawHitPath: function (hitCanvas: ILeaferCanvas) {
     const { context } = hitCanvas;
-    const { width, height } = this.__layout.boxBounds;
+    const { width, height } = (this as any).__layout.boxBounds;
     context.save();
     context.scale(width! / 400, height! / 400);
     context.beginPath();
     context.arc(200, 200, 200 * 0.95, 0, Math.PI * 2);
     context.restore();
-  }
-
-  // 3. 碰撞检测(可选), 不重写此方法时，需要元素有fill或stroke值。
-  __hit(inner: IRadiusPointData): boolean {
-    const { context } = this.__hitCanvas!;
+  },
+  hit: function (inner: IRadiusPointData) {
+    const { context } = (this as any).__hitCanvas!;
     if (context.isPointInPath(inner.x, inner.y)) return true;
 
     // 碰撞半径
@@ -105,13 +53,11 @@ export class TestGauge extends UI {
     }
 
     return context.isPointInStroke(inner.x, inner.y);
-  }
-
-  // 4. 绘制自定义内容
-  __draw(canvas: ILeaferCanvas): void {
+  },
+  draw: function (canvas: ILeaferCanvas) {
     const ctx = canvas!.context;
     // const ctx = this.__hitCanvas?.context!;
-    const obj = this.__;
+    const obj = (this as any).__;
     // const x = obj.x!;
     // const y = obj.y!;
     // this.scaleX = obj.width! / 400;
@@ -123,7 +69,7 @@ export class TestGauge extends UI {
     const height = 400;
     const side = Math.min(width, height);
 
-    canvas.setStrokeOptions(this.__); // 绘制描边前，需要设置一下描边选项（可选）。
+    canvas.setStrokeOptions((this as any).__); // 绘制描边前，需要设置一下描边选项（可选）。
     const cx = x + width / 2;
     const cy = y + height / 2;
 
@@ -152,11 +98,11 @@ export class TestGauge extends UI {
     ctx.stroke();
 
     // 外环数值进度
-    const valComp = Number(this.value);
+    const valComp = Number((this as any).value);
     const val = isNaN(valComp) ? 0 : valComp;
-    const unit = this.unit;
-    const max = Number(this.max);
-    const min = Number(this.min);
+    const unit = (this as any).unit;
+    const max = Number((this as any).max);
+    const min = Number((this as any).min);
 
     ctx.beginPath();
     ctx.lineWidth = 40;
@@ -210,7 +156,7 @@ export class TestGauge extends UI {
     ctx.stroke();
 
     // 量程范围文字
-    ctx.font = '20px Arial';
+    ctx.font = '24px Arial';
     const max_x = cx + Math.cos((4 * 18 * Math.PI) / 180) * (r_out + 24);
     const max_y = cy + Math.sin((4 * 18 * Math.PI) / 180) * (r_out + 24);
     ctx.fillText(max.toString(), max_x, max_y - 2);
@@ -273,11 +219,9 @@ export class TestGauge extends UI {
     ctx.font = '60px Arial bolder';
     ctx.fillText(valComp.toString(), cx, cy - 20);
     ctx.fillText(unit, cx, cy + 40);
-  }
-}
+  },
+};
 
-// registerUI()(TestGauge);
-// dataProcessor(TestGaugeData)(TestGauge.prototype, '__');
-console.log('@@@111', TestGauge);
-console.log('@@@222', TestGauge.prototype);
-boundsType('30')(TestGauge.prototype, 'min');
+uiGenerateCustom(cfg);
+
+//////////////

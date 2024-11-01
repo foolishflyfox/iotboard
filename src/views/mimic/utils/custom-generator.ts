@@ -32,7 +32,7 @@ export interface UiCustomCfg {
   /** 不希望编辑器用户修改的外观属性 */
   excludeAppearances?: AppearanceType[];
   /** 外观初始化值 */
-  defaultAppearanceValues?: Record<AppearanceType, any>;
+  defaultAppearanceValues?: { [k in AppearanceType]?: any };
   // 如果通过width、height属性无法确定图形 bounds，则定义该函数
   updateBoxBounds?: () => void;
   // 绘制碰撞路径
