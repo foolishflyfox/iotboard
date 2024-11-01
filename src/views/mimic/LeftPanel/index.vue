@@ -38,6 +38,15 @@
           </template>
           <DisplayContent />
         </n-tab-pane>
+        <n-tab-pane name="module">
+          <template #tab>
+            <div>
+              <n-icon size="26" :component="GroupObjects" />
+              <div>模块</div>
+            </div>
+          </template>
+          <ModuleContent />
+        </n-tab-pane>
         <n-tab-pane name="component">
           <template #tab>
             <div>
@@ -65,11 +74,13 @@
 import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 // import MimicLeftPanelHead from './MimicLeftPanelHead.vue';
 import DisplayContent from './DisplayContent.vue';
+import ModuleContent from './ModuleContent.vue';
 import MimicComponent from './MimicComponent.vue';
 import ResourceContent from './ResourceContent.vue';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import { Components, ChevronsLeft, ChevronsRight } from '@vicons/tabler';
 import { ImagesOutline } from '@vicons/ionicons5';
+import { GroupObjects } from '@vicons/carbon';
 import { leftPanel } from '@/views/mimic/settings';
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

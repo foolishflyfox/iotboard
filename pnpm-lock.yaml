@@ -63,6 +63,9 @@ importers:
       '@unocss/preset-uno':
         specifier: ^0.63.6
         version: 0.63.6
+      '@vicons/carbon':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vicons/fluent':
         specifier: ^0.12.0
         version: 0.12.0
@@ -1111,6 +1114,9 @@ packages:
     resolution: {integrity: sha512-gxK3gtvYQH5S/qtuvsY4M0S+KJPZnYrOQI/Gopufx+b2qgmwZ/TSAe66gWeKYfe3DfQsmA3PPh/GXpkK+/FnHg==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
+
+  '@vicons/carbon@0.12.0':
+    resolution: {integrity: sha512-kCOgr/ZOhZzoiFLJ8pwxMa2TMxrkCUOA22qExPabus35F4+USqzcsxaPoYtqRd9ROOYiHrSqwapak/ywF0D9bg==}
 
   '@vicons/fluent@0.12.0':
     resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
@@ -3768,6 +3774,8 @@ snapshots:
       - rollup
       - supports-color
       - typescript
+
+  '@vicons/carbon@0.12.0': {}
 
   '@vicons/fluent@0.12.0': {}
 
