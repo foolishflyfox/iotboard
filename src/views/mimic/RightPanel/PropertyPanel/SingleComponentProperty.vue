@@ -1,6 +1,7 @@
 <template>
   <!-- <div>单文件配置: {{ mimicWorkspaceStatus.selectedUiId }}</div> -->
   <div>
+    <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div>
     <n-collapse :default-expanded-names="['base', 'custom']">
       <n-collapse-item title="基础" name="base">
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
@@ -39,6 +40,7 @@ import type { IPaint, IPaintType } from 'leafer-ui';
 // const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const curElementProxyData = useCurElementProxyData();
+const curElementLabel = computed(() => customMetas[curElementProxyData.value?.tag || '']?.label);
 const curAppearancePropertyTypes = computed(
   () => customMetas[curElementProxyData.value?.tag || '']?.appearancePropertyTypes,
 );

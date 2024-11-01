@@ -59,6 +59,7 @@ export const customMetas: Record<string, CustomMeta> = {
   customRect: createMeta('矩形', 'base'),
   // 工业组件类
   customGauge: createMeta('仪表盘', 'industry'),
+  testGauge: createMeta('测试', 'industry'),
 };
 
 (function initCustomMetas() {
