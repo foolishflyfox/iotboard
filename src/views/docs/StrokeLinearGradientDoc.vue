@@ -248,7 +248,25 @@
       <VCodeBlock :code="JSON.stringify(demo5Cfg)" highlightjs lang="json" theme="atom-one-dark" />
     </div>
     <h4>带offset的色标数组</h4>
-    <p>todo</p>
+    <p>下面的例子演示了 Stops 元素中 offset 的使用方法。</p>
+    <div class="m-0.5em p-0.5em rounded-1 border-[#aaa] border-1">
+      <LeaferApp :height="120" type="block">
+        <Leafer>
+          <Rect
+            :width="300"
+            :height
+            :cornerRadius
+            :strokeWidth
+            :stroke="{ type: 'linear', ...demo6Cfg }"
+          />
+        </Leafer>
+      </LeaferApp>
+      <div class="my-10px flex-y-center">
+        <span class="mr-10px">offset:</span>
+        <n-slider :step="0.01" class="w-300px" :min="0" :max="1" v-model:value="demo6Offset" />
+      </div>
+      <VCodeBlock :code="JSON.stringify(demo6Cfg)" highlightjs lang="json" theme="atom-one-dark" />
+    </div>
   </div>
 </template>
 
@@ -256,7 +274,7 @@
 import VCodeBlock from '@wdns/vue-code-block';
 import { Leafer, Rect, type IAlign } from 'leafer-ui';
 import { LeaferApp } from 'leafer-vue';
-import { NSelect, NInputNumber, NDynamicTags, NTag, NColorPicker } from 'naive-ui';
+import { NSelect, NInputNumber, NDynamicTags, NTag, NSlider, NSpace } from 'naive-ui';
 import { h } from 'vue';
 import * as _ from 'lodash-es';
 
@@ -322,6 +340,16 @@ const demo5RenderTag = (tag: string, index: number) => {
 const demo5AddColor = (v: string[]) => {
   demo5Cfg.stops = [...v];
 };
+
+const demo6Offset = ref(0.5);
+const getDemo6Stops = () => ['#ff0000', { offset: demo6Offset.value, color: '#00ff00' }, '#0000ff'];
+const demo6Cfg = reactive<any>({
+  from: 'left',
+  to: 'right',
+});
+watchEffect(() => {
+  demo6Cfg.stops = getDemo6Stops();
+});
 
 onMounted(() => {
   const type = 'linear';
