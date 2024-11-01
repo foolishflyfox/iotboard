@@ -32,6 +32,9 @@ importers:
       leafer-x-ruler:
         specifier: ^1.0.14
         version: 1.0.14
+      loadjs:
+        specifier: ^4.3.0
+        version: 4.3.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -54,6 +57,9 @@ importers:
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
+      '@types/loadjs':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -962,6 +968,9 @@ packages:
 
   '@types/katex@0.16.7':
     resolution: {integrity: sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==}
+
+  '@types/loadjs@4.0.4':
+    resolution: {integrity: sha512-IrO82vQKb37H9R+CJYoKTJBlMcIcSCA64ZPIBrLScH2vHMgXLnXtLc76PyKKzdbkj/lRLIhoH+fFAZ0UvIP5Dw==}
 
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
@@ -1929,6 +1938,9 @@ packages:
   load-tsconfig@0.2.5:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  loadjs@4.3.0:
+    resolution: {integrity: sha512-vNX4ZZLJBeDEOBvdr2v/F+0aN5oMuPu7JTqrMwp+DtgK+AryOlpy6Xtm2/HpNr+azEa828oQjOtWsB6iDtSfSQ==}
 
   local-pkg@0.5.0:
     resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
@@ -3529,6 +3541,8 @@ snapshots:
 
   '@types/katex@0.16.7': {}
 
+  '@types/loadjs@4.0.4': {}
+
   '@types/lodash-es@4.17.12':
     dependencies:
       '@types/lodash': 4.17.12
@@ -4729,6 +4743,8 @@ snapshots:
       type-check: 0.4.0
 
   load-tsconfig@0.2.5: {}
+
+  loadjs@4.3.0: {}
 
   local-pkg@0.5.0:
     dependencies:

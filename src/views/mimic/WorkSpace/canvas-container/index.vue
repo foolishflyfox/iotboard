@@ -23,6 +23,20 @@ import { getUniqueId } from '@/utils';
 import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
+import loadjs from 'loadjs';
+
+const loadScript = () => {
+  loadjs('/mytest.js', {
+    success: () => {
+      console.log('script load success');
+    },
+    error: () => {
+      console.log('script load fail');
+    },
+  });
+};
+
+loadScript();
 
 defineOptions({
   name: 'CanvasContainer',
