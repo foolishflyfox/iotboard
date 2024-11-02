@@ -17,7 +17,7 @@
           </div>
         </template>
         <n-space>
-          <ElementItem v-for="e of elementCategories[nm].elements" :label="e.label" :tag="e.tag" />
+          <ElementItem v-for="e of elementCategories[nm].elements" v-bind="e" />
         </n-space>
       </n-collapse-item>
     </n-collapse>

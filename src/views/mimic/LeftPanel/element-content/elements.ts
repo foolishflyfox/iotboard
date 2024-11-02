@@ -8,14 +8,9 @@ type ElementCategories = Record<
   }
 >;
 
-export const elementCategories: ElementCategories = {
-  base: {
-    label: '基础',
-    elements: [
-      {
-        tag: 'rect',
-        label: '矩形',
-      },
-    ],
-  },
+const baseElements: Omit<CustomDragIcon, 'type'>[] = [{ name: 'rect', label: '矩形' }];
+export const elementCategories: ElementCategories = {};
+elementCategories.base = {
+  label: '基础',
+  elements: baseElements.map(e => ({ type: 'element', ...e })),
 };

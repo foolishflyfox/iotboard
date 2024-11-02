@@ -2,7 +2,6 @@
   <div class="inline-block bg-[#fff8] rounded-lg">
     <img
       :src="`${componentPath}/${customMeta.name}.png`"
-      preview-disabled
       width="42"
       class="cursor-grab p-4px"
       @dragstart="startDragHandler"

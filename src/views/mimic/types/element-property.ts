@@ -103,6 +103,7 @@ export interface BaseCustomCfg {
 }
 
 export interface CustomDragIcon {
-  tag: string;
+  type: string;
+  name: string;
   label: string;
 }
