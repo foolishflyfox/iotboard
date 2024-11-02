@@ -33,7 +33,7 @@
           <template #tab>
             <div>
               <n-icon size="26" :component="AppGeneric24Filled" />
-              <div>图 纸</div>
+              <div>图纸</div>
             </div>
           </template>
           <DisplayContent />
@@ -51,7 +51,7 @@
           <template #tab>
             <div>
               <n-icon size="26" :component="Components" />
-              <div>组 件</div>
+              <div>组件</div>
             </div>
           </template>
           <MimicComponent />

@@ -2,7 +2,7 @@
   <div
     class="bg-white flex-1"
     id="mimicCanvasContainer"
-    ref="dropZoneRef"
+    ref="displayEditorWorkspace"
     @contextmenu="contextMenuRef?.onContextMenuClick"
     @drop="onDrop"
   />
@@ -49,9 +49,9 @@ const { rulerVisible } = toRefs(mimicWorkspaceStatus);
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
-const dropZoneRef = ref<HTMLElement>();
+const displayEditorWorkspace = ref<HTMLElement>();
 
-useDropZone(dropZoneRef);
+useDropZone(displayEditorWorkspace);
 
 function onDrop(e: MouseEvent) {
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
