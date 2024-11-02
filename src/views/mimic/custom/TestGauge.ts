@@ -1,5 +1,5 @@
 import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
-import { uiGenerateCustom, type UiCustomCfg } from '@mimic/utils/custom-generator';
+import { customUiGenerate, type UiCustomCfg } from '@mimic/custom/generator/custom-ui';
 
 const cfg: UiCustomCfg = {
   tag: 'testGauge',
@@ -222,6 +222,6 @@ const cfg: UiCustomCfg = {
   },
 };
 
-uiGenerateCustom(cfg);
+customUiGenerate(cfg);
 
 //////////////

@@ -9,7 +9,7 @@ import {
 } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { autoId } from '@mimic/decorates';
-import { getCommonAppearancePropertyTypes, type AppearanceType } from '../types';
+import { getCommonAppearancePropertyTypes, type AppearanceType } from '../../types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {
@@ -42,7 +42,7 @@ export interface UiCustomCfg {
   draw: (canvas: ILeaferCanvas) => void;
 }
 
-export function uiGenerateCustom(uiCustomCfg: UiCustomCfg) {
+export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   class InnerData extends UIData {}
   if (!_.isNil(uiCustomCfg.customPropertyCfgs)) {
     for (const fieldName of _.keys(uiCustomCfg.customPropertyCfgs)) {
