@@ -88,7 +88,7 @@ export const allCommonAppearanceType = [
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];
 
-export function getCommonAppearancePropertyTypes(exclude?: AppearanceType[]): AppearanceType[] {
+export function getCommonAppearanceTypes(exclude?: AppearanceType[]): AppearanceType[] {
   const result = [...allCommonAppearanceType].filter(k => !(exclude || []).includes(k));
   return result;
 }

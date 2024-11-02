@@ -127,6 +127,7 @@ onMounted(() => {
     },
   });
   app.tree.add(displayBaseMap);
+  (window as any).app = app;
 
   const myObj = new CustomRect({
     x: 150,

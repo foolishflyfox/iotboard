@@ -60,6 +60,7 @@ export const customMetas: Record<string, CustomMeta> = {
   // 工业组件类
   customGauge: createMeta('仪表盘', 'industry'),
   testGauge: createMeta('测试', 'industry'),
+  testGroup: createMeta('自定义组', 'industry'),
 };
 
 (function initCustomMetas() {

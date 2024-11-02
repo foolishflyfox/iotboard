@@ -8,7 +8,7 @@ import {
   type IRectInputData,
 } from 'leafer-ui';
 import { customMetas } from '@mimic/utils';
-import { getCommonAppearancePropertyTypes } from '@mimic/types';
+import { getCommonAppearanceTypes } from '@mimic/types';
 import { autoId } from '@mimic/decorates';
 
 // 1. 定义数据接口，需要为输入数据、计算数据定义接口，js 可忽略
@@ -29,7 +29,7 @@ export class CustomRectData extends RectData implements ICustomRectData {}
 @registerUI()
 @autoId()
 export class CustomRect extends Rect {
-  static appearancePropertyTypes = getCommonAppearancePropertyTypes();
+  static appearancePropertyTypes = getCommonAppearanceTypes();
 
   public get __tag() {
     return customMetas.customRect.name;

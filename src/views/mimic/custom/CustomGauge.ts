@@ -2,7 +2,7 @@ import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
 import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import { customMetas } from '@mimic/utils';
-import { getCommonAppearancePropertyTypes } from '../types';
+import { getCommonAppearanceTypes } from '../types';
 
 // 定义数据
 interface CustomData {
@@ -29,11 +29,7 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 @registerUI()
 @autoId()
 export class CustomGauge extends UI {
-  static appearancePropertyTypes = getCommonAppearancePropertyTypes([
-    'fill',
-    'stroke',
-    'strokeWidth',
-  ]);
+  static appearancePropertyTypes = getCommonAppearanceTypes(['fill', 'stroke', 'strokeWidth']);
   public get __tag() {
     return customMetas.customGauge.name;
   }

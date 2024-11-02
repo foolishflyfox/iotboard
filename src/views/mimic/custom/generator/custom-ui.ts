@@ -1,7 +1,9 @@
 import {
-  boundsType,
+  // boundsType,
   dataProcessor,
   registerUI,
+  surfaceType,
+  // dataType,
   UI,
   UIData,
   type ILeaferCanvas,
@@ -9,7 +11,7 @@ import {
 } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { autoId } from '@mimic/decorates';
-import { getCommonAppearancePropertyTypes, type AppearanceType } from '../../types';
+import { getCommonAppearanceTypes, type AppearanceType } from '../../types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {
@@ -57,9 +59,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends UI {
-    static appearancePropertyTypes = getCommonAppearancePropertyTypes(
-      uiCustomCfg.excludeAppearances || [],
-    );
+    static appearancePropertyTypes = getCommonAppearanceTypes(uiCustomCfg.excludeAppearances || []);
     public get __tag() {
       return uiCustomCfg.tag;
     }
@@ -95,7 +95,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
     for (const fieldName of _.keys(uiCustomCfg.customPropertyCfgs)) {
       const defaultValue = uiCustomCfg.customPropertyCfgs[fieldName]?.defaultValue;
       if (defaultValue !== undefined) {
-        boundsType(defaultValue)(InnerCustom.prototype, fieldName);
+        surfaceType(defaultValue)(InnerCustom.prototype, fieldName);
       }
     }
   }
