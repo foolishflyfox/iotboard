@@ -16,7 +16,7 @@ import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
-import { displayBaseMapId } from '@mimic/constant';
+import { displayBaseMapId, rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
 import { getUniqueId } from '@/utils';
@@ -99,12 +99,7 @@ onMounted(() => {
   });
 
   // 添加自定义主题
-  ruler.addTheme('custom1', {
-    backgroundColor: '#fff',
-    textColor: '#000',
-    borderColor: '#000',
-    highlightColor: 'rgba(22,93,255,0.3)',
-  });
+  ruler.addTheme('custom1', rulerTheme);
 
   // 切换主题
   ruler.changeTheme('custom1');

@@ -4,6 +4,11 @@ import type { CustomMeta } from './utils';
 interface MimicVar {
   app?: App;
   draggingCustomMeta?: CustomMeta;
+  componentEditor: {
+    app?: App;
+  };
 }
 
-export const mimicVar: MimicVar = {};
+export const mimicVar: MimicVar = {
+  componentEditor: {},
+};
