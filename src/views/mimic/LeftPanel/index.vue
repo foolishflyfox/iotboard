@@ -56,6 +56,15 @@
           </template>
           <MimicComponent />
         </n-tab-pane>
+        <n-tab-pane name="element">
+          <template #tab>
+            <div>
+              <n-icon size="26" :component="Atom" />
+              <div>元素</div>
+            </div>
+          </template>
+          <ElementContent />
+        </n-tab-pane>
         <n-tab-pane name="resource">
           <template #tab>
             <div>
@@ -76,9 +85,10 @@ import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 import DisplayContent from './DisplayContent.vue';
 import ModuleContent from './ModuleContent.vue';
 import MimicComponent from './MimicComponent.vue';
+import ElementContent from './ElementContent.vue';
 import ResourceContent from './ResourceContent.vue';
 import { AppGeneric24Filled } from '@vicons/fluent';
-import { Components, ChevronsLeft, ChevronsRight } from '@vicons/tabler';
+import { Components, ChevronsLeft, ChevronsRight, Atom } from '@vicons/tabler';
 import { ImagesOutline } from '@vicons/ionicons5';
 import { GroupObjects } from '@vicons/carbon';
 import { leftPanel } from '@/views/mimic/settings';
