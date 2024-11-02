@@ -97,3 +97,12 @@ export function getCommonAppearanceTypes(exclude?: AppearanceType[]): Appearance
 //   CustomAppearancePropertyUi
 // > = {
 // };
+export interface BaseCustomCfg {
+  tag: string;
+  includeAppearances?: AppearanceType[];
+}
+
+export interface CustomDragIcon {
+  tag: string;
+  label: string;
+}

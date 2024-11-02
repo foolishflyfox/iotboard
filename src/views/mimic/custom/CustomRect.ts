@@ -29,7 +29,7 @@ export class CustomRectData extends RectData implements ICustomRectData {}
 @registerUI()
 @autoId()
 export class CustomRect extends Rect {
-  static appearancePropertyTypes = getCommonAppearanceTypes();
+  static appearanceTypes = getCommonAppearanceTypes();
 
   public get __tag() {
     return customMetas.customRect.name;

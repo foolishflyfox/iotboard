@@ -29,7 +29,7 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
 @registerUI()
 @autoId()
 export class CustomGauge extends UI {
-  static appearancePropertyTypes = getCommonAppearanceTypes(['fill', 'stroke', 'strokeWidth']);
+  static appearanceTypes = getCommonAppearanceTypes(['fill', 'stroke', 'strokeWidth']);
   public get __tag() {
     return customMetas.customGauge.name;
   }

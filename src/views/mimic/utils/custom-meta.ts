@@ -23,8 +23,8 @@ export class CustomMeta {
     }
     return this._component!;
   }
-  get appearancePropertyTypes() {
-    return (this.component as any).appearancePropertyTypes as AppearanceType[];
+  get appearanceTypes() {
+    return (this.component as any).appearanceTypes as AppearanceType[];
   }
 
   constructor(info: {

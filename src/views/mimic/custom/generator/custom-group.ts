@@ -1,11 +1,8 @@
 import { dataProcessor, Ellipse, Group, GroupData, Rect, registerUI } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import { getCommonAppearanceTypes, type AppearanceType } from '@mimic/types';
+import { type BaseCustomCfg } from '@mimic/types';
 
-export interface GroupCustomCfg {
-  tag: string;
-  includeAppearances?: AppearanceType[];
-}
+export interface GroupCustomCfg extends BaseCustomCfg {}
 
 export function customGroupGenerate(groupCustomCfg: GroupCustomCfg) {
   class InnerData extends GroupData {}
@@ -13,12 +10,7 @@ export function customGroupGenerate(groupCustomCfg: GroupCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends Group {
-    static appearancePropertyTypes = groupCustomCfg.includeAppearances || [
-      'x',
-      'y',
-      'width',
-      'height',
-    ];
+    static appearanceTypes = groupCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
 
     public get __tag() {
       return groupCustomCfg.tag;

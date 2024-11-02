@@ -32,7 +32,7 @@ export interface UiCustomCfg {
   /** 为自定义属性赋值时执行的自定义操作 */
   customPropertyCfgs?: CustomPropertyCfgs;
   /** 不希望编辑器用户修改的外观属性 */
-  excludeAppearances?: AppearanceType[];
+  includeAppearances?: AppearanceType[];
   /** 外观初始化值 */
   defaultAppearanceValues?: { [k in AppearanceType]?: any };
   // 如果通过width、height属性无法确定图形 bounds，则定义该函数
@@ -59,7 +59,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends UI {
-    static appearancePropertyTypes = getCommonAppearanceTypes(uiCustomCfg.excludeAppearances || []);
+    static appearanceTypes = uiCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
     public get __tag() {
       return uiCustomCfg.tag;
     }

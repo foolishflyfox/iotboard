@@ -85,7 +85,7 @@ import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 import DisplayContent from './DisplayContent.vue';
 import ModuleContent from './ModuleContent.vue';
 import MimicComponent from './MimicComponent.vue';
-import ElementContent from './ElementContent.vue';
+import { ElementContent } from './element-content';
 import ResourceContent from './ResourceContent.vue';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import { Components, ChevronsLeft, ChevronsRight, Atom } from '@vicons/tabler';

@@ -42,7 +42,7 @@ import type { IPaint, IPaintType } from 'leafer-ui';
 const curElementProxyData = useCurElementProxyData();
 const curElementLabel = computed(() => customMetas[curElementProxyData.value?.tag || '']?.label);
 const curAppearancePropertyTypes = computed(
-  () => customMetas[curElementProxyData.value?.tag || '']?.appearancePropertyTypes,
+  () => customMetas[curElementProxyData.value?.tag || '']?.appearanceTypes,
 );
 
 const x = computed({

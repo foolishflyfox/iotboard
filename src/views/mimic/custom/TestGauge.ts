@@ -19,7 +19,7 @@ const cfg: UiCustomCfg = {
     },
     unit: { defaultValue: 'km/h' },
   },
-  excludeAppearances: ['fill', 'stroke', 'strokeWidth'],
+
   defaultAppearanceValues: {
     width: 80,
     height: 80,

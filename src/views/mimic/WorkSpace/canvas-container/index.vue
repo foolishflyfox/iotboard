@@ -100,7 +100,6 @@ onMounted(() => {
 
   // 添加自定义主题
   ruler.addTheme('custom1', rulerTheme);
-
   // 切换主题
   ruler.changeTheme('custom1');
 
