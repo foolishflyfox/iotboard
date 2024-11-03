@@ -4,11 +4,13 @@
 
 <script setup lang="ts">
 import { NDropdown } from 'naive-ui';
-import { mimicVar } from '@mimic/global';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 defineOptions({
   name: 'ComponentEditorContextMenu',
 });
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditor);
 
 const show = ref(false);
 const x = ref(0);
@@ -41,6 +43,13 @@ const options = [
 function onContextMenuClick(event: MouseEvent) {
   console.log('@@@');
   // mimicVar.componentEditor.app?.tree.sele
+  if (selectedUiIds.value.length === 1) {
+    show.value = true;
+  }
+  if (show.value) {
+    x.value = event.x;
+    y.value = event.y;
+  }
 }
 
 defineExpose({

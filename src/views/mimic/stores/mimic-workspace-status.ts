@@ -13,9 +13,9 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
 
   // 模块编辑器相关
   const componentEditor = reactive<{
-    selectedUiId: null | undefined | string | string[];
+    selectedUiIds: string[];
   }>({
-    selectedUiId: undefined,
+    selectedUiIds: [],
   });
 
   // 组件编辑器相关
