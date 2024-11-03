@@ -7,7 +7,7 @@
     :y
     :show
     size="small"
-    :on-clickoutside="hideContextMenu"
+    :on-clickoutside="hideMenu"
     @select="clickContextMenuHandler"
   />
 </template>
@@ -19,13 +19,12 @@ import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';
 import { useTimeout } from '@vueuse/core';
 import { doContextMenuAction } from './context-menu-action';
+import { useContextShowHide } from '@mimic/hooks';
 
 // defineProps<{
 // }>();
 
-const show = ref(false);
-const x = ref(0);
-const y = ref(0);
+const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 function onContextMenuClick(event: MouseEvent) {
@@ -34,7 +33,8 @@ function onContextMenuClick(event: MouseEvent) {
   } else if (mimicWorkspaceStatus.selectedUiId === displayBaseMapId) {
     showNoSelectContextMenu();
   } else if (!_.isEmpty(mimicWorkspaceStatus)) {
-    showSingleSelectContextMenu();
+    /** 选中单个元素的右键菜单 */
+    showMenu(event);
   }
   if (show.value) {
     x.value = event.x;
@@ -42,22 +42,10 @@ function onContextMenuClick(event: MouseEvent) {
   }
 }
 
-/**
- * 设置保持状态，解决从一个选中元素直接右键另一个元素时，菜单消失的情况
- * 产生该问题的原因是上述情况先触发 canvas 的 @contextmenu，再触发 on-clickoutside 事件
- */
 const { ready: canHideContextMenu, start: startForbidHideContextMenu } = useTimeout(100, {
   controls: true,
 });
-function showContextMenu() {
-  show.value = true;
-  startForbidHideContextMenu();
-}
-function hideContextMenu() {
-  if (canHideContextMenu.value) {
-    show.value = false;
-  }
-}
+
 /** 选中多个元素的右键菜单 */
 function showMultiSelectContextMenu() {
   // show.value = true;
@@ -66,14 +54,10 @@ function showMultiSelectContextMenu() {
 function showNoSelectContextMenu() {
   show.value = false;
 }
-/** 选中单个元素的右键菜单 */
-function showSingleSelectContextMenu() {
-  showContextMenu();
-}
 
 function clickContextMenuHandler(action: string) {
   doContextMenuAction(action);
-  hideContextMenu();
+  hideMenu();
 }
 
 const options = [
