@@ -1,5 +1,5 @@
 import { dataProcessor, Rect, RectData, registerUI } from 'leafer-ui';
-import { autoId } from '../../decorates';
+import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
 
 export interface RectCustomCfg extends BaseCustomCfg {}

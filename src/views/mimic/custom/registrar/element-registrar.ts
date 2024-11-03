@@ -1,7 +1,8 @@
-import { customRectGenerate } from '@mimic/custom/generator';
+import { customRectGenerate, customEllipseGenerate } from '@mimic/custom/generator';
 
 export const elementRegistrar: Record<string, () => void> = {
   'element:rect': () => customRectGenerate({ tag: 'element:rect' }),
+  'element:ellipse': () => customEllipseGenerate({ tag: 'element:ellipse' }),
 };
 
 export function registerElement(tag: string) {
