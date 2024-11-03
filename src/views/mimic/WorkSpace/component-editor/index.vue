@@ -20,12 +20,18 @@ import { rulerTheme } from '@mimic/constant';
 import { registerElement } from '@mimic/custom/registrar';
 import ContextMenu from './ContextMenu.vue';
 import { EditorEvent } from 'leafer-editor';
+import { convertToArray } from '@/utils';
 
 const componentEditorWorkspace = ref<HTMLElement>();
 useDropZone(componentEditorWorkspace);
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
+const { selectedUiId } = toRefs(mimicWorkspaceStatus.componentEditor);
+function selectHandler(event: EditorEvent) {
+  selectedUiId.value = convertToArray(event.value).map(e => e.id!);
+}
+
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
 onMounted(() => {
@@ -36,6 +42,7 @@ onMounted(() => {
   });
   mimicVar.componentEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, componentEditorUtils.viewAutoFit);
+  app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;

@@ -1,3 +1,5 @@
+import * as _ from 'lodash-es';
+
 /** 产生唯一的 id */
 export function getUniqueId() {
   const rt = 1000;
@@ -12,4 +14,22 @@ export function isJSON(s: string) {
   } catch (e) {
     return false;
   }
+}
+
+/**
+ * 将参数转换成数组
+ * @param v 单个对象或对象数组
+ * @param excludeNil 是否删除空元素，默认删除
+ */
+export function convertToArray<T>(v: T | T[], excludeNil = true): T[] {
+  let result = [];
+  if (_.isArray(v)) {
+    result = v;
+  } else {
+    result.push(v);
+  }
+  if (excludeNil) {
+    result = result.filter(e => !_.isNil(e));
+  }
+  return result;
 }

@@ -8,12 +8,17 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   const curEditorType = ref<EditorType>('component');
   // 图纸编辑器相关
   // 当前选中的 UI
-  const selectedUiId = ref<null | undefined | string | string[]>(null);
+  const selectedUiId = ref<null | undefined | string | string[]>();
   const selectBaseMap = () => (selectedUiId.value = displayBaseMapId);
 
   // 模块编辑器相关
+  const componentEditor = reactive<{
+    selectedUiId: null | undefined | string | string[];
+  }>({
+    selectedUiId: undefined,
+  });
 
   // 组件编辑器相关
 
-  return { rulerVisible, curEditorType, selectedUiId, selectBaseMap };
+  return { rulerVisible, curEditorType, selectedUiId, selectBaseMap, componentEditor };
 });
