@@ -6,6 +6,7 @@ interface MimicVar {
   draggingCustomMeta?: CustomMeta;
   componentEditor: {
     app?: App;
+    draggingTag?: string;
   };
 }
 

@@ -10,6 +10,7 @@
         }
       "
       :draggable="mimicWorkspaceStatus.curEditorType === 'component'"
+      @dragstart="startDragElement"
     />
     <div class="text-12px text-[#555] font-medium text-center cursor-default">
       {{ label }}
@@ -21,13 +22,16 @@
 import type { CustomDragIcon } from '@mimic/types';
 import { getElementPreview } from '@mimic/utils';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicVar } from '@mimic/global';
 
-interface ElementItemProp extends CustomDragIcon {
-  name: string;
-}
-defineProps<ElementItemProp>();
+interface ElementItemProp extends CustomDragIcon {}
+const props = defineProps<ElementItemProp>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+
+function startDragElement(e: any) {
+  mimicVar.componentEditor.draggingTag = `${props.type}:${props.path}`;
+}
 </script>
 
 <style scoped></style>

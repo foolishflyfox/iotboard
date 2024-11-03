@@ -1,5 +1,10 @@
 <template>
-  <div class="flex-1" id="mimicComponentEditor" ref="componentEditorWorkspace">组件编辑</div>
+  <div
+    class="flex-1"
+    id="mimicComponentEditor"
+    ref="componentEditorWorkspace"
+    @drop="onComponentEditorDrop"
+  />
 </template>
 
 <script setup lang="ts">
@@ -32,6 +37,10 @@ onMounted(() => {
   ruler.addTheme('custom1', rulerTheme);
   ruler.changeTheme('custom1');
 });
+
+function onComponentEditorDrop(e: MouseEvent) {
+  console.log('drop: ', mimicVar.componentEditor.draggingTag);
+}
 </script>
 
 <style scoped></style>

@@ -55,8 +55,6 @@ useDropZone(displayEditorWorkspace);
 
 function onDrop(e: MouseEvent) {
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
-    // const customClass: any = ;
-    // const custom: any =
     const newElement = new mimicVar.draggingCustomMeta.component({
       ...mimicVar.app.getPagePointByClient(e),
       draggable: true,

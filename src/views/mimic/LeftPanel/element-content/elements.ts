@@ -8,7 +8,7 @@ type ElementCategories = Record<
   }
 >;
 
-const baseElements: Omit<CustomDragIcon, 'type'>[] = [{ name: 'rect', label: '矩形' }];
+const baseElements: Omit<CustomDragIcon, 'type'>[] = [{ path: 'rect', label: '矩形' }];
 export const elementCategories: ElementCategories = {};
 elementCategories.base = {
   label: '基础',
