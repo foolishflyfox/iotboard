@@ -4,7 +4,7 @@
     id="mimicCanvasContainer"
     ref="displayEditorWorkspace"
     @contextmenu="contextMenuRef?.onContextMenuClick"
-    @drop="onDrop"
+    @drop="onDisplayEditorDrop"
   />
   <ContextMenu ref="contextMenuRef" />
 </template>
@@ -53,7 +53,7 @@ const displayEditorWorkspace = ref<HTMLElement>();
 
 useDropZone(displayEditorWorkspace);
 
-function onDrop(e: MouseEvent) {
+function onDisplayEditorDrop(e: MouseEvent) {
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
     const newElement = new mimicVar.draggingCustomMeta.component({
       ...mimicVar.app.getPagePointByClient(e),

@@ -20,7 +20,16 @@ export function customRectGenerate(rectCustomCfg: RectCustomCfg) {
     public declare __: any;
 
     constructor(data: any) {
-      data = { x: 0, y: 0, width: 80, height: 80, ...data };
+      data = {
+        x: 0,
+        y: 0,
+        width: 80,
+        height: 80,
+        stroke: '#000000',
+        strokeWidth: 5,
+        cornerRadius: 8,
+        ...data,
+      };
       super(data);
     }
   }
