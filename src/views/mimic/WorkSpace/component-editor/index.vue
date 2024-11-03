@@ -3,8 +3,10 @@
     class="flex-1"
     id="mimicComponentEditor"
     ref="componentEditorWorkspace"
+    @contextmenu="contextMenuRef?.onContextMenuClick"
     @drop="onComponentEditorDrop"
   />
+  <ContextMenu ref="contextMenuRef" />
 </template>
 
 <script setup lang="ts">
@@ -16,12 +18,15 @@ import { Ruler } from 'leafer-x-ruler';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
 import { registerElement } from '@mimic/custom/registrar';
+import ContextMenu from './ContextMenu.vue';
+import { EditorEvent } from 'leafer-editor';
 
 const componentEditorWorkspace = ref<HTMLElement>();
 useDropZone(componentEditorWorkspace);
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
+const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
 onMounted(() => {
   const app = new App({
