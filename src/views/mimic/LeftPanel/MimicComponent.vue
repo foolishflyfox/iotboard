@@ -5,38 +5,27 @@
         <n-icon :component="Search" />
       </template>
     </n-input>
-    <n-split
-      direction="vertical"
-      :resize-trigger-size="2"
-      :default-size="0.5"
-      :min="0.4"
-      :max="0.8"
+    <n-collapse
+      class="mt-10px"
+      :default-expanded-names="_.keys(componentCategories)"
+      display-directive="show"
     >
-      <template #1>
-        <n-collapse
-          class="mt-10px"
-          :default-expanded-names="_.keys(componentCategories)"
-          display-directive="show"
-        >
-          <n-collapse-item v-for="nm of _.keys(groups)" :name="nm">
-            <template #header>
-              <div class="font-bold">
-                {{ componentCategories[nm as CustomCategory] }}
-              </div>
-            </template>
-            <n-space>
-              <MimicComponentItem v-for="c of groups[nm]" :custom-meta="c" />
-            </n-space>
-          </n-collapse-item>
-        </n-collapse>
-      </template>
-      <template #2> 组件显示 </template>
-    </n-split>
+      <n-collapse-item v-for="nm of _.keys(groups)" :name="nm">
+        <template #header>
+          <div class="font-bold">
+            {{ componentCategories[nm as CustomCategory] }}
+          </div>
+        </template>
+        <n-space>
+          <MimicComponentItem v-for="c of groups[nm]" :custom-meta="c" />
+        </n-space>
+      </n-collapse-item>
+    </n-collapse>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NCollapse, NCollapseItem, NIcon, NInput, NSpace, NSplit } from 'naive-ui';
+import { NCollapse, NCollapseItem, NIcon, NInput, NSpace } from 'naive-ui';
 import { Search } from '@vicons/ionicons5';
 import {
   componentCategories,

@@ -54,7 +54,8 @@
               <div>组件</div>
             </div>
           </template>
-          <MimicComponent />
+          <MimicComponent v-if="false" />
+          <MimicComponentTree v-else />
         </n-tab-pane>
         <n-tab-pane name="element">
           <template #tab>
@@ -85,6 +86,7 @@ import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 import DisplayContent from './DisplayContent.vue';
 import ModuleContent from './ModuleContent.vue';
 import MimicComponent from './MimicComponent.vue';
+import MimicComponentTree from './MimicComponentTree.vue';
 import { ElementContent } from './element-content';
 import ResourceContent from './ResourceContent.vue';
 import { AppGeneric24Filled } from '@vicons/fluent';
