@@ -11,7 +11,7 @@ import {
 } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { autoId } from '@mimic/decorates';
-import { getCommonAppearanceTypes, type AppearanceType } from '../../types';
+import { type AppearanceType } from '@mimic/types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {

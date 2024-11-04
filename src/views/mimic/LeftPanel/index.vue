@@ -4,7 +4,7 @@
     <div class="flex-1 flex">
       <n-tabs
         placement="left"
-        default-value="element"
+        default-value="component"
         size="medium"
         pane-class="bg-[#e8e8e8]"
         pane-style="padding: 5px; z-index: 0"
