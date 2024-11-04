@@ -8,14 +8,15 @@
     :y
     :show
     @clickoutside="hideMenu"
+    @select="clickContextMenuHandler"
   />
 </template>
 
 <script setup lang="ts">
 import { NDropdown } from 'naive-ui';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
-import { useTimeout } from '@vueuse/core';
 import { useContextShowHide } from '@mimic/hooks';
+import { doComponentEditorAction } from './component-editor-action';
 
 defineOptions({
   name: 'ComponentEditorContextMenu',
@@ -54,6 +55,11 @@ function onContextMenuClick(event: MouseEvent) {
   if (selectedUiIds.value.length === 1) {
     showMenu(event);
   }
+}
+
+function clickContextMenuHandler(action: string) {
+  doComponentEditorAction(action);
+  hideMenu();
 }
 
 defineExpose({

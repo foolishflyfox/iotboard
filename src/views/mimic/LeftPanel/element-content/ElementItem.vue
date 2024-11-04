@@ -1,17 +1,19 @@
 <template>
   <div class="inline-block bg-[#fff8] rounded-lg">
-    <img
-      :src="getElementPreview('name')"
-      width="42"
-      class="cursor-grab p-4px"
-      @error="
-        e => {
-          (e.target as any).src = getElementPreview('default');
-        }
-      "
-      :draggable="mimicWorkspaceStatus.curEditorType === 'component'"
-      @dragstart="startDragElement"
-    />
+    <div class="h-42px flex-y-center">
+      <img
+        :src="getElementPreview(path)"
+        width="42"
+        class="cursor-grab p-4px"
+        @error="
+          e => {
+            (e.target as any).src = getElementPreview('default');
+          }
+        "
+        :draggable="mimicWorkspaceStatus.curEditorType === 'component'"
+        @dragstart="startDragElement"
+      />
+    </div>
     <div class="text-12px text-[#555] font-medium text-center cursor-default">
       {{ label }}
     </div>
