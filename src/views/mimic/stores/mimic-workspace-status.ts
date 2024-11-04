@@ -1,5 +1,5 @@
 import { displayBaseMapId } from '@mimic/constant';
-import type { EditorType } from '@mimic/types/workspace';
+import type { EditorType } from '@mimic/types';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见

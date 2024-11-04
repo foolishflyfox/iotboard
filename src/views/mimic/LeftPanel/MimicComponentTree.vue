@@ -24,7 +24,13 @@
 import { NIcon, NInput, NSplit, NTree, type TreeOption } from 'naive-ui';
 import { Search } from '@vicons/ionicons5';
 import { Folder20Filled, FolderOpen20Filled } from '@vicons/fluent';
-import { componentCategories, customMetas, type CustomMeta } from '@mimic/utils';
+import {
+  componentCategories,
+  convertToTreeOption,
+  customMetas,
+  type CustomMeta,
+} from '@mimic/utils';
+import { type FileTreeNode } from '@mimic/types';
 import * as _ from 'lodash-es';
 
 const groups: Record<string, CustomMeta[]> = {};
@@ -39,26 +45,30 @@ _.values(customMetas).forEach(c => {
   }
 });
 
-const data = [
+/** 后端返回的树 */
+const fileTreeNodes: FileTreeNode[] = [
   {
-    label: '基础',
-    key: 'base',
+    name: '基础',
     children: [],
   },
   {
-    label: '工业',
-    key: 'industry',
+    name: '工业',
     children: [
       {
-        label: '仪表',
-        key: 'meter',
-        children: [],
+        name: '仪表盘',
+        children: [
+          {
+            name: 'gauge',
+          },
+        ],
       },
     ],
   },
 ];
 
-const expandedKeys = ref<string[]>(['base', 'industry']);
+const data = fileTreeNodes.map(e => convertToTreeOption(e)!);
+
+const expandedKeys = ref<string[]>([]);
 
 function renderPrefix({ option }: { option: TreeOption }) {
   const isOpen = expandedKeys.value.includes(option.key as string);

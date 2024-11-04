@@ -29,7 +29,7 @@ const loadScript = () => {
   loadjs('/mytest.js', {
     success: () => {
       console.log('script load success');
-      (window as any).foo(12345);
+      (window as any).foo({ x: 666, getUniqueId });
     },
     error: () => {
       console.log('script load fail');
