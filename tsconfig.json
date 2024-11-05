@@ -4,6 +4,7 @@
     "composite": true,
     "experimentalDecorators": true,
     // "module": "ESNext",
+    "noImplicitAny": false,
     "paths": {
       "@/*": ["./src/*"],
       "@mimic/*": ["./src/views/mimic/*"]

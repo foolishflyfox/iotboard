@@ -1,4 +1,4 @@
-import type { IUI } from 'leafer-ui';
+import type { IUI, UI } from 'leafer-ui';
 import { findCurrentSelected } from '@mimic/utils';
 import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
@@ -16,7 +16,7 @@ export function doContextMenuAction(action: string) {
     } else if (_.isArray(curUi)) {
       console.error('选中多个元素，不允许导出图片');
     } else {
-      exportImage(curUi, action);
+      exportImage(curUi as UI, action);
     }
   } else if (action === 'delete') {
     if (_.isNil(curUi)) {

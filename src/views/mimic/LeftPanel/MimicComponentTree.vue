@@ -33,9 +33,11 @@ import {
 import { type FileTreeNode } from '@mimic/types';
 import * as _ from 'lodash-es';
 
+console.log('####');
+
 const groups: Record<string, CustomMeta[]> = {};
-_.keys(componentCategories).forEach(k => (groups[k] = []));
-_.values(customMetas).forEach(c => {
+_.keys(componentCategories).forEach((k: string) => (groups[k] = []));
+_.values(customMetas).forEach((c: CustomMeta) => {
   if (c.category in groups) {
     groups[c.category].push(c);
   } else {

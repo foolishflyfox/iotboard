@@ -29,7 +29,7 @@
             </n-button>
           </div>
         </template>
-        <n-tab-pane name="display">
+        <n-tab-pane name="display" display-directive="show:lazy">
           <template #tab>
             <div>
               <n-icon size="26" :component="AppGeneric24Filled" />
@@ -38,7 +38,7 @@
           </template>
           <DisplayContent />
         </n-tab-pane>
-        <n-tab-pane name="module">
+        <n-tab-pane name="module" display-directive="show:lazy">
           <template #tab>
             <div>
               <n-icon size="26" :component="GroupObjects" />
@@ -47,17 +47,18 @@
           </template>
           <ModuleContent />
         </n-tab-pane>
-        <n-tab-pane name="component">
+        <n-tab-pane name="component" display-directive="show:lazy">
           <template #tab>
             <div>
               <n-icon size="26" :component="Components" />
               <div>组件</div>
             </div>
           </template>
-          <MimicComponent v-if="false" />
-          <MimicComponentTree v-else />
+          <!-- <MimicComponent v-if="false" />
+          <MimicComponentTree v-else /> -->
+          <MimicComponentTree />
         </n-tab-pane>
-        <n-tab-pane name="element">
+        <n-tab-pane name="element" display-directive="show:lazy">
           <template #tab>
             <div>
               <n-icon size="26" :component="Atom" />
