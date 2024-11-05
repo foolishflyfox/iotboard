@@ -52,11 +52,25 @@ function renameFolder() {
   console.log('重命名文件夹');
 }
 
+function deleteFolder() {
+  window.$dialog?.info({
+    title: '删除?',
+    content: `确认删除文件夹【 ${targetDirPath.value} 】`,
+    positiveText: '确认',
+    negativeText: '取消',
+    maskClosable: false,
+    onPositiveClick() {
+      console.log('删除文件夹', targetDirPath.value);
+    },
+  });
+}
+
 const actionHandlers = {
   newFolder,
   newCodeComponent,
   newGraphComponent,
   renameFolder,
+  deleteFolder,
 };
 
 function clickContextMenuHandler(action: string) {
@@ -87,7 +101,7 @@ const options = computed(() => [
   },
   {
     label: () => h('div', { style: { color: 'red' } }, '删除'),
-    key: 'delete',
+    key: 'deleteFolder',
     disabled: targetDirDeleteDisabled.value,
     show: targetDirPath.value !== '',
   },
