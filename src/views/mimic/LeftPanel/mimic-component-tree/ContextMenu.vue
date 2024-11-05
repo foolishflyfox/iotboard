@@ -19,12 +19,25 @@ import { useContextShowHide } from '@mimic/hooks';
 
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const targetDirDeleteDisabled = ref(false);
-let targetDirPath = '';
+const targetDirPath = ref('');
 
-function onContextMenuClick(event: MouseEvent, treeOption: TreeOption) {
-  targetDirDeleteDisabled.value = Boolean(treeOption.children?.length);
-  targetDirPath = treeOption.key as string;
+function onContextMenuClick(event: MouseEvent, treeOption?: TreeOption) {
+  if (treeOption) {
+    targetDirDeleteDisabled.value = Boolean(treeOption.children?.length);
+    console.log('option =', treeOption);
+    targetDirPath.value = treeOption.key as string;
+  } else {
+    targetDirPath.value = '';
+  }
   showMenu(event);
+}
+
+function newFolder() {
+  if (targetDirPath.value === '') {
+    console.log(`根目录下新建文件夹`);
+  } else {
+    console.log(`${targetDirPath.value}目录下新建文件夹`);
+  }
 }
 
 function newCodeComponent() {
@@ -35,9 +48,15 @@ function newGraphComponent() {
   console.log('新建图形组件');
 }
 
+function renameFolder() {
+  console.log('重命名文件夹');
+}
+
 const actionHandlers = {
+  newFolder,
   newCodeComponent,
   newGraphComponent,
+  renameFolder,
 };
 
 function clickContextMenuHandler(action: string) {
@@ -53,6 +72,10 @@ const options = computed(() => [
     key: 'new',
     children: [
       {
+        label: '文件夹',
+        key: 'newFolder',
+      },
+      {
         label: '代码组件',
         key: 'newCodeComponent',
       },
@@ -66,10 +89,12 @@ const options = computed(() => [
     label: () => h('div', { style: { color: 'red' } }, '删除'),
     key: 'delete',
     disabled: targetDirDeleteDisabled.value,
+    show: targetDirPath.value !== '',
   },
   {
-    type: 'divider',
-    key: 'd1',
+    label: '重命名',
+    key: 'renameFolder',
+    show: targetDirPath.value !== '',
   },
 ]);
 

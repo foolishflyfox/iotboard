@@ -13,13 +13,24 @@
       :max="0.8"
     >
       <template #1>
-        <n-tree
-          block-line
-          :data="data"
-          v-model:expanded-keys="expandedKeys"
-          :renderPrefix
-          :node-props="treeNodeProps"
-        />
+        <div
+          class="h-full"
+          @contextmenu="
+            e => {
+              e.preventDefault();
+              console.log('XXX');
+              contextMenuRef?.onContextMenuClick(e);
+            }
+          "
+        >
+          <n-tree
+            block-line
+            :data="data"
+            v-model:expanded-keys="expandedKeys"
+            :renderPrefix
+            :node-props="treeNodeProps"
+          />
+        </div>
       </template>
       <template #2> 组件显示 </template>
     </n-split>
@@ -85,6 +96,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
     },
     onContextmenu(e: MouseEvent) {
       e.preventDefault();
+      e.stopPropagation();
       contextMenuRef.value?.onContextMenuClick(e, option);
     },
   };
