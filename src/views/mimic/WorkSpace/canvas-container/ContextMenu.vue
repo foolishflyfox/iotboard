@@ -17,7 +17,6 @@ import { NDropdown } from 'naive-ui';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';
-import { useTimeout } from '@vueuse/core';
 import { doContextMenuAction } from './context-menu-action';
 import { useContextShowHide } from '@mimic/hooks';
 
@@ -36,15 +35,7 @@ function onContextMenuClick(event: MouseEvent) {
     /** 选中单个元素的右键菜单 */
     showMenu(event);
   }
-  if (show.value) {
-    x.value = event.x;
-    y.value = event.y;
-  }
 }
-
-const { ready: canHideContextMenu, start: startForbidHideContextMenu } = useTimeout(100, {
-  controls: true,
-});
 
 /** 选中多个元素的右键菜单 */
 function showMultiSelectContextMenu() {

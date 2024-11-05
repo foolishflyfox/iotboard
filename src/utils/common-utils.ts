@@ -22,7 +22,7 @@ export function isJSON(s: string) {
  * @param excludeNil 是否删除空元素，默认删除
  */
 export function convertToArray<T>(v: T | T[], excludeNil = true): T[] {
-  let result = [];
+  let result: any = [];
   if (_.isArray(v)) {
     result = v;
   } else {

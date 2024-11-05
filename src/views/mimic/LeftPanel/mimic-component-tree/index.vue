@@ -13,10 +13,17 @@
       :max="0.8"
     >
       <template #1>
-        <n-tree block-line :data="data" v-model:expanded-keys="expandedKeys" :renderPrefix />
+        <n-tree
+          block-line
+          :data="data"
+          v-model:expanded-keys="expandedKeys"
+          :renderPrefix
+          :node-props="treeNodeProps"
+        />
       </template>
       <template #2> 组件显示 </template>
     </n-split>
+    <context-menu ref="contextMenuRef" />
   </div>
 </template>
 
@@ -32,8 +39,11 @@ import {
 } from '@mimic/utils';
 import { type FileTreeNode } from '@mimic/types';
 import * as _ from 'lodash-es';
+import ContextMenu from './ContextMenu.vue';
 
-console.log('####');
+defineOptions({
+  name: 'MimicComponentTree',
+});
 
 const groups: Record<string, CustomMeta[]> = {};
 _.keys(componentCategories).forEach((k: string) => (groups[k] = []));
@@ -67,6 +77,18 @@ const fileTreeNodes: FileTreeNode[] = [
     ],
   },
 ];
+const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
+const treeNodeProps = ({ option }: { option: TreeOption }) => {
+  return {
+    onClick() {
+      console.log('点击组件文件夹');
+    },
+    onContextmenu(e: MouseEvent) {
+      e.preventDefault();
+      contextMenuRef.value?.onContextMenuClick(e, option);
+    },
+  };
+};
 
 const data = fileTreeNodes.map(e => convertToTreeOption(e)!);
 
