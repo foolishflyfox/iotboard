@@ -1,5 +1,5 @@
 <template>
-  <NDropdown
+  <n-dropdown
     placement="bottom-start"
     trigger="manual"
     :options
@@ -10,12 +10,24 @@
     :on-clickoutside="hideMenu"
     @select="clickContextMenuHandler"
   />
+  <QueryDialog
+    title="重命名?"
+    v-model:showModal="showRenameFolderModal"
+    :positive-btn-disabled="_.isEmpty(newFolderName)"
+    @positive-click="renameFolder"
+  >
+    <div class="flex-y-center">
+      <div class="w-120px">新文件夹名:</div>
+      <n-input v-model:value="newFolderName" placeholder="请输入新文件夹名" />
+    </div>
+  </QueryDialog>
 </template>
 
 <script setup lang="ts">
-import { NDropdown, type TreeOption } from 'naive-ui';
+import { NDropdown, NInput, NSpace, type TreeOption } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { useContextShowHide } from '@mimic/hooks';
+import { QueryDialog } from '@/components';
 
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const targetDirDeleteDisabled = ref(false);
@@ -48,8 +60,14 @@ function newGraphComponent() {
   console.log('新建图形组件');
 }
 
+const newFolderName = ref('');
+const showRenameFolderModal = ref(false);
+function renameFolderClick() {
+  newFolderName.value = '';
+  showRenameFolderModal.value = true;
+}
 function renameFolder() {
-  console.log('重命名文件夹');
+  console.log('向后端发送重命名文件夹请求:', newFolderName.value);
 }
 
 function deleteFolder() {
@@ -59,7 +77,7 @@ function deleteFolder() {
     positiveText: '确认',
     negativeText: '取消',
     maskClosable: false,
-    onPositiveClick() {
+    async onPositiveClick() {
       console.log('删除文件夹', targetDirPath.value);
     },
   });
@@ -69,7 +87,7 @@ const actionHandlers = {
   newFolder,
   newCodeComponent,
   newGraphComponent,
-  renameFolder,
+  renameFolder: renameFolderClick,
   deleteFolder,
 };
 
