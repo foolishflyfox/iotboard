@@ -62,16 +62,17 @@ function renameFolderClick() {
 }
 
 function deleteFolder() {
-  window.$dialog?.info({
-    title: '删除?',
-    content: `确认删除文件夹【 ${targetDirPath.value} 】`,
-    positiveText: '确认',
-    negativeText: '取消',
-    maskClosable: false,
-    async onPositiveClick() {
-      emit('deleteFolder', targetDirPath.value);
-    },
-  });
+  emit('deleteFolder', targetDirPath.value);
+  // window.$dialog?.info({
+  //   title: '删除?',
+  //   content: `确认删除文件夹【 ${targetDirPath.value} 】`,
+  //   positiveText: '确认',
+  //   negativeText: '取消',
+  //   maskClosable: false,
+  //   async onPositiveClick() {
+  //     emit('deleteFolder', targetDirPath.value);
+  //   },
+  // });
 }
 
 const actionHandlers = {

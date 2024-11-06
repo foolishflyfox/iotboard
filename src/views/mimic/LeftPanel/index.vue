@@ -85,7 +85,6 @@ import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 // import MimicLeftPanelHead from './MimicLeftPanelHead.vue';
 import DisplayContent from './DisplayContent.vue';
 import ModuleContent from './ModuleContent.vue';
-import MimicComponent from './MimicComponent.vue';
 import MimicComponentTree from './mimic-component-tree/index.vue';
 import { ElementContent } from './element-content';
 import ResourceContent from './ResourceContent.vue';

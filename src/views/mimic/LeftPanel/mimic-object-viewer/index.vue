@@ -37,12 +37,51 @@
           />
         </div>
       </template>
-      <template #2> 组件显示 </template>
+      <template #2>
+        <slot />
+      </template>
     </n-split>
-    <context-menu ref="contextMenuRef" :editorType @new-folder="v => emit('newFolder', v)" />
-    <!-- 重命名设置对话框 -->
+    <context-menu
+      ref="contextMenuRef"
+      :editorType
+      @new-folder="
+        v => {
+          newFolderName = '';
+          targetFolderPath = v;
+          showNewFolderModal = true;
+        }
+      "
+      @rename-folder="
+        v => {
+          newFolderName = '';
+          targetFolderPath = v;
+          showRenameFolderModal = true;
+        }
+      "
+      @delete-folder="
+        v => {
+          targetFolderPath = v;
+          showDeleteFolderModal = true;
+        }
+      "
+      @new-code-component="v => emit('newCodeComponent', v)"
+      @new-graph-component="v => emit('newGraphComponent', v)"
+    />
+    <!-- 新建文件夹对话框 -->
     <QueryDialog
-      title="重命名?"
+      title="新建"
+      v-model:show-modal="showNewFolderModal"
+      :positive-btn-disabled="_.isEmpty(newFolderName)"
+      @positive-click="emit('newFolder', targetFolderPath, newFolderName)"
+    >
+      <div class="flex-y-center">
+        <div class="w-120px">文件夹名:</div>
+        <n-input v-model:value="newFolderName" placeholder="请输入文件夹名" />
+      </div>
+    </QueryDialog>
+    <!-- 重命名文件夹对话框 -->
+    <QueryDialog
+      title="重命名"
       v-model:showModal="showRenameFolderModal"
       :positive-btn-disabled="_.isEmpty(newFolderName)"
       @positive-click="emit('renameFolder', targetFolderPath, newFolderName)"
@@ -51,6 +90,15 @@
         <div class="w-120px">新文件夹名:</div>
         <n-input v-model:value="newFolderName" placeholder="请输入新文件夹名" />
       </div>
+    </QueryDialog>
+    <!-- 删除文件夹对话框 -->
+    <QueryDialog
+      title="删除"
+      type="warning"
+      v-model:showModal="showDeleteFolderModal"
+      @positive-click="emit('deleteFolder', targetFolderPath)"
+    >
+      <div>删除文件夹【 {{ targetFolderPath }} 】?</div>
     </QueryDialog>
   </div>
 </template>
@@ -66,41 +114,22 @@ import ContextMenu from './ContextMenu.vue';
 import { QueryDialog } from '@/components';
 
 defineOptions({
-  name: 'MimicComponentTree',
+  name: 'MimicObjectTree',
 });
 
 const props = defineProps<{
   editorType: EditorType;
+  fileTreeNodes: FileTreeNode[];
 }>();
 
 const emit = defineEmits<{
-  newFolder: [folderPath: string];
+  newFolder: [folderPath: string, newFolderName: string];
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
   renameFolder: [folderPath: string, newFolderName: string];
   deleteFolder: [folderPath: string];
 }>();
 
-/** 后端返回的树 */
-const fileTreeNodes: FileTreeNode[] = [
-  {
-    name: '基础',
-    children: [],
-  },
-  {
-    name: '工业',
-    children: [
-      {
-        name: '仪表盘',
-        children: [
-          {
-            name: 'gauge',
-          },
-        ],
-      },
-    ],
-  },
-];
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 const treeNodeProps = ({ option }: { option: TreeOption }) => {
   return {
@@ -115,7 +144,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
   };
 };
 
-const data = fileTreeNodes.map(e => convertToTreeOption(e)!);
+const data = computed(() => props.fileTreeNodes.map(e => convertToTreeOption(e)!));
 
 const expandedKeys = ref<string[]>([]);
 
@@ -129,8 +158,10 @@ function renderPrefix({ option }: { option: TreeOption }) {
 }
 
 const targetFolderPath = ref('');
-const showRenameFolderModal = ref(false);
 const newFolderName = ref('');
+const showNewFolderModal = ref(false);
+const showRenameFolderModal = ref(false);
+const showDeleteFolderModal = ref(false);
 </script>
 
 <style scoped></style>
