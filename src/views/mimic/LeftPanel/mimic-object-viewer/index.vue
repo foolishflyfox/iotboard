@@ -1,5 +1,6 @@
 <template>
-  <div class="h-full flex flex-col">
+  <!-- todo: 分析 65px 魔法数的原因 -->
+  <div class="flex flex-col" style="height: calc(100vh - 65px)">
     <n-input
       type="text"
       round
@@ -21,7 +22,7 @@
     >
       <template #1>
         <div
-          class="h-full"
+          class="h-full overflow-auto"
           @contextmenu="
             e => {
               e.preventDefault();
