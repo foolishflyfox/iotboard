@@ -45,7 +45,7 @@
               <div>模块</div>
             </div>
           </template>
-          <ModuleContent />
+          <MimicModuleTree />
         </n-tab-pane>
         <n-tab-pane name="component" display-directive="show:lazy">
           <template #tab>
@@ -84,7 +84,7 @@
 import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 // import MimicLeftPanelHead from './MimicLeftPanelHead.vue';
 import DisplayContent from './DisplayContent.vue';
-import ModuleContent from './ModuleContent.vue';
+import MimicModuleTree from './mimic-module-tree/index.vue';
 import MimicComponentTree from './mimic-component-tree/index.vue';
 import { ElementContent } from './element-content';
 import ResourceContent from './ResourceContent.vue';

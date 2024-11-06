@@ -64,6 +64,8 @@
           showDeleteFolderModal = true;
         }
       "
+      @new-display="v => emit('newDisplay', v)"
+      @new-module="v => emit('newModule', v)"
       @new-code-component="v => emit('newCodeComponent', v)"
       @new-graph-component="v => emit('newGraphComponent', v)"
     />
@@ -124,6 +126,8 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   newFolder: [folderPath: string, newFolderName: string];
+  newDisplay: [folderPath: string];
+  newModule: [folderPath: string];
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
   renameFolder: [folderPath: string, newFolderName: string];

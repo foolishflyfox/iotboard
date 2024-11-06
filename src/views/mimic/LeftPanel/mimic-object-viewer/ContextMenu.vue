@@ -39,6 +39,8 @@ function onContextMenuClick(event: MouseEvent, treeOption?: TreeOption) {
 
 const emit = defineEmits<{
   newFolder: [folderPath: string];
+  newDisplay: [folderPath: string];
+  newModule: [folderPath: string];
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
   renameFolder: [folderPath: string];
@@ -47,6 +49,14 @@ const emit = defineEmits<{
 
 function newFolder() {
   emit('newFolder', targetDirPath.value);
+}
+
+function newDisplay() {
+  emit('newDisplay', targetDirPath.value);
+}
+
+function newModule() {
+  emit('newModule', targetDirPath.value);
 }
 
 function newCodeComponent() {
@@ -63,20 +73,12 @@ function renameFolderClick() {
 
 function deleteFolder() {
   emit('deleteFolder', targetDirPath.value);
-  // window.$dialog?.info({
-  //   title: '删除?',
-  //   content: `确认删除文件夹【 ${targetDirPath.value} 】`,
-  //   positiveText: '确认',
-  //   negativeText: '取消',
-  //   maskClosable: false,
-  //   async onPositiveClick() {
-  //     emit('deleteFolder', targetDirPath.value);
-  //   },
-  // });
 }
 
 const actionHandlers = {
   newFolder,
+  newDisplay,
+  newModule,
   newCodeComponent,
   newGraphComponent,
   renameFolder: renameFolderClick,
@@ -98,6 +100,16 @@ const options = computed(() => [
       {
         label: '文件夹',
         key: 'newFolder',
+      },
+      {
+        label: '图纸',
+        key: 'newDisplay',
+        show: props.editorType === 'display',
+      },
+      {
+        label: '模块',
+        key: 'newModule',
+        show: props.editorType === 'module',
       },
       {
         label: '代码组件',
