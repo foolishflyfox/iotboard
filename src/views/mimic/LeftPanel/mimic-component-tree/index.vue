@@ -16,6 +16,10 @@
 import type { FileTreeNode } from '@mimic/types';
 import { MimicObjectViewer } from '../mimic-object-viewer';
 
+defineOptions({
+  name: 'MimicComponentTree',
+});
+
 /** 后端返回的树 */
 const fileTreeNodes: FileTreeNode[] = [
   {

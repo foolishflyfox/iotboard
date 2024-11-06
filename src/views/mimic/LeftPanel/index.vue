@@ -36,7 +36,7 @@
               <div>图纸</div>
             </div>
           </template>
-          <DisplayContent />
+          <MimicDisplayTree />
         </n-tab-pane>
         <n-tab-pane name="module" display-directive="show:lazy">
           <template #tab>
@@ -83,7 +83,7 @@
 <script setup lang="ts">
 import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 // import MimicLeftPanelHead from './MimicLeftPanelHead.vue';
-import DisplayContent from './DisplayContent.vue';
+import MimicDisplayTree from './mimic-display-tree/index.vue';
 import MimicModuleTree from './mimic-module-tree/index.vue';
 import MimicComponentTree from './mimic-component-tree/index.vue';
 import { ElementContent } from './element-content';
