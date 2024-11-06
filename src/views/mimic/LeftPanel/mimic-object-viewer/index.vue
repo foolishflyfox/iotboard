@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="h-full flex flex-col">
     <n-input
       type="text"
       round
@@ -12,6 +12,7 @@
       </template>
     </n-input>
     <n-split
+      class="flex-1"
       direction="vertical"
       :resize-trigger-size="2"
       :default-size="0.5"

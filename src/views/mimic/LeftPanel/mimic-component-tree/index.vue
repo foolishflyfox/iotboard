@@ -40,6 +40,7 @@ const fileTreeNodes: FileTreeNode[] = [
     ],
   },
 ];
+// for (let i = 1; i < 50; i++) fileTreeNodes.push({ name: '组件' + i, children: [] });
 
 function newFolder(targetDirPath, newFolderName) {
   console.log(`在 ${targetDirPath} 下新建组件文件夹 ${newFolderName}`);
