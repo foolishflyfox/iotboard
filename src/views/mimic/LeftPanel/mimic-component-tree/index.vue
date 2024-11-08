@@ -22,28 +22,10 @@ defineOptions({
 });
 
 /** 后端返回的树 */
-const fileTreeNodes: Ref<FileTreeNode[]> = ref([
-  {
-    name: '基础',
-    children: [],
-  },
-  {
-    name: '工业',
-    children: [
-      {
-        name: '仪表盘',
-        children: [
-          {
-            name: 'gauge',
-          },
-        ],
-      },
-    ],
-  },
-]);
+const fileTreeNodes: Ref<FileTreeNode[]> = ref([]);
 
-onMounted(() => {
-  mimicFileApi.queryTree('component');
+onMounted(async () => {
+  fileTreeNodes.value = await mimicFileApi.queryTree('component');
 });
 
 function newFolder(targetDirPath, newFolderName) {
