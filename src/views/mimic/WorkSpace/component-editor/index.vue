@@ -13,7 +13,7 @@
 import { useDropZone } from '@vueuse/core';
 import { App, ResizeEvent, UICreator } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
-import { componentEditorUtils } from '@mimic/utils';
+import { componentEditorUtils, getElementClassByTag } from '@mimic/utils';
 import { Ruler } from 'leafer-x-ruler';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
@@ -55,12 +55,12 @@ function onComponentEditorDrop(e: MouseEvent) {
   const { draggingTag, app } = mimicVar.componentEditor;
   // console.log('drop: ', mimicVar.componentEditor.draggingTag);
   if (draggingTag && app) {
-    if (!UICreator.list[draggingTag]) {
+    if (!getElementClassByTag(draggingTag)) {
       // 需要注册自定义组件
       console.log('注册元素 ', draggingTag);
       registerElement(draggingTag);
     }
-    const elementClass = UICreator.list[draggingTag];
+    const elementClass = getElementClassByTag(draggingTag);
     const newElement = new elementClass({
       ...app.getPagePointByClient(e),
       draggable: true,

@@ -1,7 +1,7 @@
 import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
-import type { IUI, UI } from 'leafer-ui';
+import { UICreator, type IUI, type UI } from 'leafer-ui';
 import { type Ref } from 'vue';
 import { useMimicWorkspaceStatus } from '../stores';
 
@@ -42,4 +42,9 @@ export function updateElementData(
   if (proxyData && proxyData.value) {
     proxyData.value.data = { ...proxyData.value.data, [fieldName]: value };
   }
+}
+
+/** 根据 tag 获取元素类用于创建元素 */
+export function getElementClassByTag(tag: string) {
+  return UICreator.list[tag];
 }

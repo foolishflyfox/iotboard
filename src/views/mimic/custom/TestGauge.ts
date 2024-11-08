@@ -6,7 +6,6 @@ const cfg: UiCustomCfg = {
   customPropertyCfgs: {
     value: {
       setter: function (v: string) {
-        console.log('@@@### setValue');
         (this as any)._value = v;
       },
       defaultValue: 66,

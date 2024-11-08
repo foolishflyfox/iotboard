@@ -5,7 +5,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   // 工作区标尺是否可见
   const rulerVisible = ref(true);
   // 当前编辑类型
-  const curEditorType = ref<EditorType>('display');
+  const curEditorType = ref<EditorType>('component');
   // 图纸编辑器相关
   // 当前选中的 UI
   const selectedUiId = ref<null | undefined | string | string[]>();
