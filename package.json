@@ -4,6 +4,7 @@
     "@vueuse/core": "^11.2.0",
     "@wdns/vue-code-block": "^2.3.3",
     "ace-builds": "^1.36.4",
+    "axios": "^1.7.7",
     "leafer-editor": "^1.0.8",
     "leafer-ui": "^1.0.8",
     "leafer-vue": "^3.1.1",

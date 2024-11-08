@@ -15,13 +15,14 @@
 <script setup lang="ts">
 import type { FileTreeNode } from '@mimic/types';
 import { MimicObjectViewer } from '../mimic-object-viewer';
+import { mimicFileApi } from '@/service/api';
 
 defineOptions({
   name: 'MimicComponentTree',
 });
 
 /** 后端返回的树 */
-const fileTreeNodes: FileTreeNode[] = [
+const fileTreeNodes: Ref<FileTreeNode[]> = ref([
   {
     name: '基础',
     children: [],
@@ -39,8 +40,11 @@ const fileTreeNodes: FileTreeNode[] = [
       },
     ],
   },
-];
-for (let i = 1; i < 50; i++) fileTreeNodes.push({ name: '组件' + i, children: [] });
+]);
+
+onMounted(() => {
+  mimicFileApi.queryTree('component');
+});
 
 function newFolder(targetDirPath, newFolderName) {
   console.log(`在 ${targetDirPath} 下新建组件文件夹 ${newFolderName}`);

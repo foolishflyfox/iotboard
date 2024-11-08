@@ -12,6 +12,9 @@ import { isCustomElement } from 'leafer-vue/compiler';
 export default defineConfig({
   server: {
     port: 5180,
+    proxy: {
+      '/mimic': 'http://localhost:3000',
+    },
   },
   plugins: [
     vue({
