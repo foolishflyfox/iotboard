@@ -7,8 +7,9 @@
     @delete-folder="deleteFolder"
     @new-code-component="newCodeComponent"
     @new-graph-component="newGraphComponent"
+    @change-selected-folder="onChangeSelectedFolder"
   >
-    <div>组件显示(不包含文件夹)</div>
+    <div>【{{ currentTargetDirPath }}】组件显示(不包含文件夹)</div>
   </MimicObjectViewer>
 </template>
 
@@ -46,6 +47,11 @@ function newCodeComponent(targetDirPath) {
 
 function newGraphComponent(targetDirPath) {
   console.log(`在组件文件夹 ${targetDirPath} 下新建图像组件`);
+}
+
+const currentTargetDirPath = ref<string | null>();
+function onChangeSelectedFolder(targetDirPath: string | null) {
+  currentTargetDirPath.value = targetDirPath;
 }
 </script>
 

@@ -34,13 +34,17 @@
             block-line
             :data="data"
             v-model:expanded-keys="expandedKeys"
+            v-model:selected-keys="selectedKeys"
             :renderPrefix
             :node-props="treeNodeProps"
           />
         </div>
       </template>
       <template #2>
-        <slot />
+        <div>
+          <div class="bg-[#ccc] my-5px p-2px font-bold">文件夹: {{ selectedFolder }}</div>
+          <slot />
+        </div>
       </template>
     </n-split>
     <context-menu
@@ -76,11 +80,15 @@
       title="新建"
       v-model:show-modal="showNewFolderModal"
       :positive-btn-disabled="_.isEmpty(newFolderName)"
-      @positive-click="emit('newFolder', targetFolderPath, newFolderName)"
+      @positive-click="confirmCreateFolder(targetFolderPath, newFolderName)"
     >
       <div class="flex-y-center">
         <div class="w-120px">文件夹名:</div>
-        <n-input v-model:value="newFolderName" placeholder="请输入文件夹名" />
+        <n-input
+          v-model:value="newFolderName"
+          placeholder="请输入文件夹名"
+          @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
+        />
       </div>
     </QueryDialog>
     <!-- 重命名文件夹对话框 -->
@@ -134,6 +142,7 @@ const emit = defineEmits<{
   newGraphComponent: [folderPath: string];
   renameFolder: [folderPath: string, newFolderName: string];
   deleteFolder: [folderPath: string];
+  changeSelectedFolder: [folderPath: string | null];
 }>();
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
@@ -145,6 +154,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
     onContextmenu(e: MouseEvent) {
       e.preventDefault();
       e.stopPropagation();
+      selectedKeys.value = [option.key as string];
       contextMenuRef.value?.onContextMenuClick(e, option);
     },
   };
@@ -153,6 +163,15 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
 const data = computed(() => props.fileTreeNodes.map(e => convertToTreeOption(e)!));
 
 const expandedKeys = ref<string[]>([]);
+const selectedKeys = ref<string[]>([]);
+const selectedFolder = computed(() => {
+  if (_.isEmpty(selectedKeys.value)) return null;
+  else return selectedKeys.value[0];
+});
+
+watch(selectedFolder, nv => {
+  emit('changeSelectedFolder', nv);
+});
 
 function renderPrefix({ option }: { option: TreeOption }) {
   const isOpen = expandedKeys.value.includes(option.key as string);
@@ -168,6 +187,12 @@ const newFolderName = ref('');
 const showNewFolderModal = ref(false);
 const showRenameFolderModal = ref(false);
 const showDeleteFolderModal = ref(false);
+
+function confirmCreateFolder(targetFolderPath, newFolderName) {
+  if (!_.isEmpty(newFolderName)) {
+    emit('newFolder', targetFolderPath, newFolderName);
+  }
+}
 </script>
 
 <style scoped></style>
