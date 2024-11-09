@@ -185,7 +185,8 @@ async function deleteFolder(targetDirPath) {
   const parentDirPath = path.dirname(targetDirPath);
   if (parentDirPath !== '.') {
     const parentDir = findFileTreeNodeByPath(fileTreeNodes.value, parentDirPath);
-    if (!parentDir?.children?.length) {
+    const subDirCnt = (parentDir?.children || []).filter(e => !e.name.endsWith('.json')).length;
+    if (subDirCnt === 0) {
       _.remove(expandedKeys.value, k => k === parentDirPath);
     }
   }
