@@ -52,6 +52,7 @@ export function createAxiosInstance(axiosConfig: AxiosRequestConfig) {
         }
       }
       errorMsg = `请求 ${response.config.baseURL} 失败: ${errorMsg}`;
+      window.$message?.error(errorMsg);
       return Promise.reject(new Error(errorMsg));
     },
     function (error: AxiosError) {
