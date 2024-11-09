@@ -140,6 +140,7 @@ import ContextMenu from './ContextMenu.vue';
 import { QueryDialog } from '@/components';
 import path from 'path-browserify';
 import { mimicFileApi } from '@/service/api';
+import { findFileTreeNodeByPath } from './utils';
 
 defineOptions({
   name: 'MimicObjectTree',
@@ -179,6 +180,14 @@ async function deleteFolder(targetDirPath) {
   window.$message?.success(`删除 ${targetDirPath} 成功`);
   unselectFolder(targetDirPath);
   await updateFileTreeNodes();
+  // 没有子文件夹的文件夹，如果是展开状态应该缩回去
+  const parentDirPath = path.dirname(targetDirPath);
+  if (parentDirPath !== '.') {
+    const parentDir = findFileTreeNodeByPath(fileTreeNodes.value, parentDirPath);
+    if (!parentDir?.children?.length) {
+      _.remove(expandedKeys.value, k => k === parentDirPath);
+    }
+  }
 }
 
 const emit = defineEmits<{
@@ -204,7 +213,18 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
   };
 };
 
-const data = computed(() => fileTreeNodes.value.map(e => convertToTreeOption(e)!));
+//todo
+// const data = computed(() => {
+//   const r = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
+//   console.log('@@@', r);
+//   return r;
+// });
+const data = ref<TreeOption[]>();
+watchEffect(() => {
+  console.log('####');
+  data.value = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
+  console.log('@@@@', JSON.stringify(data.value));
+});
 
 const expandedKeys = ref<string[]>([]);
 const selectedKeys = ref<string[]>([]);

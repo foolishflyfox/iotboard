@@ -15,7 +15,6 @@ class MimicFileApi {
 
   async queryTree(fileType: EditorType) {
     const result = await this.instance.get<FileTreeNode[]>(`tree/${fileType}`);
-    console.log('result =', result);
     return result;
   }
 
