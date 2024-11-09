@@ -16,7 +16,8 @@
 import { NDropdown, type TreeOption } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { useContextShowHide } from '@mimic/hooks';
-import type { EditorType } from '@mimic/types';
+import type { EditorType, FileTreeNode } from '@mimic/types';
+import { findFileTreeNodeByPath } from './utils';
 
 const props = defineProps<{
   editorType: EditorType;
@@ -26,10 +27,16 @@ const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const targetDirDeleteDisabled = ref(false);
 const targetDirPath = ref('');
 
-function onContextMenuClick(event: MouseEvent, treeOption?: TreeOption) {
-  if (treeOption) {
-    targetDirDeleteDisabled.value = Boolean(treeOption.children?.length);
+function onFileTreeContextMenuClick(
+  event: MouseEvent,
+  treeOption?: TreeOption,
+  fileTreeNodes?: FileTreeNode[],
+) {
+  if (treeOption && fileTreeNodes) {
+    const treeNode = findFileTreeNodeByPath(fileTreeNodes, treeOption.key as string);
+    targetDirDeleteDisabled.value = Boolean(treeNode?.children?.length);
     console.log('option =', treeOption);
+    console.log('fileTreeNodes =', fileTreeNodes);
     targetDirPath.value = treeOption.key as string;
   } else {
     targetDirPath.value = '';
@@ -137,7 +144,7 @@ const options = computed(() => [
 ]);
 
 defineExpose({
-  onContextMenuClick,
+  onFileTreeContextMenuClick,
 });
 </script>
 

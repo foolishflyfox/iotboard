@@ -26,7 +26,7 @@
           @contextmenu="
             e => {
               e.preventDefault();
-              contextMenuRef?.onContextMenuClick(e);
+              contextMenuRef?.onFileTreeContextMenuClick(e);
             }
           "
         >
@@ -210,7 +210,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
       e.preventDefault();
       e.stopPropagation();
       // selectedKeys.value = [option.key as string];
-      contextMenuRef.value?.onContextMenuClick(e, option);
+      contextMenuRef.value?.onFileTreeContextMenuClick(e, option, fileTreeNodes.value);
     },
   };
 };
