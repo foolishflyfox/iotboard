@@ -111,6 +111,7 @@
             v-model:value="newFolderName"
             placeholder="请输入新文件夹名"
             size="small"
+            ref="folderRenameInputRef"
           />
         </div>
       </n-space>
@@ -207,6 +208,13 @@ watchEffect(() => {
     folderNameInputRef.value?.focus();
   }
 });
+const folderRenameInputRef = ref<InstanceType<typeof NInput>>();
+watchEffect(() => {
+  if (showRenameFolderModal.value) {
+    folderRenameInputRef.value?.focus();
+  }
+});
+
 function confirmCreateFolder(targetFolderPath, newFolderName) {
   if (!_.isEmpty(newFolderName)) {
     emit('newFolder', targetFolderPath, newFolderName);
