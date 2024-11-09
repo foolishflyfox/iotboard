@@ -87,6 +87,7 @@
         <n-input
           v-model:value="newFolderName"
           placeholder="请输入文件夹名"
+          ref="folderNameInputRef"
           @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
         />
       </div>
@@ -188,9 +189,16 @@ const showNewFolderModal = ref(false);
 const showRenameFolderModal = ref(false);
 const showDeleteFolderModal = ref(false);
 
+const folderNameInputRef = ref<InstanceType<typeof NInput>>();
+watchEffect(() => {
+  if (showNewFolderModal.value) {
+    folderNameInputRef.value?.focus();
+  }
+});
 function confirmCreateFolder(targetFolderPath, newFolderName) {
   if (!_.isEmpty(newFolderName)) {
     emit('newFolder', targetFolderPath, newFolderName);
+    showNewFolderModal.value = false;
   }
 }
 </script>
