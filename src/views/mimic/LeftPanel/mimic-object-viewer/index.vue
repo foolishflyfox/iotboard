@@ -97,7 +97,7 @@
       title="重命名"
       v-model:showModal="showRenameFolderModal"
       :positive-btn-disabled="_.isEmpty(newFolderName)"
-      @positive-click="emit('renameFolder', targetFolderPath, newFolderName)"
+      @positive-click="confirmRenameFolder(targetFolderPath, newFolderName)"
     >
       <n-space vertical>
         <div class="flex-y-center">
@@ -112,6 +112,7 @@
             placeholder="请输入新文件夹名"
             size="small"
             ref="folderRenameInputRef"
+            @keydown.enter="confirmRenameFolder(targetFolderPath, newFolderName)"
           />
         </div>
       </n-space>
@@ -222,6 +223,13 @@ function confirmCreateFolder(targetFolderPath, newFolderName) {
   }
 }
 
+function confirmRenameFolder(targetFolderPath, newFolderName) {
+  if (!_.isEmpty(newFolderName)) {
+    emit('renameFolder', targetFolderPath, newFolderName);
+    showRenameFolderModal.value = false;
+  }
+}
+
 defineExpose({
   openFolder(folderPath: string) {
     if (!expandedKeys.value.includes(folderPath)) {
@@ -232,6 +240,15 @@ defineExpose({
     if (selectedKeys.value.includes(folderPath)) {
       selectedKeys.value = [];
     }
+  },
+  changeSelectFolder(newSelectFolderPath: string, oldSelectFolderPath?: string) {
+    if (oldSelectFolderPath) {
+      // 当前选中需要与 oldSelectFolderPath 相同
+      if (!selectedKeys.value.includes(oldSelectFolderPath)) {
+        return;
+      }
+    }
+    selectedKeys.value = [newSelectFolderPath];
   },
 });
 </script>

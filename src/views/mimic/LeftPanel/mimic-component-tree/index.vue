@@ -18,6 +18,7 @@
 import type { FileTreeNode } from '@mimic/types';
 import { MimicObjectViewer } from '../mimic-object-viewer';
 import { mimicFileApi } from '@/service/api';
+import path from 'path-browserify';
 
 defineOptions({
   name: 'MimicComponentTree',
@@ -43,8 +44,15 @@ async function newFolder(targetDirPath: string, newFolderName: string) {
   mimicObjectViewerRef.value?.openFolder(targetDirPath);
 }
 
-function renameFolder(targetDirPath, newFolderName) {
-  console.log(`重命名组件文件夹 ${targetDirPath} 为 ${newFolderName}`);
+async function renameFolder(targetDirPath, newFolderName) {
+  // console.log(`重命名组件文件夹 ${targetDirPath} 为 ${newFolderName}`);
+  await mimicFileApi.renameDir('component', targetDirPath, newFolderName);
+  window.$message?.success(`重命名为 ${newFolderName} 成功`);
+  mimicObjectViewerRef.value?.changeSelectFolder(
+    path.join(path.dirname(targetDirPath), newFolderName),
+    targetDirPath,
+  );
+  await updateFileTreeNodes();
 }
 
 async function deleteFolder(targetDirPath) {

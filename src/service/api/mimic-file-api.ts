@@ -29,6 +29,10 @@ class MimicFileApi {
   async rmdir(fileType: EditorType, folderPath: string) {
     await this.instance.post('rmdir', { fileType, folderPath });
   }
+
+  async renameDir(fileType: EditorType, folderPath: string, newName: string) {
+    await this.instance.post('renameDir', { fileType, folderPath, newName });
+  }
 }
 
 export const mimicFileApi = new MimicFileApi();
