@@ -1,5 +1,11 @@
 <template>
-  <n-modal :show="showModal" preset="dialog" :type @close="emit('update:showModal', false)">
+  <n-modal
+    :show="showModal"
+    preset="dialog"
+    :type
+    @close="emit('update:showModal', false)"
+    :icon="() => h(NIcon, { size: 26 }, { default: () => h(Info12Filled) })"
+  >
     <template #header>
       <div>{{ title }}</div>
     </template>
@@ -25,7 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import { NModal, NButton, NSpace } from 'naive-ui';
+import { NModal, NButton, NSpace, NIcon } from 'naive-ui';
+import { Info12Filled } from '@vicons/fluent';
+import { h } from 'vue';
 
 withDefaults(
   defineProps<{
