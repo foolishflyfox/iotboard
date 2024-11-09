@@ -31,6 +31,7 @@
           "
         >
           <n-tree
+            v-if="isShowTree"
             block-line
             :data="data"
             v-model:expanded-keys="expandedKeys"
@@ -213,17 +214,15 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
   };
 };
 
-//todo
-// const data = computed(() => {
-//   const r = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
-//   console.log('@@@', r);
-//   return r;
-// });
-const data = ref<TreeOption[]>();
-watchEffect(() => {
-  console.log('####');
-  data.value = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
-  console.log('@@@@', JSON.stringify(data.value));
+// isShowTree 变量主要为了删除 tree 组件，并重新渲染，否则存在 data 被更新了，但是 ui 没变化的bug
+const isShowTree = ref(true);
+const data = computed(() => {
+  const r = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
+  isShowTree.value = false;
+  nextTick(() => {
+    isShowTree.value = true;
+  });
+  return r;
 });
 
 const expandedKeys = ref<string[]>([]);
