@@ -1,6 +1,6 @@
 import type { AxiosInstance } from 'axios';
 import { CustomAxiosInstance } from '../request';
-import type { EditorType, FileTreeNode } from '@/views/mimic/types';
+import type { EditorType, FileItem, FileTreeNode } from '@/views/mimic/types';
 import path from 'path-browserify';
 
 class MimicFileApi {
@@ -31,6 +31,11 @@ class MimicFileApi {
 
   async renameDir(fileType: EditorType, folderPath: string, newName: string) {
     await this.instance.post('renameDir', { fileType, folderPath, newName });
+  }
+
+  async listFiles(fileType: EditorType, folderPath: string) {
+    const result = await this.instance.post<FileItem[]>('list', { fileType, folderPath });
+    return result;
   }
 }
 

@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
 
 defineOptions({
@@ -20,8 +21,12 @@ defineOptions({
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 
 const currentTargetDirPath = ref<string | null>();
-function onChangeSelectedFolder(targetDirPath: string | null) {
+async function onChangeSelectedFolder(targetDirPath: string | null) {
   currentTargetDirPath.value = targetDirPath;
+  if (targetDirPath) {
+    const files = await mimicFileApi.listFiles('component', targetDirPath);
+    console.log('@@@', files);
+  }
 }
 
 function newCodeComponent(targetDirPath) {

@@ -6,3 +6,8 @@ export interface FileTreeNode {
   /** 内容 */
   children?: FileTreeNode[];
 }
+
+export interface FileItem {
+  name: string;
+  hasPreview?: boolean;
+}
