@@ -145,13 +145,6 @@ const emit = defineEmits<{
   deleteFolder: [folderPath: string];
   changeSelectedFolder: [folderPath: string | null];
 }>();
-defineExpose({
-  openFolder(folderPath: string) {
-    if (!expandedKeys.value.includes(folderPath)) {
-      expandedKeys.value.push(folderPath);
-    }
-  },
-});
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 const treeNodeProps = ({ option }: { option: TreeOption }) => {
@@ -162,7 +155,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
     onContextmenu(e: MouseEvent) {
       e.preventDefault();
       e.stopPropagation();
-      selectedKeys.value = [option.key as string];
+      // selectedKeys.value = [option.key as string];
       contextMenuRef.value?.onContextMenuClick(e, option);
     },
   };
@@ -208,6 +201,19 @@ function confirmCreateFolder(targetFolderPath, newFolderName) {
     showNewFolderModal.value = false;
   }
 }
+
+defineExpose({
+  openFolder(folderPath: string) {
+    if (!expandedKeys.value.includes(folderPath)) {
+      expandedKeys.value.push(folderPath);
+    }
+  },
+  unselectFolder(folderPath: string) {
+    if (selectedKeys.value.includes(folderPath)) {
+      selectedKeys.value = [];
+    }
+  },
+});
 </script>
 
 <style scoped></style>

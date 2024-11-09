@@ -21,9 +21,13 @@ class MimicFileApi {
 
   async mkdir(fileType: EditorType, parentFolderPath: string, newFolderName: string) {
     await this.instance.post('mkdir', {
-      fileType: fileType,
+      fileType,
       folderPath: path.join(parentFolderPath, newFolderName),
     });
+  }
+
+  async rmdir(fileType: EditorType, folderPath: string) {
+    await this.instance.post('rmdir', { fileType, folderPath });
   }
 }
 
