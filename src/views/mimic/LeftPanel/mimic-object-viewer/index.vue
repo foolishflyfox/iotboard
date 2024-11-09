@@ -175,7 +175,7 @@ async function renameFolder(targetDirPath: string, newFolderName: string) {
 }
 
 async function deleteFolder(targetDirPath) {
-  await mimicFileApi.rmdir('component', targetDirPath);
+  await mimicFileApi.rmdir(props.editorType, targetDirPath);
   window.$message?.success(`删除 ${targetDirPath} 成功`);
   unselectFolder(targetDirPath);
   await updateFileTreeNodes();
