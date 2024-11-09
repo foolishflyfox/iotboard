@@ -45,7 +45,6 @@ async function newFolder(targetDirPath: string, newFolderName: string) {
 }
 
 async function renameFolder(targetDirPath, newFolderName) {
-  // console.log(`重命名组件文件夹 ${targetDirPath} 为 ${newFolderName}`);
   await mimicFileApi.renameDir('component', targetDirPath, newFolderName);
   window.$message?.success(`重命名为 ${newFolderName} 成功`);
   mimicObjectViewerRef.value?.changeSelectFolder(
@@ -56,11 +55,15 @@ async function renameFolder(targetDirPath, newFolderName) {
 }
 
 async function deleteFolder(targetDirPath) {
-  // console.log(`删除组件文件夹 ${targetDirPath}`);
   await mimicFileApi.rmdir('component', targetDirPath);
   window.$message?.success(`删除 ${targetDirPath} 成功`);
   mimicObjectViewerRef.value?.unselectFolder(targetDirPath);
   await updateFileTreeNodes();
+}
+
+const currentTargetDirPath = ref<string | null>();
+function onChangeSelectedFolder(targetDirPath: string | null) {
+  currentTargetDirPath.value = targetDirPath;
 }
 
 function newCodeComponent(targetDirPath) {
@@ -69,11 +72,6 @@ function newCodeComponent(targetDirPath) {
 
 function newGraphComponent(targetDirPath) {
   console.log(`在组件文件夹 ${targetDirPath} 下新建图像组件`);
-}
-
-const currentTargetDirPath = ref<string | null>();
-function onChangeSelectedFolder(targetDirPath: string | null) {
-  currentTargetDirPath.value = targetDirPath;
 }
 </script>
 
