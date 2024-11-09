@@ -17,6 +17,12 @@ export class CustomAxiosInstance {
     const result = (await this.instance.get(url, config)) as T;
     return result;
   }
+
+  /** post 通常用于新增操作 */
+  async post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+    const result = (await this.instance.post(url, data, config)) as T;
+    return result;
+  }
 }
 
 export function createAxiosInstance(axiosConfig: AxiosRequestConfig) {

@@ -25,12 +25,17 @@ defineOptions({
 /** 后端返回的树 */
 const fileTreeNodes: Ref<FileTreeNode[]> = ref([]);
 
-onMounted(async () => {
+async function updateFileTreeNodes() {
   fileTreeNodes.value = await mimicFileApi.queryTree('component');
+}
+
+onMounted(() => {
+  updateFileTreeNodes();
 });
 
-function newFolder(targetDirPath, newFolderName) {
-  console.log(`在 ${targetDirPath} 下新建组件文件夹 ${newFolderName}`);
+async function newFolder(targetDirPath: string, newFolderName: string) {
+  await mimicFileApi.mkdir('component', targetDirPath, newFolderName);
+  window.$message?.success(`创建 ${newFolderName} 成功`);
 }
 
 function renameFolder(targetDirPath, newFolderName) {
