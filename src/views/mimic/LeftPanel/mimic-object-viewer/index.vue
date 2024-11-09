@@ -145,6 +145,13 @@ const emit = defineEmits<{
   deleteFolder: [folderPath: string];
   changeSelectedFolder: [folderPath: string | null];
 }>();
+defineExpose({
+  openFolder(folderPath: string) {
+    if (!expandedKeys.value.includes(folderPath)) {
+      expandedKeys.value.push(folderPath);
+    }
+  },
+});
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 const treeNodeProps = ({ option }: { option: TreeOption }) => {

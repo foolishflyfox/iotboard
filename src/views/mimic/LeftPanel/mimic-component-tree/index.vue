@@ -8,6 +8,7 @@
     @new-code-component="newCodeComponent"
     @new-graph-component="newGraphComponent"
     @change-selected-folder="onChangeSelectedFolder"
+    ref="mimicObjectViewerRef"
   >
     <div>【{{ currentTargetDirPath }}】组件显示(不包含文件夹)</div>
   </MimicObjectViewer>
@@ -21,6 +22,8 @@ import { mimicFileApi } from '@/service/api';
 defineOptions({
   name: 'MimicComponentTree',
 });
+
+const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 
 /** 后端返回的树 */
 const fileTreeNodes: Ref<FileTreeNode[]> = ref([]);
@@ -36,6 +39,8 @@ onMounted(() => {
 async function newFolder(targetDirPath: string, newFolderName: string) {
   await mimicFileApi.mkdir('component', targetDirPath, newFolderName);
   window.$message?.success(`创建 ${newFolderName} 成功`);
+  await updateFileTreeNodes();
+  mimicObjectViewerRef.value?.openFolder(targetDirPath);
 }
 
 function renameFolder(targetDirPath, newFolderName) {
