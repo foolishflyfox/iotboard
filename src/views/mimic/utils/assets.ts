@@ -26,6 +26,9 @@ export function convertToTreeOption(
     result.children = node.children
       .map(e => convertToTreeOption(e, curPath, onlyFolder)!)
       .filter(e => !_.isNil(e));
+    if (result.children.length < 1) {
+      result.children = undefined;
+    }
   }
   return result;
 }
