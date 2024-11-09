@@ -122,7 +122,7 @@
       title="删除"
       type="warning"
       v-model:showModal="showDeleteFolderModal"
-      @positive-click="emit('deleteFolder', targetFolderPath)"
+      @positive-click="deleteFolder(targetFolderPath)"
     >
       <div>删除文件夹【 {{ targetFolderPath }} 】?</div>
     </QueryDialog>
@@ -139,6 +139,7 @@ import * as _ from 'lodash-es';
 import ContextMenu from './ContextMenu.vue';
 import { QueryDialog } from '@/components';
 import path from 'path-browserify';
+import { mimicFileApi } from '@/service/api';
 
 defineOptions({
   name: 'MimicObjectTree',
@@ -146,17 +147,45 @@ defineOptions({
 
 const props = defineProps<{
   editorType: EditorType;
-  fileTreeNodes: FileTreeNode[];
 }>();
 
+/** 后端返回的树 */
+const fileTreeNodes: Ref<FileTreeNode[]> = ref([]);
+
+async function updateFileTreeNodes() {
+  fileTreeNodes.value = await mimicFileApi.queryTree(props.editorType);
+}
+
+onMounted(() => {
+  updateFileTreeNodes();
+});
+
+async function newFolder(targetDirPath: string, newFolderName: string) {
+  await mimicFileApi.mkdir(props.editorType, targetDirPath, newFolderName);
+  window.$message?.success(`创建 ${newFolderName} 成功`);
+  await updateFileTreeNodes();
+  openFolder(targetDirPath);
+}
+
+async function renameFolder(targetDirPath: string, newFolderName: string) {
+  await mimicFileApi.renameDir(props.editorType, targetDirPath, newFolderName);
+  window.$message?.success(`重命名为 ${newFolderName} 成功`);
+  changeSelectFolder(path.join(path.dirname(targetDirPath), newFolderName), targetDirPath);
+  await updateFileTreeNodes();
+}
+
+async function deleteFolder(targetDirPath) {
+  await mimicFileApi.rmdir('component', targetDirPath);
+  window.$message?.success(`删除 ${targetDirPath} 成功`);
+  unselectFolder(targetDirPath);
+  await updateFileTreeNodes();
+}
+
 const emit = defineEmits<{
-  newFolder: [folderPath: string, newFolderName: string];
   newDisplay: [folderPath: string];
   newModule: [folderPath: string];
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
-  renameFolder: [folderPath: string, newFolderName: string];
-  deleteFolder: [folderPath: string];
   changeSelectedFolder: [folderPath: string | null];
 }>();
 
@@ -175,7 +204,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
   };
 };
 
-const data = computed(() => props.fileTreeNodes.map(e => convertToTreeOption(e)!));
+const data = computed(() => fileTreeNodes.value.map(e => convertToTreeOption(e)!));
 
 const expandedKeys = ref<string[]>([]);
 const selectedKeys = ref<string[]>([]);
@@ -218,39 +247,36 @@ watchEffect(() => {
 
 function confirmCreateFolder(targetFolderPath, newFolderName) {
   if (!_.isEmpty(newFolderName)) {
-    emit('newFolder', targetFolderPath, newFolderName);
+    newFolder(targetFolderPath, newFolderName);
     showNewFolderModal.value = false;
   }
 }
 
 function confirmRenameFolder(targetFolderPath, newFolderName) {
   if (!_.isEmpty(newFolderName)) {
-    emit('renameFolder', targetFolderPath, newFolderName);
+    renameFolder(targetFolderPath, newFolderName);
     showRenameFolderModal.value = false;
   }
 }
-
-defineExpose({
-  openFolder(folderPath: string) {
-    if (!expandedKeys.value.includes(folderPath)) {
-      expandedKeys.value.push(folderPath);
+function openFolder(folderPath: string) {
+  if (!expandedKeys.value.includes(folderPath)) {
+    expandedKeys.value.push(folderPath);
+  }
+}
+function changeSelectFolder(newSelectFolderPath: string, oldSelectFolderPath?: string) {
+  if (oldSelectFolderPath) {
+    // 当前选中需要与 oldSelectFolderPath 相同
+    if (!selectedKeys.value.includes(oldSelectFolderPath)) {
+      return;
     }
-  },
-  unselectFolder(folderPath: string) {
-    if (selectedKeys.value.includes(folderPath)) {
-      selectedKeys.value = [];
-    }
-  },
-  changeSelectFolder(newSelectFolderPath: string, oldSelectFolderPath?: string) {
-    if (oldSelectFolderPath) {
-      // 当前选中需要与 oldSelectFolderPath 相同
-      if (!selectedKeys.value.includes(oldSelectFolderPath)) {
-        return;
-      }
-    }
-    selectedKeys.value = [newSelectFolderPath];
-  },
-});
+  }
+  selectedKeys.value = [newSelectFolderPath];
+}
+function unselectFolder(folderPath: string) {
+  if (selectedKeys.value.includes(folderPath)) {
+    selectedKeys.value = [];
+  }
+}
 </script>
 
 <style scoped></style>
