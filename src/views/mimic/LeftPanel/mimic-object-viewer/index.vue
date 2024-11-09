@@ -99,10 +99,21 @@
       :positive-btn-disabled="_.isEmpty(newFolderName)"
       @positive-click="emit('renameFolder', targetFolderPath, newFolderName)"
     >
-      <div class="flex-y-center">
-        <div class="w-120px">新文件夹名:</div>
-        <n-input v-model:value="newFolderName" placeholder="请输入新文件夹名" />
-      </div>
+      <n-space vertical>
+        <div class="flex-y-center">
+          <div class="w-100px text-right pr-15px">原文件名:</div>
+          <span class="px-3px">{{ path.basename(targetFolderPath) }}</span>
+        </div>
+        <div class="flex-y-center">
+          <div class="w-100px text-right pr-15px">新文件夹名:</div>
+          <n-input
+            class="flex-1"
+            v-model:value="newFolderName"
+            placeholder="请输入新文件夹名"
+            size="small"
+          />
+        </div>
+      </n-space>
     </QueryDialog>
     <!-- 删除文件夹对话框 -->
     <QueryDialog
@@ -117,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import { NIcon, NInput, NSplit, NTree, type TreeOption } from 'naive-ui';
+import { NIcon, NInput, NSplit, NTree, NSpace, type TreeOption } from 'naive-ui';
 import { Search } from '@vicons/ionicons5';
 import { Folder20Filled, FolderOpen20Filled } from '@vicons/fluent';
 import { convertToTreeOption } from '@mimic/utils';
@@ -125,6 +136,7 @@ import { editorTypeName, type EditorType, type FileTreeNode } from '@mimic/types
 import * as _ from 'lodash-es';
 import ContextMenu from './ContextMenu.vue';
 import { QueryDialog } from '@/components';
+import path from 'path-browserify';
 
 defineOptions({
   name: 'MimicObjectTree',
