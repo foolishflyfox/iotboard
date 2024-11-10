@@ -3,9 +3,10 @@
     <img
       :src="imgSrc"
       width="42"
-      class="cursor-grab p-4px"
+      class="p-4px"
+      :style="{ cursor: draggable ? 'grab' : 'not-allowed' }"
       @dragstart="startDragHandler"
-      :draggable="['display', 'module'].includes(mimicWorkspaceStatus.curEditorType)"
+      :draggable
     />
     <div class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text">
       {{ fileName }}
@@ -24,6 +25,10 @@ const props = defineProps<{
 }>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const { curEditorType } = toRefs(mimicWorkspaceStatus);
+const draggable = computed(
+  () => !!props.hasPreview && ['display', 'module'].includes(curEditorType.value),
+);
 const imgSrc = computed(() => {
   return props.hasPreview
     ? `${getDataUrl()}/components/${props.folderPath}/${props.fileName}.png`

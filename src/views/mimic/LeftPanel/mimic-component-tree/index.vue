@@ -7,8 +7,9 @@
     ref="mimicObjectViewerRef"
   >
     <div>
-      <n-space v-for="item of currentTargets">
+      <n-space>
         <mimic-component-drag-item
+          v-for="item of currentTargets"
           :folder-path="currentTargetDirPath!"
           :file-name="item.name"
           :has-preview="item.hasPreview"
