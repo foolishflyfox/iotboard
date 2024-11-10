@@ -221,6 +221,8 @@ const cfg: UiCustomCfg = {
   },
 };
 
-customUiGenerate(cfg);
+console.log(JSON.stringify(cfg));
+
+// customUiGenerate(cfg);
 
 //////////////

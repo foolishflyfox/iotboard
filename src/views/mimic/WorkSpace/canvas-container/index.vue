@@ -58,7 +58,16 @@ async function onDisplayEditorDrop(e: MouseEvent) {
   if (mimicVar.draggingType === 'component') {
     if (mimicVar.draggingTag && !_.isEmpty(mimicVar.draggingTag)) {
       console.log(`将组件 ${mimicVar.draggingTag} 拖放到图纸`);
-      await registerComponent(mimicVar.draggingTag);
+      const componentClass = await registerComponent(mimicVar.draggingTag);
+      const newElement = new componentClass({
+        ...mimicVar.app?.getPagePointByClient(e),
+        draggable: true,
+        editable: true,
+      });
+      if (_.isEmpty(newElement.id)) {
+        newElement.id = getUniqueId();
+      }
+      mimicVar.app?.tree.add(newElement);
     }
   }
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
