@@ -6,13 +6,20 @@
     @change-selected-folder="onChangeSelectedFolder"
     ref="mimicObjectViewerRef"
   >
-    <div>【{{ currentTargetDirPath }}】组件显示(不包含文件夹)</div>
+    <div>
+      <n-space v-for="item of currentTargets">
+        <mimic-file-drag-item :file-name="item.name" />
+      </n-space>
+    </div>
   </MimicObjectViewer>
 </template>
 
 <script setup lang="ts">
 import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
+import { NSpace } from 'naive-ui';
+import type { FileItem } from '../../types';
+import MimicFileDragItem from '../MimicFileDragItem.vue';
 
 defineOptions({
   name: 'MimicComponentTree',
@@ -21,11 +28,12 @@ defineOptions({
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 
 const currentTargetDirPath = ref<string | null>();
+const currentTargets = ref<FileItem[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   currentTargetDirPath.value = targetDirPath;
   if (targetDirPath) {
-    const files = await mimicFileApi.listFiles('component', targetDirPath);
-    console.log('@@@', files);
+    currentTargets.value = await mimicFileApi.listFiles('component', targetDirPath);
+    console.log('@@@', currentTargets.value);
   }
 }
 
