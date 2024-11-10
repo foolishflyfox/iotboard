@@ -8,7 +8,7 @@
   >
     <div>
       <n-space v-for="item of currentTargets">
-        <mimic-file-drag-item :file-name="item.name" />
+        <mimic-component-drag-item :file-name="item.name" />
       </n-space>
     </div>
   </MimicObjectViewer>
@@ -19,7 +19,7 @@ import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
 import { NSpace } from 'naive-ui';
 import type { FileItem } from '../../types';
-import MimicFileDragItem from '../MimicFileDragItem.vue';
+import MimicComponentDragItem from './MimicComponentDragItem.vue';
 
 defineOptions({
   name: 'MimicComponentTree',

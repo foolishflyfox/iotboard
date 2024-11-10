@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMimicWorkspaceStatus } from '../stores';
+import { useMimicWorkspaceStatus } from '../../stores';
 
 const props = defineProps<{
   fileName: string;
