@@ -48,3 +48,22 @@ export function updateElementData(
 export function getUiClassByTag(tag: string) {
   return UICreator.list[tag];
 }
+
+/** 将自定义 UI 对象的 config 转换为 json */
+export function customUiClassToJson(cfg: any) {
+  return JSON.stringify(cfg, (key, value) => {
+    if (typeof value === 'function') {
+      return value.toString();
+    }
+    return value;
+  });
+}
+
+export function jsonToCustomUiClass(json: any): any {
+  return JSON.parse(json, (key, value) => {
+    if (typeof value === 'string' && value.startsWith('function')) {
+      return eval(`(${value})`);
+    }
+    return value;
+  });
+}

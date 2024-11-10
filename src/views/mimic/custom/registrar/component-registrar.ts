@@ -1,5 +1,5 @@
 import { mimicFileApi } from '@/service/api';
-import { getUiClassByTag } from '@mimic/utils';
+import { customUiClassToJson, getUiClassByTag, jsonToCustomUiClass } from '@mimic/utils';
 import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { customUiGenerate } from '@mimic/custom/generator';
@@ -228,10 +228,12 @@ export async function registerComponent(tag: string) {
   let uiClass = getUiClassByTag(tag);
   if (!uiClass) {
     const componentJson = await mimicFileApi.getComponentJson(tag);
-    const curCfg = _.cloneDeep(cfg);
-    curCfg.tag = tag;
-    customUiGenerate(curCfg);
-    console.log('组件 json:', componentJson);
+    const json = JSON.stringify(componentJson);
+    // const curCfg = _.cloneDeep(cfg);
+    // curCfg.tag = tag;
+    // const json = customUiClassToJson(curCfg);
+    const newCfg = jsonToCustomUiClass(json);
+    customUiGenerate(newCfg);
     uiClass = getUiClassByTag(tag);
   }
   return uiClass;
