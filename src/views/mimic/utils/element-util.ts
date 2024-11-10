@@ -44,7 +44,7 @@ export function updateElementData(
   }
 }
 
-/** 根据 tag 获取元素类用于创建元素 */
-export function getElementClassByTag(tag: string) {
+/** 根据 tag 获取Ui类用于创建元素 */
+export function getUiClassByTag(tag: string) {
   return UICreator.list[tag];
 }

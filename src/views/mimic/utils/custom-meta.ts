@@ -1,7 +1,7 @@
 import type { UI } from 'leafer-ui';
 import * as _ from 'lodash-es';
-import { UICreator } from 'leafer-ui';
 import type { AppearanceType } from '../types';
+import { getUiClassByTag } from './element-util';
 
 /** 自定义组件分组 */
 export const componentCategories = {
@@ -16,7 +16,7 @@ export class CustomMeta {
   private _component?: typeof UI;
   get component(): typeof UI {
     if (_.isNil(this._component)) {
-      this._component = UICreator.list[this.name];
+      this._component = getUiClassByTag(this.name);
       if (_.isNil(this._component)) {
         console.error(`组件 ${this.name} 没有注册`);
       }

@@ -24,6 +24,7 @@ import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
+import { registerComponent } from '@mimic/custom/registrar';
 
 const loadScript = () => {
   loadjs('/mytest.js', {
@@ -55,8 +56,9 @@ useDropZone(displayEditorWorkspace);
 
 function onDisplayEditorDrop(e: MouseEvent) {
   if (mimicVar.draggingType === 'component') {
-    if (!_.isEmpty(mimicVar.draggingTag)) {
+    if (mimicVar.draggingTag && !_.isEmpty(mimicVar.draggingTag)) {
       console.log(`将组件 ${mimicVar.draggingTag} 拖放到图纸`);
+      registerComponent(mimicVar.draggingTag);
     }
   }
   if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
