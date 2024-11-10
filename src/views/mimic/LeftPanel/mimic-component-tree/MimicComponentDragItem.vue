@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { getDataUrl } from '@/utils';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicVar } from '@mimic/global';
 
 const props = defineProps<{
   folderPath: string;
@@ -31,11 +32,13 @@ const draggable = computed(
 );
 const imgSrc = computed(() => {
   return props.hasPreview
-    ? `${getDataUrl()}/components/${props.folderPath}/${props.fileName}.png`
+    ? `${getDataUrl()}/component/${props.folderPath}/${props.fileName}.png`
     : 'preview/miss.png';
 });
 
 function startDragHandler(e: any) {
+  mimicVar.draggingType = 'component';
+  mimicVar.draggingTag = `component/${props.folderPath}/${props.fileName}`;
   console.log('start drag', e);
 }
 </script>
