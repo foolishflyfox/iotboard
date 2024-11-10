@@ -14,6 +14,7 @@ export default defineConfig({
     port: 5180,
     proxy: {
       '/mimic': 'http://localhost:3000',
+      '/data': 'http://localhost:3000',
     },
   },
   plugins: [

@@ -8,7 +8,11 @@
   >
     <div>
       <n-space v-for="item of currentTargets">
-        <mimic-component-drag-item :file-name="item.name" />
+        <mimic-component-drag-item
+          :folder-path="currentTargetDirPath!"
+          :file-name="item.name"
+          :has-preview="item.hasPreview"
+        />
       </n-space>
     </div>
   </MimicObjectViewer>
@@ -27,7 +31,7 @@ defineOptions({
 
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 
-const currentTargetDirPath = ref<string | null>();
+const currentTargetDirPath = ref<string | null>(null);
 const currentTargets = ref<FileItem[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   currentTargetDirPath.value = targetDirPath;

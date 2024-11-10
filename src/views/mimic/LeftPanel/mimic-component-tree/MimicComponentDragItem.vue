@@ -1,7 +1,7 @@
 <template>
   <div class="inline-block bg-[#fff8] rounded-lg">
     <img
-      :src="pngSrc || 'preview/miss.png'"
+      :src="imgSrc"
       width="42"
       class="cursor-grab p-4px"
       @dragstart="startDragHandler"
@@ -14,14 +14,21 @@
 </template>
 
 <script setup lang="ts">
-import { useMimicWorkspaceStatus } from '../../stores';
+import { getDataUrl } from '@/utils';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 const props = defineProps<{
+  folderPath: string;
   fileName: string;
-  pngSrc?: string;
+  hasPreview?: boolean;
 }>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const imgSrc = computed(() => {
+  return props.hasPreview
+    ? `${getDataUrl()}/components/${props.folderPath}/${props.fileName}.png`
+    : 'preview/miss.png';
+});
 
 function startDragHandler(e: any) {
   console.log('start drag', e);
