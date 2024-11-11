@@ -41,7 +41,10 @@ export interface UiCustomCfg {
   drawHitPath?: (hitCanvas: ILeaferCanvas) => void;
   // 碰撞检测
   hit?: (inner: IRadiusPointData) => boolean;
+  // 绘制函数
   draw: (canvas: ILeaferCanvas) => void;
+  // 自定义外观属性
+  appearanceTypes?: AppearanceType[];
 }
 
 export function customUiGenerate(uiCustomCfg: UiCustomCfg) {

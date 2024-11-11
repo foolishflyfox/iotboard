@@ -36,14 +36,23 @@ import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
 import type { IPaint, IPaintType } from 'leafer-ui';
+import { customCfgDict } from '@mimic/custom/generator';
+import type { AppearanceType } from '@mimic/types';
 
 // const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const curElementProxyData = useCurElementProxyData();
 const curElementLabel = computed(() => customMetas[curElementProxyData.value?.tag || '']?.label);
-const curAppearancePropertyTypes = computed(
-  () => customMetas[curElementProxyData.value?.tag || '']?.appearanceTypes,
-);
+const curAppearancePropertyTypes = computed(() => {
+  let result: AppearanceType[] = [];
+  const customUiCfg = customCfgDict.ui[curElementProxyData.value?.tag!];
+  if (customUiCfg.appearanceTypes) {
+    result = customUiCfg.appearanceTypes;
+  } else {
+    result = customMetas[curElementProxyData.value?.tag || '']?.appearanceTypes || result;
+  }
+  return result;
+});
 
 const x = computed({
   get: () => curElementProxyData.value?.x,
