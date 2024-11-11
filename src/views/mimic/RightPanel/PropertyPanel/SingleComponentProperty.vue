@@ -46,7 +46,7 @@ const curElementLabel = computed(() => customMetas[curElementProxyData.value?.ta
 const curAppearancePropertyTypes = computed(() => {
   let result: AppearanceType[] = [];
   const customUiCfg = customCfgDict.ui[curElementProxyData.value?.tag!];
-  if (customUiCfg.appearanceTypes) {
+  if (customUiCfg?.appearanceTypes) {
     result = customUiCfg.appearanceTypes;
   } else {
     result = customMetas[curElementProxyData.value?.tag || '']?.appearanceTypes || result;
