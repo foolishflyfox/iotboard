@@ -84,11 +84,12 @@
       @positive-click="confirmCreateFolder(targetFolderPath, newFolderName)"
     >
       <div class="flex-y-center">
-        <div class="w-120px">文件夹名:</div>
+        <div class="w-90px">文件夹名:</div>
         <n-input
           v-model:value="newFolderName"
           placeholder="请输入文件夹名"
           ref="folderNameInputRef"
+          size="small"
           @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
         />
       </div>

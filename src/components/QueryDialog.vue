@@ -5,6 +5,7 @@
     :type
     @close="emit('update:showModal', false)"
     :icon="() => h(NIcon, { size: 26 }, { default: () => h(Info12Filled) })"
+    @keydown.esc="emit('update:showModal', false)"
   >
     <template #header>
       <div>{{ title }}</div>
