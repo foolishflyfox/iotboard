@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex-1"
+    class="flex-1 bg-gray-300"
     id="mimicCanvasContainer"
     ref="displayEditorWorkspace"
     @contextmenu="contextMenuRef?.onContextMenuClick"
@@ -122,7 +122,7 @@ onMounted(() => {
     id: displayBaseMapId,
     width: 500,
     height: 300,
-    fill: '#00bfff33',
+    fill: '#FFFFFFFF',
     data: {
       sizeType: 'custom',
     },
