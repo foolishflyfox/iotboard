@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ColorProperty label="背景颜色" v-model="bgColor" />
+    <ColorProperty label="背景颜色" v-model:value="bgColor" />
     <DisplaySizeProperty />
   </div>
 </template>
