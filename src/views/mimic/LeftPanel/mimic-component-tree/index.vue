@@ -35,11 +35,13 @@ const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 const currentTargetDirPath = ref<string | null>(null);
 const currentTargets = ref<FileItem[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
-  currentTargetDirPath.value = targetDirPath;
   if (targetDirPath) {
     currentTargets.value = await mimicFileApi.listFiles('component', targetDirPath);
     console.log('@@@', currentTargets.value);
   }
+  // 不要将 currentTargetDirPath.value 的赋值放在 currentTargets 前，因为请求后端数据需要时间
+  // 会导致对错误图片资源的请求
+  currentTargetDirPath.value = targetDirPath;
 }
 
 function newCodeComponent(targetDirPath) {
