@@ -83,16 +83,23 @@
       :positive-btn-disabled="_.isEmpty(newFolderName)"
       @positive-click="confirmCreateFolder(targetFolderPath, newFolderName)"
     >
-      <div class="flex-y-center">
-        <div class="w-90px">文件夹名:</div>
-        <n-input
-          v-model:value="newFolderName"
-          placeholder="请输入文件夹名"
-          ref="folderNameInputRef"
-          size="small"
-          @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
-        />
-      </div>
+      <n-space vertical>
+        <div class="flex-y-center">
+          <div class="w-110px text-right pr-15px">父文件夹路径:</div>
+          <span class="px-3px">{{ targetFolderPath }}</span>
+        </div>
+        <div class="flex-y-center">
+          <div class="w-110px text-right pr-15px">新建文件夹名:</div>
+          <n-input
+            v-model:value="newFolderName"
+            placeholder="请输入文件夹名"
+            ref="folderNameInputRef"
+            size="small"
+            class="flex-1"
+            @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
+          />
+        </div>
+      </n-space>
     </QueryDialog>
     <!-- 重命名文件夹对话框 -->
     <QueryDialog
@@ -103,8 +110,8 @@
     >
       <n-space vertical>
         <div class="flex-y-center">
-          <div class="w-100px text-right pr-15px">原文件名:</div>
-          <span class="px-3px">{{ path.basename(targetFolderPath) }}</span>
+          <div class="w-100px text-right pr-15px">文件夹路径:</div>
+          <span class="px-3px">{{ targetFolderPath }}</span>
         </div>
         <div class="flex-y-center">
           <div class="w-100px text-right pr-15px">新文件夹名:</div>
