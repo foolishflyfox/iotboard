@@ -22,7 +22,7 @@ defineOptions({
   name: 'ComponentEditorContextMenu',
 });
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditor);
+const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
 
 const options = [
   {

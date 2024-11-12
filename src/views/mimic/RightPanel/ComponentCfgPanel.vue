@@ -6,7 +6,7 @@
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditor);
+const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
 </script>
 
 <style scoped></style>

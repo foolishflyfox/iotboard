@@ -12,7 +12,7 @@ export const componentEditorUtils = {
   },
   getCurrentSelectedElements() {
     const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-    const selectedUiIds = mimicWorkspaceStatus.componentEditor.selectedUiIds;
+    const selectedUiIds = mimicWorkspaceStatus.componentEditorStatus.selectedUiIds;
     const selectedUis = selectedUiIds.map(
       uiId => mimicVar.componentEditor.app?.tree.findId(uiId) as IUI,
     );

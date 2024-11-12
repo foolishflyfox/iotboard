@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { NDropdown } from 'naive-ui';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus } from '@mimic/stores';
 import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';
 import { doContextMenuAction } from './context-menu-action';
@@ -24,14 +24,14 @@ import { useContextShowHide } from '@mimic/hooks';
 // }>();
 
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const mimicDisplayStatus = useMimicDisplayStatus();
 
 function onContextMenuClick(event: MouseEvent) {
-  if (_.isArray(mimicWorkspaceStatus.selectedUiId)) {
+  if (_.isArray(mimicDisplayStatus.selectedUiId)) {
     showMultiSelectContextMenu();
-  } else if (mimicWorkspaceStatus.selectedUiId === displayBaseMapId) {
+  } else if (mimicDisplayStatus.selectedUiId === displayBaseMapId) {
     showNoSelectContextMenu();
-  } else if (!_.isEmpty(mimicWorkspaceStatus)) {
+  } else if (!_.isEmpty(mimicDisplayStatus)) {
     /** 选中单个元素的右键菜单 */
     showMenu(event);
   }

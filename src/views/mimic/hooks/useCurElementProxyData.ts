@@ -1,11 +1,11 @@
 import { findUiById } from '@mimic/utils';
 import type { UI } from 'leafer-ui';
-import { useMimicWorkspaceStatus } from '../stores';
+import { useMimicDisplayStatus } from '../stores';
 
 export function useCurElementProxyData() {
-  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  const mimicDisplayStatus = useMimicDisplayStatus();
   const curElementProxyData = computed(
-    () => (findUiById(mimicWorkspaceStatus.selectedUiId) as UI).proxyData,
+    () => (findUiById(mimicDisplayStatus.selectedUiId) as UI).proxyData,
   );
   return curElementProxyData;
 }

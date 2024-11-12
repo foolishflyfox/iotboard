@@ -27,7 +27,7 @@ useDropZone(componentEditorWorkspace);
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditor);
+const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
 function selectHandler(event: EditorEvent) {
   selectedUiIds.value = convertToArray(event.value).map(e => e.id!);
 }

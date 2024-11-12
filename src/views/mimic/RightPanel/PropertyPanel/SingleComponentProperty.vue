@@ -1,5 +1,4 @@
 <template>
-  <!-- <div>单文件配置: {{ mimicWorkspaceStatus.selectedUiId }}</div> -->
   <div>
     <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div>
     <n-collapse :default-expanded-names="['base', 'custom']">
@@ -38,8 +37,6 @@ import * as _ from 'lodash-es';
 import type { IPaint, IPaintType } from 'leafer-ui';
 import { customCfgDict } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
-
-// const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const curElementProxyData = useCurElementProxyData();
 const curElementLabel = computed(() => customMetas[curElementProxyData.value?.tag || '']?.label);

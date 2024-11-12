@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { NSplit, NScrollbar } from 'naive-ui';
 import * as _ from 'lodash-es';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
@@ -45,7 +45,7 @@ defineOptions({
   name: 'PropertyPanel',
 });
 
-const { selectedUiId } = toRefs(useMimicWorkspaceStatus());
+const { selectedUiId } = toRefs(useMimicDisplayStatus());
 
 const selectedUI = computed(() => findUiById(selectedUiId.value));
 

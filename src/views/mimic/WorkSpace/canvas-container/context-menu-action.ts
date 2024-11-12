@@ -1,13 +1,13 @@
 import type { IUI, UI } from 'leafer-ui';
 import { findCurrentSelected } from '@mimic/utils';
 import * as _ from 'lodash-es';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 
 export function doContextMenuAction(action: string) {
   // debugger;
-  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  const mimicDisplayStatus = useMimicDisplayStatus();
   const curUi = findCurrentSelected();
 
   if (action === 'png' || action === 'jpg') {
@@ -25,7 +25,7 @@ export function doContextMenuAction(action: string) {
       const iui = curUi as IUI;
       if (iui.id !== displayBaseMapId) {
         iui.destroy();
-        mimicWorkspaceStatus.selectBaseMap();
+        mimicDisplayStatus.selectBaseMap();
         mimicVar.app?.editor?.cancel();
       }
     }

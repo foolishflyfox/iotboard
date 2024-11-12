@@ -3,7 +3,7 @@ import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 import { UICreator, type IUI, type UI } from 'leafer-ui';
 import { type Ref } from 'vue';
-import { useMimicWorkspaceStatus } from '../stores';
+import { useMimicDisplayStatus } from '../stores';
 
 /** 页面自适应 */
 export function viewAutoFit() {
@@ -24,8 +24,8 @@ export function findUiById(id?: null | string | string[]) {
 
 /** 获取当前选中的元素 */
 export function findCurrentSelected() {
-  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-  return findUiById(mimicWorkspaceStatus.selectedUiId);
+  const mimicDisplayStatus = useMimicDisplayStatus();
+  return findUiById(mimicDisplayStatus.selectedUiId);
 }
 
 /** 获取图纸的底图元素 */
