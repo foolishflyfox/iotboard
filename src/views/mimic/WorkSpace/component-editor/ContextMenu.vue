@@ -14,15 +14,15 @@
 
 <script setup lang="ts">
 import { NDropdown } from 'naive-ui';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicComponentStatus } from '@mimic/stores';
 import { useContextShowHide } from '@mimic/hooks';
 import { doComponentEditorAction } from './component-editor-action';
 
 defineOptions({
   name: 'ComponentEditorContextMenu',
 });
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
+const mimicComponentStatus = useMimicComponentStatus();
+const { selectedUiIds } = toRefs(mimicComponentStatus);
 
 const options = [
   {

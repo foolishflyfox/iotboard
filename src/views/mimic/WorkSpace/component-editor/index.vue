@@ -15,7 +15,7 @@ import { App, ResizeEvent } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
 import { componentEditorUtils, getUiClassByTag } from '@mimic/utils';
 import { Ruler } from 'leafer-x-ruler';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicWorkspaceStatus, useMimicComponentStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
 import { registerElement } from '@mimic/custom/registrar';
 import ContextMenu from './ContextMenu.vue';
@@ -25,9 +25,10 @@ import { convertToArray } from '@/utils';
 const componentEditorWorkspace = ref<HTMLElement>();
 useDropZone(componentEditorWorkspace);
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const mimicComponentStatus = useMimicComponentStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
+const { selectedUiIds } = toRefs(mimicComponentStatus);
 function selectHandler(event: EditorEvent) {
   selectedUiIds.value = convertToArray(event.value).map(e => e.id!);
 }

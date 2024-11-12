@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicComponentStatus } from '@mimic/stores';
 
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const { selectedUiIds } = toRefs(mimicWorkspaceStatus.componentEditorStatus);
+const mimicComponentStatus = useMimicComponentStatus();
+const { selectedUiIds } = toRefs(mimicComponentStatus);
 </script>
 
 <style scoped></style>

@@ -1,6 +1,6 @@
 import { mimicVar } from '../global';
 import * as _ from 'lodash-es';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicComponentStatus } from '@mimic/stores';
 import type { IUI } from 'leafer-ui';
 
 export const componentEditorUtils = {
@@ -11,8 +11,8 @@ export const componentEditorUtils = {
     }
   },
   getCurrentSelectedElements() {
-    const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-    const selectedUiIds = mimicWorkspaceStatus.componentEditorStatus.selectedUiIds;
+    const mimicComponentStatus = useMimicComponentStatus();
+    const selectedUiIds = mimicComponentStatus.selectedUiIds;
     const selectedUis = selectedUiIds.map(
       uiId => mimicVar.componentEditor.app?.tree.findId(uiId) as IUI,
     );
