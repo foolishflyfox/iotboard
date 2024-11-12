@@ -13,24 +13,33 @@
     :positive-btn-disabled="_.isEmpty(newDisplayName)"
     @positive-click="confirmCreateDisplay"
   >
-    <div class="flex-y-center">
-      <div class="w-80px">图纸名:</div>
-      <n-input
-        v-model:value="newDisplayName"
-        placeholder="请输入图纸名"
-        ref="displayNameInputRef"
-        size="small"
-        @keydown.enter="confirmCreateDisplay"
-      />
-    </div>
+    <n-space vertical>
+      <div class="flex-y-center">
+        <div class="w-80px">父文件夹:</div>
+        <span>{{ targetFolderPath }}</span>
+      </div>
+      <div class="flex-y-center">
+        <div class="w-80px">图纸名:</div>
+        <n-input
+          v-model:value="newDisplayName"
+          placeholder="请输入图纸名"
+          ref="displayNameInputRef"
+          size="small"
+          class="flex-1"
+          @keydown.enter="confirmCreateDisplay"
+        />
+      </div>
+    </n-space>
   </QueryDialog>
 </template>
 
 <script setup lang="ts">
 import { QueryDialog } from '@/components';
 import { MimicObjectViewer } from '../mimic-object-viewer';
-import { NInput } from 'naive-ui';
+import { NInput, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
+import { mimicFileApi } from '@/service/api';
+import { initDisplayData } from '@mimic/display';
 
 defineOptions({
   name: 'MimicDisplayTree',
@@ -53,10 +62,15 @@ function newDisplay(dirPath) {
   newDisplayName.value = '';
   nextTick(() => displayNameInputRef.value?.focus());
 }
-function confirmCreateDisplay() {
+async function confirmCreateDisplay() {
   if (!_.isEmpty(newDisplayName.value)) {
     console.log(`在 ${targetFolderPath.value} 下新建图纸 ${newDisplayName.value}`);
     showNewDisplayModal.value = false;
+    await mimicFileApi.createDisplay(
+      `${targetFolderPath.value}/${newDisplayName.value}.json`,
+      initDisplayData,
+    );
+    window.$message?.success(`创建图纸 ${targetFolderPath.value}/${newDisplayName.value} 成功`);
   }
 }
 </script>
