@@ -23,7 +23,7 @@
 import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
 import { NSpace } from 'naive-ui';
-import type { FileItem } from '../../types';
+import type { FileItem } from '@mimic/types';
 import MimicComponentDragItem from './MimicComponentDragItem.vue';
 
 defineOptions({
@@ -37,11 +37,13 @@ const currentTargets = ref<FileItem[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   if (targetDirPath) {
     currentTargets.value = await mimicFileApi.listFiles('component', targetDirPath);
-    console.log('@@@', currentTargets.value);
+    // 不要将 currentTargetDirPath.value 的赋值放在 currentTargets 前，因为请求后端数据需要时间
+    // 会导致对错误图片资源的请求
+    currentTargetDirPath.value = targetDirPath;
+  } else {
+    currentTargets.value = [];
+    currentTargetDirPath.value = null;
   }
-  // 不要将 currentTargetDirPath.value 的赋值放在 currentTargets 前，因为请求后端数据需要时间
-  // 会导致对错误图片资源的请求
-  currentTargetDirPath.value = targetDirPath;
 }
 
 function newCodeComponent(targetDirPath) {

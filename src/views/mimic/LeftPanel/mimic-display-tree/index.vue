@@ -5,7 +5,17 @@
     @change-selected-folder="onChangeSelectedFolder"
     ref="mimicObjectViewerRef"
   >
-    <div>【{{ currentTargetDirPath }}】图纸显示(不包含文件夹)</div>
+    <!-- <div>【{{ currentTargetDirPath }}】图纸显示(不包含文件夹)</div> -->
+    <div>
+      <n-space>
+        <mimic-display-item
+          v-for="item of currentTargets"
+          :folder-path="currentTargetDirPath!"
+          :file-name="item.name"
+          :has-preview="item.hasPreview"
+        />
+      </n-space>
+    </div>
   </MimicObjectViewer>
   <QueryDialog
     title="新建"
@@ -41,6 +51,8 @@ import * as _ from 'lodash-es';
 import { mimicFileApi } from '@/service/api';
 import { initDisplayData } from '@mimic/display';
 import { useMimicDisplayStatus } from '@mimic/stores';
+import MimicDisplayItem from './MimicDisplayItem.vue';
+import type { FileItem } from '@mimic/types';
 
 defineOptions({
   name: 'MimicDisplayTree',
@@ -50,8 +62,15 @@ const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
-function onChangeSelectedFolder(targetDirPath: string | null) {
-  currentTargetDirPath.value = targetDirPath;
+const currentTargets = ref<FileItem[]>();
+async function onChangeSelectedFolder(targetDirPath: string | null) {
+  if (targetDirPath) {
+    currentTargets.value = await mimicFileApi.listFiles('display', targetDirPath);
+    currentTargetDirPath.value = targetDirPath;
+  } else {
+    currentTargets.value = [];
+    currentTargetDirPath.value = null;
+  }
 }
 
 const targetFolderPath = ref<string>();
