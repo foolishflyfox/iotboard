@@ -105,10 +105,6 @@ const options = computed(() => [
     key: 'new',
     children: [
       {
-        label: '文件夹',
-        key: 'newFolder',
-      },
-      {
         label: '图纸',
         key: 'newDisplay',
         show: props.editorType === 'display',
@@ -127,6 +123,10 @@ const options = computed(() => [
         label: '图形组件',
         key: 'newGraphComponent',
         show: props.editorType === 'component',
+      },
+      {
+        label: '文件夹',
+        key: 'newFolder',
       },
     ],
   },

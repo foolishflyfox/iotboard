@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useMimicWorkspaceStatus } from '@mimic/stores';
-import MimicWorkSpaceHead from './MimicWorkSpaceHead.vue';
+import MimicWorkSpaceHead from './workspace-head/index.vue';
 import CanvasContainer from './canvas-container/index.vue';
 import ModuleEditor from './module-editor/index.vue';
 import ComponentEditor from './component-editor/index.vue';

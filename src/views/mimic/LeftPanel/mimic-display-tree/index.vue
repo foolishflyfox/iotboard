@@ -40,12 +40,14 @@ import { NInput, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { mimicFileApi } from '@/service/api';
 import { initDisplayData } from '@mimic/display';
+import { useMimicDisplayStatus } from '@mimic/stores';
 
 defineOptions({
   name: 'MimicDisplayTree',
 });
 
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
+const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
 function onChangeSelectedFolder(targetDirPath: string | null) {
@@ -66,11 +68,10 @@ async function confirmCreateDisplay() {
   if (!_.isEmpty(newDisplayName.value)) {
     console.log(`在 ${targetFolderPath.value} 下新建图纸 ${newDisplayName.value}`);
     showNewDisplayModal.value = false;
-    await mimicFileApi.createDisplay(
-      `${targetFolderPath.value}/${newDisplayName.value}.json`,
-      initDisplayData,
-    );
-    window.$message?.success(`创建图纸 ${targetFolderPath.value}/${newDisplayName.value} 成功`);
+    const displayPath = `${targetFolderPath.value}/${newDisplayName.value}`;
+    await mimicFileApi.createDisplay(`${displayPath}.json`, initDisplayData);
+    window.$message?.success(`创建图纸 ${displayPath} 成功`);
+    mimicDisplayStatus.addOpenedDisplay(displayPath);
   }
 }
 </script>
