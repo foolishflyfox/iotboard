@@ -149,57 +149,6 @@ onMounted(() => {
 
   app.tree.add(myObj);
   viewAutoFit();
-
-  const customPen = new CustomPen({
-    size: 30,
-    fill: 'blue',
-    draggable: true,
-    editable: true,
-  });
-
-  // app.tree.add(customPen);
-  // app.tree.add({
-  //   tag: 'CustomPen',
-  //   size: 30,
-  //   draggable: true,
-  //   editable: true,
-  //   fill: 'blue',
-  //   children: [
-  //     {
-  //       tag: 'Path',
-  //       path: [23, 0, 0, 30, 30, 10, 27, 15, 15, 7.5],
-  //       windingRule: 'evenodd',
-  //       fill: '#FF4B4B',
-  //     },
-  //     { tag: 'Path', x: 15, y: 15, path: [27, 0, 0, 6], fill: '#FEB027' },
-  //   ],
-  // });
-
-  // setTimeout(() => {
-  //   customPen.size = 100; // 2秒后放大尺寸
-  // }, 2000);
-
-  const custom = new Custom({
-    x: 130,
-    y: 120,
-    width: 200,
-    height: 50,
-    draggable: true,
-    editable: true,
-  });
-
-  // const gauge = new TestGauge({
-  //   x: 50,
-  //   y: 20,
-  //   width: 80,
-  //   height: 80,
-  //   draggable: true,
-  //   editable: true,
-  // });
-  // app.tree.add(gauge);
-  // (window as any).gauge = gauge;
-  // console.log('XXX', gauge.toJSON());
-  // console.log(app.toJSON());
 });
 </script>
 
