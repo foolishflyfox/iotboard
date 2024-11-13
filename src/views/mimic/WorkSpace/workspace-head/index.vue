@@ -1,14 +1,16 @@
 <template>
-  <div :style="{ height: `${studioHeight}px` }" class="px-1em flex border-b-gray-400 border-b-1px">
+  <div :style="{ height: `${studioHeight}px` }" class="px-1px flex border-b-gray-400 border-b-1px">
     <div
       v-for="item of mimicWorkspaceStatus.openedTargets"
-      class="bg-[#b0b0b0] fw-500 text-16px mx-5px px-8px rounded-t-lg flex-y-center"
+      class="fw-500 text-16px mx-5px px-8px rounded-t-lg flex-y-center"
+      :style="{ backgroundColor: _.isEqual(item, currentTarget) ? '#00bfffbb' : '#b0b0b0' }"
+      @click="changeCurrentTarget(item)"
     >
-      <n-icon size="16" class="mr-5px" :component="editorTypeIconDict[item.editorType]" />
+      <n-icon size="16" class="mr-3px" :component="editorTypeIconDict[item.editorType]" />
       <span class="mr-3px cursor-default">
         {{ path.basename(item.path) }}
       </span>
-      <n-icon size="16" color="#fd4a4e" class="cursor-pointer">
+      <n-icon size="16" color="#fd4a4e" class="cursor-pointer" @click.stop="closeTarget(item)">
         <CloseFilled />
       </n-icon>
     </div>
@@ -22,16 +24,26 @@ import path from 'path-browserify';
 import { CloseFilled, GroupObjects } from '@vicons/carbon';
 import { NIcon } from 'naive-ui';
 import { AppGeneric24Filled } from '@vicons/fluent';
-import type { EditorType } from '@mimic/types';
+import type { EditorType, OpenedTarget } from '@mimic/types';
 import type { Component } from 'vue';
 import { Components } from '@vicons/tabler';
+import * as _ from 'lodash-es';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const { currentTarget } = toRefs(mimicWorkspaceStatus);
 const editorTypeIconDict: Record<EditorType, Component> = {
   display: AppGeneric24Filled,
   module: GroupObjects,
   component: Components,
 };
+
+function changeCurrentTarget(openedTarget: OpenedTarget) {
+  mimicWorkspaceStatus.setCurrentTaget(openedTarget);
+}
+function closeTarget(openedTarget: OpenedTarget) {
+  console.log('关闭目标');
+  mimicWorkspaceStatus.closeOpenedTarget(openedTarget);
+}
 </script>
 
 <style scoped></style>

@@ -45,6 +45,7 @@ import { useContextShowHide } from '@mimic/hooks';
 import type { EditorType } from '@mimic/types';
 import { QueryDialog } from '@/components';
 import { onClickOutside } from '@vueuse/core';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 const props = withDefaults(
   defineProps<{
@@ -61,6 +62,7 @@ const props = withDefaults(
 const emit = defineEmits<{
   dragStart: [payload: DragEvent];
   delete: [];
+  open: [];
 }>();
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 
@@ -90,8 +92,8 @@ function confirmDeleteTarget() {
 
 const dbclicked = ref(false);
 function dbclickHandler() {
-  console.log('双击');
   dbclicked.value = true;
+  emit('open');
 }
 const mimicItemContainerRef = ref<HTMLElement>();
 onClickOutside(mimicItemContainerRef, e => (dbclicked.value = false));
