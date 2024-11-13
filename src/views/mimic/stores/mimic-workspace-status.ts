@@ -4,11 +4,10 @@ import * as _ from 'lodash-es';
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见
   const rulerVisible = ref(true);
-  // 当前编辑类型
-  const curEditorType = ref<EditorType>();
   // 已经打开的对象列表
   const openedTargets = ref<OpenedTarget[]>([]);
   const currentTarget = ref<OpenedTarget>();
+  const curEditorType = computed(() => currentTarget.value?.editorType);
   const addOpenedTarget = (openedTarget: OpenedTarget) => {
     const existedTarget = _.find(openedTargets.value, e => _.isEqual(e, openedTarget));
     if (existedTarget) {
