@@ -16,9 +16,13 @@ const props = defineProps<{
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const { curEditorType } = toRefs(mimicWorkspaceStatus);
-const draggable = computed(
-  () => !!props.hasPreview && ['display', 'module'].includes(curEditorType.value),
-);
+const draggable = computed(() => {
+  if (curEditorType.value) {
+    return !!props.hasPreview && ['display', 'module'].includes(curEditorType.value);
+  } else {
+    return false;
+  }
+});
 const imgSrc = computed(() => {
   return props.hasPreview
     ? `${getDataUrl()}/component/${props.folderPath}/${props.fileName}.png`
