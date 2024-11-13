@@ -91,6 +91,10 @@ async function confirmCreateDisplay() {
     await mimicFileApi.createDisplay(`${displayPath}.json`, initDisplayData);
     window.$message?.success(`创建图纸 ${displayPath} 成功`);
     mimicDisplayStatus.addOpenedDisplay(displayPath);
+    if (currentTargetDirPath.value === targetFolderPath.value) {
+      // 更新显示内容
+      currentTargets.value = await mimicFileApi.listFiles('display', currentTargetDirPath.value!);
+    }
   }
 }
 </script>

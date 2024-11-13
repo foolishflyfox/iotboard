@@ -22,17 +22,29 @@
       @clickoutside="hideMenu"
       @select="clickContextMenuHandler"
     />
+    <QueryDialog
+      title="删除"
+      v-model:show-modal="showDeleteTargetModal"
+      type="warning"
+      @positive-click="confirmDeleteTarget"
+    >
+      <div>确认删除 【{{ fileName }}】?</div>
+    </QueryDialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { NDropdown, type DropdownOption } from 'naive-ui';
 import { useContextShowHide } from '@mimic/hooks';
-withDefaults(
+import type { EditorType } from '@mimic/types';
+import { QueryDialog } from '@/components';
+
+const props = withDefaults(
   defineProps<{
+    editorType: EditorType;
     imgSrc: string;
     draggable?: boolean;
-    fileName?: string;
+    fileName: string;
   }>(),
   {
     draggable: false,
@@ -40,6 +52,7 @@ withDefaults(
 );
 const emit = defineEmits<{
   dragStart: [payload: DragEvent];
+  delete: [];
 }>();
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 
@@ -54,9 +67,16 @@ const options: DropdownOption[] = [
   },
 ];
 
+const showDeleteTargetModal = ref(false);
 function clickContextMenuHandler(action: string) {
   hideMenu();
   console.log('处理', action);
+  if (action === 'delete') {
+    showDeleteTargetModal.value = true;
+  }
+}
+function confirmDeleteTarget() {
+  emit('delete');
 }
 </script>
 

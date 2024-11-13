@@ -1,5 +1,5 @@
 <template>
-  <MimicItem :imgSrc :draggable :fileName @dragStart="startDragHandler" />
+  <MimicItem editorType="component" :imgSrc :draggable :fileName @dragStart="startDragHandler" />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <MimicItem :imgSrc :fileName />
+  <MimicItem editorType="display" :imgSrc :fileName @delete="deleteDisplay" />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +17,11 @@ const imgSrc = computed(() => {
     ? `${getDataUrl()}/display/${props.folderPath}/${props.fileName}.png`
     : 'preview/miss.png';
 });
+
+function deleteDisplay() {
+  const displayPath = `${props.folderPath}/${props.fileName}`;
+  console.log(`删除文件`, displayPath);
+}
 </script>
 
 <style scoped></style>

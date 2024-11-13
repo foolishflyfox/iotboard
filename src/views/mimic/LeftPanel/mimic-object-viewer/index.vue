@@ -217,7 +217,7 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
     onContextmenu(e: MouseEvent) {
       e.preventDefault();
       e.stopPropagation();
-      // selectedKeys.value = [option.key as string];
+      selectedKeys.value = [option.key as string];
       contextMenuRef.value?.onFileTreeContextMenuClick(e, option, fileTreeNodes.value);
     },
   };
