@@ -1,23 +1,12 @@
 <template>
-  <div class="inline-block bg-[#fff8] rounded-lg">
-    <img
-      :src="imgSrc"
-      width="42"
-      class="p-4px"
-      :style="{ cursor: draggable ? 'grab' : 'not-allowed' }"
-      @dragstart="startDragHandler"
-      :draggable
-    />
-    <div class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text">
-      {{ fileName }}
-    </div>
-  </div>
+  <MimicItem :imgSrc :draggable :fileName @dragStart="startDragHandler" />
 </template>
 
 <script setup lang="ts">
 import { getDataUrl } from '@/utils';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
+import { MimicItem } from '../components';
 
 const props = defineProps<{
   folderPath: string;
