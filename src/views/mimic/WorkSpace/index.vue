@@ -4,7 +4,7 @@
     <CanvasContainer v-if="mimicWorkspaceStatus.curEditorType === 'display'" />
     <ModuleEditor v-else-if="mimicWorkspaceStatus.curEditorType === 'module'" />
     <ComponentEditor v-else-if="mimicWorkspaceStatus.curEditorType === 'component'" />
-    <div class="bg-white h-full" v-else></div>
+    <div v-else class="bg-white h-full" />
   </div>
 </template>
 

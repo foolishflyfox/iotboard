@@ -1,5 +1,11 @@
 <template>
-  <div class="inline-block bg-[#fff8] rounded-lg" @contextmenu.prevent="showMenu">
+  <div
+    class="inline-block bg-[#fff8] rounded-lg"
+    @contextmenu.prevent="showMenu"
+    @dblclick="dbclickHandler"
+    :style="{ borderWidth: '1px', borderColor: dbclicked ? '#0bf' : '#0000' }"
+    ref="mimicItemContainerRef"
+  >
     <img
       :src="imgSrc"
       width="42"
@@ -38,6 +44,7 @@ import { NDropdown, type DropdownOption } from 'naive-ui';
 import { useContextShowHide } from '@mimic/hooks';
 import type { EditorType } from '@mimic/types';
 import { QueryDialog } from '@/components';
+import { onClickOutside } from '@vueuse/core';
 
 const props = withDefaults(
   defineProps<{
@@ -50,6 +57,7 @@ const props = withDefaults(
     draggable: false,
   },
 );
+
 const emit = defineEmits<{
   dragStart: [payload: DragEvent];
   delete: [];
@@ -75,9 +83,18 @@ function clickContextMenuHandler(action: string) {
     showDeleteTargetModal.value = true;
   }
 }
+
 function confirmDeleteTarget() {
   emit('delete');
 }
+
+const dbclicked = ref(false);
+function dbclickHandler() {
+  console.log('双击');
+  dbclicked.value = true;
+}
+const mimicItemContainerRef = ref<HTMLElement>();
+onClickOutside(mimicItemContainerRef, e => (dbclicked.value = false));
 </script>
 
 <style scoped></style>
