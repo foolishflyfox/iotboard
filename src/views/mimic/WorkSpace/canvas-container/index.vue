@@ -117,6 +117,16 @@ onMounted(() => {
   // 切换主题
   ruler.changeTheme('custom1');
 
+  watch(
+    () => mimicWorkspaceStatus.currentTarget,
+    nv => {
+      console.log('处理图纸', nv);
+    },
+    {
+      immediate: true,
+    },
+  );
+
   // 添加底图
   const displayBaseMap = new Rect({
     id: displayBaseMapId,
