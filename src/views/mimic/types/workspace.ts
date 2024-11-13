@@ -12,3 +12,8 @@ export const componentTypeName = {
 export type EditorType = keyof typeof editorTypeName;
 
 export type ComponentType = keyof typeof componentTypeName;
+
+export interface OpenedTarget {
+  editorType: EditorType;
+  path: string;
+}
