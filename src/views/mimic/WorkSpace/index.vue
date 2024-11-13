@@ -4,7 +4,7 @@
     <CanvasContainer v-if="mimicWorkspaceStatus.curEditorType === 'display'" />
     <ModuleEditor v-else-if="mimicWorkspaceStatus.curEditorType === 'module'" />
     <ComponentEditor v-else-if="mimicWorkspaceStatus.curEditorType === 'component'" />
-    <template v-else>未设置 {{ mimicWorkspaceStatus.curEditorType }} 类型的工作区组件</template>
+    <div class="bg-white h-full" v-else></div>
   </div>
 </template>
 
