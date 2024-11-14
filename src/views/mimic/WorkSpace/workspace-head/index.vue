@@ -8,7 +8,7 @@
     >
       <n-icon size="16" class="mr-3px" :component="editorTypeIconDict[item.editorType]" />
       <span class="mr-3px cursor-default">
-        {{ path.basename(item.path) }}
+        {{ path.parse(item.path).name }}
       </span>
       <n-icon size="16" color="#fd4a4e" class="cursor-pointer" @click.stop="closeTarget(item)">
         <CloseFilled />
