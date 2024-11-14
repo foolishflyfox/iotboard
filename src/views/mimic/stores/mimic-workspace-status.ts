@@ -23,7 +23,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
       mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
     }
-    console.log('todo: 获取后端图纸数据并绘制 ', displayData);
+    mimicVar.displayEditor.loadDisplayData(displayData);
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
     if (_.isEqual(openedTarget, currentTarget.value)) {

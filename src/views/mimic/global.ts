@@ -18,6 +18,8 @@ interface MimicVar {
     setDisplayData: (target: OpenedTarget, data: DisplayData) => void;
     getDisplayData: (target: OpenedTarget) => DisplayData | undefined;
     delDisplayData: (target: OpenedTarget) => void;
+    /** 载入图纸数据在编辑器中渲染 */
+    loadDisplayData: (displayData: DisplayData) => void;
   };
   componentEditor: {
     app?: App;
@@ -42,6 +44,9 @@ export const mimicVar: MimicVar = {
       if (displayDataDict[key]) {
         delete displayDataDict[key];
       }
+    },
+    loadDisplayData(data: DisplayData) {
+      console.log('todo: 在图纸编辑器上渲染图纸数据', data);
     },
   },
   componentEditor: {},
