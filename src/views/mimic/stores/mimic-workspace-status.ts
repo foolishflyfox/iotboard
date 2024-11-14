@@ -27,7 +27,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         currentTarget.value = openedTargets.value[newTargetIndex];
       }
     }
-    _.pull(openedTargets.value, openedTarget);
+    _.remove(openedTargets.value, e => _.isEqual(e, openedTarget));
   };
   const setCurrentTaget = (target: OpenedTarget) => (currentTarget.value = target);
 

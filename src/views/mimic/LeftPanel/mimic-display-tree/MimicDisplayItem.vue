@@ -32,6 +32,7 @@ async function deleteDisplay() {
   // console.log(`删除文件`, displayPath);
   await mimicFileApi.deleteDisplay(displayPath);
   window.$message?.success(`删除 ${props.fileName} 成功`);
+  mimicWorkspaceStatus.closeOpenedTarget({ editorType: 'display', path: displayPath });
   emit('afterDelete');
 }
 
