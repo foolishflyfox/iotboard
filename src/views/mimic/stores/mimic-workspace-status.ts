@@ -1,5 +1,7 @@
 import type { EditorType, OpenedTarget } from '@mimic/types';
 import * as _ from 'lodash-es';
+import { mimicVar } from '../global';
+import { mimicFileApi } from '@/service/api';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见
@@ -8,14 +10,20 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   const openedTargets = ref<OpenedTarget[]>([]);
   const currentTarget = ref<OpenedTarget>();
   const curEditorType = computed(() => currentTarget.value?.editorType);
-  const addOpenedTarget = (openedTarget: OpenedTarget) => {
+  const addOpenedTarget = async (openedTarget: OpenedTarget) => {
     const existedTarget = _.find(openedTargets.value, e => _.isEqual(e, openedTarget));
     if (existedTarget) {
       setCurrentTaget(existedTarget);
     } else {
       openedTargets.value.push(openedTarget);
-      currentTarget.value = openedTarget;
+      setCurrentTaget(openedTarget);
     }
+    let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
+    if (!displayData) {
+      displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
+      mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+    }
+    console.log('todo: 获取后端图纸数据并绘制 ', displayData);
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
     if (_.isEqual(openedTarget, currentTarget.value)) {
