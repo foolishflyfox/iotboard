@@ -7,8 +7,8 @@ import { useMimicDisplayStatus } from '../stores';
 
 /** 页面自适应 */
 export function viewAutoFit() {
-  if (mimicVar.app) {
-    mimicVar.app.tree.zoom('fit', 23);
+  if (mimicVar.displayEditor.app) {
+    mimicVar.displayEditor.app.tree.zoom('fit', 23);
   }
 }
 
@@ -17,9 +17,9 @@ export function findUiById(id?: null | string | string[]) {
   if (_.isNil(id)) return null;
   if (_.isArray(id)) {
     // 遍历
-    return id.map(id => mimicVar.app!.tree.findId(id)) as IUI[];
+    return id.map(id => mimicVar.displayEditor.app!.tree.findId(id)) as IUI[];
   }
-  return mimicVar.app?.tree.findId(id);
+  return mimicVar.displayEditor.app?.tree.findId(id);
 }
 
 /** 获取当前选中的元素 */

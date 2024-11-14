@@ -60,26 +60,26 @@ async function onDisplayEditorDrop(e: MouseEvent) {
       console.log(`将组件 ${mimicVar.draggingTag} 拖放到图纸`);
       const componentClass = await registerComponent(mimicVar.draggingTag);
       const newElement = new componentClass({
-        ...mimicVar.app?.getPagePointByClient(e),
+        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
         draggable: true,
         editable: true,
       });
       if (_.isEmpty(newElement.id)) {
         newElement.id = getUniqueId();
       }
-      mimicVar.app?.tree.add(newElement);
+      mimicVar.displayEditor.app?.tree.add(newElement);
     }
   }
-  if (mimicVar.draggingCustomMeta?.component && mimicVar.app) {
+  if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
     const newElement = new mimicVar.draggingCustomMeta.component({
-      ...mimicVar.app.getPagePointByClient(e),
+      ...mimicVar.displayEditor.app.getPagePointByClient(e),
       draggable: true,
       editable: true,
     });
     if (_.isEmpty(newElement.id)) {
       newElement.id = getUniqueId();
     }
-    mimicVar.app.tree.add(newElement);
+    mimicVar.displayEditor.app.tree.add(newElement);
   }
 }
 
@@ -102,7 +102,7 @@ onMounted(() => {
   });
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
-  mimicVar.app = app;
+  mimicVar.displayEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, viewAutoFit);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);

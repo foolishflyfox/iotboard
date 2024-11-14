@@ -26,7 +26,7 @@ export function doContextMenuAction(action: string) {
       if (iui.id !== displayBaseMapId) {
         iui.destroy();
         mimicDisplayStatus.selectBaseMap();
-        mimicVar.app?.editor?.cancel();
+        mimicVar.displayEditor.app?.editor?.cancel();
       }
     }
   }
