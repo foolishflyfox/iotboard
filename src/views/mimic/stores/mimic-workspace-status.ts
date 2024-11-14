@@ -18,8 +18,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     }
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
-    if (openedTarget === currentTarget.value) {
-      let newTargetIndex = _.indexOf(openedTargets.value, openedTarget) + 1;
+    if (_.isEqual(openedTarget, currentTarget.value)) {
+      let newTargetIndex = _.findIndex(openedTargets.value, e => _.isEqual(e, openedTarget)) + 1;
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
