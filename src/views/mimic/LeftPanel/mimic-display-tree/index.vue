@@ -51,7 +51,7 @@ import { NInput, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { mimicFileApi } from '@/service/api';
 import { initDisplayData } from '@mimic/display';
-import { useMimicDisplayStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import MimicDisplayItem from './MimicDisplayItem.vue';
 import type { FileItem } from '@mimic/types';
 
@@ -60,6 +60,7 @@ defineOptions({
 });
 
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
@@ -93,13 +94,14 @@ async function confirmCreateDisplay() {
   if (!_.isEmpty(newDisplayName.value)) {
     console.log(`在 ${targetFolderPath.value} 下新建图纸 ${newDisplayName.value}`);
     showNewDisplayModal.value = false;
-    const displayPath = `${targetFolderPath.value}/${newDisplayName.value}`;
-    await mimicFileApi.createDisplay(`${displayPath}.json`, initDisplayData);
+    const displayPath = `${targetFolderPath.value}/${newDisplayName.value}.json`;
+    await mimicFileApi.createDisplay(displayPath, initDisplayData);
     window.$message?.success(`创建图纸 ${displayPath} 成功`);
     if (currentTargetDirPath.value === targetFolderPath.value) {
       // 更新显示内容
       updateCurrentTargets();
     }
+    mimicWorkspaceStatus.addOpenedTarget({ editorType: 'display', path: displayPath });
   }
 }
 </script>
