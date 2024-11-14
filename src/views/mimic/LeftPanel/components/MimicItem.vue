@@ -1,9 +1,14 @@
 <template>
   <div
     class="inline-block bg-[#fff8] rounded-lg"
-    @contextmenu.prevent="showMenu"
+    @contextmenu.prevent="
+      e => {
+        selected = true;
+        showMenu(e);
+      }
+    "
     @dblclick="dblclickHandler"
-    :style="{ borderWidth: '1px', borderColor: dblclicked ? '#0bf' : '#0000' }"
+    :style="{ borderWidth: '1px', borderColor: selected ? '#0bf' : '#0000' }"
     ref="mimicItemContainerRef"
   >
     <img
@@ -90,13 +95,13 @@ function confirmDeleteTarget() {
   emit('delete');
 }
 
-const dblclicked = ref(false);
+const selected = ref(false);
 function dblclickHandler() {
-  dblclicked.value = true;
+  selected.value = true;
   emit('open');
 }
 const mimicItemContainerRef = ref<HTMLElement>();
-onClickOutside(mimicItemContainerRef, e => (dblclicked.value = false));
+onClickOutside(mimicItemContainerRef, e => (selected.value = false));
 </script>
 
 <style scoped></style>

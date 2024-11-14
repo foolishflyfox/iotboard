@@ -7,6 +7,7 @@ import { getDataUrl } from '@/utils';
 import { MimicItem } from '../components';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { OpenedTarget } from '@mimic/types';
+import { mimicFileApi } from '@/service/api';
 
 const props = defineProps<{
   folderPath: string;
@@ -22,17 +23,25 @@ const imgSrc = computed(() => {
     : 'preview/miss.png';
 });
 
-function deleteDisplay() {
-  const displayPath = `${props.folderPath}/${props.fileName}`;
-  console.log(`删除文件`, displayPath);
+const emit = defineEmits<{
+  afterDelete: [];
+}>();
+
+async function deleteDisplay() {
+  const displayPath = `${props.folderPath}/${props.fileName}.json`;
+  // console.log(`删除文件`, displayPath);
+  await mimicFileApi.deleteDisplay(displayPath);
+  window.$message?.success(`删除 ${props.fileName} 成功`);
+  emit('afterDelete');
 }
 
-function openDisplay() {
-  const displayPath = `${props.folderPath}/${props.fileName}`;
+async function openDisplay() {
+  const displayPath = `${props.folderPath}/${props.fileName}.json`;
   const openedDisplay: OpenedTarget = {
     editorType: 'display',
     path: displayPath,
   };
+
   mimicWorkspaceStatus.addOpenedTarget(openedDisplay);
 }
 </script>

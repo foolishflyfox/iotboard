@@ -13,6 +13,7 @@
           :folder-path="currentTargetDirPath!"
           :file-name="item.name"
           :has-preview="item.hasPreview"
+          @after-delete="updateCurrentTargets"
         />
       </n-space>
     </div>
@@ -63,10 +64,15 @@ const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
 const currentTargets = ref<FileItem[]>();
+async function updateCurrentTargets() {
+  if (currentTargetDirPath.value) {
+    currentTargets.value = await mimicFileApi.listFiles('display', currentTargetDirPath.value);
+  }
+}
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   if (targetDirPath) {
-    currentTargets.value = await mimicFileApi.listFiles('display', targetDirPath);
     currentTargetDirPath.value = targetDirPath;
+    updateCurrentTargets();
   } else {
     currentTargets.value = [];
     currentTargetDirPath.value = null;
@@ -92,7 +98,7 @@ async function confirmCreateDisplay() {
     window.$message?.success(`创建图纸 ${displayPath} 成功`);
     if (currentTargetDirPath.value === targetFolderPath.value) {
       // 更新显示内容
-      currentTargets.value = await mimicFileApi.listFiles('display', currentTargetDirPath.value!);
+      updateCurrentTargets();
     }
   }
 }

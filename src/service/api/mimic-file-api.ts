@@ -45,7 +45,20 @@ class MimicFileApi {
     // console.log('创建图纸', displayPath);
     // this.instance.post('save', {fileType: 'display', });
     const content = JSON.stringify(displayData, null, 2);
-    await this.instance.post('save', { fileType: 'display', displayPath, content });
+    await this.instance.post('save', { fileType: 'display', filePath: displayPath, content });
+  }
+
+  async deleteDisplay(displayPath: string) {
+    await this.instance.post('delete', { fileType: 'display', filePath: displayPath });
+  }
+
+  async openDisplay(displayPath: string) {
+    const content = await this.instance.post<string>('open', {
+      fileType: 'display',
+      filePath: displayPath,
+    });
+    const displayData: DisplayData = JSON.parse(content);
+    return displayData;
   }
 
   /** 获取组件的 JSON 文件 */
