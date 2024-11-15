@@ -144,20 +144,20 @@ onMounted(() => {
       },
     },
   });
-  app.tree.add(displayBaseMap);
+  // app.tree.add(displayBaseMap);
   (window as any).app = app;
 
-  const myObj = new CustomRect({
-    x: 150,
-    y: 30,
-    width: 80,
-    height: 80,
-    draggable: true,
-    editable: true,
-    stroke: { type: 'solid', color: '#00bfff' },
-  });
+  // const myObj = new CustomRect({
+  //   x: 150,
+  //   y: 30,
+  //   width: 80,
+  //   height: 80,
+  //   draggable: true,
+  //   editable: true,
+  //   stroke: { type: 'solid', color: '#00bfff' },
+  // });
 
-  app.tree.add(myObj);
+  // app.tree.add(myObj);
   viewAutoFit();
 });
 </script>

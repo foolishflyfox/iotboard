@@ -46,7 +46,9 @@ export const mimicVar: MimicVar = {
         delete displayDataDict[key];
       }
     },
-    loadDisplayData,
+    loadDisplayData: displayData => {
+      loadDisplayData(mimicVar.displayEditor.app!, displayData);
+    },
   },
   componentEditor: {},
 };
