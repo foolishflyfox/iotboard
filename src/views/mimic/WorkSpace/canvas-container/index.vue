@@ -158,7 +158,7 @@ onMounted(() => {
   // });
 
   // app.tree.add(myObj);
-  viewAutoFit();
+  // viewAutoFit();
 });
 </script>
 

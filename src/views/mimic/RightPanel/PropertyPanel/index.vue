@@ -48,10 +48,6 @@ defineOptions({
 const { selectedUiId } = toRefs(useMimicDisplayStatus());
 
 const selectedUI = computed(() => findUiById(selectedUiId.value));
-
-onMounted(() => {
-  if (_.isNil(selectedUI.value)) selectedUiId.value = displayBaseMapId;
-});
 </script>
 
 <style scoped></style>
