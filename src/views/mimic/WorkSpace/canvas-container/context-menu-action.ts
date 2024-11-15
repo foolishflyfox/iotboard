@@ -6,7 +6,6 @@ import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 
 export function doContextMenuAction(action: string) {
-  // debugger;
   const mimicDisplayStatus = useMimicDisplayStatus();
   const curUi = findCurrentSelected();
 

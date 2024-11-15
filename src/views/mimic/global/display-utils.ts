@@ -21,7 +21,6 @@ export function loadDisplayData(app: App, data: DisplayData) {
         }
       },
       [ChildEvent.MOUNTED]: () => {
-        debugger;
         const mimicDisplayStatus = useMimicDisplayStatus();
         mimicDisplayStatus.selectBaseMap();
       },

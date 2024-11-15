@@ -42,10 +42,8 @@ class MimicFileApi {
 
   /** 根据指定路径创建图纸 */
   async createDisplay(displayPath: string, displayData: DisplayData) {
-    // console.log('创建图纸', displayPath);
-    // this.instance.post('save', {fileType: 'display', });
     const content = JSON.stringify(displayData, null, 2);
-    await this.instance.post('save', { fileType: 'display', filePath: displayPath, content });
+    await this.instance.post('create', { fileType: 'display', filePath: displayPath, content });
   }
 
   async deleteDisplay(displayPath: string) {
