@@ -1,6 +1,7 @@
 import type { App } from 'leafer-ui';
-import type { CustomMeta } from '../utils';
-import type { DisplayData, OpenedTarget } from '../types';
+import type { CustomMeta } from '@mimic/utils';
+import type { DisplayData, OpenedTarget } from '@mimic/types';
+import { loadDisplayData } from './display-utils';
 
 const displayDataDict: Record<string, DisplayData> = {};
 function generateTargetKey(target: OpenedTarget) {
@@ -45,9 +46,7 @@ export const mimicVar: MimicVar = {
         delete displayDataDict[key];
       }
     },
-    loadDisplayData(data: DisplayData) {
-      console.log('todo: 在图纸编辑器上渲染图纸数据', data);
-    },
+    loadDisplayData,
   },
   componentEditor: {},
 };
