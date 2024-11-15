@@ -163,7 +163,6 @@ const props = defineProps<{
 const fileTreeNodes: Ref<FileTreeNode[]> = ref([]);
 
 async function updateFileTreeNodes() {
-  // todo: 在删除了文件夹中的文件后，需要调用该函数
   fileTreeNodes.value = await mimicFileApi.queryTree(props.editorType);
 }
 
@@ -306,6 +305,10 @@ function unselectFolder(folderPath: string) {
     selectedKeys.value = [];
   }
 }
+
+defineExpose({
+  updateFileTreeNodes,
+});
 </script>
 
 <style scoped></style>

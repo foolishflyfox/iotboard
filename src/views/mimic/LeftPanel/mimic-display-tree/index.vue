@@ -68,6 +68,7 @@ const currentTargets = ref<FileItem[]>();
 async function updateCurrentTargets() {
   if (currentTargetDirPath.value) {
     currentTargets.value = await mimicFileApi.listFiles('display', currentTargetDirPath.value);
+    mimicObjectViewerRef.value?.updateFileTreeNodes();
   }
 }
 async function onChangeSelectedFolder(targetDirPath: string | null) {
