@@ -10,13 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { Rect, App, EditorEvent, ResizeEvent, PropertyEvent, KeyEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
-import { Custom, CustomRect, CustomPen, CustomGauge } from '@mimic/custom';
 import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
-import { displayBaseMapId, rulerTheme } from '@mimic/constant';
+import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { viewAutoFit } from '@mimic/utils';
 import { getUniqueId } from '@/utils';
@@ -83,6 +82,14 @@ async function onDisplayEditorDrop(e: MouseEvent) {
   }
 }
 
+function handleSaveShortcut(e: KeyboardEvent) {
+  /** 处理图纸保存事件 */
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    console.log('处理图纸保存事件');
+  }
+}
+
 onMounted(() => {
   const app = new App({
     view: 'mimicCanvasContainer',
@@ -127,26 +134,6 @@ onMounted(() => {
     },
   );
 
-  // 添加底图
-  const displayBaseMap = new Rect({
-    id: displayBaseMapId,
-    width: 500,
-    height: 300,
-    fill: '#FFFFFFFF',
-    data: {
-      sizeType: 'custom',
-    },
-    event: {
-      [PropertyEvent.CHANGE]: (v: PropertyEvent) => {
-        if (v.attrName === 'width' || v.attrName === 'height') {
-          nextTick(viewAutoFit);
-        }
-      },
-    },
-  });
-  // app.tree.add(displayBaseMap);
-  (window as any).app = app;
-
   // const myObj = new CustomRect({
   //   x: 150,
   //   y: 30,
@@ -159,6 +146,11 @@ onMounted(() => {
 
   // app.tree.add(myObj);
   // viewAutoFit();
+  window.addEventListener('keydown', handleSaveShortcut);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleSaveShortcut);
 });
 </script>
 
