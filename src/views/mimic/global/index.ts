@@ -1,6 +1,6 @@
 import type { App } from 'leafer-ui';
-import type { CustomMeta } from './utils';
-import type { DisplayData, OpenedTarget } from './types';
+import type { CustomMeta } from '../utils';
+import type { DisplayData, OpenedTarget } from '../types';
 
 const displayDataDict: Record<string, DisplayData> = {};
 function generateTargetKey(target: OpenedTarget) {
