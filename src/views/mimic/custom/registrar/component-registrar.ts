@@ -6,16 +6,14 @@ import { customUiGenerate, customCfgDict, type UiCustomCfg } from '@mimic/custom
 export async function registerComponent(tag: string) {
   let uiClass = getUiClassByTag(tag);
   if (!uiClass) {
-    const componentJson = await mimicFileApi.getComponentJson(tag);
-    const json = JSON.stringify(componentJson);
-    // const curCfg = _.cloneDeep(cfg);
-    // curCfg.tag = tag;
-    // const json = customUiClassToJson(curCfg);
-    const newCfg: UiCustomCfg = jsonToCustomUiClass(json);
-    customUiGenerate(newCfg);
-    uiClass = getUiClassByTag(tag);
-    if (uiClass) {
-      customCfgDict.ui[tag] = newCfg;
+    const componentJson = await mimicFileApi.getComponentJsonString(tag);
+    if (componentJson) {
+      const newCfg: UiCustomCfg = jsonToCustomUiClass(componentJson);
+      customUiGenerate(newCfg);
+      uiClass = getUiClassByTag(tag);
+      if (uiClass) {
+        customCfgDict.ui[tag] = newCfg;
+      }
     }
   }
   return uiClass;

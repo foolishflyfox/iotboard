@@ -66,11 +66,17 @@ class MimicFileApi {
   }
 
   /** 获取组件的 JSON 文件 */
-  async getComponentJson(tag: string) {
-    const response = await fetch(`${dataUrlPrefix}/${tag}.json`);
-    const result = await response.json();
-    console.log('####', result);
-    return result;
+  async getComponentJsonString(tag: string) {
+    const start = 'component/';
+    if (tag.startsWith(start)) {
+      const filePath = tag.slice(start.length) + '.json';
+      const content = await this.instance.post<string>('open', {
+        fileType: 'component',
+        filePath,
+      });
+      return content;
+    }
+    return null;
   }
 }
 
