@@ -6,10 +6,10 @@ export const useMimicDisplayStatus = defineStore('mimic-display-status', () => {
   const selectedUiId = ref<null | undefined | string | string[]>();
   const selectBaseMap = () => (selectedUiId.value = displayBaseMapId);
   // 当前的图纸
-  const currentDisplay = ref<string>();
+  // const currentDisplay = ref<string>();
   return {
     selectedUiId,
     selectBaseMap,
-    currentDisplay,
+    // currentDisplay,
   };
 });

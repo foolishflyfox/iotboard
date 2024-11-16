@@ -13,7 +13,7 @@
 import { App, EditorEvent, ResizeEvent, KeyEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
-import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
@@ -24,6 +24,7 @@ import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
 import { registerComponent } from '@mimic/custom/registrar';
+import { mimicFileApi } from '@/service/api';
 
 const loadScript = () => {
   loadjs('/mytest.js', {
@@ -37,7 +38,7 @@ const loadScript = () => {
   });
 };
 
-loadScript();
+// loadScript();
 
 defineOptions({
   name: 'CanvasContainer',
@@ -82,11 +83,19 @@ async function onDisplayEditorDrop(e: MouseEvent) {
   }
 }
 
-function handleSaveShortcut(e: KeyboardEvent) {
+async function handleSaveShortcut(e: KeyboardEvent) {
   /** 处理图纸保存事件 */
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
     e.preventDefault();
-    console.log('处理图纸保存事件');
+    const displayData = mimicVar.displayEditor.generateDisplayData();
+    if (
+      displayData &&
+      mimicWorkspaceStatus.currentTarget?.editorType === 'display' &&
+      mimicWorkspaceStatus.currentTarget?.path
+    ) {
+      await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
+      window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
+    }
   }
 }
 

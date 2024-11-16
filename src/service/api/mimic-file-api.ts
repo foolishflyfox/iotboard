@@ -46,6 +46,12 @@ class MimicFileApi {
     await this.instance.post('create', { fileType: 'display', filePath: displayPath, content });
   }
 
+  /** 修改后保存图纸 */
+  async saveDisplay(displayPath: string, displayData: DisplayData) {
+    const content = JSON.stringify(displayData, null, 2);
+    await this.instance.post('save', { fileType: 'display', filePath: displayPath, content });
+  }
+
   async deleteDisplay(displayPath: string) {
     await this.instance.post('delete', { fileType: 'display', filePath: displayPath });
   }

@@ -26,7 +26,25 @@ export function loadDisplayData(app: App, data: DisplayData) {
       },
     },
   });
+  app.tree.clear();
   app.tree.add(displayBaseMap);
 
   viewAutoFit();
+}
+
+export function generateDisplayData(app: App) {
+  if (!app?.tree) return null;
+  const allUi = app?.tree.find(() => 1);
+  const displayData: DisplayData = { baseMap: {} } as any;
+  for (const ui of allUi) {
+    if (ui.id === displayBaseMapId) {
+      const baseMap = displayData.baseMap;
+      baseMap.backgroundColor = ui.fill as string;
+      baseMap.width = ui.width!;
+      baseMap.height = ui.height!;
+      baseMap.sizeType = ui.data?.sizeType;
+      console.log('保存图纸信息: ', baseMap);
+    }
+  }
+  return displayData;
 }
