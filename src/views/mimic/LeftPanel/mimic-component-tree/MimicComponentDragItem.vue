@@ -1,5 +1,12 @@
 <template>
-  <MimicItem editorType="component" :imgSrc :draggable :fileName @dragStart="startDragHandler" />
+  <MimicItem
+    editorType="component"
+    :imgSrc
+    :draggable
+    :fileName
+    @dragStart="startDragHandler"
+    @open="openComponent"
+  />
 </template>
 
 <script setup lang="ts">
@@ -7,6 +14,7 @@ import { getDataUrl } from '@/utils';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { MimicItem } from '../components';
+import type { OpenedTarget } from '@mimic/types';
 
 const props = defineProps<{
   folderPath: string;
@@ -33,6 +41,15 @@ function startDragHandler(e: any) {
   mimicVar.draggingType = 'component';
   mimicVar.draggingTag = `component/${props.folderPath}/${props.fileName}`;
   console.log('start drag', e);
+}
+
+function openComponent() {
+  const componentPath = `${props.folderPath}/${props.fileName}.json`;
+  const openedTarget: OpenedTarget = {
+    editorType: 'component',
+    path: componentPath,
+  };
+  mimicWorkspaceStatus.addOpenedTarget(openedTarget);
 }
 </script>
 

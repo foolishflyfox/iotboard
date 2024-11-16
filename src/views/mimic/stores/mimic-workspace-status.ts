@@ -18,12 +18,16 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       openedTargets.value.push(openedTarget);
       setCurrentTaget(openedTarget);
     }
-    let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
-    if (!displayData) {
-      displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
-      mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+    if (currentTarget.value?.editorType === 'display') {
+      let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
+      if (!displayData) {
+        displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
+        mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+      }
+      mimicVar.displayEditor.loadDisplayData(displayData);
+    } else if (currentTarget.value?.editorType === 'component') {
+      console.log('todo: 添加组件处理的逻辑');
     }
-    mimicVar.displayEditor.loadDisplayData(displayData);
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
     if (_.isEqual(openedTarget, currentTarget.value)) {
