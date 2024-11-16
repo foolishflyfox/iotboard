@@ -19,7 +19,9 @@
       @dragstart="e => emit('dragStart', e)"
       :draggable
     />
-    <div class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text">
+    <div
+      class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text select-none"
+    >
       {{ fileName }}
     </div>
     <n-dropdown

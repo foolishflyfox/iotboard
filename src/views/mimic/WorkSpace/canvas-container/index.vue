@@ -136,7 +136,11 @@ onMounted(() => {
   watch(
     () => mimicWorkspaceStatus.currentTarget,
     nv => {
-      console.log('处理图纸', nv);
+      // console.log('处理图纸', nv);
+      // mimicVar.displayEditor.loadDisplayData()
+      if (nv) {
+        mimicVar.displayEditor.loadOpenedDisplay(nv);
+      }
     },
     {
       immediate: true,

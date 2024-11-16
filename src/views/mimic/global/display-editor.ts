@@ -35,6 +35,12 @@ export class DisplayEditor {
     }
   }
 
+  loadOpenedDisplay(openedTarget: OpenedTarget) {
+    const displayData = this.getDisplayData(openedTarget);
+    if (!displayData) return;
+    this.loadDisplayData(displayData);
+  }
+
   /** 载入图纸数据在编辑器中渲染 */
   loadDisplayData(displayData: DisplayData) {
     const { width, height, backgroundColor } = displayData.baseMap;
