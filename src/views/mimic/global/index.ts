@@ -1,6 +1,7 @@
 import type { App } from 'leafer-ui';
 import type { CustomMeta } from '@mimic/utils';
 import { DisplayEditor } from './display-editor';
+import { ComponentEditor } from './component-editor';
 
 interface MimicVar {
   // todo: 该字段去掉
@@ -18,5 +19,5 @@ interface MimicVar {
 
 export const mimicVar: MimicVar = {
   displayEditor: new DisplayEditor(),
-  componentEditor: {},
+  componentEditor: new ComponentEditor(),
 };
