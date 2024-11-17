@@ -5,25 +5,10 @@ import { UICreator, type IUI, type UI } from 'leafer-ui';
 import { type Ref } from 'vue';
 import { useMimicDisplayStatus } from '../stores';
 
-/** 根据元素 id 查询 UI 对象 */
-export function findUiById(id?: null | string | string[]) {
-  if (_.isNil(id)) return null;
-  if (_.isArray(id)) {
-    // 遍历
-    return id.map(id => mimicVar.displayEditor.app!.tree.findId(id)) as IUI[];
-  }
-  return mimicVar.displayEditor.app?.tree.findId(id);
-}
-
 /** 获取当前选中的元素 */
 export function findCurrentSelected() {
   const mimicDisplayStatus = useMimicDisplayStatus();
-  return findUiById(mimicDisplayStatus.selectedUiId);
-}
-
-/** 获取图纸的底图元素 */
-export function getDisplayBaseMap() {
-  return findUiById(displayBaseMapId) as UI;
+  return mimicVar.displayEditor.findUiById(mimicDisplayStatus.selectedUiId);
 }
 
 /** 更新 proxyData 中的 data 对象的字段，并产生响应式 */

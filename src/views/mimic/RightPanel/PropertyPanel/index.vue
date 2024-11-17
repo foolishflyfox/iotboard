@@ -39,7 +39,7 @@ import { useMimicDisplayStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
-import { findUiById } from '@mimic/utils';
+import { mimicVar } from '@mimic/global';
 
 defineOptions({
   name: 'PropertyPanel',
@@ -47,7 +47,7 @@ defineOptions({
 
 const { selectedUiId } = toRefs(useMimicDisplayStatus());
 
-const selectedUI = computed(() => findUiById(selectedUiId.value));
+const selectedUI = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
 </script>
 
 <style scoped></style>

@@ -1,8 +1,9 @@
 import type { DisplayData, OpenedTarget } from '@mimic/types';
-import { ChildEvent, PropertyEvent, Rect, type App } from 'leafer-ui';
+import { ChildEvent, PropertyEvent, Rect, type App, type IUI } from 'leafer-ui';
 import { displayBaseMapId } from '@mimic/constant';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
+import * as _ from 'lodash-es';
 
 export class DisplayEditor {
   app?: App;
@@ -92,5 +93,14 @@ export class DisplayEditor {
       }
     }
     return displayData;
+  }
+  /** 根据元素 id 查询 UI 对象 */
+  findUiById(id?: null | string | string[]) {
+    if (_.isNil(id)) return null;
+    if (_.isArray(id)) {
+      // 遍历
+      return id.map(id => this.app!.tree.findId(id)) as IUI[];
+    }
+    return this.app?.tree.findId(id);
   }
 }
