@@ -23,7 +23,7 @@ import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
-import { registerComponent } from '@mimic/custom/registrar';
+import { registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 
 const loadScript = () => {
@@ -58,7 +58,7 @@ async function onDisplayEditorDrop(e: MouseEvent) {
   if (mimicVar.draggingType === 'component') {
     if (mimicVar.draggingTag && !_.isEmpty(mimicVar.draggingTag)) {
       console.log(`将组件 ${mimicVar.draggingTag} 拖放到图纸`);
-      const componentClass = await registerComponent(mimicVar.draggingTag);
+      const componentClass = await registerUiClass(mimicVar.draggingTag);
       const newElement = new componentClass({
         ...mimicVar.displayEditor.app?.getPagePointByClient(e),
         draggable: true,
