@@ -1,5 +1,4 @@
 import type { IUI, UI } from 'leafer-ui';
-import { findCurrentSelected } from '@mimic/utils';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
@@ -7,7 +6,7 @@ import { displayBaseMapId } from '@mimic/constant';
 
 export function doContextMenuAction(action: string) {
   const mimicDisplayStatus = useMimicDisplayStatus();
-  const curUi = findCurrentSelected();
+  const curUi = mimicDisplayStatus.curUi;
 
   if (action === 'png' || action === 'jpg') {
     if (_.isNil(curUi)) {

@@ -1,15 +1,6 @@
 import * as _ from 'lodash-es';
-import { mimicVar } from '@mimic/global';
-import { displayBaseMapId } from '@mimic/constant';
-import { UICreator, type IUI, type UI } from 'leafer-ui';
+import { UICreator } from 'leafer-ui';
 import { type Ref } from 'vue';
-import { useMimicDisplayStatus } from '../stores';
-
-/** 获取当前选中的元素 */
-export function findCurrentSelected() {
-  const mimicDisplayStatus = useMimicDisplayStatus();
-  return mimicVar.displayEditor.findUiById(mimicDisplayStatus.selectedUiId);
-}
 
 /** 更新 proxyData 中的 data 对象的字段，并产生响应式 */
 export function updateElementData(
