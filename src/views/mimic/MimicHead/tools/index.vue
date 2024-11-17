@@ -5,7 +5,7 @@
       :vicons="PageFit16Regular"
       tooltip="窗口自适应大小"
       :has-hover-color="false"
-      @click="viewAutoFit"
+      @click="() => mimicVar.displayEditor.viewAutoFit()"
     />
     <HeadIconContainer
       :vicons="Ruler"
@@ -22,8 +22,8 @@ import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import { PageFit16Regular } from '@vicons/fluent';
-import { viewAutoFit } from '@mimic/utils';
 import { Ruler } from '@vicons/tabler';
+import { mimicVar } from '@mimic/global';
 
 defineOptions({
   name: 'HeadTools',

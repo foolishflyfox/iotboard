@@ -5,13 +5,6 @@ import { UICreator, type IUI, type UI } from 'leafer-ui';
 import { type Ref } from 'vue';
 import { useMimicDisplayStatus } from '../stores';
 
-/** 页面自适应 */
-export function viewAutoFit() {
-  if (mimicVar.displayEditor.app) {
-    mimicVar.displayEditor.app.tree.zoom('fit', 23);
-  }
-}
-
 /** 根据元素 id 查询 UI 对象 */
 export function findUiById(id?: null | string | string[]) {
   if (_.isNil(id)) return null;

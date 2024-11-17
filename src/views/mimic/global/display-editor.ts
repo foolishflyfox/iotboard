@@ -1,7 +1,6 @@
 import type { DisplayData, OpenedTarget } from '@mimic/types';
 import { ChildEvent, PropertyEvent, Rect, type App } from 'leafer-ui';
 import { displayBaseMapId } from '@mimic/constant';
-import { viewAutoFit } from '@mimic/utils';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 
@@ -11,6 +10,13 @@ export class DisplayEditor {
 
   constructor() {
     this.displayDataDict = {};
+  }
+
+  /** 页面自适应 */
+  viewAutoFit() {
+    if (this.app?.tree) {
+      this.app.tree.zoom('fit', 23);
+    }
   }
 
   /** 根据目标从内存中获取图纸信息 */
@@ -55,7 +61,7 @@ export class DisplayEditor {
       event: {
         [PropertyEvent.CHANGE]: (v: PropertyEvent) => {
           if (v.attrName === 'width' || v.attrName === 'height') {
-            nextTick(viewAutoFit);
+            nextTick(() => this.viewAutoFit());
           }
         },
         [ChildEvent.MOUNTED]: () => {
@@ -67,7 +73,7 @@ export class DisplayEditor {
     this.app?.tree.clear();
     this.app?.tree.add(displayBaseMap);
 
-    viewAutoFit();
+    this.viewAutoFit();
   }
 
   /** 根据编辑器状态生成图纸数据 */

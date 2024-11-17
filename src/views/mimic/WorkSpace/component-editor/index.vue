@@ -44,7 +44,7 @@ onMounted(() => {
   // todo: 必须设置 app.tree.zIndex = 0，否则伸缩左边栏时不能复原
   app.tree.zIndex = 0;
   mimicVar.componentEditor.app = app;
-  app.tree.on(ResizeEvent.RESIZE, componentEditorUtils.viewAutoFit);
+  app.tree.on(ResizeEvent.RESIZE, () => componentEditorUtils.viewAutoFit());
   app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
   watchEffect(() => {

@@ -13,11 +13,10 @@
 import { App, EditorEvent, ResizeEvent, KeyEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
-import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@/views/mimic/stores';
+import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
-import { viewAutoFit } from '@mimic/utils';
 import { getUniqueId } from '@/utils';
 import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
@@ -119,7 +118,7 @@ onMounted(() => {
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
-  app.tree.on(ResizeEvent.RESIZE, viewAutoFit);
+  app.tree.on(ResizeEvent.RESIZE, () => mimicVar.displayEditor.viewAutoFit());
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
@@ -146,19 +145,6 @@ onMounted(() => {
       immediate: true,
     },
   );
-
-  // const myObj = new CustomRect({
-  //   x: 150,
-  //   y: 30,
-  //   width: 80,
-  //   height: 80,
-  //   draggable: true,
-  //   editable: true,
-  //   stroke: { type: 'solid', color: '#00bfff' },
-  // });
-
-  // app.tree.add(myObj);
-  // viewAutoFit();
   window.addEventListener('keydown', handleSaveShortcut);
 });
 
