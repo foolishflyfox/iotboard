@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { useDropZone } from '@vueuse/core';
-import { App, ResizeEvent } from 'leafer-ui';
+import { App, ResizeEvent, UI, type IUI } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
 import { componentEditorUtils, getUiClassByTag } from '@mimic/utils';
 import { Ruler } from 'leafer-x-ruler';
@@ -58,12 +58,7 @@ function onComponentEditorDrop(e: MouseEvent) {
   const { draggingTag, app } = mimicVar.componentEditor;
   // console.log('drop: ', mimicVar.componentEditor.draggingTag);
   if (draggingTag && app) {
-    if (!getUiClassByTag(draggingTag)) {
-      // 需要注册自定义组件
-      console.log('注册元素 ', draggingTag);
-      registerElement(draggingTag);
-    }
-    const uiClass = getUiClassByTag(draggingTag);
+    const uiClass = mimicVar.componentEditor.getUiClass(draggingTag);
     const newElement = new uiClass({
       ...app.getPagePointByClient(e),
       draggable: true,
