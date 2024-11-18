@@ -4,7 +4,6 @@
     id="mimicComponentEditor"
     ref="componentEditorWorkspace"
     @contextmenu="contextMenuRef?.onContextMenuClick"
-    @drop="onComponentEditorDrop"
   />
   <ContextMenu ref="contextMenuRef" />
 </template>
@@ -54,19 +53,23 @@ onMounted(() => {
   ruler.changeTheme('custom1');
 });
 
-function onComponentEditorDrop(e: MouseEvent) {
-  const { draggingTag, app } = mimicVar.componentEditor;
-  // console.log('drop: ', mimicVar.componentEditor.draggingTag);
-  if (draggingTag && app) {
-    const uiClass = mimicVar.componentEditor.getUiClass(draggingTag);
-    const newElement = new uiClass({
-      ...app.getPagePointByClient(e),
-      draggable: true,
-      editable: true,
-    });
-    app.tree.add(newElement);
-  }
-}
+// todo: 将下面的逻辑移动到模块拖动中
+// function onComponentEditorDrop(e: MouseEvent) {
+//   const { draggingTag, app } = mimicVar.componentEditor;
+//   // console.log('drop: ', mimicVar.componentEditor.draggingTag);
+//   if (draggingTag && app) {
+//     if (!getUiClassByTag(draggingTag)) {
+//       registerElement(draggingTag);
+//     }
+//     const elementUiClass: typeof UI = getUiClassByTag(draggingTag);
+//     const newElement = new elementUiClass({
+//       ...app.getPagePointByClient(e),
+//       draggable: true,
+//       editable: true,
+//     });
+//     app.tree.add(newElement);
+//   }
+// }
 </script>
 
 <style scoped></style>

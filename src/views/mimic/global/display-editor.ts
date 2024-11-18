@@ -19,9 +19,7 @@ export class DisplayEditor {
 
   /** 页面自适应 */
   viewAutoFit() {
-    if (this.app?.tree) {
-      this.app.tree.zoom('fit', 23);
-    }
+    this.app?.tree?.zoom('fit', 23);
   }
 
   /** 根据目标从内存中获取图纸信息 */

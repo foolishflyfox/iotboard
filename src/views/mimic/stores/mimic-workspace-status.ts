@@ -30,7 +30,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     } else if (currentTarget.value?.editorType === 'component') {
       console.log(`todo: 添加组件 ${currentTarget.value.path} 处理的逻辑`);
       const tag = removeExtention(`component/${currentTarget.value.path}`);
-      const uiClass = registerUiClass(tag);
+      mimicVar.componentEditor.loadComponent(tag);
     }
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {

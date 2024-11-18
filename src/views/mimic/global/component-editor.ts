@@ -1,20 +1,23 @@
 import { UI, type App } from 'leafer-ui';
-import { getUiClassByTag } from '../utils';
-import { registerElement } from '@mimic/custom/registrar';
+import { registerUiClass } from '@mimic/custom/registrar';
 
 export class ComponentEditor {
   app?: App;
   draggingTag?: string;
 
-  getUiClass(tag: string): typeof UI {
-    if (!getUiClassByTag(tag)) {
-      registerElement(tag);
-    }
-    const uiClass: typeof UI = getUiClassByTag(tag);
-    return uiClass;
+  viewAutoFit() {
+    this.app?.tree?.zoom('fit', 23);
   }
 
-  loadComponent(tag: string) {
-    registerElement;
+  async loadComponent(tag: string) {
+    const componentClass = await registerUiClass(tag);
+    const newComponent = new componentClass({
+      x: 0,
+      y: 0,
+      draggable: false,
+      editable: true,
+    });
+    this.app?.tree.add(newComponent);
+    this.viewAutoFit();
   }
 }
