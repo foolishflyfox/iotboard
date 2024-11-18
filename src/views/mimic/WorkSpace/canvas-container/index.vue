@@ -54,10 +54,10 @@ const displayEditorWorkspace = ref<HTMLElement>();
 useDropZone(displayEditorWorkspace);
 
 async function onDisplayEditorDrop(e: MouseEvent) {
-  if (mimicVar.draggingType === 'component') {
-    if (mimicVar.draggingTag && !_.isEmpty(mimicVar.draggingTag)) {
-      console.log(`将组件 ${mimicVar.draggingTag} 拖放到图纸`);
-      const componentClass = await registerUiClass(mimicVar.draggingTag);
+  if (mimicVar.displayEditor.draggingType === 'component') {
+    if (mimicVar.displayEditor.draggingTag && !_.isEmpty(mimicVar.displayEditor.draggingTag)) {
+      console.log(`将组件 ${mimicVar.displayEditor.draggingTag} 拖放到图纸`);
+      const componentClass = await registerUiClass(mimicVar.displayEditor.draggingTag);
       const newElement = new componentClass({
         ...mimicVar.displayEditor.app?.getPagePointByClient(e),
         draggable: true,

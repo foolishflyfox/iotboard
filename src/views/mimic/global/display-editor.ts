@@ -7,6 +7,10 @@ import * as _ from 'lodash-es';
 
 export class DisplayEditor {
   app?: App;
+  /** 正在拖拽的对象的 tag */
+  draggingTag?: string;
+  /** 正在拖拽的类型 */
+  draggingType?: 'component' | 'module' | 'element';
   private displayDataDict: Record<string, DisplayData>;
 
   constructor() {

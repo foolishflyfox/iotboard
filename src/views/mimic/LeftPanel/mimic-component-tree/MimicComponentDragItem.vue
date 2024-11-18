@@ -38,8 +38,8 @@ const imgSrc = computed(() => {
 });
 
 function startDragHandler(e: any) {
-  mimicVar.draggingType = 'component';
-  mimicVar.draggingTag = `component/${props.folderPath}/${props.fileName}`;
+  mimicVar.displayEditor.draggingType = 'component';
+  mimicVar.displayEditor.draggingTag = `component/${props.folderPath}/${props.fileName}`;
   console.log('start drag', e);
 }
 
