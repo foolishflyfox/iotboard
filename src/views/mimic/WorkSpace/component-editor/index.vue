@@ -39,6 +39,7 @@ onMounted(() => {
     view: 'mimicComponentEditor',
     tree: { usePartRender: true },
     editor: {},
+    type: 'draw',
   });
   // todo: 必须设置 app.tree.zIndex = 0，否则伸缩左边栏时不能复原
   app.tree.zIndex = 0;

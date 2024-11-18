@@ -6,7 +6,7 @@ export class ComponentEditor {
   draggingTag?: string;
 
   viewAutoFit() {
-    this.app?.tree?.zoom('fit', 23);
+    this.app?.tree?.zoom('fit', 50);
   }
 
   async loadComponent(tag: string) {
@@ -15,7 +15,7 @@ export class ComponentEditor {
       x: 0,
       y: 0,
       draggable: false,
-      editable: true,
+      editable: false,
     });
     this.app?.tree.add(newComponent);
     this.viewAutoFit();
