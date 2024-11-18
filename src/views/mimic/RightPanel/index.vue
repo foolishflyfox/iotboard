@@ -11,7 +11,7 @@
 import { rightPanelWidth } from '@/views/mimic/settings';
 import DisplayCfgPanel from './DisplayCfgPanel.vue';
 import ModuleCfgPanel from './ModuleCfgPanel.vue';
-import ComponentCfgPanel from './ComponentCfgPanel.vue';
+import ComponentCfgPanel from './component-cfg-panel/index.vue';
 import { useMimicWorkspaceStatus } from '../stores';
 
 defineOptions({
