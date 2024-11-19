@@ -24,7 +24,7 @@
         </n-icon>
       </n-space>
     </template>
-    <div>默认显示</div>
+    <div>默认显示: todo - 测试自定义 bound 等的作用，并写说明文档</div>
     <template #action>
       <n-space>
         <n-button type="primary" size="small">刷新</n-button>
