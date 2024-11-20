@@ -2,7 +2,15 @@
   <hr class="border-gray-300" />
   <div class="h-full flex-col">
     <div>
-      <slot name="prefixCode"></slot>
+      <VCodeBlock
+        v-if="prefixCode"
+        class="fixed-code"
+        :code="prefixCode"
+        highlightjs
+        lang="javascript"
+        theme="atom-one-light"
+        :copy-button="false"
+      />
     </div>
     <v-ace-editor
       v-model:value="innerValue"
@@ -12,17 +20,30 @@
       class="w-full flex-1"
     />
     <div>
-      <slot name="postCode"></slot>
+      <VCodeBlock
+        class="fixed-code"
+        :code="postCode"
+        highlightjs
+        lang="javascript"
+        theme="atom-one-light"
+        :copy-button="false"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { VAceEditor } from 'vue3-ace-editor';
+import VCodeBlock from '@wdns/vue-code-block';
 
-const props = defineProps<{
-  value: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    value: string;
+    prefixCode?: string;
+    postCode?: string;
+  }>(),
+  { postCode: '}' },
+);
 
 const innerValue = ref('');
 
