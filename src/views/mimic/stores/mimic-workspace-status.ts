@@ -4,6 +4,7 @@ import { mimicVar } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
 import { registerUiClass } from '@mimic/custom/registrar';
 import { removeExtention } from '@/utils';
+import { componentPathToTag } from '../utils';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见
@@ -29,7 +30,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       mimicVar.displayEditor.loadDisplayData(displayData);
     } else if (currentTarget.value?.editorType === 'component') {
       console.log(`todo: 添加组件 ${currentTarget.value.path} 处理的逻辑`);
-      const tag = removeExtention(`component/${currentTarget.value.path}`);
+      const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);
     }
   };

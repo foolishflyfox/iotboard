@@ -36,7 +36,7 @@
                 <QuestionCircle16Filled />
               </n-icon>
             </template>
-            <DrawCodeEditor value="const a = 1;">
+            <DrawCodeEditor :value="componentDrawCode">
               <template #prefixCode>
                 <VCodeBlock
                   class="fixed-code"
@@ -113,6 +113,27 @@ import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
 import VCodeBlock from '@wdns/vue-code-block';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicVar } from '@mimic/global';
+import { componentPathToTag } from '@mimic/utils';
+
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const componentJson = computed(() => {
+  if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
+    const tag = componentPathToTag(mimicWorkspaceStatus.currentTarget.path);
+    const componentJson = JSON.parse(mimicVar.componentJsonStrDict[tag]);
+    console.log(new Date(), componentJson);
+    return componentJson;
+  }
+  return {};
+});
+const componentDrawCode = computed(() => {
+  if (componentJson.value.draw) {
+    const drawCode = componentJson.value.draw as string;
+    return drawCode.replace(/^.*\n|(\n.*)$/g, '');
+  }
+  return '';
+});
 
 defineProps<{
   showModal?: boolean;
@@ -120,7 +141,8 @@ defineProps<{
 
 const prefixCode = `/**
  * @param {ILeaferCanvas} canvas Canvas 2d 渲染上下文对象
- */`;
+ */
+function draw(canvas) {`;
 
 const fullViewStyle = {
   width: '100vw',

@@ -2,6 +2,7 @@ import type { AxiosInstance } from 'axios';
 import { CustomAxiosInstance } from '../request';
 import type { DisplayData, EditorType, FileItem, FileTreeNode } from '@/views/mimic/types';
 import path from 'path-browserify';
+import { componentTagToPath } from '@/views/mimic/utils';
 
 const dataUrlPrefix = '/data';
 
@@ -67,9 +68,8 @@ class MimicFileApi {
 
   /** 获取组件的 JSON 文件 */
   async getComponentJsonString(tag: string) {
-    const start = 'component/';
-    if (tag.startsWith(start)) {
-      const filePath = tag.slice(start.length) + '.json';
+    const filePath = componentTagToPath(tag);
+    if (filePath) {
       const content = await this.instance.post<string>('open', {
         fileType: 'component',
         filePath,

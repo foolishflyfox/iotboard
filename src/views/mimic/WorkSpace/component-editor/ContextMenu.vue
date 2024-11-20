@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+// todo: 该上下文应该不使用了，待删除
 import { NDropdown } from 'naive-ui';
 import { useMimicComponentStatus } from '@mimic/stores';
 import { useContextShowHide } from '@mimic/hooks';
@@ -22,7 +23,7 @@ defineOptions({
   name: 'ComponentEditorContextMenu',
 });
 const mimicComponentStatus = useMimicComponentStatus();
-const { selectedUiIds } = toRefs(mimicComponentStatus);
+// const { selectedUiIds } = toRefs(mimicComponentStatus);
 
 const options = [
   {
@@ -52,9 +53,9 @@ const options = [
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 
 function onContextMenuClick(event: MouseEvent) {
-  if (selectedUiIds.value.length === 1) {
-    showMenu(event);
-  }
+  // if (selectedUiIds.value.length === 1) {
+  //   showMenu(event);
+  // }
 }
 
 function clickContextMenuHandler(action: string) {

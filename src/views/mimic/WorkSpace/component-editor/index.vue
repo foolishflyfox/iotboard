@@ -27,10 +27,7 @@ const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const mimicComponentStatus = useMimicComponentStatus();
 
 const { rulerVisible } = toRefs(mimicWorkspaceStatus);
-const { selectedUiIds } = toRefs(mimicComponentStatus);
-function selectHandler(event: EditorEvent) {
-  selectedUiIds.value = convertToArray(event.value).map(e => e.id!);
-}
+function selectHandler(event: EditorEvent) {}
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
@@ -44,7 +41,7 @@ onMounted(() => {
   // todo: 必须设置 app.tree.zIndex = 0，否则伸缩左边栏时不能复原
   app.tree.zIndex = 0;
   mimicVar.componentEditor.app = app;
-  app.tree.on(ResizeEvent.RESIZE, () => componentEditorUtils.viewAutoFit());
+  app.tree.on(ResizeEvent.RESIZE, () => mimicVar.componentEditor.viewAutoFit());
   app.editor.on(EditorEvent.SELECT, selectHandler);
   const ruler = new Ruler(app);
   watchEffect(() => {
