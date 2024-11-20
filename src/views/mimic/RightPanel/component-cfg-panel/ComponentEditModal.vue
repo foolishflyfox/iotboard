@@ -58,6 +58,17 @@
             </template>
             碰撞
           </n-tab-pane>
+          <n-tab-pane name="property">
+            <template #tab> 属性 </template>
+            <div>
+              <n-divider>通用属性</n-divider>
+              <div>通用属性(多选框)，默认 x/y/width/height</div>
+            </div>
+            <div>
+              <n-divider>自定义属性</n-divider>
+              <div>自定义属性配置，是否导出/类型</div>
+            </div>
+          </n-tab-pane>
         </n-tabs>
       </div>
       <div class="flex-1 flex-col">
@@ -76,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { NModal, NSpace, NButton, NIcon, NTabs, NTabPane } from 'naive-ui';
+import { NModal, NSpace, NButton, NIcon, NTabs, NTabPane, NDivider } from 'naive-ui';
 import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
@@ -106,4 +117,9 @@ function close() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.n-divider:not(.n-divider--vertical) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+</style>
