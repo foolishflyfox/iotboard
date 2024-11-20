@@ -36,7 +36,28 @@
                 <QuestionCircle16Filled />
               </n-icon>
             </template>
-            <DrawCodeEditor value="const a = 1;" />
+            <DrawCodeEditor value="const a = 1;">
+              <template #prefixCode>
+                <VCodeBlock
+                  class="fixed-code"
+                  :code="prefixCode"
+                  highlightjs
+                  lang="javascript"
+                  theme="atom-one-light"
+                  :copy-button="false"
+                />
+              </template>
+              <template #postCode>
+                <VCodeBlock
+                  class="fixed-code"
+                  code="}"
+                  highlightjs
+                  lang="javascript"
+                  theme="atom-one-light"
+                  :copy-button="false"
+                />
+              </template>
+            </DrawCodeEditor>
           </n-tab-pane>
           <n-tab-pane name="drawHitPath">
             <template #tab>
@@ -91,10 +112,15 @@ import { NModal, NSpace, NButton, NIcon, NTabs, NTabPane, NDivider } from 'naive
 import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
+import VCodeBlock from '@wdns/vue-code-block';
 
 defineProps<{
   showModal?: boolean;
 }>();
+
+const prefixCode = `/**
+ * @param {ILeaferCanvas} canvas Canvas 2d 渲染上下文对象
+ */`;
 
 const fullViewStyle = {
   width: '100vw',
@@ -121,5 +147,11 @@ function close() {
 .n-divider:not(.n-divider--vertical) {
   margin-top: 0;
   margin-bottom: 0;
+}
+:deep(.fixed-code code) {
+  padding: 0 10px;
+}
+:deep(.fixed-code pre) {
+  border-radius: 0 !important;
 }
 </style>

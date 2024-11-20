@@ -1,11 +1,20 @@
 <template>
-  <v-ace-editor
-    v-model:value="innerValue"
-    lang="javascript"
-    theme="tomorrow"
-    :options="{ useWorker: true }"
-    class="h-full w-full"
-  />
+  <hr class="border-gray-300" />
+  <div class="h-full flex-col">
+    <div>
+      <slot name="prefixCode"></slot>
+    </div>
+    <v-ace-editor
+      v-model:value="innerValue"
+      lang="javascript"
+      theme="tomorrow"
+      :options="{ useWorker: true }"
+      class="w-full flex-1"
+    />
+    <div>
+      <slot name="postCode"></slot>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
