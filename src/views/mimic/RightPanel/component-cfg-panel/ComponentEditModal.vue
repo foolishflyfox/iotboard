@@ -161,7 +161,7 @@ const drawHitPathCode = computed(() => {
 const hitPrefixCode = `/**
  * @param {IRadiusPointData} inner
  */
-function hit(hitCanvas) {`;
+function hit(inner) {`;
 const hitCode = computed(() => {
   if (componentJson.value.hit) {
     const code = componentJson.value.hit as string;
