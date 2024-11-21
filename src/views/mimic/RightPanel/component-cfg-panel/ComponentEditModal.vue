@@ -98,6 +98,7 @@ import { componentPathToTag, getUiClassByTag } from '@mimic/utils';
 import { App, Rect, ResizeEvent } from 'leafer-ui';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+let app: App | undefined = undefined;
 
 const componentTag = computed(() => {
   if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
@@ -187,24 +188,27 @@ watch(
   nv => {
     if (nv) {
       nextTick(() => {
-        const app = new App({
+        app = new App({
           view: 'mimicComponentTestPreview',
           tree: {},
           editor: {},
           type: 'draw',
         });
-        app.tree.on(ResizeEvent.RESIZE, () => app.tree.zoom('fit', 10));
+        app.tree.on(ResizeEvent.RESIZE, () => app?.tree.zoom('fit', 10));
         if (componentTag.value) {
           const uiClass = getUiClassByTag(componentTag.value);
 
           if (uiClass) {
-            // app.tree.zIndex = 1;
-            // app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
             const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
             app.tree.add(newComponent);
           }
         }
       });
+    } else {
+      if (app) {
+        app.destroy();
+        app = undefined;
+      }
     }
   },
 );
