@@ -45,10 +45,12 @@ const props = withDefaults(
   { postCode: '}' },
 );
 
-const innerValue = ref('');
-
-onMounted(() => {
-  innerValue.value = props.value;
+const emit = defineEmits<{
+  'update:value': [newValue: string];
+}>();
+const innerValue = ref(props.value);
+watch(innerValue, nv => {
+  emit('update:value', nv);
 });
 </script>
 

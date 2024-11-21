@@ -14,7 +14,11 @@
       编辑
     </n-button>
   </div>
-  <ComponentEditModal v-model:showModal="componentEditModalVisible" />
+  <!-- 使用 v-if 是为了关闭模态框后使元素消失，重新显示后执行组件构建流程 -->
+  <ComponentEditModal
+    v-if="componentEditModalVisible"
+    v-model:showModal="componentEditModalVisible"
+  />
 </template>
 
 <script setup lang="ts">

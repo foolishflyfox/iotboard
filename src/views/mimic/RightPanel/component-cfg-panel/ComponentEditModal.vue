@@ -37,7 +37,11 @@
                 <QuestionCircle16Filled />
               </n-icon>
             </template>
-            <DrawCodeEditor :value="drawCode" :prefix-code="drawPrefixCode" />
+            <DrawCodeEditor
+              :value="drawCode"
+              :prefix-code="drawPrefixCode"
+              @update:value="updateDrawCode"
+            />
           </n-tab-pane>
           <n-tab-pane name="property">
             <template #tab> 属性 </template>
@@ -80,7 +84,7 @@
     <template #action>
       <n-space>
         <n-button type="primary" size="small" @click="refresh">刷新</n-button>
-        <n-button type="primary" size="small">确定</n-button>
+        <n-button type="primary" size="small" :disabled="isConfirmBtnDisabled">确定</n-button>
         <n-button type="primary" size="small">取消</n-button>
       </n-space>
     </template>
@@ -96,6 +100,7 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { componentPathToTag, getUiClassByTag } from '@mimic/utils';
 import { App, Rect, ResizeEvent } from 'leafer-ui';
+import * as _ from 'lodash-es';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
@@ -131,6 +136,12 @@ const drawCode = computed(() => {
   }
   return '';
 });
+const newDrawCode = ref('');
+function updateDrawCode(newCode: string) {
+  newDrawCode.value = newCode;
+}
+
+const isConfirmBtnDisabled = computed(() => _.isEmpty(newDrawCode.value));
 
 const drawHitPathPrefixCode = `/**
  * @param {ILeaferCanvas} canvas Canvas 2d 渲染上下文对象
