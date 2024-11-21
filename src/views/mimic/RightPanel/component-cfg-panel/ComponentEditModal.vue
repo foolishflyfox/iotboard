@@ -84,8 +84,10 @@
     <template #action>
       <n-space>
         <n-button type="primary" size="small" @click="refresh">刷新</n-button>
-        <n-button type="primary" size="small" :disabled="isConfirmBtnDisabled">确定</n-button>
-        <n-button type="primary" size="small">取消</n-button>
+        <n-button type="primary" size="small" :disabled="isConfirmBtnDisabled" @click="save">
+          确定
+        </n-button>
+        <n-button type="primary" size="small" @click="close">取消</n-button>
       </n-space>
     </template>
   </n-modal>
@@ -196,15 +198,26 @@ function refresh() {
     newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
   }
   if (componentTag.value) {
-    // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
-    const uiClass = registerTestUiClass(componentTag.value, JSON.stringify(newComponentJson));
-    if (uiClass) {
-      // 第三步: 将新组件加载显示
-      const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
-      app?.tree.clear();
-      app?.tree.add(newComponent);
+    app?.tree.clear();
+    try {
+      // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
+      const uiClass = registerTestUiClass(componentTag.value, JSON.stringify(newComponentJson));
+      if (uiClass) {
+        // 第三步: 将新组件加载显示
+        const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
+        app?.tree.add(newComponent);
+      }
+    } catch (e: any) {
+      window.$message?.error(`代码存在错误: ${e.message}`);
+      throw e;
     }
   }
+}
+
+function save() {
+  refresh();
+  // todo: 将代码保存到后端 & 更新预览图片
+  close();
 }
 
 watch(
