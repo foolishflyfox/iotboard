@@ -204,6 +204,8 @@ watch(
         });
         app.tree.zIndex = 1;
         console.log('@@@@');
+        // 加载组件，组件的测试显示的 tag 为 "test:原tag"
+        // 例如: 原tag为 /component/base/gauge, 测试显示的 tag 为 test:/component/base/gauge
         app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
       });
     }
