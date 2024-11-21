@@ -22,3 +22,13 @@ export async function registerUiClass(tag: string) {
   }
   return uiClass;
 }
+
+export function registerTestUiClass(componentTag: string, jsonStr: string) {
+  if (_.isEmpty(componentTag) || _.isEmpty(jsonStr)) return null;
+  const testTag = `test:${componentTag}`;
+  const cfg: UiCustomCfg = jsonToCustomUiClass(jsonStr);
+  cfg.tag = testTag;
+  customUiGenerate(cfg);
+  const uiClass: typeof UI = getUiClassByTag(testTag);
+  return uiClass;
+}

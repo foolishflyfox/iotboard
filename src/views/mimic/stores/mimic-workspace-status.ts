@@ -29,7 +29,6 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
     } else if (currentTarget.value?.editorType === 'component') {
-      console.log(`todo: 添加组件 ${currentTarget.value.path} 处理的逻辑`);
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);
     }

@@ -28,7 +28,7 @@
     <!-- <div>默认显示: todo - 测试自定义 bound 等的作用，并写说明文档</div> -->
     <div class="h-full flex">
       <div class="bg-gray-200 w-60%">
-        <n-tabs default-value="draw" class="px-5px h-full">
+        <n-tabs default-value="draw" class="px-10px h-full">
           <n-tab-pane name="draw" class="h-full" display-directive="show">
             <template #tab>
               绘图
@@ -62,7 +62,7 @@
           </n-tab-pane>
           <n-tab-pane name="hit" class="h-full" display-directive="show">
             <template #tab>
-              碰撞监测
+              碰撞检测
               <n-icon class="ml-2px cursor-help">
                 <!-- todo 点击后跳转帮助 -->
                 <QuestionCircle16Filled />
@@ -74,7 +74,7 @@
       </div>
       <div class="flex-1 flex-col">
         <div class="bg-pink-100 h-60%">配置区</div>
-        <div class="bg-blue-100 flex-1" id="mimicComponentTestPreview" />
+        <div class="flex-1 bg-light-200" id="mimicComponentTestPreview" />
       </div>
     </div>
     <template #action>
@@ -94,15 +94,21 @@ import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
-import { componentPathToTag } from '@mimic/utils';
-import { App, Rect } from 'leafer-ui';
+import { componentPathToTag, getUiClassByTag } from '@mimic/utils';
+import { App, Rect, ResizeEvent } from 'leafer-ui';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const componentJson = computed(() => {
+
+const componentTag = computed(() => {
   if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
-    const tag = componentPathToTag(mimicWorkspaceStatus.currentTarget.path);
-    const componentJson = JSON.parse(mimicVar.componentJsonStrDict[tag]);
-    console.log(new Date(), componentJson);
+    return componentPathToTag(mimicWorkspaceStatus.currentTarget.path);
+  }
+  return null;
+});
+
+const componentJson = computed(() => {
+  if (componentTag.value) {
+    const componentJson = JSON.parse(mimicVar.componentJsonStrDict[componentTag.value]);
     return componentJson;
   }
   return {};
@@ -176,21 +182,6 @@ function refresh() {
   // 第三步: 将新组件加载显示
 }
 
-// console.log('@@@@');
-// onMounted(() => {
-//   console.log('#####');
-// });
-// onMounted(() => {
-//   const app = new App({
-//     view: 'mimicComponentTestPreview',
-//     tree: {},
-//     editor: {},
-//     type: 'draw',
-//   });
-//   app.tree.zIndex = 1;
-//   console.log('@@@@');
-//   app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
-// });
 watch(
   () => props.showModal,
   nv => {
@@ -202,11 +193,17 @@ watch(
           editor: {},
           type: 'draw',
         });
-        app.tree.zIndex = 1;
-        console.log('@@@@');
-        // 加载组件，组件的测试显示的 tag 为 "test:原tag"
-        // 例如: 原tag为 /component/base/gauge, 测试显示的 tag 为 test:/component/base/gauge
-        app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
+        app.tree.on(ResizeEvent.RESIZE, () => app.tree.zoom('fit', 10));
+        if (componentTag.value) {
+          const uiClass = getUiClassByTag(componentTag.value);
+
+          if (uiClass) {
+            // app.tree.zIndex = 1;
+            // app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
+            const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
+            app.tree.add(newComponent);
+          }
+        }
       });
     }
   },
