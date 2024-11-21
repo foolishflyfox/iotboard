@@ -193,8 +193,6 @@ function refresh() {
   // 第一步: 根据当前配置生成新的组件 json
   const newComponentJson = _.cloneDeep(componentJson.value);
   if (!_.isEmpty(newDrawCode.value)) {
-    console.log('@@@@', newComponentJson.draw);
-    console.log('####', newDrawCode.value);
     newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
   }
   if (componentTag.value) {

@@ -18,6 +18,13 @@ export function getUiClassByTag(tag: string) {
   return UICreator.list[tag];
 }
 
+/** 根据 tag 删除 UI 类 */
+export function deleteUiClassByTag(tag: string) {
+  if (UICreator.list[tag]) {
+    delete UICreator.list[tag];
+  }
+}
+
 /** 将自定义 UI 对象的 config 转换为 json */
 export function customUiClassToJson(cfg: any) {
   return JSON.stringify(cfg, (key, value) => {

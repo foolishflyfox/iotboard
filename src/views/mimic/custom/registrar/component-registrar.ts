@@ -1,8 +1,8 @@
 import { mimicFileApi } from '@/service/api';
-import { getUiClassByTag, jsonToCustomUiClass } from '@mimic/utils';
+import { deleteUiClassByTag, getUiClassByTag, jsonToCustomUiClass } from '@mimic/utils';
 import * as _ from 'lodash-es';
 import { customUiGenerate, customCfgDict, type UiCustomCfg } from '@mimic/custom/generator';
-import type { UI } from 'leafer-ui';
+import { UICreator, type UI } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
 
 export async function registerUiClass(tag: string) {
@@ -26,6 +26,7 @@ export async function registerUiClass(tag: string) {
 export function registerTestUiClass(componentTag: string, jsonStr: string) {
   if (_.isEmpty(componentTag) || _.isEmpty(jsonStr)) return null;
   const testTag = `test:${componentTag}`;
+  deleteUiClassByTag(testTag);
   const cfg: UiCustomCfg = jsonToCustomUiClass(jsonStr);
   cfg.tag = testTag;
   customUiGenerate(cfg);
