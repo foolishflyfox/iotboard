@@ -73,12 +73,12 @@
       </div>
       <div class="flex-1 flex-col">
         <div class="bg-pink-100 h-60%">配置区</div>
-        <div class="bg-blue-100 flex-1">预览区</div>
+        <div class="bg-blue-100 flex-1">mark: 显示组件预览</div>
       </div>
     </div>
     <template #action>
       <n-space>
-        <n-button type="primary" size="small">刷新</n-button>
+        <n-button type="primary" size="small" @click="refresh">刷新</n-button>
         <n-button type="primary" size="small">确定</n-button>
         <n-button type="primary" size="small">取消</n-button>
       </n-space>
@@ -165,6 +165,13 @@ const emit = defineEmits<{
 
 function close() {
   emit('update:showModal', false);
+}
+
+function refresh() {
+  // mark: 添加组件刷新功能
+  // 第一步: 根据当前配置生成新的组件 json
+  // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
+  // 第三步: 将新组件加载显示
 }
 </script>
 
