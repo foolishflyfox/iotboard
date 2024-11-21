@@ -101,6 +101,7 @@ import { mimicVar } from '@mimic/global';
 import { componentPathToTag, getUiClassByTag } from '@mimic/utils';
 import { App, Rect, ResizeEvent } from 'leafer-ui';
 import * as _ from 'lodash-es';
+import { registerTestUiClass } from '@mimic/custom/registrar';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
@@ -190,14 +191,29 @@ function close() {
 function refresh() {
   // mark: 添加组件刷新功能
   // 第一步: 根据当前配置生成新的组件 json
-  // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
-  // 第三步: 将新组件加载显示
+  const newComponentJson = _.cloneDeep(componentJson.value);
+  if (!_.isEmpty(newDrawCode.value)) {
+    console.log('@@@@', newComponentJson.draw);
+    console.log('####', newDrawCode.value);
+    newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
+  }
+  if (componentTag.value) {
+    // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
+    const uiClass = registerTestUiClass(componentTag.value, JSON.stringify(newComponentJson));
+    if (uiClass) {
+      // 第三步: 将新组件加载显示
+      const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
+      app?.tree.clear();
+      app?.tree.add(newComponent);
+    }
+  }
 }
 
 watch(
   () => props.showModal,
   nv => {
     if (nv) {
+      newDrawCode.value = '';
       nextTick(() => {
         app = new App({
           view: 'mimicComponentTestPreview',
