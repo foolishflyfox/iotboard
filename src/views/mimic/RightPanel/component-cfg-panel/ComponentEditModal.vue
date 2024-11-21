@@ -1,5 +1,6 @@
 <template>
   <n-modal
+    display-directive="if"
     :show="showModal"
     preset="dialog"
     @close="close"
@@ -73,7 +74,7 @@
       </div>
       <div class="flex-1 flex-col">
         <div class="bg-pink-100 h-60%">配置区</div>
-        <div class="bg-blue-100 flex-1">mark: 显示组件预览</div>
+        <div class="bg-blue-100 flex-1" id="mimicComponentTestPreview" />
       </div>
     </div>
     <template #action>
@@ -94,6 +95,7 @@ import DrawCodeEditor from './DrawCodeEditor.vue';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { componentPathToTag } from '@mimic/utils';
+import { App, Rect } from 'leafer-ui';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const componentJson = computed(() => {
@@ -106,7 +108,7 @@ const componentJson = computed(() => {
   return {};
 });
 
-defineProps<{
+const props = defineProps<{
   showModal?: boolean;
 }>();
 
@@ -173,6 +175,40 @@ function refresh() {
   // 第二步: 根据 json 加载新的组件(形成的 tag 为 test:原组件tag)
   // 第三步: 将新组件加载显示
 }
+
+// console.log('@@@@');
+// onMounted(() => {
+//   console.log('#####');
+// });
+// onMounted(() => {
+//   const app = new App({
+//     view: 'mimicComponentTestPreview',
+//     tree: {},
+//     editor: {},
+//     type: 'draw',
+//   });
+//   app.tree.zIndex = 1;
+//   console.log('@@@@');
+//   app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
+// });
+watch(
+  () => props.showModal,
+  nv => {
+    if (nv) {
+      nextTick(() => {
+        const app = new App({
+          view: 'mimicComponentTestPreview',
+          tree: {},
+          editor: {},
+          type: 'draw',
+        });
+        app.tree.zIndex = 1;
+        console.log('@@@@');
+        app.tree.add(new Rect({ x: 20, y: 20, width: 100, height: 100, fill: '#00bfff' }));
+      });
+    }
+  },
+);
 </script>
 
 <style scoped>
