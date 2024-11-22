@@ -100,10 +100,11 @@ import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
-import { componentPathToTag, getUiClassByTag } from '@mimic/utils';
+import { componentPathToTag, componentTagToPreviewPngPath, getUiClassByTag } from '@mimic/utils';
 import { App, Rect, ResizeEvent } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
+import { mimicFileApi } from '@/service/api';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
@@ -214,10 +215,15 @@ function refresh() {
   }
 }
 
-function save() {
+async function save() {
   refresh();
   // todo: 将代码保存到后端 & 更新预览图片
-  close();
+  const blob = (await app?.tree.export('png', { blob: true }))?.data;
+  if (blob && componentTag.value) {
+    const pngPath = componentTagToPreviewPngPath(componentTag.value)!;
+    await mimicFileApi.uploadPreviewPng('component', pngPath, blob);
+    close();
+  }
 }
 
 watch(

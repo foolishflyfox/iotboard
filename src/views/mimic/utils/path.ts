@@ -15,3 +15,10 @@ export function componentTagToPath(tag: string) {
   }
   return null;
 }
+
+export function componentTagToPreviewPngPath(tag: string) {
+  if (tag.startsWith(tagPrefix)) {
+    return tag.slice(tagPrefix.length) + '.png';
+  }
+  return null;
+}

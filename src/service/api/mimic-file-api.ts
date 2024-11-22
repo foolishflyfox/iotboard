@@ -78,6 +78,18 @@ class MimicFileApi {
     }
     return null;
   }
+
+  /** 上传预览图片 */
+  async uploadPreviewPng(fileType: EditorType, pngPath: string, blob: Blob) {
+    const formData = new FormData();
+
+    formData.append('file', blob, path.basename(pngPath));
+    await this.instance.post(`uploadPng/${fileType}/${path.dirname(pngPath)}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 }
 
 export const mimicFileApi = new MimicFileApi();
