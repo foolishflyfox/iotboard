@@ -191,13 +191,18 @@ function close() {
   emit('update:showModal', false);
 }
 
-function refresh() {
-  // mark: 添加组件刷新功能
-  // 第一步: 根据当前配置生成新的组件 json
+function generateNewComponentJson() {
   const newComponentJson = _.cloneDeep(componentJson.value);
   if (!_.isEmpty(newDrawCode.value)) {
     newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
   }
+  return newComponentJson;
+}
+
+function refresh() {
+  // mark: 添加组件刷新功能
+  // 第一步: 根据当前配置生成新的组件 json
+  const newComponentJson = generateNewComponentJson();
   if (componentTag.value) {
     app?.tree.clear();
     try {
@@ -217,10 +222,12 @@ function refresh() {
 
 async function save() {
   refresh();
-  // todo: 将代码保存到后端 & 更新预览图片
   const blob = (await app?.tree.export('png', { blob: true }))?.data;
   if (blob && componentTag.value) {
     const pngPath = componentTagToPreviewPngPath(componentTag.value)!;
+    // 将代码保存到后端
+
+    // 更新预览图片
     await mimicFileApi.uploadPreviewPng('component', pngPath, blob);
     close();
   }
