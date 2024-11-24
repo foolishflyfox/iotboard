@@ -8,6 +8,10 @@ import { mimicVar } from '@mimic/global';
 export async function registerUiClass(tag: string) {
   let componentJson: string | null = mimicVar.componentJsonStrDict[tag];
   let uiClass: typeof UI = getUiClassByTag(tag);
+  if (!componentJson && uiClass) {
+    // 重新加载新的 component 代码
+    deleteUiClassByTag(tag);
+  }
   if (!componentJson || !uiClass) {
     componentJson = await mimicFileApi.getComponentJsonString(tag);
     if (componentJson) {

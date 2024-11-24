@@ -238,6 +238,8 @@ async function save() {
     // 更新预览图片
     await mimicFileApi.uploadPreviewPng('component', pngPath, blob);
     close();
+    mimicVar.componentJsonStrDict[componentTag.value] = '';
+    mimicVar.componentEditor.loadComponent(componentTag.value);
     eventBus.emitComponentUpdate(componentTag.value);
   }
 }
