@@ -29,6 +29,10 @@
     <div class="h-full flex">
       <div class="bg-gray-200 w-60%">
         <n-tabs default-value="draw" class="px-10px h-full">
+          <n-tab-pane name="property">
+            <template #tab> 属性 </template>
+            <PropertyConfig />
+          </n-tab-pane>
           <n-tab-pane name="draw" class="h-full" display-directive="show">
             <template #tab>
               绘图
@@ -42,10 +46,6 @@
               :prefix-code="drawPrefixCode"
               @update:value="updateDrawCode"
             />
-          </n-tab-pane>
-          <n-tab-pane name="property">
-            <template #tab> 属性 </template>
-            <PropertyConfig />
           </n-tab-pane>
           <n-tab-pane name="drawHitPath" class="h-full" display-directive="show">
             <template #tab>
