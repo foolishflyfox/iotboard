@@ -45,14 +45,7 @@
           </n-tab-pane>
           <n-tab-pane name="property">
             <template #tab> 属性 </template>
-            <div>
-              <n-divider>通用属性</n-divider>
-              <div>通用属性(多选框)，默认 x/y/width/height</div>
-            </div>
-            <div>
-              <n-divider>自定义属性</n-divider>
-              <div>自定义属性配置，是否导出/类型</div>
-            </div>
+            <PropertyConfig />
           </n-tab-pane>
           <n-tab-pane name="drawHitPath" class="h-full" display-directive="show">
             <template #tab>
@@ -94,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { NModal, NSpace, NButton, NIcon, NTabs, NTabPane, NDivider } from 'naive-ui';
+import { NModal, NSpace, NButton, NIcon, NTabs, NTabPane } from 'naive-ui';
 import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { QuestionCircle16Filled } from '@vicons/fluent';
 import DrawCodeEditor from './DrawCodeEditor.vue';
@@ -111,6 +104,7 @@ import { App, Rect, ResizeEvent } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
+import PropertyConfig from './PropertyConfig.vue';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
@@ -277,10 +271,6 @@ watch(
 </script>
 
 <style scoped>
-.n-divider:not(.n-divider--vertical) {
-  margin-top: 0;
-  margin-bottom: 0;
-}
 :deep(.fixed-code code) {
   padding: 0 10px;
 }
