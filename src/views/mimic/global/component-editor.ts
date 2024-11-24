@@ -17,6 +17,7 @@ export class ComponentEditor {
       draggable: false,
       editable: false,
     });
+    this.app?.tree.clear();
     this.app?.tree.add(newComponent);
     this.viewAutoFit();
   }
