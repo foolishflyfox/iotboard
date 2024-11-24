@@ -8,12 +8,14 @@
   >
     <div>
       <n-space>
-        <mimic-component-drag-item
-          v-for="item of currentTargets"
-          :folder-path="currentTargetDirPath!"
-          :file-name="item.name"
-          :has-preview="item.hasPreview"
-        />
+        <template v-for="item of currentTargets">
+          <mimic-component-drag-item
+            v-if="item"
+            :folder-path="currentTargetDirPath!"
+            :file-name="item.name"
+            :has-preview="item.hasPreview"
+          />
+        </template>
       </n-space>
     </div>
   </MimicObjectViewer>
@@ -25,6 +27,9 @@ import { MimicObjectViewer } from '../mimic-object-viewer';
 import { NSpace } from 'naive-ui';
 import type { FileItem } from '@mimic/types';
 import MimicComponentDragItem from './MimicComponentDragItem.vue';
+import { eventBus } from '@mimic/utils';
+import path from 'path-browserify';
+import * as _ from 'lodash-es';
 
 defineOptions({
   name: 'MimicComponentTree',
@@ -45,6 +50,25 @@ async function onChangeSelectedFolder(targetDirPath: string | null) {
     currentTargetDirPath.value = null;
   }
 }
+
+function componentUpdateHandler(tag: string) {
+  onChangeSelectedFolder(currentTargetDirPath.value);
+  const targetIndex = _.findIndex(
+    currentTargets.value,
+    e => path.join('component', currentTargetDirPath.value || '', e.name) === tag,
+  );
+  const preTarget = currentTargets.value[targetIndex];
+  currentTargets.value[targetIndex] = { name: '', hasPreview: false };
+  nextTick(() => {
+    currentTargets.value[targetIndex] = preTarget;
+  });
+}
+onMounted(() => {
+  eventBus.registerComponentUpdateHandler(componentUpdateHandler);
+});
+onUnmounted(() => {
+  eventBus.unregisterComponentUpdateHandler(componentUpdateHandler);
+});
 
 function newCodeComponent(targetDirPath) {
   console.log(`在组件文件夹 ${targetDirPath} 下新建代码组件`);

@@ -104,6 +104,7 @@ import {
   componentPathToTag,
   componentTagToPath,
   componentTagToPreviewPngPath,
+  eventBus,
   getUiClassByTag,
 } from '@mimic/utils';
 import { App, Rect, ResizeEvent } from 'leafer-ui';
@@ -233,11 +234,11 @@ async function save() {
     // 将代码保存到后端
     const newComponentJson = generateNewComponentJson();
     const componentPath = componentTagToPath(componentTag.value)!;
-    console.log('@@@', JSON.stringify(newComponentJson));
     await mimicFileApi.saveComponent(componentPath, newComponentJson);
     // 更新预览图片
     await mimicFileApi.uploadPreviewPng('component', pngPath, blob);
     close();
+    eventBus.emitComponentUpdate(componentTag.value);
   }
 }
 
