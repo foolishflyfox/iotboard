@@ -1,5 +1,5 @@
 <template>
-  <n-button :type :size>
+  <n-button :type :size :text>
     <template #icon>
       <n-icon>
         <component :is="icon" />
@@ -18,10 +18,12 @@ withDefaults(
     icon: Component;
     type?: Type;
     size?: Size;
+    text?: boolean;
   }>(),
   {
     type: 'primary',
     size: 'small',
+    text: false,
   },
 );
 </script>

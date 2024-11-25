@@ -7,6 +7,15 @@
     <div class="flex-1 flex-col">
       <n-divider>自定义属性</n-divider>
       <!-- <div>自定义属性配置，是否导出/类型</div> -->
+      <div class="mx-10px my-5px">
+        <n-space>
+          <icon-button :icon="Add12Filled" size="tiny" />
+          <icon-button :icon="VerticalAlignTopRound" size="tiny" />
+          <icon-button :icon="ArrowUpwardRound" size="tiny" />
+          <icon-button :icon="ArrowDownwardRound" size="tiny" />
+          <icon-button :icon="VerticalAlignBottomRound" size="tiny" />
+        </n-space>
+      </div>
       <div class="flex-1">
         <n-table :single-line="false" size="small">
           <thead>
@@ -19,16 +28,22 @@
               <th class="w-70px">操作</th>
             </tr>
           </thead>
+          <tbody>
+            <tr v-for="cfg of customPropertyCfgs" :key="cfg.id">
+              <td>{{ cfg.name }}</td>
+              <td>{{ cfg.label }}</td>
+              <td>{{ cfg.type }}</td>
+              <td>{{ cfg.defaultValue }}</td>
+              <td>{{ cfg.group }}</td>
+              <td>
+                <n-space>
+                  <icon-button type="error" text :icon="Delete24Filled" />
+                  <icon-button type="primary" text :icon="NotepadEdit20Filled" />
+                </n-space>
+              </td>
+            </tr>
+          </tbody>
         </n-table>
-      </div>
-      <div class="mx-10px my-5px">
-        <n-space>
-          <icon-button :icon="Add12Filled" />
-          <icon-button :icon="VerticalAlignTopRound" />
-          <icon-button :icon="ArrowUpwardRound" />
-          <icon-button :icon="ArrowDownwardRound" />
-          <icon-button :icon="VerticalAlignBottomRound" />
-        </n-space>
       </div>
     </div>
   </div>
@@ -36,7 +51,7 @@
 
 <script setup lang="ts">
 import { NDivider, NTable, NButton, NSpace, NIcon } from 'naive-ui';
-import { Add12Filled } from '@vicons/fluent';
+import { Add12Filled, Delete24Filled, NotepadEdit20Filled } from '@vicons/fluent';
 import {
   VerticalAlignBottomRound,
   VerticalAlignTopRound,
@@ -44,6 +59,11 @@ import {
   ArrowDownwardRound,
 } from '@vicons/material';
 import { IconButton } from '@/components';
+import type { CustomPropertyCfgs } from '@mimic/custom/generator';
+
+defineProps<{
+  customPropertyCfgs: CustomPropertyCfgs;
+}>();
 </script>
 
 <style scoped>

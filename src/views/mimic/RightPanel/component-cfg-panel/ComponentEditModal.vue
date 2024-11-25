@@ -31,7 +31,7 @@
         <n-tabs default-value="draw" class="px-10px h-full">
           <n-tab-pane name="property" class="h-full">
             <template #tab> 属性 </template>
-            <PropertyConfig />
+            <PropertyConfig :customPropertyCfgs />
           </n-tab-pane>
           <n-tab-pane name="draw" class="h-full" display-directive="show">
             <template #tab>
@@ -105,6 +105,11 @@ import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import PropertyConfig from './PropertyConfig.vue';
+import type { CustomPropertyCfgs, UiCustomCfg } from '@mimic/custom/generator';
+
+const props = defineProps<{
+  showModal?: boolean;
+}>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
@@ -119,14 +124,17 @@ const componentTag = computed(() => {
 const componentJson = computed(() => {
   if (componentTag.value) {
     const componentJson = JSON.parse(mimicVar.componentJsonStrDict[componentTag.value]);
-    return componentJson;
+    return componentJson as any;
   }
   return {};
 });
 
-const props = defineProps<{
-  showModal?: boolean;
-}>();
+const customPropertyCfgs = computed(() => {
+  if (componentJson.value.customPropertyCfgs) {
+    return componentJson.value.customPropertyCfgs as CustomPropertyCfgs;
+  }
+  return [];
+});
 
 const drawPrefixCode = `/**
  * @param {ILeaferCanvas} canvas Canvas 2d 渲染上下文对象
