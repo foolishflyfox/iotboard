@@ -10,10 +10,6 @@
       <div class="mx-10px my-5px">
         <n-space>
           <icon-button :icon="Add12Filled" size="tiny" />
-          <icon-button :icon="VerticalAlignTopRound" size="tiny" />
-          <icon-button :icon="ArrowUpwardRound" size="tiny" />
-          <icon-button :icon="ArrowDownwardRound" size="tiny" />
-          <icon-button :icon="VerticalAlignBottomRound" size="tiny" />
         </n-space>
       </div>
       <div class="flex-1">
@@ -25,7 +21,7 @@
               <th>类型</th>
               <th>默认值</th>
               <th>组</th>
-              <th class="w-70px">操作</th>
+              <th class="w-110px text-center!">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -36,9 +32,25 @@
               <td>{{ cfg.defaultValue }}</td>
               <td>{{ cfg.group }}</td>
               <td>
-                <n-space>
-                  <icon-button type="error" text :icon="Delete24Filled" />
-                  <icon-button type="primary" text :icon="NotepadEdit20Filled" />
+                <n-space justify="center" :size="[1, 0]">
+                  <icon-button
+                    type="error"
+                    text
+                    :icon="Delete24Filled"
+                    @click="() => clickRemoveCfg(cfg)"
+                  />
+                  <icon-button
+                    type="primary"
+                    text
+                    :icon="NotepadEdit20Filled"
+                    @click="() => clickEditCfg(cfg)"
+                  />
+                  <!-- </n-space>
+                <n-space size="small" justify="center"> -->
+                  <icon-button text :icon="ArrowUpload16Filled" size="tiny" />
+                  <icon-button text :icon="ArrowUp16Filled" size="tiny" />
+                  <icon-button text :icon="ArrowDown16Filled" size="tiny" />
+                  <icon-button text :icon="ArrowDownload16Filled" size="tiny" />
                 </n-space>
               </td>
             </tr>
@@ -47,11 +59,68 @@
       </div>
     </div>
   </div>
+  <QueryDialog title="删除" type="warning" v-model:show-modal="showDeleteCfgModal">
+    <div>
+      确定删除属性 <strong>{{ toDeleteCfg?.name }} ?</strong>
+    </div>
+  </QueryDialog>
+  <QueryDialog title="编辑" v-model:show-modal="showEditCfgModal">
+    <n-space vertical class="my-20px">
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">属性:</span>
+        <n-input
+          class="flex-1"
+          size="small"
+          :value="toEditCfg?.name"
+          @update:value="v => (toEditCfg!.name = v)"
+        />
+      </div>
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">名称:</span>
+        <n-input
+          class="flex-1"
+          size="small"
+          :value="toEditCfg?.label"
+          @update:value="v => (toEditCfg!.label = v)"
+        />
+      </div>
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">类型:</span>
+        <n-input class="flex-1" size="small" />
+      </div>
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">默认值:</span>
+        <n-input
+          class="flex-1"
+          size="small"
+          :value="toEditCfg?.defaultValue"
+          @update:value="v => (toEditCfg!.defaultValue = v)"
+        />
+      </div>
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">组:</span>
+        <n-input
+          class="flex-1"
+          size="small"
+          :value="toEditCfg?.group"
+          @update:value="v => (toEditCfg!.group = v)"
+        />
+      </div>
+    </n-space>
+  </QueryDialog>
 </template>
 
 <script setup lang="ts">
-import { NDivider, NTable, NButton, NSpace, NIcon } from 'naive-ui';
-import { Add12Filled, Delete24Filled, NotepadEdit20Filled } from '@vicons/fluent';
+import { NDivider, NTable, NButton, NSpace, NInput } from 'naive-ui';
+import {
+  Add12Filled,
+  Delete24Filled,
+  NotepadEdit20Filled,
+  ArrowUpload16Filled,
+  ArrowDownload16Filled,
+  ArrowUp16Filled,
+  ArrowDown16Filled,
+} from '@vicons/fluent';
 import {
   VerticalAlignBottomRound,
   VerticalAlignTopRound,
@@ -59,16 +128,34 @@ import {
   ArrowDownwardRound,
 } from '@vicons/material';
 import { IconButton } from '@/components';
-import type { CustomPropertyCfgs } from '@mimic/custom/generator';
+import type { CustomPropertyCfg, CustomPropertyCfgs } from '@mimic/custom/generator';
+import QueryDialog from '@/components/QueryDialog.vue';
 
 defineProps<{
   customPropertyCfgs: CustomPropertyCfgs;
 }>();
+
+const showDeleteCfgModal = ref(false);
+const toDeleteCfg = ref<CustomPropertyCfg>();
+function clickRemoveCfg(cfg: CustomPropertyCfg) {
+  toDeleteCfg.value = cfg;
+  showDeleteCfgModal.value = true;
+}
+
+const showEditCfgModal = ref(false);
+const toEditCfg = ref<CustomPropertyCfg>();
+function clickEditCfg(cfg: CustomPropertyCfg) {
+  toEditCfg.value = { ...cfg };
+  showEditCfgModal.value = true;
+}
 </script>
 
 <style scoped>
 .n-divider:not(.n-divider--vertical) {
   margin-top: 0;
   margin-bottom: 0;
+}
+div.cfg-edit-item > span {
+  font-weight: bold;
 }
 </style>
