@@ -1,7 +1,7 @@
 import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
 import { customUiGenerate, type UiCustomCfg } from '@mimic/custom/generator/custom-ui';
 
-const cfg: UiCustomCfg = {
+const cfg: any = {
   tag: 'testGauge',
   customPropertyCfgs: {
     value: {

@@ -15,10 +15,16 @@ import { type AppearanceType } from '@mimic/types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {
-  setter?: Setter;
+  id: string;
+  name: string;
+  label: string;
+  type: string;
   defaultValue?: any;
+  group?: string;
+  setter?: Setter;
 }
-export type CustomPropertyCfgs = Record<string, CustomPropertyCfg>;
+// export type CustomPropertyCfgs = Record<string, CustomPropertyCfg>;
+export type CustomPropertyCfgs = CustomPropertyCfg[];
 
 // const setters = {
 //   setValue: function (v: any) {
@@ -49,11 +55,11 @@ export interface UiCustomCfg {
 
 export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   class InnerData extends UIData {}
-  if (!_.isNil(uiCustomCfg.customPropertyCfgs)) {
-    for (const fieldName of _.keys(uiCustomCfg.customPropertyCfgs)) {
-      const setter = uiCustomCfg.customPropertyCfgs[fieldName]?.setter;
+  if (!_.isEmpty(uiCustomCfg.customPropertyCfgs)) {
+    for (const propertyCfg of uiCustomCfg.customPropertyCfgs!) {
+      const setter = propertyCfg.setter;
       if (setter) {
-        const setterName = _.camelCase(`set ${fieldName}`);
+        const setterName = _.camelCase(`set ${propertyCfg.name}`);
         (InnerData as any).prototype[setterName] = setter;
       }
     }
@@ -94,11 +100,11 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   InnerCustom.prototype.__draw = uiCustomCfg.draw;
 
   // 设置自定义属性的初始化值
-  if (!_.isNil(uiCustomCfg.customPropertyCfgs)) {
-    for (const fieldName of _.keys(uiCustomCfg.customPropertyCfgs)) {
-      const defaultValue = uiCustomCfg.customPropertyCfgs[fieldName]?.defaultValue;
+  if (!_.isEmpty(uiCustomCfg.customPropertyCfgs)) {
+    for (const propertyCfg of uiCustomCfg.customPropertyCfgs!) {
+      const defaultValue = propertyCfg.defaultValue;
       if (defaultValue !== undefined) {
-        surfaceType(defaultValue)(InnerCustom.prototype, fieldName);
+        surfaceType(defaultValue)(InnerCustom.prototype, propertyCfg.name);
       }
     }
   }
