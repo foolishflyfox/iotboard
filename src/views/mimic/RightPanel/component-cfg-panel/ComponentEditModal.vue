@@ -29,7 +29,7 @@
     <div class="h-full flex">
       <div class="bg-gray-200 w-60%">
         <n-tabs default-value="draw" class="px-10px h-full">
-          <n-tab-pane name="property">
+          <n-tab-pane name="property" class="h-full">
             <template #tab> 属性 </template>
             <PropertyConfig />
           </n-tab-pane>
