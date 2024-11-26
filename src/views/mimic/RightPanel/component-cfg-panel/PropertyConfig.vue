@@ -9,7 +9,7 @@
       <!-- <div>自定义属性配置，是否导出/类型</div> -->
       <div class="mx-10px my-5px">
         <n-space>
-          <icon-button :icon="Add12Filled" size="tiny" />
+          <icon-button :icon="Add12Filled" size="tiny" @click="() => clickAddCfg()" />
         </n-space>
       </div>
       <div class="flex-1">
@@ -66,7 +66,11 @@
       确定删除属性 <strong>{{ toDeleteCfg?.name }} ?</strong>
     </div>
   </QueryDialog>
-  <QueryDialog title="编辑" v-model:show-modal="showEditCfgModal">
+  <QueryDialog
+    :title="cfgModalTitle"
+    :show-modal="!!cfgModalType"
+    @update:show-modal="v => (cfgModalType = v ? cfgModalType : undefined)"
+  >
     <n-space vertical class="my-20px">
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">属性:</span>
@@ -85,6 +89,15 @@
           :value="toEditCfg?.label"
           @update:value="v => (toEditCfg!.label = v)"
         />
+      </div>
+      <div class="cfg-edit-item flex justify-center">
+        <span class="w-60px">可配置:</span>
+        <div class="flex-1">
+          <n-checkbox
+            :checked="toEditCfg?.variable"
+            @update:checked="v => (toEditCfg!.variable = v)"
+          />
+        </div>
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">类型:</span>
@@ -133,6 +146,7 @@ import {
 import { IconButton } from '@/components';
 import type { CustomPropertyCfg, CustomPropertyCfgs } from '@mimic/custom/generator';
 import QueryDialog from '@/components/QueryDialog.vue';
+import { getUniqueId } from '@/utils';
 
 defineProps<{
   customPropertyCfgs: CustomPropertyCfgs;
@@ -145,11 +159,31 @@ function clickRemoveCfg(cfg: CustomPropertyCfg) {
   showDeleteCfgModal.value = true;
 }
 
-const showEditCfgModal = ref(false);
+const cfgModalType = ref<'add' | 'edit'>();
+const cfgModalTitle = ref('');
+watch(cfgModalType, nv => {
+  let newTitle = '';
+  if (nv === 'add') newTitle = '新增';
+  if (nv === 'edit') newTitle = '编辑';
+  if (!newTitle) setTimeout(() => (cfgModalTitle.value = newTitle), 300);
+  else cfgModalTitle.value = newTitle;
+});
 const toEditCfg = ref<CustomPropertyCfg>();
 function clickEditCfg(cfg: CustomPropertyCfg) {
   toEditCfg.value = { ...cfg };
-  showEditCfgModal.value = true;
+  cfgModalType.value = 'edit';
+}
+function clickAddCfg() {
+  toEditCfg.value = {
+    id: getUniqueId(),
+    name: '',
+    label: '',
+    variable: true,
+    type: 'string',
+    defaultValue: '',
+    group: '',
+  };
+  cfgModalType.value = 'add';
 }
 
 const cfgTypeOptions: SelectOption[] = [
