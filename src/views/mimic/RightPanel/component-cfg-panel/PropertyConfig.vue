@@ -29,8 +29,14 @@
             <tr v-for="cfg of innerCfgs" :key="cfg.id">
               <td>{{ cfg.name }}</td>
               <td>{{ cfg.label }}</td>
-              <td><n-checkbox class="ml-1em" /></td>
-              <td>{{ cfg.type }}</td>
+              <td>
+                <n-checkbox
+                  class="ml-1em"
+                  :checked="cfg.variable"
+                  @update:checked="v => (cfg.variable = v)"
+                />
+              </td>
+              <td>{{ getCfgTypeLabelByValue(cfg.type) }}</td>
               <td>{{ cfg.defaultValue }}</td>
               <td>{{ cfg.group }}</td>
               <td>
@@ -75,6 +81,7 @@
     :title="cfgModalTitle"
     :show-modal="!!cfgModalType"
     @update:show-modal="v => (cfgModalType = v ? cfgModalType : undefined)"
+    @positive-click="confirmCfgEdit"
   >
     <n-space vertical class="my-20px">
       <div class="cfg-edit-item flex justify-center">
@@ -191,6 +198,13 @@ function clickEditCfg(cfg: CustomPropertyCfg) {
   toEditCfg.value = { ...cfg };
   cfgModalType.value = 'edit';
 }
+function confirmCfgEdit() {
+  const target = _.find(innerCfgs.value, e => e.id === toEditCfg.value?.id);
+  if (target) {
+    _.assign(target, toEditCfg.value);
+    emit('update:cfgs', innerCfgs.value);
+  }
+}
 function clickAddCfg() {
   toEditCfg.value = {
     id: getUniqueId(),
@@ -218,6 +232,9 @@ const cfgTypeOptions: SelectOption[] = [
     value: 'color',
   },
 ];
+function getCfgTypeLabelByValue(value: string) {
+  return _.find(cfgTypeOptions, e => e.value === value)?.label || '';
+}
 </script>
 
 <style scoped>

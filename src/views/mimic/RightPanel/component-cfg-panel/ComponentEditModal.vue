@@ -28,7 +28,7 @@
     <!-- <div>默认显示: todo - 测试自定义 bound 等的作用，并写说明文档</div> -->
     <div class="h-full flex">
       <div class="bg-gray-200 w-60%">
-        <n-tabs default-value="draw" class="px-10px h-full">
+        <n-tabs default-value="property" class="px-10px h-full">
           <n-tab-pane name="property" class="h-full">
             <template #tab> 属性 </template>
             <PropertyConfig :customPropertyCfgs @update:cfgs="v => (newCustomPropertyCfgs = v)" />
@@ -70,7 +70,13 @@
         </n-tabs>
       </div>
       <div class="flex-1 flex-col">
-        <div class="bg-pink-100 h-60%">配置区</div>
+        <div class="bg-gray-100 h-60%">
+          <CustomCfgPanel
+            :cfgs="customPropertyCfgs"
+            :default-group-name="path.basename(componentTag!)"
+            :show-cfg-name="true"
+          />
+        </div>
         <div class="flex-1 bg-light-200" id="mimicComponentTestPreview" />
       </div>
     </div>
@@ -106,6 +112,8 @@ import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import PropertyConfig from './PropertyConfig.vue';
 import type { CustomPropertyCfgs, UiCustomCfg } from '@mimic/custom/generator';
+import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
+import path from 'path-browserify';
 
 const props = defineProps<{
   showModal?: boolean;
@@ -252,36 +260,31 @@ async function save() {
   }
 }
 
-watch(
-  () => props.showModal,
-  nv => {
-    if (nv) {
-      newDrawCode.value = '';
-      nextTick(() => {
-        app = new App({
-          view: 'mimicComponentTestPreview',
-          tree: {},
-          editor: {},
-          type: 'draw',
-        });
-        app.tree.on(ResizeEvent.RESIZE, () => app?.tree.zoom('fit', 10));
-        if (componentTag.value) {
-          const uiClass = getUiClassByTag(componentTag.value);
+onMounted(() => {
+  newDrawCode.value = '';
+  app = new App({
+    view: 'mimicComponentTestPreview',
+    tree: {},
+    editor: {},
+    type: 'draw',
+  });
+  app.tree.on(ResizeEvent.RESIZE, () => app?.tree.zoom('fit', 10));
+  if (componentTag.value) {
+    const uiClass = getUiClassByTag(componentTag.value);
 
-          if (uiClass) {
-            const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
-            app.tree.add(newComponent);
-          }
-        }
-      });
-    } else {
-      if (app) {
-        app.destroy();
-        app = undefined;
-      }
+    if (uiClass) {
+      const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
+      app.tree.add(newComponent);
     }
-  },
-);
+  }
+});
+
+onUnmounted(() => {
+  if (app) {
+    app.destroy();
+    app = undefined;
+  }
+});
 </script>
 
 <style scoped>

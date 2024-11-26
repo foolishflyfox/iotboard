@@ -27,6 +27,16 @@ export interface CustomPropertyCfg {
 }
 // export type CustomPropertyCfgs = Record<string, CustomPropertyCfg>;
 export type CustomPropertyCfgs = CustomPropertyCfg[];
+/** 根据 group 字段进行分组 */
+export function groupCustomPropertyCfgs(cfgs: CustomPropertyCfgs) {
+  const result: Record<string, CustomPropertyCfgs> = {};
+  for (const cfg of cfgs || []) {
+    const group = cfg.group || '';
+    if (!result[group]) result[group] = [];
+    result[group].push(cfg);
+  }
+  return result;
+}
 
 // const setters = {
 //   setValue: function (v: any) {

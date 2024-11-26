@@ -14,7 +14,10 @@
       编辑
     </n-button>
   </div>
-  <ComponentEditModal v-model:showModal="componentEditModalVisible" />
+  <ComponentEditModal
+    v-if="componentEditModalVisible"
+    v-model:showModal="componentEditModalVisible"
+  />
 </template>
 
 <script setup lang="ts">
