@@ -218,6 +218,9 @@ function generateNewComponentJson() {
   if (!_.isEmpty(newDrawCode.value)) {
     newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
   }
+  if (newCustomPropertyCfgs.value) {
+    newComponentJson.customPropertyCfgs = newCustomPropertyCfgs.value;
+  }
   return newComponentJson;
 }
 
