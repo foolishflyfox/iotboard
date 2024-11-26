@@ -88,7 +88,14 @@
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">类型:</span>
-        <n-input class="flex-1" size="small" />
+        <!-- <n-input class="flex-1" size="small" /> -->
+        <n-select
+          class="flex-1"
+          size="small"
+          :options="cfgTypeOptions"
+          :value="toEditCfg?.type"
+          @update:value="v => (toEditCfg!.type = v)"
+        />
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">默认值:</span>
@@ -113,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { NDivider, NTable, NCheckbox, NSpace, NInput } from 'naive-ui';
+import { NDivider, NTable, NCheckbox, NSpace, NInput, NSelect, type SelectOption } from 'naive-ui';
 import {
   Add12Filled,
   Delete24Filled,
@@ -144,6 +151,21 @@ function clickEditCfg(cfg: CustomPropertyCfg) {
   toEditCfg.value = { ...cfg };
   showEditCfgModal.value = true;
 }
+
+const cfgTypeOptions: SelectOption[] = [
+  {
+    label: '字符串',
+    value: 'string',
+  },
+  {
+    label: '数字',
+    value: 'number',
+  },
+  {
+    label: '颜色',
+    value: 'color',
+  },
+];
 </script>
 
 <style scoped>
