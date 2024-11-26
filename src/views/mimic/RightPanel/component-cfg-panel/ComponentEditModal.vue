@@ -31,7 +31,7 @@
         <n-tabs default-value="draw" class="px-10px h-full">
           <n-tab-pane name="property" class="h-full">
             <template #tab> 属性 </template>
-            <PropertyConfig :customPropertyCfgs />
+            <PropertyConfig :customPropertyCfgs @update:cfgs="v => (newCustomPropertyCfgs = v)" />
           </n-tab-pane>
           <n-tab-pane name="draw" class="h-full" display-directive="show">
             <template #tab>
@@ -129,7 +129,11 @@ const componentJson = computed(() => {
   return {};
 });
 
+const newCustomPropertyCfgs = ref<CustomPropertyCfgs>();
 const customPropertyCfgs = computed(() => {
+  if (newCustomPropertyCfgs.value) {
+    return newCustomPropertyCfgs.value;
+  }
   if (componentJson.value.customPropertyCfgs) {
     return componentJson.value.customPropertyCfgs as CustomPropertyCfgs;
   }
