@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="cfg of customPropertyCfgs" :key="cfg.id">
+            <tr v-for="cfg of innerCfgs" :key="cfg.id">
               <td>{{ cfg.name }}</td>
               <td>{{ cfg.label }}</td>
               <td><n-checkbox class="ml-1em" /></td>
@@ -61,7 +61,12 @@
       </div>
     </div>
   </div>
-  <QueryDialog title="删除" type="warning" v-model:show-modal="showDeleteCfgModal">
+  <QueryDialog
+    title="删除"
+    type="warning"
+    @positive-click="deleteCfg"
+    v-model:show-modal="showDeleteCfgModal"
+  >
     <div>
       确定删除属性 <strong>{{ toDeleteCfg?.name }} ?</strong>
     </div>
@@ -147,9 +152,16 @@ import { IconButton } from '@/components';
 import type { CustomPropertyCfg, CustomPropertyCfgs } from '@mimic/custom/generator';
 import QueryDialog from '@/components/QueryDialog.vue';
 import { getUniqueId } from '@/utils';
+import * as _ from 'lodash-es';
 
-defineProps<{
+const props = defineProps<{
   customPropertyCfgs: CustomPropertyCfgs;
+}>();
+
+const innerCfgs = ref(_.cloneDeep(props.customPropertyCfgs));
+
+const emit = defineEmits<{
+  'update:cfgs': [CustomPropertyCfgs];
 }>();
 
 const showDeleteCfgModal = ref(false);
@@ -157,6 +169,12 @@ const toDeleteCfg = ref<CustomPropertyCfg>();
 function clickRemoveCfg(cfg: CustomPropertyCfg) {
   toDeleteCfg.value = cfg;
   showDeleteCfgModal.value = true;
+}
+function deleteCfg() {
+  console.log('删除配置: id =', toDeleteCfg.value?.id);
+  _.pull(innerCfgs.value, toDeleteCfg.value);
+  toDeleteCfg.value = undefined;
+  emit('update:cfgs', innerCfgs.value!);
 }
 
 const cfgModalType = ref<'add' | 'edit'>();
