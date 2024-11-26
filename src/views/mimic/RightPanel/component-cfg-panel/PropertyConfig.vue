@@ -18,6 +18,7 @@
             <tr>
               <th>属性</th>
               <th>名称</th>
+              <th class="w-3em">可配置</th>
               <th>类型</th>
               <th>默认值</th>
               <th>组</th>
@@ -28,6 +29,7 @@
             <tr v-for="cfg of customPropertyCfgs" :key="cfg.id">
               <td>{{ cfg.name }}</td>
               <td>{{ cfg.label }}</td>
+              <td><n-checkbox class="ml-1em" /></td>
               <td>{{ cfg.type }}</td>
               <td>{{ cfg.defaultValue }}</td>
               <td>{{ cfg.group }}</td>
@@ -93,7 +95,7 @@
         <n-input
           class="flex-1"
           size="small"
-          :value="toEditCfg?.defaultValue"
+          :value="String(toEditCfg?.defaultValue)"
           @update:value="v => (toEditCfg!.defaultValue = v)"
         />
       </div>
@@ -111,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import { NDivider, NTable, NButton, NSpace, NInput } from 'naive-ui';
+import { NDivider, NTable, NCheckbox, NSpace, NInput } from 'naive-ui';
 import {
   Add12Filled,
   Delete24Filled,
@@ -121,12 +123,6 @@ import {
   ArrowUp16Filled,
   ArrowDown16Filled,
 } from '@vicons/fluent';
-import {
-  VerticalAlignBottomRound,
-  VerticalAlignTopRound,
-  ArrowUpwardRound,
-  ArrowDownwardRound,
-} from '@vicons/material';
 import { IconButton } from '@/components';
 import type { CustomPropertyCfg, CustomPropertyCfgs } from '@mimic/custom/generator';
 import QueryDialog from '@/components/QueryDialog.vue';

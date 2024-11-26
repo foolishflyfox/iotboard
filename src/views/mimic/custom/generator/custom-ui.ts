@@ -18,6 +18,8 @@ export interface CustomPropertyCfg {
   id: string;
   name: string;
   label: string;
+  /** 配置项是否可变，即是否可以由用户配置或由外部动态改变 */
+  variable: boolean;
   type: string;
   defaultValue?: any;
   group?: string;
