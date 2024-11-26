@@ -10,7 +10,7 @@
             (e.target as any).src = getElementPreview('default');
           }
         "
-        :draggable="mimicWorkspaceStatus.curEditorType === 'component'"
+        :draggable
         @dragstart="startDragElement"
       />
     </div>
@@ -31,8 +31,17 @@ const props = defineProps<ElementItemProp>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
+const draggable = computed(() => {
+  if (['module', 'display'].includes(mimicWorkspaceStatus.curEditorType || '')) {
+    return true;
+  }
+  return false;
+});
+
 function startDragElement(e: any) {
-  mimicVar.componentEditor.draggingTag = `${props.type}:${props.path}`;
+  // mimicVar.componentEditor.draggingTag = `${props.type}:${props.path}`;
+  mimicVar.displayEditor.draggingType = 'element';
+  mimicVar.displayEditor.draggingTag = `${props.type}:${props.path}`;
 }
 </script>
 

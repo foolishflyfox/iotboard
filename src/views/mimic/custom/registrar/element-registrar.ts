@@ -1,4 +1,5 @@
 import { customRectGenerate, customEllipseGenerate } from '@mimic/custom/generator';
+import { getUiClassByTag } from '@mimic/utils';
 
 export const elementRegistrar: Record<string, () => void> = {
   'element:rect': () => customRectGenerate({ tag: 'element:rect' }),
@@ -12,4 +13,11 @@ export function registerElement(tag: string) {
   } else {
     registerHandler();
   }
+}
+
+export function getElementClassByTag(tag: string) {
+  const elementClass = getUiClassByTag(tag);
+  if (elementClass) return elementClass;
+  registerElement(tag);
+  return getUiClassByTag(tag);
 }

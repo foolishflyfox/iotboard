@@ -22,7 +22,7 @@ import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
-import { registerUiClass } from '@mimic/custom/registrar';
+import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 
 const loadScript = () => {
@@ -54,32 +54,39 @@ const displayEditorWorkspace = ref<HTMLElement>();
 useDropZone(displayEditorWorkspace);
 
 async function onDisplayEditorDrop(e: MouseEvent) {
+  if (!mimicVar.displayEditor.draggingTag) return;
   if (mimicVar.displayEditor.draggingType === 'component') {
-    if (mimicVar.displayEditor.draggingTag && !_.isEmpty(mimicVar.displayEditor.draggingTag)) {
-      console.log(`将组件 ${mimicVar.displayEditor.draggingTag} 拖放到图纸`);
-      const componentClass = await registerUiClass(mimicVar.displayEditor.draggingTag);
-      const newElement = new componentClass({
-        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
-        draggable: true,
-        editable: true,
-      });
-      if (_.isEmpty(newElement.id)) {
-        newElement.id = getUniqueId();
-      }
-      mimicVar.displayEditor.app?.tree.add(newElement);
-    }
-  }
-  if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
-    const newElement = new mimicVar.draggingCustomMeta.component({
-      ...mimicVar.displayEditor.app.getPagePointByClient(e),
+    console.log(`将组件 ${mimicVar.displayEditor.draggingTag} 拖放到图纸`);
+    const componentClass = await registerUiClass(mimicVar.displayEditor.draggingTag);
+    const newComponent = new componentClass({
+      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
       draggable: true,
       editable: true,
     });
-    if (_.isEmpty(newElement.id)) {
-      newElement.id = getUniqueId();
+    if (_.isEmpty(newComponent.id)) {
+      newComponent.id = getUniqueId();
     }
-    mimicVar.displayEditor.app.tree.add(newElement);
+    mimicVar.displayEditor.app?.tree.add(newComponent);
+  } else if (mimicVar.displayEditor.draggingType === 'element') {
+    const elementClass = getElementClassByTag(mimicVar.displayEditor.draggingTag);
+    const newElement = new elementClass({
+      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+      draggable: true,
+      editable: true,
+    });
+    mimicVar.displayEditor.app?.tree.add(newElement);
   }
+  // if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
+  //   const newElement = new mimicVar.draggingCustomMeta.component({
+  //     ...mimicVar.displayEditor.app.getPagePointByClient(e),
+  //     draggable: true,
+  //     editable: true,
+  //   });
+  //   if (_.isEmpty(newElement.id)) {
+  //     newElement.id = getUniqueId();
+  //   }
+  //   mimicVar.displayEditor.app.tree.add(newElement);
+  // }
 }
 
 async function handleSaveShortcut(e: KeyboardEvent) {
