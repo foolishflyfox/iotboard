@@ -157,7 +157,9 @@ function updateDrawCode(newCode: string) {
   newDrawCode.value = newCode;
 }
 
-const isConfirmBtnDisabled = computed(() => _.isEmpty(newDrawCode.value));
+const isConfirmBtnDisabled = computed(() => {
+  return _.isEmpty(newDrawCode.value) && !newCustomPropertyCfgs.value;
+});
 
 const drawHitPathPrefixCode = `/**
  * @param {ILeaferCanvas} canvas Canvas 2d 渲染上下文对象
