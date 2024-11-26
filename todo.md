@@ -4,8 +4,7 @@
 - 完成组件在图纸上的保存功能
 - 添加温度计、数码管显示组件
 - 添加 png/jpg/svg 拖动到图纸上的功能
-- 添加基础图形的添加功能
-- 添加路径绘制功能
+- 添加基础图形的添加功能 / 添加路径绘制功能，参考 https://github.com/WHSnhcZDYRZC/drawingBoard
 
 ## todo
 
