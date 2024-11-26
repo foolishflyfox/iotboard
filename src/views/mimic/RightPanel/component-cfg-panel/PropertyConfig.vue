@@ -33,7 +33,12 @@
                 <n-checkbox
                   class="ml-1em"
                   :checked="cfg.variable"
-                  @update:checked="v => (cfg.variable = v)"
+                  @update:checked="
+                    v => {
+                      cfg.variable = v;
+                      emit('update:cfgs', innerCfgs);
+                    }
+                  "
                 />
               </td>
               <td>{{ getCfgTypeLabelByValue(cfg.type) }}</td>
