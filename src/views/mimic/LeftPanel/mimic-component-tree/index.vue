@@ -14,6 +14,7 @@
             :folder-path="currentTargetDirPath!"
             :file-name="item.name"
             :has-preview="item.hasPreview"
+            @delete="componentDeleteHandle"
           />
         </template>
       </n-space>
@@ -63,9 +64,15 @@ function componentUpdateHandler(tag: string) {
     currentTargets.value[targetIndex] = preTarget;
   });
 }
+
+function componentDeleteHandle() {
+  onChangeSelectedFolder(currentTargetDirPath.value);
+}
+
 onMounted(() => {
   eventBus.registerComponentUpdateHandler(componentUpdateHandler);
 });
+
 onUnmounted(() => {
   eventBus.unregisterComponentUpdateHandler(componentUpdateHandler);
 });

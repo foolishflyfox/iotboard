@@ -6,6 +6,7 @@
     :fileName
     @dragStart="startDragHandler"
     @open="openComponent"
+    @delete="deleteComponent"
   />
 </template>
 
@@ -15,11 +16,16 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { MimicItem } from '../components';
 import type { OpenedTarget } from '@mimic/types';
+import { mimicFileApi } from '@/service/api';
 
 const props = defineProps<{
   folderPath: string;
   fileName: string;
   hasPreview?: boolean;
+}>();
+
+const emit = defineEmits<{
+  delete: [];
 }>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
@@ -50,6 +56,13 @@ function openComponent() {
     path: componentPath,
   };
   mimicWorkspaceStatus.addOpenedTarget(openedTarget);
+}
+
+async function deleteComponent() {
+  const componentPath = `${props.folderPath}/${props.fileName}.json`;
+  // console.log(`待删除组件 ${componentPath}`);
+  await mimicFileApi.deleteComponent(componentPath);
+  emit('delete');
 }
 </script>
 

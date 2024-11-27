@@ -87,7 +87,6 @@ const options: DropdownOption[] = [
 const showDeleteTargetModal = ref(false);
 function clickContextMenuHandler(action: string) {
   hideMenu();
-  console.log('处理', action);
   if (action === 'delete') {
     showDeleteTargetModal.value = true;
   }
