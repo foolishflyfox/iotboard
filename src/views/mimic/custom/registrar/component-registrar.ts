@@ -17,6 +17,7 @@ export async function registerUiClass(tag: string) {
     if (componentJson) {
       mimicVar.componentJsonStrDict[tag] = componentJson;
       const newCfg: UiCustomCfg = jsonToCustomUiClass(componentJson);
+      newCfg.tag = tag;
       customUiGenerate(newCfg);
       uiClass = getUiClassByTag(tag);
       if (uiClass) {
