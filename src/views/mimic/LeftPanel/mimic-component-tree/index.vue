@@ -1,7 +1,7 @@
 <template>
   <MimicObjectViewer
     editor-type="component"
-    @new-code-component="newCodeComponent"
+    @new-code-component="clickNewCodeComponent"
     @new-graph-component="newGraphComponent"
     @change-selected-folder="onChangeSelectedFolder"
     ref="mimicObjectViewerRef"
@@ -14,29 +14,51 @@
             :folder-path="currentTargetDirPath!"
             :file-name="item.name"
             :has-preview="item.hasPreview"
-            @delete="componentDeleteHandle"
+            @delete="updateCurrentTargets"
           />
         </template>
       </n-space>
     </div>
   </MimicObjectViewer>
+  <QueryDialog
+    title="新建组件"
+    v-model:show-modal="showNewComponentModal"
+    :positive-btn-disabled="!newComponentName"
+    @positive-click="confirmNewCodeComponent"
+  >
+    <div class="flex-y-center">
+      <span class="mr-10px">组件名:</span>
+      <n-input
+        ref="newComponentNameInputRef"
+        size="small"
+        class="flex-1"
+        :value="newComponentName"
+        @update:value="
+          v => {
+            newComponentName = _.trim(v);
+          }
+        "
+        @keydown.enter="confirmNewCodeComponent"
+      />
+    </div>
+  </QueryDialog>
 </template>
 
 <script setup lang="ts">
 import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
-import { NSpace } from 'naive-ui';
+import { NSpace, NInput } from 'naive-ui';
 import type { FileItem } from '@mimic/types';
 import MimicComponentDragItem from './MimicComponentDragItem.vue';
-import { eventBus } from '@mimic/utils';
+import { componentPathToTag, eventBus } from '@mimic/utils';
 import path from 'path-browserify';
 import * as _ from 'lodash-es';
 import defaultComponentJson from './default-component.json';
+import QueryDialog from '@/components/QueryDialog.vue';
 
 defineOptions({
   name: 'MimicComponentTree',
 });
-
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 
 const currentTargetDirPath = ref<string | null>(null);
@@ -66,7 +88,7 @@ function componentUpdateHandler(tag: string) {
   });
 }
 
-function componentDeleteHandle() {
+function updateCurrentTargets() {
   onChangeSelectedFolder(currentTargetDirPath.value);
 }
 
@@ -78,9 +100,22 @@ onUnmounted(() => {
   eventBus.unregisterComponentUpdateHandler(componentUpdateHandler);
 });
 
-function newCodeComponent(targetDirPath) {
-  console.log(`在组件文件夹 ${targetDirPath} 下新建代码组件`);
-  console.log('默认配置:', defaultComponentJson);
+const showNewComponentModal = ref(false);
+const newComponentName = ref('');
+const newComponentNameInputRef = ref<InstanceType<typeof NInput>>();
+async function clickNewCodeComponent() {
+  newComponentName.value = '';
+  showNewComponentModal.value = true;
+  nextTick(() => newComponentNameInputRef.value?.focus());
+}
+async function confirmNewCodeComponent() {
+  if (!newComponentName.value) return;
+  const componentPath = path.join(currentTargetDirPath.value!, newComponentName.value + '.json');
+  const newComponentJson = _.cloneDeep(defaultComponentJson);
+  newComponentJson.tag = componentPathToTag(componentPath);
+  await mimicFileApi.createComponent(componentPath, newComponentJson);
+  showNewComponentModal.value = false;
+  updateCurrentTargets();
 }
 
 /** 目前不存在图像组件，图像组件通过模块实现 */
