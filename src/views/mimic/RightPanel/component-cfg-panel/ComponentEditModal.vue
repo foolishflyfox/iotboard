@@ -106,7 +106,7 @@ import {
   eventBus,
   getUiClassByTag,
 } from '@mimic/utils';
-import { App, Rect, ResizeEvent } from 'leafer-ui';
+import { App, Rect, ResizeEvent, UI, type IUI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
@@ -121,6 +121,7 @@ const props = defineProps<{
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined = undefined;
+let componentUi: IUI | undefined = undefined;
 
 const componentTag = computed(() => {
   if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
@@ -263,23 +264,37 @@ async function save() {
   }
 }
 
+function autofit() {
+  app?.tree.zoom('fit', 10);
+}
+
+function setComponentUiProperty(propertyName: string, value: any) {
+  if (componentUi?.proxyData) {
+    componentUi.proxyData[propertyName] = value;
+  }
+}
+
 onMounted(() => {
   newDrawCode.value = '';
-  app = new App({
-    view: 'mimicComponentTestPreview',
-    tree: {},
-    editor: {},
-    type: 'draw',
-  });
-  app.tree.on(ResizeEvent.RESIZE, () => app?.tree.zoom('fit', 10));
-  if (componentTag.value) {
-    const uiClass = getUiClassByTag(componentTag.value);
+  nextTick(() => {
+    app = new App({
+      view: 'mimicComponentTestPreview',
+      tree: {},
+      editor: {},
+      type: 'draw',
+    });
+    app.tree.on(ResizeEvent.RESIZE, () => autofit());
+    if (componentTag.value) {
+      const uiClass = getUiClassByTag(componentTag.value);
 
-    if (uiClass) {
-      const newComponent = new uiClass({ x: 0, y: 0, draggable: false });
-      app.tree.add(newComponent);
+      if (uiClass) {
+        componentUi = new uiClass({ x: 0, y: 0, draggable: false });
+        app.tree.add(componentUi!);
+        autofit();
+        setTimeout(() => setComponentUiProperty('value', 10), 1000);
+      }
     }
-  }
+  });
 });
 
 onUnmounted(() => {
