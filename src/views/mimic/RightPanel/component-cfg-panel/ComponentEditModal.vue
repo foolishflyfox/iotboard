@@ -75,6 +75,7 @@
             :cfgs="customPropertyCfgs"
             :default-group-name="path.basename(componentTag!)"
             :show-cfg-name="true"
+            @update:cfg-value="handleCfgValueUpdate"
           />
         </div>
         <div class="flex-1 bg-light-200" id="mimicComponentTestPreview" />
@@ -274,6 +275,10 @@ function setComponentUiProperty(propertyName: string, value: any) {
   }
 }
 
+function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
+  setComponentUiProperty(cfgName, cfgValue);
+}
+
 onMounted(() => {
   newDrawCode.value = '';
   nextTick(() => {
@@ -291,7 +296,6 @@ onMounted(() => {
         componentUi = new uiClass({ x: 0, y: 0, draggable: false });
         app.tree.add(componentUi!);
         autofit();
-        setTimeout(() => setComponentUiProperty('value', 10), 1000);
       }
     }
   });
