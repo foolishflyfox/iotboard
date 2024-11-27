@@ -55,7 +55,11 @@
                 <QuestionCircle16Filled />
               </n-icon>
             </template>
-            <DrawCodeEditor :value="drawHitPathCode" :prefix-code="drawHitPathPrefixCode" />
+            <DrawCodeEditor
+              :value="drawHitPathCode"
+              :prefix-code="drawHitPathPrefixCode"
+              @update:value="updateDrawHitPathCode"
+            />
           </n-tab-pane>
           <n-tab-pane name="hit" class="h-full" display-directive="show">
             <template #tab>
@@ -65,7 +69,11 @@
                 <QuestionCircle16Filled />
               </n-icon>
             </template>
-            <DrawCodeEditor :value="hitCode" :prefix-code="hitPrefixCode" />
+            <DrawCodeEditor
+              :value="hitCode"
+              :prefix-code="hitPrefixCode"
+              @update:value="updateHitCode"
+            />
           </n-tab-pane>
         </n-tabs>
       </div>
@@ -168,7 +176,12 @@ function updateDrawCode(newCode: string) {
 }
 
 const isConfirmBtnDisabled = computed(() => {
-  return _.isEmpty(newDrawCode.value) && !newCustomPropertyCfgs.value;
+  return (
+    _.isEmpty(newDrawCode.value) &&
+    _.isEmpty(newDrawHitPathCode.value) &&
+    _.isEmpty(newHitCode.value) &&
+    !newCustomPropertyCfgs.value
+  );
 });
 
 const drawHitPathPrefixCode = `/**
@@ -182,6 +195,10 @@ const drawHitPathCode = computed(() => {
   }
   return '';
 });
+const newDrawHitPathCode = ref('');
+function updateDrawHitPathCode(newCode: string) {
+  newDrawHitPathCode.value = newCode;
+}
 
 const hitPrefixCode = `/**
  * @param {IRadiusPointData} inner
@@ -194,6 +211,10 @@ const hitCode = computed(() => {
   }
   return '';
 });
+const newHitCode = ref('');
+function updateHitCode(newCode: string) {
+  newHitCode.value = newCode;
+}
 
 const fullViewStyle = {
   width: '100vw',
@@ -219,6 +240,12 @@ function generateNewComponentJson() {
   const newComponentJson = _.cloneDeep(componentJson.value);
   if (!_.isEmpty(newDrawCode.value)) {
     newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
+  }
+  if (!_.isEmpty(newDrawHitPathCode.value)) {
+    newComponentJson.drawHitPath = 'function(hitCanvas) {\n' + newDrawHitPathCode.value + '\n}';
+  }
+  if (!_.isEmpty(newHitCode.value)) {
+    newComponentJson.hit = 'function(inner) {\n' + newHitCode.value + '\n}';
   }
   if (newCustomPropertyCfgs.value) {
     newComponentJson.customPropertyCfgs = newCustomPropertyCfgs.value;
