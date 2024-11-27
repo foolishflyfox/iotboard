@@ -31,6 +31,7 @@ import MimicComponentDragItem from './MimicComponentDragItem.vue';
 import { eventBus } from '@mimic/utils';
 import path from 'path-browserify';
 import * as _ from 'lodash-es';
+import defaultComponentJson from './default-component.json';
 
 defineOptions({
   name: 'MimicComponentTree',
@@ -79,8 +80,10 @@ onUnmounted(() => {
 
 function newCodeComponent(targetDirPath) {
   console.log(`在组件文件夹 ${targetDirPath} 下新建代码组件`);
+  console.log('默认配置:', defaultComponentJson);
 }
 
+/** 目前不存在图像组件，图像组件通过模块实现 */
 function newGraphComponent(targetDirPath) {
   console.log(`在组件文件夹 ${targetDirPath} 下新建图像组件`);
 }

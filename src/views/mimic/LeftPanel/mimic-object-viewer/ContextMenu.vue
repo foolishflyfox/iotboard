@@ -115,15 +115,15 @@ const options = computed(() => [
         show: props.editorType === 'module',
       },
       {
-        label: '代码组件',
+        label: '组件',
         key: 'newCodeComponent',
         show: props.editorType === 'component',
       },
-      {
-        label: '图形组件',
-        key: 'newGraphComponent',
-        show: props.editorType === 'component',
-      },
+      // {
+      //   label: '图形组件',
+      //   key: 'newGraphComponent',
+      //   show: props.editorType === 'component',
+      // },
       {
         label: '文件夹',
         key: 'newFolder',

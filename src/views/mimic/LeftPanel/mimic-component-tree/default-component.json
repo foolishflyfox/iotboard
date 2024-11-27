@@ -1,0 +1,17 @@
+{
+    "appearanceTypes": [
+        "height",
+        "width",
+        "x",
+        "y"
+    ],
+    "customPropertyCfgs": [],
+    "defaultAppearanceValues": {
+        "height": 80,
+        "width": 80
+    },
+    "draw": "function(canvas) {\n    const ctx = canvas.context;\n    const obj = this.__;\n    ctx.scale(obj.width / 100, obj.height / 100);\n    const x = 0;\n    const y = 0;\n    const width = 100;\n    const height = 100;\n    ctx.fillStyle = '#00BFFF';\n    ctx.fillRect(0, 0, 100, 100);\n    ctx.strokeStyle = '#000000';\n    ctx.lineWidth = 3;\n    ctx.strokeRect(0, 0, 100, 100);\n}",
+    "drawHitPath": "function(hitCanvas) {\n    const { context } = hitCanvas;\n    const { width, height } = this.__layout.boxBounds;\n    context.save();\n    context.scale(width / 400, height / 400);\n    context.beginPath();\n    context.arc(200, 200, 200 * 0.95, 0, Math.PI * 2);\n    context.restore();\n  }",
+    "hit": "function(inner) {\n    const { context } = this.__hitCanvas;\n    if (context.isPointInPath(inner.x, inner.y)) return true;\n    const lineWidth = inner.radiusX * 2;\n    if (context.lineWidth !== lineWidth) {\n      context.lineWidth = lineWidth;\n      context.stroke();\n    }\n    return context.isPointInStroke(inner.x, inner.y);\n  }",
+    "tag": "component/基础/tmp"
+}
