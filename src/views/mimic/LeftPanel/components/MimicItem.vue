@@ -13,13 +13,13 @@
   >
     <img
       :src="imgSrc"
-      width="42"
-      class="p-4px"
+      class="p-4px max-w-42px max-h-42px mx-auto"
       :style="{ cursor: draggable ? 'grab' : 'default' }"
       @dragstart="e => emit('dragStart', e)"
       :draggable
     />
     <div
+      :title="fileName"
       class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text select-none"
     >
       {{ fileName }}
