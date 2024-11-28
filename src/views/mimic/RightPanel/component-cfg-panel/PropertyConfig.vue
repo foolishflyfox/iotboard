@@ -249,6 +249,9 @@ function confirmCfgEdit() {
   if (target) {
     _.assign(target, toEditCfg.value);
     emit('update:cfgs', innerCfgs.value);
+  } else {
+    innerCfgs.value.push({ ...toEditCfg.value! });
+    emit('update:cfgs', innerCfgs.value);
   }
 }
 function clickAddCfg() {
