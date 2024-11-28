@@ -352,7 +352,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (app) {
-    app.destroy();
+    app.clear();
     app = undefined;
   }
 });

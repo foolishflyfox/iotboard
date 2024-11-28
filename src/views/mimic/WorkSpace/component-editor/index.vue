@@ -31,8 +31,9 @@ function selectHandler(event: EditorEvent) {}
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
+let app: App | undefined = undefined;
 onMounted(() => {
-  const app = new App({
+  app = new App({
     view: 'mimicComponentEditor',
     tree: { usePartRender: true },
     editor: {},
@@ -49,6 +50,12 @@ onMounted(() => {
   });
   ruler.addTheme('custom1', rulerTheme);
   ruler.changeTheme('custom1');
+});
+onUnmounted(() => {
+  if (app) {
+    app.clear();
+    app = undefined;
+  }
 });
 
 // todo: 将下面的逻辑移动到模块拖动中

@@ -159,6 +159,7 @@ onMounted(() => {
 onUnmounted(() => {
   if (app) {
     app.clear();
+    app = undefined;
   }
   window.removeEventListener('keydown', handleSaveShortcut);
 });
