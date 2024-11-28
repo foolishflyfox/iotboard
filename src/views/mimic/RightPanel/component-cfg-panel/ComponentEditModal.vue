@@ -31,7 +31,11 @@
         <n-tabs default-value="property" class="px-10px h-full">
           <n-tab-pane name="property" class="h-full">
             <template #tab> 属性 </template>
-            <PropertyConfig :customPropertyCfgs @update:cfgs="v => (newCustomPropertyCfgs = v)" />
+            <PropertyConfig
+              :customPropertyCfgs
+              :defaultAppearanceValues
+              @update:cfgs="v => (newCustomPropertyCfgs = v)"
+            />
           </n-tab-pane>
           <n-tab-pane name="draw" class="h-full" display-directive="show">
             <template #tab>
@@ -120,7 +124,11 @@ import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import PropertyConfig from './PropertyConfig.vue';
-import type { CustomPropertyCfgs, UiCustomCfg } from '@mimic/custom/generator';
+import type {
+  CustomPropertyCfgs,
+  DefaultAppearanceValues,
+  UiCustomCfg,
+} from '@mimic/custom/generator';
 import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
 import path from 'path-browserify';
 
@@ -156,6 +164,15 @@ const customPropertyCfgs = computed(() => {
     return componentJson.value.customPropertyCfgs as CustomPropertyCfgs;
   }
   return [];
+});
+
+const newDefaultAppearanceValues = ref<DefaultAppearanceValues>();
+const defaultAppearanceValues = computed<DefaultAppearanceValues>(() => {
+  if (newDefaultAppearanceValues.value) return newDefaultAppearanceValues.value;
+  if (componentJson.value.defaultAppearanceValues) {
+    return componentJson.value.defaultAppearanceValues as DefaultAppearanceValues;
+  }
+  return {};
 });
 
 const drawPrefixCode = `/**

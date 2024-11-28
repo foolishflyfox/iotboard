@@ -37,7 +37,7 @@ export function groupCustomPropertyCfgs(cfgs: CustomPropertyCfgs) {
   }
   return result;
 }
-
+export type DefaultAppearanceValues = { [k in AppearanceType]?: any };
 // const setters = {
 //   setValue: function (v: any) {
 //     console.log('@@@### setValue');
@@ -52,7 +52,7 @@ export interface UiCustomCfg {
   /** 不希望编辑器用户修改的外观属性 */
   includeAppearances?: AppearanceType[];
   /** 外观初始化值 */
-  defaultAppearanceValues?: { [k in AppearanceType]?: any };
+  defaultAppearanceValues?: DefaultAppearanceValues;
   // 如果通过width、height属性无法确定图形 bounds，则定义该函数
   updateBoxBounds?: () => void;
   // 绘制碰撞路径

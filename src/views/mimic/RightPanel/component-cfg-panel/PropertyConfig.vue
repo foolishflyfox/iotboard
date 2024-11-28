@@ -5,6 +5,17 @@
       <div>通用属性(多选框)，默认 x/y/width/height</div>
     </div>
     <div class="flex-1 flex-col">
+      <n-divider>外观属性</n-divider>
+      <n-space size="small" vertical>
+        <div class="flex-y-center">
+          <span class="mr-10px">宽度:</span>
+          <n-input-number size="small" :value="defaultAppearanceValues.width" />
+        </div>
+        <div class="flex-y-center">
+          <span class="mr-10px">高度:</span>
+          <n-input-number size="small" :value="defaultAppearanceValues.height" />
+        </div>
+      </n-space>
       <n-divider>自定义属性</n-divider>
       <!-- <div>自定义属性配置，是否导出/类型</div> -->
       <div class="mx-10px my-5px">
@@ -150,7 +161,16 @@
 </template>
 
 <script setup lang="ts">
-import { NDivider, NTable, NCheckbox, NSpace, NInput, NSelect, type SelectOption } from 'naive-ui';
+import {
+  NDivider,
+  NTable,
+  NCheckbox,
+  NSpace,
+  NInput,
+  NSelect,
+  NInputNumber,
+  type SelectOption,
+} from 'naive-ui';
 import {
   Add12Filled,
   Delete24Filled,
@@ -161,13 +181,18 @@ import {
   ArrowDown16Filled,
 } from '@vicons/fluent';
 import { IconButton } from '@/components';
-import type { CustomPropertyCfg, CustomPropertyCfgs } from '@mimic/custom/generator';
+import type {
+  CustomPropertyCfg,
+  CustomPropertyCfgs,
+  DefaultAppearanceValues,
+} from '@mimic/custom/generator';
 import QueryDialog from '@/components/QueryDialog.vue';
 import { getUniqueId } from '@/utils';
 import * as _ from 'lodash-es';
 
 const props = defineProps<{
   customPropertyCfgs: CustomPropertyCfgs;
+  defaultAppearanceValues: DefaultAppearanceValues;
 }>();
 
 const innerCfgs = ref(_.cloneDeep(props.customPropertyCfgs));
