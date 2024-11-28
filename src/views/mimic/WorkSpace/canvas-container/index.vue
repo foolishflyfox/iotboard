@@ -105,8 +105,9 @@ async function handleSaveShortcut(e: KeyboardEvent) {
   }
 }
 
+let app: App | undefined = undefined;
 onMounted(() => {
-  const app = new App({
+  app = new App({
     view: 'mimicCanvasContainer',
     // ground: {},
     tree: { usePartRender: true },
@@ -156,6 +157,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (app) {
+    app.clear();
+  }
   window.removeEventListener('keydown', handleSaveShortcut);
 });
 </script>

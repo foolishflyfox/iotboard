@@ -21,17 +21,6 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       openedTargets.value.push(openedTarget);
       setCurrentTaget(openedTarget);
     }
-    if (currentTarget.value?.editorType === 'display') {
-      let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
-      if (!displayData) {
-        displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
-        mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
-      }
-      mimicVar.displayEditor.loadDisplayData(displayData);
-    } else if (currentTarget.value?.editorType === 'component') {
-      const tag = componentPathToTag(currentTarget.value.path);
-      mimicVar.componentEditor.loadComponent(tag);
-    }
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
     if (_.isEqual(openedTarget, currentTarget.value)) {
@@ -45,7 +34,20 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     }
     _.remove(openedTargets.value, e => _.isEqual(e, openedTarget));
   };
-  const setCurrentTaget = (target: OpenedTarget) => (currentTarget.value = target);
+  async function setCurrentTaget(target: OpenedTarget) {
+    currentTarget.value = target;
+    if (currentTarget.value?.editorType === 'display') {
+      let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
+      if (!displayData) {
+        displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
+        mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+      }
+      mimicVar.displayEditor.loadDisplayData(displayData);
+    } else if (currentTarget.value?.editorType === 'component') {
+      const tag = componentPathToTag(currentTarget.value.path);
+      mimicVar.componentEditor.loadComponent(tag);
+    }
+  }
 
   return {
     rulerVisible,
