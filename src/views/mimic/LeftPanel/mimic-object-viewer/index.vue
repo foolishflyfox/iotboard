@@ -147,7 +147,7 @@ import { editorTypeName, type EditorType, type FileTreeNode } from '@mimic/types
 import * as _ from 'lodash-es';
 import ContextMenu from './ContextMenu.vue';
 import { QueryDialog } from '@/components';
-import path from 'path-browserify';
+import * as path from 'pathe';
 import { mimicFileApi } from '@/service/api';
 import { findFileTreeNodeByPath } from './utils';
 

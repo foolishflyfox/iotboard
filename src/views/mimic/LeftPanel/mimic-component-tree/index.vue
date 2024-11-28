@@ -51,7 +51,7 @@ import { NSpace, NInput } from 'naive-ui';
 import type { FileItem } from '@mimic/types';
 import MimicComponentDragItem from './MimicComponentDragItem.vue';
 import { componentPathToTag, eventBus } from '@mimic/utils';
-import path from 'path-browserify';
+import * as path from 'pathe';
 import * as _ from 'lodash-es';
 import defaultComponentJson from './default-component.json';
 import QueryDialog from '@/components/QueryDialog.vue';

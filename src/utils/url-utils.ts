@@ -1,4 +1,4 @@
-import path from 'path-browserify';
+import * as path from 'pathe';
 
 export function getDataUrl() {
   return '/data';

@@ -131,7 +131,7 @@ import type {
   UiCustomCfg,
 } from '@mimic/custom/generator';
 import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
-import path from 'path-browserify';
+import * as path from 'pathe';
 
 const props = defineProps<{
   showModal?: boolean;

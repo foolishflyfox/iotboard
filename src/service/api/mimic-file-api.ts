@@ -1,7 +1,7 @@
 import type { AxiosInstance } from 'axios';
 import { CustomAxiosInstance } from '../request';
 import type { DisplayData, EditorType, FileItem, FileTreeNode } from '@/views/mimic/types';
-import path from 'path-browserify';
+import * as path from 'pathe';
 import { componentTagToPath } from '@/views/mimic/utils';
 
 const dataUrlPrefix = '/data';

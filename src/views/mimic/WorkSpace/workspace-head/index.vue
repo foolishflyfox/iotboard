@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { studioHeight } from '@mimic/settings';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
-import path from 'path-browserify';
+import * as path from 'pathe';
 import { CloseFilled, GroupObjects } from '@vicons/carbon';
 import { NIcon } from 'naive-ui';
 import { AppGeneric24Filled } from '@vicons/fluent';

@@ -41,9 +41,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      path-browserify:
-        specifier: ^1.0.1
-        version: 1.0.1
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       pinia:
         specifier: ^2.2.7
         version: 2.2.7(typescript@5.5.4)(vue@3.5.13(typescript@5.5.4))
@@ -72,9 +72,6 @@ importers:
       '@types/node':
         specifier: ^20.17.8
         version: 20.17.8
-      '@types/path-browserify':
-        specifier: ^1.0.3
-        version: 1.0.3
       '@unocss/preset-uno':
         specifier: ^0.63.6
         version: 0.63.6
@@ -1030,9 +1027,6 @@ packages:
 
   '@types/node@20.17.8':
     resolution: {integrity: sha512-ahz2g6/oqbKalW9sPv6L2iRbhLnojxjYWspAqhjvqSWBgGebEJT5GvRmk0QXPj3sbC6rU0GTQjPLQkmR8CObvA==}
-
-  '@types/path-browserify@1.0.3':
-    resolution: {integrity: sha512-ZmHivEbNCBtAfcrFeBCiTjdIc2dey0l7oCGNGpSuRTy8jP6UVND7oUowlvDujBy8r2Hoa8bfFUOCiPWfmtkfxw==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -3641,8 +3635,6 @@ snapshots:
   '@types/node@20.17.8':
     dependencies:
       undici-types: 6.19.8
-
-  '@types/path-browserify@1.0.3': {}
 
   '@types/tough-cookie@4.0.5': {}
 
