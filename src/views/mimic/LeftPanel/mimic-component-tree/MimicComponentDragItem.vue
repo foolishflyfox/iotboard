@@ -38,9 +38,10 @@ const draggable = computed(() => {
   }
 });
 const imgSrc = computed(() => {
-  return props.hasPreview
-    ? `${getDataUrl()}/component/${props.folderPath}/${props.fileName}.png`
-    : 'preview/miss.png';
+  if (props.hasPreview) {
+    return `${getDataUrl()}/component/${props.folderPath}/${props.fileName}.png?t=${Date.now()}`;
+  }
+  return 'preview/miss.png';
 });
 
 function startDragHandler(e: any) {
