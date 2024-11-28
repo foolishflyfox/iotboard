@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ height: `${studioHeight}px` }" class="px-1px flex border-b-gray-400 border-b-1px">
+  <div :style="{ height: `${studioHeight}px` }" class="px-1px flex border-b-gray-200 border-b-1px">
     <div
       v-for="item of mimicWorkspaceStatus.openedTargets"
       class="fw-500 text-16px mx-5px px-8px rounded-t-lg flex-y-center"
