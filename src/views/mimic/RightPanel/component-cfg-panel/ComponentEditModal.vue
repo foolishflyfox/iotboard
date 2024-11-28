@@ -35,6 +35,7 @@
               :customPropertyCfgs
               :defaultAppearanceValues
               @update:cfgs="v => (newCustomPropertyCfgs = v)"
+              @update:appearance-values="v => (newDefaultAppearanceValues = v)"
             />
           </n-tab-pane>
           <n-tab-pane name="draw" class="h-full" display-directive="show">
@@ -197,7 +198,8 @@ const isConfirmBtnDisabled = computed(() => {
     _.isEmpty(newDrawCode.value) &&
     _.isEmpty(newDrawHitPathCode.value) &&
     _.isEmpty(newHitCode.value) &&
-    !newCustomPropertyCfgs.value
+    !newCustomPropertyCfgs.value &&
+    !newDefaultAppearanceValues.value
   );
 });
 
@@ -266,6 +268,9 @@ function generateNewComponentJson() {
   }
   if (newCustomPropertyCfgs.value) {
     newComponentJson.customPropertyCfgs = newCustomPropertyCfgs.value;
+  }
+  if (newDefaultAppearanceValues.value) {
+    newComponentJson.defaultAppearanceValues = newDefaultAppearanceValues.value;
   }
   return newComponentJson;
 }

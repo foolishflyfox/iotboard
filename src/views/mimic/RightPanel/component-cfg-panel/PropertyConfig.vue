@@ -9,11 +9,19 @@
       <n-space size="small" vertical>
         <div class="flex-y-center">
           <span class="mr-10px">宽度:</span>
-          <n-input-number size="small" :value="defaultAppearanceValues.width" />
+          <n-input-number
+            size="small"
+            :value="innerAppearanceValues.width"
+            @update:value="v => updateAppearanceValue('width', v)"
+          />
         </div>
         <div class="flex-y-center">
           <span class="mr-10px">高度:</span>
-          <n-input-number size="small" :value="defaultAppearanceValues.height" />
+          <n-input-number
+            size="small"
+            :value="innerAppearanceValues.height"
+            @update:value="v => updateAppearanceValue('height', v)"
+          />
         </div>
       </n-space>
       <n-divider>自定义属性</n-divider>
@@ -189,6 +197,7 @@ import type {
 import QueryDialog from '@/components/QueryDialog.vue';
 import { getUniqueId } from '@/utils';
 import * as _ from 'lodash-es';
+import type { AppearanceType } from '@mimic/types';
 
 const props = defineProps<{
   customPropertyCfgs: CustomPropertyCfgs;
@@ -196,10 +205,17 @@ const props = defineProps<{
 }>();
 
 const innerCfgs = ref(_.cloneDeep(props.customPropertyCfgs));
+const innerAppearanceValues = ref(_.cloneDeep(props.defaultAppearanceValues));
 
 const emit = defineEmits<{
   'update:cfgs': [CustomPropertyCfgs];
+  'update:appearanceValues': [DefaultAppearanceValues];
 }>();
+
+function updateAppearanceValue(key: AppearanceType, value: any) {
+  innerAppearanceValues.value[key] = value;
+  emit('update:appearanceValues', innerAppearanceValues.value);
+}
 
 const showDeleteCfgModal = ref(false);
 const toDeleteCfg = ref<CustomPropertyCfg>();
