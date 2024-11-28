@@ -22,6 +22,7 @@ import { studioHeight } from '@mimic/settings';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import * as path from 'pathe';
 import { CloseFilled, GroupObjects } from '@vicons/carbon';
+import { ImagesOutline } from '@vicons/ionicons5';
 import { NIcon } from 'naive-ui';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import type { EditorType, OpenedTarget } from '@mimic/types';
@@ -35,6 +36,7 @@ const editorTypeIconDict: Record<EditorType, Component> = {
   display: AppGeneric24Filled,
   module: GroupObjects,
   component: Components,
+  asset: ImagesOutline,
 };
 
 function changeCurrentTarget(openedTarget: OpenedTarget) {

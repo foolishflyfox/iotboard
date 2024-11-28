@@ -98,7 +98,18 @@ class MimicFileApi {
     const formData = new FormData();
 
     formData.append('file', blob, path.basename(pngPath));
-    await this.instance.post(`uploadPng/${fileType}/${path.dirname(pngPath)}`, formData, {
+    await this.instance.post(`upload/${fileType}/${path.dirname(pngPath)}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
+
+  async uploadAssetImage(imagePath: string, blob: Blob) {
+    const formData = new FormData();
+
+    formData.append('file', blob, path.basename(imagePath));
+    await this.instance.post(`upload/asset/${path.dirname(imagePath)}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

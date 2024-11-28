@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, Image } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -154,6 +154,8 @@ onMounted(() => {
     },
   );
   window.addEventListener('keydown', handleSaveShortcut);
+  const image = new Image({ url: '/data/component/基础/gauge.png', draggable: true });
+  app.tree.add(image);
 });
 
 onUnmounted(() => {

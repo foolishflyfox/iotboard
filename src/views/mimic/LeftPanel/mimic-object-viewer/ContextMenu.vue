@@ -50,6 +50,7 @@ const emit = defineEmits<{
   newModule: [folderPath: string];
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
+  uploadImage: [folderPath: string];
   renameFolder: [folderPath: string];
   deleteFolder: [folderPath: string];
 }>();
@@ -74,6 +75,10 @@ function newGraphComponent() {
   emit('newGraphComponent', targetDirPath.value);
 }
 
+function uploadImage() {
+  emit('uploadImage', targetDirPath.value);
+}
+
 function renameFolderClick() {
   emit('renameFolder', targetDirPath.value);
 }
@@ -88,6 +93,7 @@ const actionHandlers = {
   newModule,
   newCodeComponent,
   newGraphComponent,
+  uploadImage,
   renameFolder: renameFolderClick,
   deleteFolder,
 };
@@ -100,6 +106,11 @@ function clickContextMenuHandler(action: string) {
 }
 
 const options = computed(() => [
+  {
+    label: '上传图片',
+    key: 'uploadImage',
+    show: props.editorType === 'asset',
+  },
   {
     label: '新建',
     key: 'new',

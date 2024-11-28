@@ -66,14 +66,14 @@
           </template>
           <ElementContent />
         </n-tab-pane>
-        <n-tab-pane name="resource">
+        <n-tab-pane name="resource" display-directive="show">
           <template #tab>
             <div>
               <n-icon size="26" :component="ImagesOutline" />
               <div>资源</div>
             </div>
           </template>
-          <ResourceContent />
+          <MimicAssetTree />
         </n-tab-pane>
       </n-tabs>
     </div>
@@ -86,8 +86,8 @@ import { NTabs, NButton, NIcon, NTabPane } from 'naive-ui';
 import MimicDisplayTree from './mimic-display-tree/index.vue';
 import MimicModuleTree from './mimic-module-tree/index.vue';
 import MimicComponentTree from './mimic-component-tree/index.vue';
+import MimicAssetTree from './mimic-asset-tree/index.vue';
 import { ElementContent } from './element-content';
-import ResourceContent from './ResourceContent.vue';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import { Components, ChevronsLeft, ChevronsRight, Atom } from '@vicons/tabler';
 import { ImagesOutline } from '@vicons/ionicons5';

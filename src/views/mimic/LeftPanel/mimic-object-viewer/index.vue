@@ -75,6 +75,7 @@
       @new-module="v => emit('newModule', v)"
       @new-code-component="v => emit('newCodeComponent', v)"
       @new-graph-component="v => emit('newGraphComponent', v)"
+      @upload-image="v => emit('uploadImage', v)"
     />
     <!-- 新建文件夹对话框 -->
     <QueryDialog
@@ -206,6 +207,7 @@ const emit = defineEmits<{
   newCodeComponent: [folderPath: string];
   newGraphComponent: [folderPath: string];
   changeSelectedFolder: [folderPath: string | null];
+  uploadImage: [folderPath: string];
 }>();
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
