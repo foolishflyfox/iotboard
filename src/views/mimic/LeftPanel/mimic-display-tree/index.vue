@@ -85,7 +85,7 @@ const targetFolderPath = ref<string>();
 const showNewDisplayModal = ref(false);
 const displayNameInputRef = ref<InstanceType<typeof NInput>>();
 const newDisplayName = ref('');
-function newDisplay(dirPath) {
+function newDisplay(dirPath: string) {
   showNewDisplayModal.value = true;
   targetFolderPath.value = dirPath;
   newDisplayName.value = '';

@@ -41,6 +41,11 @@ class MimicFileApi {
     return result;
   }
 
+  async listAssets(folderPath: string) {
+    const result = await this.instance.post<string[]>('list/assets', { folderPath });
+    return result;
+  }
+
   /** 根据指定路径创建图纸 */
   async createDisplay(displayPath: string, displayData: DisplayData) {
     const content = JSON.stringify(displayData, null, 2);

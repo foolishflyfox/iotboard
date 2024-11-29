@@ -4,7 +4,13 @@
     @uploadImage="clickUploadImage"
     @change-selected-folder="onChangeSelectedFolder"
   >
-    XXX
+    <div>
+      <n-space>
+        <template v-for="imgSrc of currentTargets">
+          <mimic-asset-drag-item :imgSrc />
+        </template>
+      </n-space>
+    </div>
   </MimicObjectViewer>
   <input
     type="file"
@@ -16,17 +22,23 @@
 </template>
 
 <script setup lang="ts">
+import { NSpace } from 'naive-ui';
 import { mimicFileApi } from '@/service/api';
 import { MimicObjectViewer } from '../mimic-object-viewer';
+import MimicAssetDragItem from './MimicAssetDragItem.vue';
 import * as path from 'pathe';
 
 const imageUploadInputRef = ref<HTMLInputElement>();
 
 const currentTargetDirPath = ref<string | null>(null);
+const currentTargets = ref<string[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   if (targetDirPath) {
+    currentTargets.value = await mimicFileApi.listAssets(targetDirPath);
+    console.log('@@@@', currentTargets.value);
     currentTargetDirPath.value = targetDirPath;
   } else {
+    currentTargets.value = [];
     currentTargetDirPath.value = null;
   }
 }

@@ -33,9 +33,8 @@ const { curEditorType } = toRefs(mimicWorkspaceStatus);
 const draggable = computed(() => {
   if (curEditorType.value) {
     return !!props.hasPreview && ['display', 'module'].includes(curEditorType.value);
-  } else {
-    return false;
   }
+  return false;
 });
 const imgSrc = computed(() => {
   if (props.hasPreview) {
