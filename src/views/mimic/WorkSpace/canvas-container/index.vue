@@ -75,6 +75,14 @@ async function onDisplayEditorDrop(e: MouseEvent) {
       editable: true,
     });
     mimicVar.displayEditor.app?.tree.add(newElement);
+  } else if (mimicVar.displayEditor.draggingType === 'asset') {
+    const image = new Image({
+      url: mimicVar.displayEditor.draggingTag,
+      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+      draggable: true,
+      editable: true,
+    });
+    mimicVar.displayEditor.app?.tree.add(image);
   }
   // if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
   //   const newElement = new mimicVar.draggingCustomMeta.component({
@@ -154,8 +162,8 @@ onMounted(() => {
     },
   );
   window.addEventListener('keydown', handleSaveShortcut);
-  const image = new Image({ url: '/data/component/基础/gauge.png', draggable: true });
-  app.tree.add(image);
+  // const image = new Image({ url: '/data/component/基础/gauge.png', draggable: true });
+  // app.tree.add(image);
 });
 
 onUnmounted(() => {

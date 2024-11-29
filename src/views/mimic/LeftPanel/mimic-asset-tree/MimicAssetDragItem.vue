@@ -1,5 +1,12 @@
 <template>
-  <MimicItem editorType="asset" :imgSrc :draggable :fileName @delete="deleteAsset" />
+  <MimicItem
+    editorType="asset"
+    :imgSrc
+    :draggable
+    :fileName
+    @delete="deleteAsset"
+    @dragStart="assetStartDragHandler"
+  />
 </template>
 
 <script setup lang="ts">
@@ -7,6 +14,7 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { MimicItem } from '../components';
 import * as path from 'pathe';
 import { mimicFileApi } from '@/service/api';
+import { mimicVar } from '@mimic/global';
 
 const props = defineProps<{
   imgSrc: string;
@@ -31,6 +39,11 @@ const draggable = computed(() => {
 async function deleteAsset() {
   await mimicFileApi.deleteAsset(props.imgSrc);
   emit('afterDelete');
+}
+
+function assetStartDragHandler() {
+  mimicVar.displayEditor.draggingType = 'asset';
+  mimicVar.displayEditor.draggingTag = props.imgSrc;
 }
 </script>
 

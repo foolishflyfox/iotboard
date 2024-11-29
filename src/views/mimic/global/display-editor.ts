@@ -10,7 +10,7 @@ export class DisplayEditor {
   /** 正在拖拽的对象的 tag */
   draggingTag?: string;
   /** 正在拖拽的类型 */
-  draggingType?: 'component' | 'module' | 'element';
+  draggingType?: 'component' | 'module' | 'element' | 'asset';
   private displayDataDict: Record<string, DisplayData>;
 
   constructor() {

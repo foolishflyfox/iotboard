@@ -29,7 +29,7 @@
             </n-button>
           </div>
         </template>
-        <n-tab-pane name="display" display-directive="show:lazy">
+        <n-tab-pane name="display" display-directive="show">
           <template #tab>
             <div>
               <n-icon size="26" :component="AppGeneric24Filled" />
@@ -38,7 +38,7 @@
           </template>
           <MimicDisplayTree />
         </n-tab-pane>
-        <n-tab-pane name="module" display-directive="show:lazy">
+        <n-tab-pane name="module" display-directive="show">
           <template #tab>
             <div>
               <n-icon size="26" :component="GroupObjects" />
@@ -47,7 +47,7 @@
           </template>
           <MimicModuleTree />
         </n-tab-pane>
-        <n-tab-pane name="component" display-directive="show:lazy">
+        <n-tab-pane name="component" display-directive="show">
           <template #tab>
             <div>
               <n-icon size="26" :component="Components" />
@@ -57,7 +57,7 @@
           <!-- <MimicComponent /> -->
           <MimicComponentTree />
         </n-tab-pane>
-        <n-tab-pane name="element" display-directive="show:lazy">
+        <n-tab-pane name="element" display-directive="show">
           <template #tab>
             <div>
               <n-icon size="26" :component="Atom" />
