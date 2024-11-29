@@ -76,6 +76,10 @@ class MimicFileApi {
     await this.instance.post('delete', { fileType: 'component', filePath: componentPath });
   }
 
+  async deleteAsset(assetPath: string) {
+    await this.instance.post('delete/asset', { filePath: assetPath });
+  }
+
   async openDisplay(displayPath: string) {
     const content = await this.instance.post<string>('open', {
       fileType: 'display',

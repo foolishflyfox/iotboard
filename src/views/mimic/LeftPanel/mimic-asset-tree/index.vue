@@ -7,7 +7,7 @@
     <div>
       <n-space>
         <template v-for="imgSrc of currentTargets">
-          <mimic-asset-drag-item :imgSrc />
+          <mimic-asset-drag-item :imgSrc @after-delete="updateCurrentTargets" />
         </template>
       </n-space>
     </div>

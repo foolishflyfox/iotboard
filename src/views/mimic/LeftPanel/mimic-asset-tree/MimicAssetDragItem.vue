@@ -1,17 +1,22 @@
 <template>
-  <MimicItem editorType="asset" :imgSrc :draggable :fileName />
+  <MimicItem editorType="asset" :imgSrc :draggable :fileName @delete="deleteAsset" />
 </template>
 
 <script setup lang="ts">
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { MimicItem } from '../components';
-import { fileNameWithoutExt, removeExtention } from '@/utils';
+import * as path from 'pathe';
+import { mimicFileApi } from '@/service/api';
 
 const props = defineProps<{
   imgSrc: string;
 }>();
 
-const fileName = computed(() => fileNameWithoutExt(props.imgSrc));
+const emit = defineEmits<{
+  afterDelete: [];
+}>();
+
+const fileName = computed(() => path.basename(props.imgSrc));
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const { curEditorType } = toRefs(mimicWorkspaceStatus);
@@ -22,6 +27,11 @@ const draggable = computed(() => {
   }
   return false;
 });
+
+async function deleteAsset() {
+  await mimicFileApi.deleteAsset(props.imgSrc);
+  emit('afterDelete');
+}
 </script>
 
 <style scoped></style>
