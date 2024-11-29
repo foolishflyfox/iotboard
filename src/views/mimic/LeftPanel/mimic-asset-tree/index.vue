@@ -35,12 +35,14 @@ const currentTargets = ref<string[]>([]);
 async function onChangeSelectedFolder(targetDirPath: string | null) {
   if (targetDirPath) {
     currentTargets.value = await mimicFileApi.listAssets(targetDirPath);
-    console.log('@@@@', currentTargets.value);
     currentTargetDirPath.value = targetDirPath;
   } else {
     currentTargets.value = [];
     currentTargetDirPath.value = null;
   }
+}
+function updateCurrentTargets() {
+  onChangeSelectedFolder(currentTargetDirPath.value);
 }
 
 function clickUploadImage() {
@@ -54,6 +56,7 @@ async function uploadImage() {
     await mimicFileApi.uploadAssetImage(imagePath, file);
     console.log('完成图片资源上传');
     imageUploadInputRef.value!.value = '';
+    updateCurrentTargets();
   }
 }
 </script>
