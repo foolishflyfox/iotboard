@@ -13,9 +13,9 @@
     <div>填充</div>
     <div>颜色</div>
     <HeadVerticalDivider />
-    <div>○</div>
-    <div>矩形</div>
-    <div>线</div>
+    <HeadIconContainer :vicons="Cursor1" tooltip="选择" />
+    <HeadIconContainer :vicons="Line24Filled" tooltip="线" />
+    <HeadIconContainer :vicons="Pencil" tooltip="画笔" />
     <HeadVerticalDivider />
     <div>线样式</div>
     <div>线宽</div>
@@ -25,6 +25,11 @@
 
 <script setup lang="ts">
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
+import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import { Cursor1 } from '@vicons/carbon';
+import { Line24Filled } from '@vicons/fluent';
+import { Pencil } from '@vicons/tabler';
+
 defineOptions({
   name: 'HeadOperators',
 });
