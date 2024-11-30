@@ -77,6 +77,7 @@ async function onDisplayEditorDrop(e: MouseEvent) {
     mimicVar.displayEditor.app?.tree.add(newElement);
   } else if (mimicVar.displayEditor.draggingType === 'asset') {
     const image = new Image({
+      id: getUniqueId(),
       url: mimicVar.displayEditor.draggingTag,
       ...mimicVar.displayEditor.app?.getPagePointByClient(e),
       draggable: true,
