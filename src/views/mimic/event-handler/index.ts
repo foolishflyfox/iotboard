@@ -1,2 +1,3 @@
-export { selectHandler } from './selectHandler';
-export { keyHolderHandler } from './keyHolderHandler';
+export * from './selectHandler';
+export * from './keyHolderHandler';
+export * from './resizeHandler';

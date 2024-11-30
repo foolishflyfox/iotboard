@@ -14,7 +14,7 @@ import { App, EditorEvent, ResizeEvent, KeyEvent, Image } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
-import { selectHandler, keyHolderHandler } from '@mimic/event-handler';
+import { selectHandler, keyHolderHandler, resizeHandler } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { getUniqueId } from '@/utils';
@@ -135,7 +135,7 @@ onMounted(() => {
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
-  app.tree.on(ResizeEvent.RESIZE, () => mimicVar.displayEditor.viewAutoFit());
+  app.tree.on(ResizeEvent.RESIZE, resizeHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
@@ -169,6 +169,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (app) {
+    app.tree.off(ResizeEvent.RESIZE, resizeHandler);
+    app.editor.off(EditorEvent.SELECT, selectHandler);
+    app.off(KeyEvent.HOLD, keyHolderHandler);
     app.clear();
     app = undefined;
   }
