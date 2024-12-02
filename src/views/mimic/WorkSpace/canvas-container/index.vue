@@ -10,11 +10,18 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, Image, Line } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, Image, Line, PointerEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
-import { selectHandler, keyHolderHandler, resizeHandler } from '@mimic/event-handler';
+import {
+  selectHandler,
+  keyHolderHandler,
+  resizeHandler,
+  treeMouseTapHandler,
+  treeMouseDoubleTapHandler,
+  treeMouseMoveHandler,
+} from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
 import { getUniqueId } from '@/utils';
@@ -136,6 +143,9 @@ onMounted(() => {
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
+  // app.on(PointerEvent.TAP, treeMouseTapHandler);
+  app.on(PointerEvent.MOVE, treeMouseMoveHandler);
+  // app.on(PointerEvent.DOUBLE_TAP, treeMouseDoubleTapHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
@@ -182,6 +192,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (app) {
     app.tree.off(ResizeEvent.RESIZE, resizeHandler);
+    // app.off(PointerEvent.TAP, treeMouseTapHandler);
+    // app.off(PointerEvent.MOVE, treeMouseMoveHandler);
+    // app.off(PointerEvent.DOUBLE_CLICK, treeMouseDoubleTapHandler);
     app.editor.off(EditorEvent.SELECT, selectHandler);
     app.off(KeyEvent.HOLD, keyHolderHandler);
     app.clear();
