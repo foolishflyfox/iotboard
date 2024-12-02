@@ -11,3 +11,5 @@ export interface OpenedTarget {
   editorType: EditorType;
   path: string;
 }
+
+export type DrawingTool = 'cursor' | 'line' | 'pen';

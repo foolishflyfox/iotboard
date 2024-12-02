@@ -13,9 +13,13 @@
     <div>填充</div>
     <div>颜色</div>
     <HeadVerticalDivider />
-    <HeadIconContainer :vicons="Cursor1" tooltip="选择" />
-    <HeadIconContainer :vicons="Line24Filled" tooltip="线" />
-    <HeadIconContainer :vicons="Pencil" tooltip="画笔" />
+    <HeadIconContainer
+      v-for="o of drawingToolOptions"
+      :vicons="o.icon"
+      :is-active="drawingTool === o.type"
+      :tooltip="o.tooltip"
+      @click="() => selectDrawingTool(o.type)"
+    />
     <HeadVerticalDivider />
     <div>线样式</div>
     <div>线宽</div>
@@ -29,10 +33,43 @@ import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { Cursor1 } from '@vicons/carbon';
 import { Line24Filled } from '@vicons/fluent';
 import { Pencil } from '@vicons/tabler';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
+import type { DrawingTool } from '@mimic/types';
+import type { Component } from 'vue';
 
 defineOptions({
   name: 'HeadOperators',
 });
+
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const { drawingTool } = toRefs(mimicWorkspaceStatus);
+
+interface DrawingToolOption {
+  icon: Component;
+  type: DrawingTool;
+  tooltip: string;
+}
+const drawingToolOptions: DrawingToolOption[] = [
+  {
+    icon: Cursor1,
+    type: 'cursor',
+    tooltip: '选择',
+  },
+  {
+    icon: Line24Filled,
+    type: 'line',
+    tooltip: '线',
+  },
+  {
+    icon: Pencil,
+    type: 'pen',
+    tooltip: '画笔',
+  },
+];
+
+function selectDrawingTool(tool: DrawingTool) {
+  mimicWorkspaceStatus.selectDrawingTool(tool);
+}
 </script>
 
 <style scoped>
