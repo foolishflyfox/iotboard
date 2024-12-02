@@ -12,7 +12,7 @@
     <slot />
     <template #action>
       <n-space>
-        <n-button size="small" @click="close">取消</n-button>
+        <n-button size="small" @click="close">{{ negativeText }}</n-button>
         <n-button
           type="primary"
           size="small"
@@ -23,8 +23,9 @@
               close();
             }
           "
-          >确定</n-button
         >
+          {{ positiveText }}
+        </n-button>
       </n-space>
     </template>
   </n-modal>
