@@ -143,24 +143,12 @@ onMounted(() => {
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
-  // app.on(PointerEvent.TAP, treeMouseTapHandler);
+  app.on(PointerEvent.TAP, treeMouseTapHandler);
   app.on(PointerEvent.MOVE, treeMouseMoveHandler);
-  // app.on(PointerEvent.DOUBLE_TAP, treeMouseDoubleTapHandler);
+  app.on(PointerEvent.DOUBLE_TAP, treeMouseDoubleTapHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
-
-  setTimeout(() => {
-    const line = new Line({
-      points: [10, 10, 30, 150],
-      strokeWidth: 5,
-      stroke: 'rgb(50, 205, 121)',
-    });
-    app!.tree.add(line);
-    setTimeout(() => {
-      line.points = [10, 10, 150, 150];
-    }, 1000);
-  }, 1000);
 
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;

@@ -1,9 +1,19 @@
 import type { DisplayData, OpenedTarget } from '@mimic/types';
-import { ChildEvent, PropertyEvent, Rect, type App, type IUI } from 'leafer-ui';
+import {
+  ChildEvent,
+  Line,
+  PropertyEvent,
+  Rect,
+  UI,
+  type App,
+  type IPointData,
+  type IUI,
+} from 'leafer-ui';
 import { displayBaseMapId } from '@mimic/constant';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
+import { getUniqueId } from '@/utils';
 
 export class DisplayEditor {
   app?: App;
@@ -11,10 +21,65 @@ export class DisplayEditor {
   draggingTag?: string;
   /** 正在拖拽的类型 */
   draggingType?: 'component' | 'module' | 'element' | 'asset';
+
   private displayDataDict: Record<string, DisplayData>;
+
+  private drawingToolStatus: {
+    line: {
+      ui?: Line;
+    };
+  };
 
   constructor() {
     this.displayDataDict = {};
+    this.drawingToolStatus = {
+      line: {},
+    };
+  }
+
+  getDrawLineStatus() {
+    if (this.drawingToolStatus.line.ui) return 'start';
+    return 'end';
+  }
+
+  /** 开始绘制直线 */
+  beginDrawLine(point: IPointData) {
+    if (this.app?.tree) {
+      const line = new Line({
+        points: [point.x, point.y, point.x, point.y],
+        strokeWidth: 5,
+        stroke: '#000000',
+        id: getUniqueId(),
+      });
+      this.drawingToolStatus.line.ui = line;
+      this.app.tree.add(line);
+    }
+  }
+  /** 修改最后一个点的坐标 */
+  moveLineEndPoint(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.line.ui) {
+      const newPoints = [...this.drawingToolStatus.line.ui.points!] as number[];
+      const len = newPoints.length;
+      newPoints[len - 2] = point.x;
+      newPoints[len - 1] = point.y;
+      this.drawingToolStatus.line.ui.points = newPoints;
+    }
+  }
+  /** 添加一个中转点 */
+  addLineEndPoint(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.line.ui) {
+      const newPoints = [...this.drawingToolStatus.line.ui.points!] as number[];
+      newPoints.push(point.x);
+      newPoints.push(point.y);
+      this.drawingToolStatus.line.ui.points = newPoints;
+    }
+  }
+  /** 结束折线绘制 */
+  endDrawLine(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.line.ui) {
+      this.moveLineEndPoint(point);
+      this.drawingToolStatus.line.ui = undefined;
+    }
   }
 
   /** 页面自适应 */
