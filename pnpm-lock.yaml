@@ -32,6 +32,9 @@ importers:
       leafer-vue:
         specifier: ^3.1.1
         version: 3.1.1(leafer-ui@1.0.10)(typescript@5.5.4)
+      leafer-x-dot-matrix:
+        specifier: ^1.0.2
+        version: 1.0.2(@leafer-ui/core@1.0.10)(@leafer-ui/interface@1.0.10)
       leafer-x-ruler:
         specifier: ^1.0.14
         version: 1.0.14(@leafer-in/interface@1.0.10(@leafer-ui/interface@1.0.10)(@leafer/interface@1.0.10))(@leafer-in/resize@1.0.9(@leafer-in/interface@1.0.10(@leafer-ui/interface@1.0.10)(@leafer/interface@1.0.10))(@leafer-ui/draw@1.0.10)(@leafer-ui/interface@1.0.10))
@@ -1997,6 +2000,12 @@ packages:
     resolution: {integrity: sha512-zY7cVb0mo1aVy8YHo6DsVHxGY+lB4cKObXbpWoOB5+k9xcbi5jBcAMqPrL07hc1s7Mc/Hvl4NpPeFCVxZwhX3Q==}
     peerDependencies:
       leafer-ui: '>= 1.0.2'
+
+  leafer-x-dot-matrix@1.0.2:
+    resolution: {integrity: sha512-fWnuuoEzs9ZkaJL/gsIx7YjE7r6Hp9QT50lZTqMqPk6SctfWwH52671NkGsKCC1hM/+58OJPkmyHEZik1lWYMw==}
+    peerDependencies:
+      '@leafer-ui/core': '>=1.0.9'
+      '@leafer-ui/interface': '>=1.0.9'
 
   leafer-x-ruler@1.0.14:
     resolution: {integrity: sha512-n5VymaIPQbAU0rJTB4x7if3Um/vQJUP/nx6qWDAFROAGVpuJzIv4mdtiE3PY4oXXZQC3xT0HLoNBDWEUdjCE2g==}
@@ -4835,6 +4844,11 @@ snapshots:
       vue: 3.5.13(typescript@5.5.4)
     transitivePeerDependencies:
       - typescript
+
+  leafer-x-dot-matrix@1.0.2(@leafer-ui/core@1.0.10)(@leafer-ui/interface@1.0.10):
+    dependencies:
+      '@leafer-ui/core': 1.0.10
+      '@leafer-ui/interface': 1.0.10
 
   leafer-x-ruler@1.0.14(@leafer-in/interface@1.0.10(@leafer-ui/interface@1.0.10)(@leafer/interface@1.0.10))(@leafer-in/resize@1.0.9(@leafer-in/interface@1.0.10(@leafer-ui/interface@1.0.10)(@leafer/interface@1.0.10))(@leafer-ui/draw@1.0.10)(@leafer-ui/interface@1.0.10)):
     dependencies:

@@ -9,6 +9,8 @@ import { componentPathToTag } from '../utils';
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见
   const rulerVisible = ref(true);
+  // 工作区点阵是否可见
+  const dotMatrixVisible = ref(true);
   // 选中的绘制工具
   const drawingTool = ref<DrawingTool>('cursor');
   // 已经打开的对象列表
@@ -56,6 +58,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
 
   return {
     rulerVisible,
+    dotMatrixVisible,
     curEditorType,
     openedTargets,
     addOpenedTarget,

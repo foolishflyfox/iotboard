@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import { App, EditorEvent, ResizeEvent, KeyEvent, Image, Line, PointerEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
+import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import {
@@ -52,7 +53,7 @@ defineOptions({
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
-const { rulerVisible } = toRefs(mimicWorkspaceStatus);
+const { rulerVisible, dotMatrixVisible } = toRefs(mimicWorkspaceStatus);
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
@@ -125,7 +126,7 @@ let app: App | undefined = undefined;
 onMounted(() => {
   app = new App({
     view: 'mimicCanvasContainer',
-    // ground: {},
+    ground: {},
     tree: { usePartRender: true },
     editor: {
       // circle: {
@@ -149,9 +150,17 @@ onMounted(() => {
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
   const ruler = new Ruler(app);
-
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;
+  });
+
+  const dotMatrix = new DotMatrix(app, {
+    dotColor: '#999',
+    dotSize: 2,
+  });
+  // dotMatrix.enableDotMatrix(true);
+  watchEffect(() => {
+    dotMatrix.enableDotMatrix(dotMatrixVisible.value);
   });
 
   // 添加自定义主题

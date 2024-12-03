@@ -12,6 +12,12 @@
       :is-active="rulerVisible"
       @click="changeRulerVisible"
     />
+    <HeadIconContainer
+      :vicons="GridDots20Filled"
+      tooltip="显示 / 隐藏点阵"
+      :is-active="dotMatrixVisible"
+      @click="changeDotMatrixVisible"
+    />
     <HeadVerticalDivider />
     <HeadIconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" />
     <HeadIconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" />
@@ -23,7 +29,7 @@
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
-import { PageFit16Regular, Send20Regular } from '@vicons/fluent';
+import { PageFit16Regular, Send20Regular, GridDots20Filled } from '@vicons/fluent';
 import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
@@ -32,10 +38,14 @@ defineOptions({
   name: 'HeadTools',
 });
 
-const { rulerVisible } = toRefs(useMimicWorkspaceStatus());
+const { rulerVisible, dotMatrixVisible } = toRefs(useMimicWorkspaceStatus());
 
 function changeRulerVisible() {
   rulerVisible.value = !rulerVisible.value;
+}
+
+function changeDotMatrixVisible() {
+  dotMatrixVisible.value = !dotMatrixVisible.value;
 }
 </script>
 

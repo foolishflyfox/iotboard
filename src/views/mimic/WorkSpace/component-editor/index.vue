@@ -20,13 +20,14 @@ import { registerElement } from '@mimic/custom/registrar';
 import ContextMenu from './ContextMenu.vue';
 import { EditorEvent } from 'leafer-editor';
 import { convertToArray } from '@/utils';
+import { DotMatrix } from 'leafer-x-dot-matrix';
 
 const componentEditorWorkspace = ref<HTMLElement>();
 useDropZone(componentEditorWorkspace);
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const mimicComponentStatus = useMimicComponentStatus();
 
-const { rulerVisible } = toRefs(mimicWorkspaceStatus);
+const { rulerVisible, dotMatrixVisible } = toRefs(mimicWorkspaceStatus);
 function selectHandler(event: EditorEvent) {}
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
@@ -47,6 +48,13 @@ onMounted(() => {
   const ruler = new Ruler(app);
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;
+  });
+  const dotMatrix = new DotMatrix(app, {
+    dotColor: '#999',
+    dotSize: 2,
+  });
+  watchEffect(() => {
+    dotMatrix.enableDotMatrix(dotMatrixVisible.value);
   });
   ruler.addTheme('custom1', rulerTheme);
   ruler.changeTheme('custom1');
