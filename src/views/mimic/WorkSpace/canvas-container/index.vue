@@ -180,9 +180,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (app) {
     app.tree.off(ResizeEvent.RESIZE, resizeHandler);
-    // app.off(PointerEvent.TAP, treeMouseTapHandler);
-    // app.off(PointerEvent.MOVE, treeMouseMoveHandler);
-    // app.off(PointerEvent.DOUBLE_CLICK, treeMouseDoubleTapHandler);
+    app.off(PointerEvent.TAP, treeMouseTapHandler);
+    app.off(PointerEvent.MOVE, treeMouseMoveHandler);
+    app.off(PointerEvent.DOUBLE_CLICK, treeMouseDoubleTapHandler);
     app.editor.off(EditorEvent.SELECT, selectHandler);
     app.off(KeyEvent.HOLD, keyHolderHandler);
     app.clear();

@@ -50,6 +50,8 @@ export class DisplayEditor {
         strokeWidth: 5,
         stroke: '#000000',
         id: getUniqueId(),
+        draggable: false,
+        editable: false,
       });
       this.drawingToolStatus.line.ui = line;
       this.app.tree.add(line);
@@ -78,6 +80,8 @@ export class DisplayEditor {
   endDrawLine(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
       this.moveLineEndPoint(point);
+      this.drawingToolStatus.line.ui.draggable = true;
+      this.drawingToolStatus.line.ui.editable = true;
       this.drawingToolStatus.line.ui = undefined;
     }
   }
