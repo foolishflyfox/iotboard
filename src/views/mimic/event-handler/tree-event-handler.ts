@@ -1,9 +1,8 @@
 import { mimicVar } from '../global';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 
-const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-
 export function treeMouseTapHandler(e: PointerEvent) {
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   if (mimicWorkspaceStatus.drawingTool === 'line') {
     const v = mimicVar.displayEditor.app?.getPagePoint(e);
     console.log('mouse tap', e, v);
@@ -11,6 +10,7 @@ export function treeMouseTapHandler(e: PointerEvent) {
 }
 
 export function treeMouseMoveHandler(e: PointerEvent) {
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   if (mimicWorkspaceStatus.drawingTool === 'line') {
     const v = mimicVar.displayEditor.app?.getPagePoint(e);
     console.log('mouse move', v);
@@ -18,5 +18,6 @@ export function treeMouseMoveHandler(e: PointerEvent) {
 }
 
 export function treeMouseDoubleTapHandler(e: PointerEvent) {
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   console.log('mouse db tap', e);
 }
