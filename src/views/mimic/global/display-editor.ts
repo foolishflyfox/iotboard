@@ -14,6 +14,7 @@ import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
 import { getUniqueId } from '@/utils';
+import '@leafer-in/arrow';
 
 export class DisplayEditor {
   app?: App;
@@ -52,6 +53,8 @@ export class DisplayEditor {
         id: getUniqueId(),
         draggable: false,
         editable: false,
+        startArrow: 'circle',
+        endArrow: 'arrow',
       });
       this.drawingToolStatus.line.ui = line;
       this.app.tree.add(line);

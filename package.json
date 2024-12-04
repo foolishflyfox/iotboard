@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@leafer-in/arrow": "^1.0.10",
     "@leafer-in/view": "^1.0.10",
     "@vueuse/core": "^11.3.0",
     "@wdns/vue-code-block": "^2.3.3",
