@@ -1,6 +1,6 @@
 <template>
   <div class="kv-property">
-    <div v-if="!isEmpty(label)" class="property-label w-6em flex-y-center">
+    <div v-if="!isEmpty(label)" class="property-label flex-y-center">
       <span class="cursor-default">{{ label }}</span>
       <n-icon v-if="!_.isEmpty(routeName)" class="cursor-pointer" size="16" color="#1785ff">
         <QuestionCircle16Filled @click="jumpTo" />
@@ -35,14 +35,4 @@ function jumpTo() {
 
 <style scoped>
 @import '../property-item.css';
-
-.kv-property {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 3px 10px;
-  /* background-color: orange; */
-}
-.single-v-property {
-}
 </style>

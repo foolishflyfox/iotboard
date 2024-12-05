@@ -3,21 +3,18 @@
     <n-collapse :default-expanded-names="_.keys(groupedCfgs)">
       <n-collapse-item v-for="groupName of _.keys(groupedCfgs)" :name="groupName">
         <template #header>
-          <div class="font-bold">{{ groupName || defaultGroupName || '默认' }}</div>
+          <div>{{ groupName || defaultGroupName || '默认' }}</div>
         </template>
         <n-space vertical :size="2">
           <template v-for="cfg of groupedCfgs[groupName]">
-            <div
-              class="px-5px border-gray-300 pb-3px border-b-1px flex-y-center"
-              v-if="cfg.variable"
-            >
+            <div class="px-5px kv-property flex-y-center" v-if="cfg.variable">
               <span
                 :title="generateCfgLabel(cfg)"
-                class="font-semibold w-100px text-right ellipsis-text cursor-default"
+                class="font-semibold ellipsis-text cursor-default property-label"
               >
                 {{ generateCfgLabel(cfg) }}
               </span>
-              <span class="mr-10px ml-5px">:</span>
+              <!-- <span class="mr-10px ml-5px">:</span> -->
               <n-input
                 class="flex-1"
                 size="small"
@@ -70,6 +67,8 @@ function generateCfgLabel(cfg: CustomPropertyCfg) {
 </script>
 
 <style scoped>
+@import '@mimic/RightPanel/PropertyPanel/components/property-item.css';
+
 :deep(.n-collapse-item__content-inner) {
   padding-top: 6px !important;
 }

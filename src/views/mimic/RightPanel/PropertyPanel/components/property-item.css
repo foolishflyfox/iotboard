@@ -1,5 +1,14 @@
+.kv-property {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3px 10px;
+  /* background-color: orange; */
+}
+
 .property-label {
   color: #111;
   font-weight: 500;
   margin-right: 10px;
+  width: 6em;
 }
