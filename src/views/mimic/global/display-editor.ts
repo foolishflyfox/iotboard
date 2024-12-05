@@ -89,6 +89,14 @@ export class DisplayEditor {
     }
   }
 
+  /** 删除正在绘制的折线 */
+  deleteDrawingLine() {
+    if (this.app?.tree && this.drawingToolStatus.line.ui) {
+      this.app.tree.remove(this.drawingToolStatus.line.ui);
+      this.drawingToolStatus.line.ui = undefined;
+    }
+  }
+
   /** 页面自适应 */
   viewAutoFit() {
     this.app?.tree?.zoom('fit', 23);
