@@ -22,8 +22,18 @@
               <ColorProperty v-model="fill" label="填充颜色" />
             </template>
           </template>
-          <ArrowSelector v-else-if="pt === 'startArrow'" label="开始箭头" :is-start="true" />
-          <ArrowSelector v-else-if="pt === 'endArrow'" label="结束箭头" :is-start="false" />
+          <ArrowSelector
+            v-else-if="pt === 'startArrow'"
+            label="开始箭头"
+            :is-start="true"
+            v-model:value="startArrow"
+          />
+          <ArrowSelector
+            v-else-if="pt === 'endArrow'"
+            label="结束箭头"
+            :is-start="false"
+            v-model:value="endArrow"
+          />
         </template>
       </n-collapse-item>
 
@@ -43,7 +53,7 @@ import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
-import { UI, type IPaint, type IPaintType } from 'leafer-ui';
+import { UI, type IArrowType, type IPaint, type IPaintType } from 'leafer-ui';
 import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus } from '@mimic/stores';
@@ -91,6 +101,14 @@ const stroke = computed({
 const fill = computed({
   get: () => curElementProxyData.value?.fill,
   set: (v: string) => (curElementProxyData.value!.fill = v),
+});
+const startArrow = computed({
+  get: () => curElementProxyData.value!.startArrow as any,
+  set: (v: IArrowType) => (curElementProxyData.value!.startArrow = v),
+});
+const endArrow = computed({
+  get: () => curElementProxyData.value?.endArrow as any,
+  set: (v: IArrowType) => (curElementProxyData.value!.endArrow = v),
 });
 
 const mimicDisplayStatus = useMimicDisplayStatus();

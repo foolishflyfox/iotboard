@@ -51,7 +51,7 @@
       </template>
       <line x1="20" y1="10" x2="40" y2="10" :stroke :stroke-width />
     </svg>
-    <span class="ml-1em text-14px">{{ arrayLabelDict[type] }}</span>
+    <span class="ml-1em text-14px"> {{ label }}</span>
   </div>
 </template>
 
@@ -62,6 +62,7 @@ withDefaults(
   defineProps<{
     isStart?: boolean;
     type: Exclude<IArrowType, IPathDataArrow>;
+    label: string;
   }>(),
   {
     isStart: true,
@@ -71,22 +72,6 @@ withDefaults(
 const strokeWidth = 2;
 const stroke = 'black';
 const fill = 'black';
-
-const arrayLabelDict: Partial<Record<Exclude<IArrowType, IPathDataArrow>, string>> = {
-  none: '无',
-  angle: '角度',
-  'angle-side': '单边角度',
-  arrow: '标准',
-  triangle: '三角',
-  'triangle-flip': '反三角',
-  circle: '圆形',
-  'circle-line': '圆形(线性)',
-  square: '方形',
-  'square-line': '方形(线性)',
-  diamond: '菱形',
-  'diamond-line': '菱形(线性)',
-  mark: '标注',
-};
 </script>
 
 <style scoped></style>

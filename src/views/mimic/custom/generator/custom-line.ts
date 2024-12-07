@@ -26,8 +26,8 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
           type: 'solid',
           color: '#000000',
         },
-        startArrow: 'mark',
-        endArrow: 'mark',
+        startArrow: 'circle',
+        endArrow: 'arrow',
         ...data,
       });
     }
