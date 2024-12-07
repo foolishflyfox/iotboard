@@ -10,8 +10,9 @@ import PropertyContainer from './components/containers/PropertyContainer.vue';
 import { ArrowSelectItem } from '@/components';
 import type { IArrowType, IPathDataArrow } from 'leafer-ui';
 
-defineProps<{
+const props = defineProps<{
   label?: string;
+  isStart?: boolean;
 }>();
 
 const options: { value: Exclude<IArrowType, IPathDataArrow> }[] = [
@@ -31,7 +32,7 @@ const options: { value: Exclude<IArrowType, IPathDataArrow> }[] = [
 ];
 
 function renderLabel(option: SelectOption) {
-  return h(ArrowSelectItem, { type: option.value as any });
+  return h(ArrowSelectItem, { type: option.value as any, isStart: props.isStart });
 }
 </script>
 

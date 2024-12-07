@@ -22,7 +22,8 @@
               <ColorProperty v-model="fill" label="填充颜色" />
             </template>
           </template>
-          <ArrowSelector v-else-if="pt === 'startArrow'" label="开始箭头" />
+          <ArrowSelector v-else-if="pt === 'startArrow'" label="开始箭头" :is-start="true" />
+          <ArrowSelector v-else-if="pt === 'endArrow'" label="结束箭头" :is-start="false" />
         </template>
       </n-collapse-item>
 
