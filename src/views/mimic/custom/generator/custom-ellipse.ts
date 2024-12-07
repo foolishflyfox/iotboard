@@ -25,7 +25,10 @@ export function customEllipseGenerate(ellipseCustomCfg: EllipseCustomCfg) {
         y: 0,
         width: 80,
         height: 50,
-        stroke: '#000000',
+        stroke: {
+          type: 'solid',
+          color: '#000000',
+        },
         strokeWidth: 5,
         ...data,
       };

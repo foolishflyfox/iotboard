@@ -50,8 +50,6 @@ export class DisplayEditor {
       const lineClass = getElementClassByTag('element:line');
       const line = new lineClass({
         points: [point.x, point.y, point.x, point.y],
-        strokeWidth: 5,
-        stroke: '#000000',
         id: getUniqueId(),
         draggable: false,
         editable: false,

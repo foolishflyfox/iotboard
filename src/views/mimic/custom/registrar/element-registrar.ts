@@ -35,7 +35,7 @@ addElementRegistrar(customEllipseGenerate, {
 });
 addElementRegistrar(customLineGenerate, {
   tag: 'element:line',
-  appearanceTypes: [...defaultAppearances, 'stroke'],
+  appearanceTypes: [...defaultAppearances, 'stroke', 'startArrow'],
 });
 
 /** 元素注册 */

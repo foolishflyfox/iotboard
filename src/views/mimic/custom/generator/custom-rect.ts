@@ -17,7 +17,7 @@ export function customRectGenerate(rectCustomCfg: RectCustomCfg) {
     }
 
     @dataProcessor(InnerData)
-    public declare __: any;
+    declare public __: any;
 
     constructor(data: any) {
       data = {
@@ -25,7 +25,10 @@ export function customRectGenerate(rectCustomCfg: RectCustomCfg) {
         y: 0,
         width: 80,
         height: 80,
-        stroke: '#000000',
+        stroke: {
+          type: 'solid',
+          color: '#000000',
+        },
         strokeWidth: 5,
         cornerRadius: 8,
         ...data,

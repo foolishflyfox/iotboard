@@ -29,7 +29,16 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
       //   strokeWidth: 5,
       //   ...data,
       // };
-      super(data);
+      super({
+        strokeWidth: 5,
+        stroke: {
+          type: 'solid',
+          color: '#000000',
+        },
+        startArrow: 'circle',
+        endArrow: 'arrow',
+        ...data,
+      });
     }
   }
 }

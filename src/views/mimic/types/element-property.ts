@@ -84,6 +84,8 @@ export const allCommonAppearanceType = [
   'fill',
   'stroke',
   'strokeWidth',
+  'startArrow',
+  'endArrow',
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];
