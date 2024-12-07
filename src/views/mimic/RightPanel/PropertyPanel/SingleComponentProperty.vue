@@ -7,10 +7,10 @@
           <div class="font-bold">基础</div>
         </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
-          <NumberProperty v-model="x" label="X坐标" v-if="pt === 'x'" />
-          <NumberProperty v-else-if="pt === 'y'" v-model="y" label="Y坐标" />
-          <NumberProperty v-else-if="pt === 'width'" v-model="width" label="宽度" />
-          <NumberProperty v-else-if="pt === 'height'" v-model="height" label="高度" />
+          <NumberProperty v-model:value="x" label="X坐标" v-if="pt === 'x'" />
+          <NumberProperty v-else-if="pt === 'y'" v-model:value="y" label="Y坐标" />
+          <NumberProperty v-else-if="pt === 'width'" v-model:value="width" label="宽度" />
+          <NumberProperty v-else-if="pt === 'height'" v-model:value="height" label="高度" />
           <template v-else-if="pt === 'stroke'">
             <!-- <template v-if="_.isString(stroke)">
               <ColorProperty v-model="stroke" label="边框颜色" />

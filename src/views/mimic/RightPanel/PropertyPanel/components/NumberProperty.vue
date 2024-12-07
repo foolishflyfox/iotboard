@@ -1,25 +1,28 @@
 <template>
   <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
-  <PropertyContainer :label="label" @keydown.stop>
-    <n-input-number v-model:value="value" size="small" />
+  <PropertyContainer :label="label">
+    <CfgInputNumber :value="value" @update:value="v => emit('update:value', v!)" size="small" />
   </PropertyContainer>
 </template>
 
 <script setup lang="ts">
-import { NInputNumber } from 'naive-ui';
 import { PropertyContainer } from './containers';
+import { CfgInputNumber } from '@/components';
 
 withDefaults(
   defineProps<{
     label?: string;
     stopKeyDownEvent?: boolean;
+    value?: number;
   }>(),
   {
     stopKeyDownEvent: true,
   },
 );
 
-const value = defineModel<number>();
+const emit = defineEmits<{
+  'update:value': [v: number];
+}>();
 </script>
 
 <style scoped></style>
