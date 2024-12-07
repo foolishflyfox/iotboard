@@ -13,13 +13,15 @@
     <div>填充</div>
     <div>颜色</div>
     <HeadVerticalDivider />
-    <HeadIconContainer
-      v-for="o of drawingToolOptions"
-      :vicons="o.icon"
-      :is-active="drawingTool === o.type"
-      :tooltip="o.tooltip"
-      @click="() => selectDrawingTool(o.type)"
-    />
+    <n-space size="small">
+      <HeadIconContainer
+        v-for="o of drawingToolOptions"
+        :vicons="o.icon"
+        :is-active="drawingTool === o.type"
+        :tooltip="o.tooltip"
+        @click="() => selectDrawingTool(o.type)"
+      />
+    </n-space>
     <HeadVerticalDivider />
     <div>线样式</div>
     <div>线宽</div>
@@ -31,11 +33,12 @@
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { Cursor1 } from '@vicons/carbon';
-import { Line24Filled } from '@vicons/fluent';
+import { ArrowBounce16Filled } from '@vicons/fluent';
 import { Pencil } from '@vicons/tabler';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
 import type { Component } from 'vue';
+import { NSpace } from 'naive-ui';
 
 defineOptions({
   name: 'HeadOperators',
@@ -56,9 +59,9 @@ const drawingToolOptions: DrawingToolOption[] = [
     tooltip: '选择',
   },
   {
-    icon: Line24Filled,
+    icon: ArrowBounce16Filled,
     type: 'line',
-    tooltip: '线',
+    tooltip: '折线(可带箭头)',
   },
   {
     icon: Pencil,
