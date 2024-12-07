@@ -17,12 +17,21 @@ const emit = defineEmits<{
 
 const innerValue = ref(props.value);
 
+watch(
+  () => props.value,
+  nv => (innerValue.value = nv),
+);
+
 function cfgInputKeydown(e: KeyboardEvent) {
-  if (e.key === keyboardKeys.Enter || e.key === keyboardKeys.Tab) {
+  if ([keyboardKeys.Enter, keyboardKeys.Tab].includes(e.key)) {
     emit('update:value', innerValue.value);
     if (e.target) {
       (e.target as HTMLElement).blur();
     }
+  }
+  // 通过方向键改变值，不失去焦点
+  if ([keyboardKeys.ArrowUp, keyboardKeys.ArrowDown].includes(e.key)) {
+    emit('update:value', innerValue.value);
   }
 }
 </script>

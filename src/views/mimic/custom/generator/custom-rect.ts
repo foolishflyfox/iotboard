@@ -10,7 +10,7 @@ export function customRectGenerate(rectCustomCfg: RectCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends Rect {
-    static appearanceTypes = rectCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
+    static appearanceTypes = rectCustomCfg.appearanceTypes || ['x', 'y', 'width', 'height'];
 
     public get __tag() {
       return rectCustomCfg.tag;

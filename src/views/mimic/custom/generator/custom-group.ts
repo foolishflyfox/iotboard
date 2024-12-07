@@ -10,14 +10,14 @@ export function customGroupGenerate(groupCustomCfg: GroupCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends Group {
-    static appearanceTypes = groupCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
+    static appearanceTypes = groupCustomCfg.appearanceTypes || ['x', 'y', 'width', 'height'];
 
     public get __tag() {
       return groupCustomCfg.tag;
     }
 
     @dataProcessor(InnerData)
-    public declare __: any;
+    declare public __: any;
 
     constructor(data: any) {
       super(data);

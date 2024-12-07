@@ -99,7 +99,7 @@ export function getCommonAppearanceTypes(exclude?: AppearanceType[]): Appearance
 // };
 export interface BaseCustomCfg {
   tag: string;
-  includeAppearances?: AppearanceType[];
+  appearanceTypes?: AppearanceType[];
 }
 
 export interface CustomDragIcon {

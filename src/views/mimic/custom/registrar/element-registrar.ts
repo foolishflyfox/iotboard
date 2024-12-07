@@ -5,19 +5,24 @@ import {
   customCfgService,
 } from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
-import type { BaseCustomCfg } from '@mimic/types';
+import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
 
 export const elementRegistrar: Record<string, () => void> = {};
+
+// 默认的基础属性
+const defaultAppearances: AppearanceType[] = ['x', 'y', 'width', 'height'];
 
 function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => void, customCfg: T) {
   const elementTag = customCfg.tag;
   elementRegistrar[elementTag] = () => {
-    generator(customCfg);
-    if (customCfg) {
-      customCfgService.addUiCustomCfg(elementTag, customCfg);
+    if (!customCfg.appearanceTypes) {
+      customCfg.appearanceTypes = [...defaultAppearances];
     }
+    generator(customCfg);
+    customCfgService.addUiCustomCfg(elementTag, customCfg);
   };
 }
+
 // 添加内置组件的注册器
 addElementRegistrar(customRectGenerate, { tag: 'element:rect' });
 addElementRegistrar(customEllipseGenerate, { tag: 'element:ellipse' });

@@ -10,14 +10,14 @@ export function customEllipseGenerate(ellipseCustomCfg: EllipseCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends Ellipse {
-    static appearanceTypes = ellipseCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
+    static appearanceTypes = ellipseCustomCfg.appearanceTypes || ['x', 'y', 'width', 'height'];
 
     public get __tag() {
       return ellipseCustomCfg.tag;
     }
 
     @dataProcessor(InnerData)
-    public declare __: any;
+    declare public __: any;
 
     constructor(data: any) {
       data = {

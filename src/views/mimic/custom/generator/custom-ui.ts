@@ -49,8 +49,10 @@ export interface UiCustomCfg {
   tag: string;
   /** 为自定义属性赋值时执行的自定义操作 */
   customPropertyCfgs?: CustomPropertyCfgs;
-  /** 不希望编辑器用户修改的外观属性 */
-  includeAppearances?: AppearanceType[];
+  /** 希望编辑器用户修改的外观属性 */
+  // includeAppearances?: AppearanceType[];
+  // 自定义外观属性
+  appearanceTypes?: AppearanceType[];
   /** 外观初始化值 */
   defaultAppearanceValues?: DefaultAppearanceValues;
   // 如果通过width、height属性无法确定图形 bounds，则定义该函数
@@ -61,8 +63,6 @@ export interface UiCustomCfg {
   hit?: (inner: IRadiusPointData) => boolean;
   // 绘制函数
   draw?: (canvas: ILeaferCanvas) => void;
-  // 自定义外观属性
-  appearanceTypes?: AppearanceType[];
 }
 
 export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
@@ -80,7 +80,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends UI {
-    static appearanceTypes = uiCustomCfg.includeAppearances || ['x', 'y', 'width', 'height'];
+    static appearanceTypes = uiCustomCfg.appearanceTypes || ['x', 'y', 'width', 'height'];
     public get __tag() {
       return uiCustomCfg.tag;
     }
