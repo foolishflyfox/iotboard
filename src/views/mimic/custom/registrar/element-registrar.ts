@@ -1,11 +1,28 @@
-import { customRectGenerate, customEllipseGenerate } from '@mimic/custom/generator';
+import {
+  customRectGenerate,
+  customEllipseGenerate,
+  type UiCustomCfg,
+  customCfgService,
+} from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
+import type { BaseCustomCfg } from '@mimic/types';
 
-export const elementRegistrar: Record<string, () => void> = {
-  'element:rect': () => customRectGenerate({ tag: 'element:rect' }),
-  'element:ellipse': () => customEllipseGenerate({ tag: 'element:ellipse' }),
-};
+export const elementRegistrar: Record<string, () => void> = {};
 
+function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => void, customCfg: T) {
+  const elementTag = customCfg.tag;
+  elementRegistrar[elementTag] = () => {
+    generator(customCfg);
+    if (customCfg) {
+      customCfgService.addUiCustomCfg(elementTag, customCfg);
+    }
+  };
+}
+// 添加内置组件的注册器
+addElementRegistrar(customRectGenerate, { tag: 'element:rect' });
+addElementRegistrar(customEllipseGenerate, { tag: 'element:ellipse' });
+
+/** 元素注册 */
 export function registerElement(tag: string) {
   const registerHandler = elementRegistrar[tag];
   if (!registerHandler) {

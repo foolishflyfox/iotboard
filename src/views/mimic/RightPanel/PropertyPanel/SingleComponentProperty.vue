@@ -37,13 +37,12 @@
 <script setup lang="ts">
 import { NCollapse, NCollapseItem } from 'naive-ui';
 import { useCurElementProxyData } from '@mimic/hooks';
-import { customMetas } from '@mimic/utils';
 import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
 import { UI, type IPaint, type IPaintType } from 'leafer-ui';
-import { customCfgDict, type CustomPropertyCfgs } from '@mimic/custom/generator';
+import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
@@ -51,14 +50,12 @@ import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
 import * as path from 'pathe';
 
 const curElementProxyData = useCurElementProxyData();
-// const curElementLabel = computed(() => customMetas[curElementProxyData.value?.tag || '']?.label);
+
 const curAppearancePropertyTypes = computed(() => {
   let result: AppearanceType[] = [];
-  const customUiCfg = customCfgDict.ui[curElementProxyData.value?.tag!];
-  if (customUiCfg?.appearanceTypes) {
-    result = customUiCfg.appearanceTypes;
-  } else {
-    result = customMetas[curElementProxyData.value?.tag || '']?.appearanceTypes || result;
+  const uiCustomCfg = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag!);
+  if (uiCustomCfg?.appearanceTypes) {
+    result = uiCustomCfg.appearanceTypes;
   }
   return result;
 });
@@ -95,9 +92,14 @@ const fill = computed({
 const mimicDisplayStatus = useMimicDisplayStatus();
 const componentJson = computed(() => {
   if (mimicDisplayStatus.curUi instanceof UI) {
-    console.log('@@@', mimicDisplayStatus.curUi);
-    const json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
-    return json as any;
+    console.log('@@@', mimicDisplayStatus.curUi.tag);
+    let json: any = {};
+    if (mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]) {
+      json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
+    } else if (mimicDisplayStatus.curUi.tag === 'Line') {
+      // 选中的是折线
+    }
+    return json;
   } else {
     return {};
   }

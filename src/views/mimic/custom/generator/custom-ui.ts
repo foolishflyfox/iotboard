@@ -60,7 +60,7 @@ export interface UiCustomCfg {
   // 碰撞检测
   hit?: (inner: IRadiusPointData) => boolean;
   // 绘制函数
-  draw: (canvas: ILeaferCanvas) => void;
+  draw?: (canvas: ILeaferCanvas) => void;
   // 自定义外观属性
   appearanceTypes?: AppearanceType[];
 }
@@ -85,7 +85,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
       return uiCustomCfg.tag;
     }
     @dataProcessor(InnerData)
-    public declare __: any;
+    declare public __: any;
 
     constructor(data: any) {
       if (!_.isNil(uiCustomCfg.defaultAppearanceValues)) {
@@ -109,7 +109,9 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
     InnerCustom.prototype.__hit = uiCustomCfg.hit;
   }
 
-  InnerCustom.prototype.__draw = uiCustomCfg.draw;
+  if (uiCustomCfg.draw) {
+    InnerCustom.prototype.__draw = uiCustomCfg.draw;
+  }
 
   // 设置自定义属性的初始化值
   if (!_.isEmpty(uiCustomCfg.customPropertyCfgs)) {
