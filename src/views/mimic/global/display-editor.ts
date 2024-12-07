@@ -15,6 +15,7 @@ import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
 import { getUniqueId } from '@/utils';
 import '@leafer-in/arrow';
+import { getElementClassByTag } from '../custom/registrar';
 
 export class DisplayEditor {
   app?: App;
@@ -46,7 +47,8 @@ export class DisplayEditor {
   /** 开始绘制直线 */
   beginDrawLine(point: IPointData) {
     if (this.app?.tree) {
-      const line = new Line({
+      const lineClass = getElementClassByTag('element:line');
+      const line = new lineClass({
         points: [point.x, point.y, point.x, point.y],
         strokeWidth: 5,
         stroke: '#000000',

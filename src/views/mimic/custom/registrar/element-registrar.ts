@@ -3,6 +3,7 @@ import {
   customEllipseGenerate,
   type UiCustomCfg,
   customCfgService,
+  customLineGenerate,
 } from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
 import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
@@ -24,8 +25,15 @@ function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => voi
 }
 
 // 添加内置组件的注册器
-addElementRegistrar(customRectGenerate, { tag: 'element:rect' });
-addElementRegistrar(customEllipseGenerate, { tag: 'element:ellipse' });
+addElementRegistrar(customRectGenerate, {
+  tag: 'element:rect',
+  appearanceTypes: [...defaultAppearances, 'stroke'],
+});
+addElementRegistrar(customEllipseGenerate, {
+  tag: 'element:ellipse',
+  appearanceTypes: [...defaultAppearances, 'stroke'],
+});
+addElementRegistrar(customLineGenerate, { tag: 'element:line' });
 
 /** 元素注册 */
 export function registerElement(tag: string) {
