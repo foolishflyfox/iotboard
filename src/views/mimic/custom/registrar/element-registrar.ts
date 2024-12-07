@@ -33,7 +33,10 @@ addElementRegistrar(customEllipseGenerate, {
   tag: 'element:ellipse',
   appearanceTypes: [...defaultAppearances, 'stroke'],
 });
-addElementRegistrar(customLineGenerate, { tag: 'element:line' });
+addElementRegistrar(customLineGenerate, {
+  tag: 'element:line',
+  appearanceTypes: [...defaultAppearances, 'stroke'],
+});
 
 /** 元素注册 */
 export function registerElement(tag: string) {
