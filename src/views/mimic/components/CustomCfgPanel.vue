@@ -20,8 +20,7 @@
                 size="small"
                 :value="cfgValueCache[cfg.name]"
                 @update:value="v => (cfgValueCache[cfg.name] = v)"
-                @keydown.enter="() => cfgValueUpdate(cfg.name)"
-                @keydown.stop
+                @keydown.stop="e => cfgValueInputKeyDown(e, cfg.name)"
               />
             </div>
           </template>
@@ -39,6 +38,7 @@ import {
 } from '@mimic/custom/generator';
 import { NCollapse, NCollapseItem, NSpace, NTable, NInput } from 'naive-ui';
 import * as _ from 'lodash-es';
+import { keyboardKeys } from '@/constant';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
@@ -54,6 +54,15 @@ const emit = defineEmits<{
 const groupedCfgs = computed(() => groupCustomPropertyCfgs(props.cfgs));
 const cfgValueCache = ref<Record<string, string>>({});
 props.cfgs.forEach(e => (cfgValueCache.value[e.name] = String(e.defaultValue)));
+
+function cfgValueInputKeyDown(e: KeyboardEvent, cfgName: string) {
+  if (e.key === keyboardKeys.Enter || e.key === keyboardKeys.Tab) {
+    cfgValueUpdate(cfgName);
+    if (e.target) {
+      (e.target as HTMLElement).blur();
+    }
+  }
+}
 
 function cfgValueUpdate(cfgName: string) {
   // console.log(`修改 ${cfgName} 值为`, cfgValueCache.value[cfgName]);
