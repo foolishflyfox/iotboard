@@ -50,11 +50,8 @@ export class DisplayEditor {
       const lineClass = getElementClassByTag('element:line');
       const line = new lineClass({
         points: [point.x, point.y, point.x, point.y],
-        id: getUniqueId(),
         draggable: false,
         editable: false,
-        startArrow: 'circle',
-        endArrow: 'arrow',
       });
       this.drawingToolStatus.line.ui = line;
       this.app.tree.add(line);
