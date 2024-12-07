@@ -53,7 +53,7 @@ import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
-import { UI, type IArrowType, type IPaint, type IPaintType } from 'leafer-ui';
+import { UI, type IArrowType, type IPaint, type IPaintType, type IUI } from 'leafer-ui';
 import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus } from '@mimic/stores';
@@ -62,6 +62,7 @@ import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
 import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
 
+const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
 
 const curAppearancePropertyTypes = computed(() => {
@@ -104,14 +105,21 @@ const fill = computed({
 });
 const startArrow = computed({
   get: () => curElementProxyData.value!.startArrow as any,
-  set: (v: IArrowType) => (curElementProxyData.value!.startArrow = v),
+  set: (v: IArrowType) => {
+    curElementProxyData.value!.startArrow = v;
+    (mimicDisplayStatus.curUi as IUI).forceUpdate();
+  },
 });
 const endArrow = computed({
   get: () => curElementProxyData.value?.endArrow as any,
-  set: (v: IArrowType) => (curElementProxyData.value!.endArrow = v),
+  set: (v: IArrowType) => {
+    curElementProxyData.value!.endArrow = v;
+    // 存在修改了样式后，canvas 中绘制的样式没有变化的情况
+    // (startArrow 和 endArrow 中的第一个修改生效，第二个修改不生效)
+    (mimicDisplayStatus.curUi as IUI).forceUpdate();
+  },
 });
 
-const mimicDisplayStatus = useMimicDisplayStatus();
 const componentJson = computed(() => {
   if (mimicDisplayStatus.curUi instanceof UI) {
     console.log('@@@', mimicDisplayStatus.curUi.tag);
