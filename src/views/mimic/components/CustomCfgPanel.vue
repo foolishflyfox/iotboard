@@ -3,7 +3,7 @@
     <n-collapse :default-expanded-names="_.keys(groupedCfgs)">
       <n-collapse-item v-for="groupName of _.keys(groupedCfgs)" :name="groupName">
         <template #header>
-          <div>{{ groupName || defaultGroupName || '默认' }}</div>
+          <div class="font-bold">{{ groupName || defaultGroupName || '默认' }}</div>
         </template>
         <n-space vertical :size="2">
           <template v-for="cfg of groupedCfgs[groupName]">

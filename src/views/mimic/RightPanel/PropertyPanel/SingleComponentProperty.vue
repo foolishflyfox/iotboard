@@ -2,7 +2,10 @@
   <div>
     <!-- <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div> -->
     <n-collapse :default-expanded-names="['base', 'custom']">
-      <n-collapse-item title="基础" name="base">
+      <n-collapse-item name="base">
+        <template #header>
+          <div class="font-bold">基础</div>
+        </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
           <NumberProperty v-model="x" label="X坐标" v-if="pt === 'x'" />
           <NumberProperty v-else-if="pt === 'y'" v-model="y" label="Y坐标" />
