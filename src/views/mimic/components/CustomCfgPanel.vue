@@ -21,6 +21,7 @@
                 :value="cfgValueCache[cfg.name]"
                 @update:value="v => (cfgValueCache[cfg.name] = v)"
                 @keydown.enter="() => cfgValueUpdate(cfg.name)"
+                @keydown.stop
               />
             </div>
           </template>

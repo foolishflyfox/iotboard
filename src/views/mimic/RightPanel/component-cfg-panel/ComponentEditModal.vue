@@ -150,8 +150,8 @@ const componentTag = computed(() => {
 
 const componentJson = computed(() => {
   if (componentTag.value) {
-    const componentJson = JSON.parse(mimicVar.componentJsonStrDict[componentTag.value]);
-    return componentJson as any;
+    const json = JSON.parse(mimicVar.componentJsonStrDict[componentTag.value]);
+    return json as any;
   }
   return {};
 });
