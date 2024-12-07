@@ -22,6 +22,7 @@
               <ColorProperty v-model="fill" label="填充颜色" />
             </template>
           </template>
+          <ArrowSelector v-else-if="pt === 'startArrow'" label="开始箭头" />
         </template>
       </n-collapse-item>
 
@@ -47,6 +48,7 @@ import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
+import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
 
 const curElementProxyData = useCurElementProxyData();

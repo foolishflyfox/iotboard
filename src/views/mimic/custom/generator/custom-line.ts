@@ -20,23 +20,14 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
     declare public __: any;
 
     constructor(data: any) {
-      // data = {
-      //   x: 0,
-      //   y: 0,
-      //   width: 80,
-      //   height: 50,
-      //   stroke: '#000000',
-      //   strokeWidth: 5,
-      //   ...data,
-      // };
       super({
         strokeWidth: 5,
         stroke: {
           type: 'solid',
           color: '#000000',
         },
-        startArrow: 'circle',
-        endArrow: 'arrow',
+        startArrow: 'mark',
+        endArrow: 'mark',
         ...data,
       });
     }
