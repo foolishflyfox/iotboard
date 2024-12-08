@@ -28,8 +28,8 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
         // },
         text: 'Text',
         fontSize: 32,
-        fill: '#000000',
         fontWeight: 400,
+        fill: '#000000',
         stroke: {
           type: undefined,
           color: '#FFA500',

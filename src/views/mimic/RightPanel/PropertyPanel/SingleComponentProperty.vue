@@ -7,7 +7,7 @@
           <div class="font-bold">基础</div>
         </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
-          <NumberProperty v-model:value="x" label="X坐标" v-if="pt === 'x'" />
+          <NumberProperty v-if="pt === 'x'" v-model:value="x" label="X坐标" />
           <NumberProperty v-else-if="pt === 'y'" v-model:value="y" label="Y坐标" />
           <NumberProperty v-else-if="pt === 'width'" v-model:value="width" label="宽度" />
           <NumberProperty v-else-if="pt === 'height'" v-model:value="height" label="高度" />
@@ -46,6 +46,12 @@
             label="圆角半径"
           />
           <DashPatternProperty v-else-if="pt === 'dashPattern'" v-model:value="dashPattern" />
+          <NumberProperty
+            v-else-if="pt === 'fontSize'"
+            v-model:value="fontSize"
+            :min="9"
+            label="字体大小"
+          />
         </template>
       </n-collapse-item>
 
@@ -143,9 +149,13 @@ const cornerRadius = computed({
 });
 const dashPattern = computed({
   get: () => curElementProxyData.value!.dashPattern as any,
-  set: (v?: any) => {
+  set: (v: any) => {
     curElementProxyData.value!.dashPattern = v;
   },
+});
+const fontSize = computed({
+  get: () => curElementProxyData.value!.fontSize as any,
+  set: (v: any) => (curElementProxyData.value!.fontSize = v),
 });
 
 const componentJson = computed(() => {
