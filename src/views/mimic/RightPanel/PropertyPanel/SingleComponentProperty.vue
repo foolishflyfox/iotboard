@@ -37,6 +37,7 @@
           <NumberProperty
             v-else-if="pt === 'cornerRadius'"
             v-model:value="cornerRadius"
+            :min="0"
             label="圆角半径"
           />
         </template>
