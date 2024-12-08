@@ -50,7 +50,7 @@
             :min="9"
             label="字体大小"
           />
-          <FontWeightProperty v-else-if="pt === 'fontWeight'" />
+          <FontWeightProperty v-else-if="pt === 'fontWeight'" v-model:value="fontWeight" />
         </template>
       </n-collapse-item>
 
@@ -156,6 +156,10 @@ const dashPattern = computed({
 const fontSize = computed({
   get: () => curElementProxyData.value!.fontSize as any,
   set: (v: any) => (curElementProxyData.value!.fontSize = v),
+});
+const fontWeight = computed({
+  get: () => curElementProxyData.value!.fontWeight as any,
+  set: (v: any) => (curElementProxyData.value!.fontWeight = v),
 });
 
 const componentJson = computed(() => {

@@ -47,7 +47,14 @@ addElementRegistrar(customLineGenerate, {
 });
 addElementRegistrar(customTextGenerate, {
   tag: 'element:text',
-  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'fontSize'],
+  appearanceTypes: [
+    ...defaultAppearances,
+    'fill',
+    'stroke',
+    'strokeWidth',
+    'fontSize',
+    'fontWeight',
+  ],
 });
 
 /** 元素注册 */

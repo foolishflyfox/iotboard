@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer label="字体粗细">
-    <n-select :options="options" />
+    <n-select :options="options" :value @update:value="v => emit('update:value', v)" />
   </PropertyContainer>
 </template>
 
@@ -19,6 +19,14 @@ const options = [
   { label: 'extra-bold', value: 800 },
   { label: 'black', value: 900 },
 ];
+
+defineProps<{
+  value: number;
+}>();
+
+const emit = defineEmits<{
+  'update:value': [number];
+}>();
 </script>
 
 <style scoped></style>
