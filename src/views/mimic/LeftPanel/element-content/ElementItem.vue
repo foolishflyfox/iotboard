@@ -1,10 +1,10 @@
 <template>
-  <div class="inline-block bg-[#fff8] rounded-lg">
+  <div class="inline-block bg-[#fff8] rounded-lg flex-col">
     <div class="h-42px flex-y-center">
       <img
         :src="getElementPreview(path)"
         width="42"
-        class="cursor-grab p-4px"
+        class="cursor-grab p-4px mx-auto"
         @error="
           e => {
             (e.target as any).src = getElementPreview('default');

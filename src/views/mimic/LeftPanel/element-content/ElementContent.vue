@@ -21,7 +21,7 @@
         </n-space>
       </n-collapse-item>
     </n-collapse>
-    <div>元素等同于内置组件，例如视频组件、echarts 组件等都归类到元素中</div>
+    <div class="mt-2em">元素等同于内置组件，例如视频组件、echarts 组件等都归类到元素中</div>
   </div>
 </template>
 
