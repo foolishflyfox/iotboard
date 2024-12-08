@@ -27,15 +27,22 @@ function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => voi
 // 添加内置组件的注册器
 addElementRegistrar(customRectGenerate, {
   tag: 'element:rect',
-  appearanceTypes: [...defaultAppearances, 'stroke'],
+  appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth'],
 });
 addElementRegistrar(customEllipseGenerate, {
   tag: 'element:ellipse',
-  appearanceTypes: [...defaultAppearances, 'stroke'],
+  appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth'],
 });
 addElementRegistrar(customLineGenerate, {
   tag: 'element:line',
-  appearanceTypes: ['stroke', 'startArrow', 'endArrow', 'cornerRadius'],
+  appearanceTypes: [
+    'stroke',
+    'strokeWidth',
+    'startArrow',
+    'endArrow',
+    'cornerRadius',
+    'dashPattern',
+  ],
 });
 
 /** 元素注册 */

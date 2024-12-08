@@ -17,6 +17,11 @@
             </template> -->
             <StrokeProperty :stroke="stroke" @update:value="v => (stroke = v)" />
           </template>
+          <NumberProperty
+            v-else-if="pt === 'strokeWidth'"
+            v-model:value="strokeWidth"
+            label="线宽"
+          />
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
               <ColorProperty v-model="fill" label="填充颜色" />
@@ -40,6 +45,8 @@
             :min="0"
             label="圆角半径"
           />
+
+          <DashPatternProperty v-else-if="pt === 'dashPattern'" />
         </template>
       </n-collapse-item>
 
@@ -67,6 +74,7 @@ import { mimicVar } from '@mimic/global';
 import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
 import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
+import DashPatternProperty from './DashPatternProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -104,6 +112,10 @@ interface Stroke extends Record<string, any> {
 const stroke = computed({
   get: () => curElementProxyData.value?.stroke as IPaint,
   set: (v: Stroke) => (curElementProxyData.value!.stroke = v as any),
+});
+const strokeWidth = computed({
+  get: () => curElementProxyData.value?.strokeWidth as number,
+  set: (v: number) => (curElementProxyData.value!.strokeWidth = v),
 });
 const fill = computed({
   get: () => curElementProxyData.value?.fill,
