@@ -6,6 +6,7 @@
       :options
       :value="stroke.type"
       size="tiny"
+      clearable
       @update:value="updateType"
     />
     <template v-if="stroke.type === 'solid'">

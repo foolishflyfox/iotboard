@@ -7,6 +7,7 @@
       :size="size"
       :placeholder
       :filterable
+      :clearable
     />
   </PropertyContainer>
 </template>
@@ -24,6 +25,7 @@ defineProps<{
   options: SelectOption[];
   filterable?: boolean;
   size?: Size;
+  clearable?: boolean;
 }>();
 const emit = defineEmits<{
   'update:value': [v: any];
