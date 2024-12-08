@@ -34,6 +34,11 @@
             :is-start="false"
             v-model:value="endArrow"
           />
+          <NumberProperty
+            v-else-if="pt === 'cornerRadius'"
+            v-model:value="cornerRadius"
+            label="圆角半径"
+          />
         </template>
       </n-collapse-item>
 
@@ -119,10 +124,15 @@ const endArrow = computed({
     (mimicDisplayStatus.curUi as IUI).forceUpdate();
   },
 });
+const cornerRadius = computed({
+  get: () => curElementProxyData.value!.cornerRadius as number,
+  set: (v: number) => {
+    curElementProxyData.value!.cornerRadius = v;
+  },
+});
 
 const componentJson = computed(() => {
   if (mimicDisplayStatus.curUi instanceof UI) {
-    console.log('@@@', mimicDisplayStatus.curUi.tag);
     let json: any = {};
     if (mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]) {
       json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);

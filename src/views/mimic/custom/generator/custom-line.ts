@@ -28,6 +28,7 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
         },
         startArrow: 'circle',
         endArrow: 'arrow',
+        cornerRadius: 0,
         ...data,
       });
     }
