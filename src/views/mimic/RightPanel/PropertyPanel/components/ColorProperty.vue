@@ -2,9 +2,9 @@
   <PropertyContainer :label="label">
     <n-color-picker
       style="width: 100%"
-      :value="value"
-      @update:value="v => emit('update:value', v)"
+      :value
       size="small"
+      @update:value="v => emit('update:value', v)"
     />
   </PropertyContainer>
 </template>

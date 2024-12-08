@@ -28,7 +28,7 @@ import type { SelectOption } from 'naive-ui';
 import SelectProperty from './components/SelectProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import JsonProperty from './components/JsonProperty.vue';
-import type { IPaint, IPaintType } from 'leafer-ui';
+import type { IPaint, IPaintType, ISolidPaint } from 'leafer-ui';
 import * as _ from 'lodash-es';
 
 const options: SelectOption[] = [
@@ -53,6 +53,8 @@ const options: SelectOption[] = [
 const props = defineProps<{
   stroke: IPaint;
 }>();
+
+const defaultSolidColor = (props.stroke as ISolidPaint).color || '#000000';
 const strokeColor = computed(() => (props.stroke as any).color as string);
 
 const emit = defineEmits<{
@@ -63,7 +65,7 @@ function updateType(newType: IPaintType) {
   if (props.stroke.type === newType) return;
   const data: Record<string, any> = { type: newType };
   if (newType === 'solid') {
-    data.color = '#000000ff';
+    data.color = defaultSolidColor;
   } else if (newType === 'linear') {
     data.stops = [
       { offset: 0, color: '#FF4B4B' },

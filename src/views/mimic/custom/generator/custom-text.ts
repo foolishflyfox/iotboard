@@ -30,6 +30,11 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
         fontSize: 32,
         fill: '#000000',
         fontWeight: 400,
+        stroke: {
+          type: undefined,
+          color: '#0000ff',
+        },
+        strokeWidth: 2,
         ...data,
       });
     }
