@@ -35,9 +35,9 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
           color: '#FFA500',
         },
         strokeWidth: 2,
-        textAlign: 'left',
         italic: false,
         textDecoration: 'none',
+        textAlign: 'left',
         ...data,
       });
     }

@@ -56,6 +56,7 @@
             v-else-if="pt === 'textDecoration'"
             v-model:value="textDecoration"
           />
+          <TextAlignProperty v-else-if="pt === 'textAlign'" v-model:value="textAlign" />
         </template>
       </n-collapse-item>
 
@@ -87,6 +88,7 @@ import DashPatternProperty from './DashPatternProperty.vue';
 import FontWeightProperty from './FontWeightProperty.vue';
 import CheckboxProperty from './components/CheckboxProperty.vue';
 import TextDecorationProperty from './TextDecorationProperty.vue';
+import TextAlignProperty from './TextAlignProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -175,6 +177,10 @@ const italic = computed({
 const textDecoration = computed({
   get: () => curElementProxyData.value!.textDecoration as any,
   set: (v: any) => (curElementProxyData.value!.textDecoration = v),
+});
+const textAlign = computed({
+  get: () => curElementProxyData.value!.textAlign as any,
+  set: (v: any) => (curElementProxyData.value!.textAlign = v),
 });
 
 const componentJson = computed(() => {

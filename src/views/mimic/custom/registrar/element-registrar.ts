@@ -56,6 +56,7 @@ addElementRegistrar(customTextGenerate, {
     'fontWeight',
     'italic',
     'textDecoration',
+    'textAlign',
   ],
 });
 
