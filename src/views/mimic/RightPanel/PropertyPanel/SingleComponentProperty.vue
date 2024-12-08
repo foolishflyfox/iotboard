@@ -46,7 +46,7 @@
             label="圆角半径"
           />
 
-          <DashPatternProperty v-else-if="pt === 'dashPattern'" />
+          <DashPatternProperty v-else-if="pt === 'dashPattern'" v-model:value="dashPattern" />
         </template>
       </n-collapse-item>
 
@@ -141,6 +141,12 @@ const cornerRadius = computed({
   get: () => curElementProxyData.value!.cornerRadius as number,
   set: (v: number) => {
     curElementProxyData.value!.cornerRadius = v;
+  },
+});
+const dashPattern = computed({
+  get: () => curElementProxyData.value!.dashPattern as any,
+  set: (v?: any) => {
+    curElementProxyData.value!.dashPattern = v;
   },
 });
 

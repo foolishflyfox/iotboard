@@ -1,7 +1,7 @@
 <!-- 输入回车或按下 tab 后才会向父组件发送值修改的事件 -->
 <template>
   <n-input-number
-    size="small"
+    size="tiny"
     v-model:value="innerValue"
     @keydown.stop="cfgInputKeydown"
     :update-value-on-input="false"
