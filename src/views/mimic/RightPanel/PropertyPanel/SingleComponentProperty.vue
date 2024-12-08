@@ -52,6 +52,10 @@
           />
           <CheckboxProperty v-else-if="pt === 'italic'" v-model:value="italic" label="斜体" />
           <FontWeightProperty v-else-if="pt === 'fontWeight'" v-model:value="fontWeight" />
+          <TextDecorationProperty
+            v-else-if="pt === 'textDecoration'"
+            v-model:value="textDecoration"
+          />
         </template>
       </n-collapse-item>
 
@@ -82,6 +86,7 @@ import * as path from 'pathe';
 import DashPatternProperty from './DashPatternProperty.vue';
 import FontWeightProperty from './FontWeightProperty.vue';
 import CheckboxProperty from './components/CheckboxProperty.vue';
+import TextDecorationProperty from './TextDecorationProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -166,6 +171,10 @@ const fontWeight = computed({
 const italic = computed({
   get: () => curElementProxyData.value!.italic as any,
   set: (v: any) => (curElementProxyData.value!.italic = v),
+});
+const textDecoration = computed({
+  get: () => curElementProxyData.value!.textDecoration as any,
+  set: (v: any) => (curElementProxyData.value!.textDecoration = v),
 });
 
 const componentJson = computed(() => {

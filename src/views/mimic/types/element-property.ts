@@ -91,6 +91,7 @@ export const allCommonAppearanceType = [
   'fontSize', // 字体大小
   'fontWeight', // 字体粗细
   'italic', // 字体斜体
+  'textDecoration', // 字体装饰线
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];

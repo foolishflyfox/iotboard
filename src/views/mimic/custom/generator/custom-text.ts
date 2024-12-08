@@ -37,6 +37,7 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
         strokeWidth: 2,
         textAlign: 'left',
         italic: false,
+        textDecoration: 'none',
         ...data,
       });
     }
