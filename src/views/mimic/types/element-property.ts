@@ -90,6 +90,7 @@ export const allCommonAppearanceType = [
   'dashPattern', // 虚线样式
   'fontSize', // 字体大小
   'fontWeight', // 字体粗细
+  'italic', // 字体斜体
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];

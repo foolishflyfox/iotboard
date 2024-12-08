@@ -50,6 +50,7 @@
             :min="9"
             label="字体大小"
           />
+          <CheckboxProperty v-else-if="pt === 'italic'" v-model:value="italic" label="斜体" />
           <FontWeightProperty v-else-if="pt === 'fontWeight'" v-model:value="fontWeight" />
         </template>
       </n-collapse-item>
@@ -80,6 +81,7 @@ import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
 import DashPatternProperty from './DashPatternProperty.vue';
 import FontWeightProperty from './FontWeightProperty.vue';
+import CheckboxProperty from './components/CheckboxProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -160,6 +162,10 @@ const fontSize = computed({
 const fontWeight = computed({
   get: () => curElementProxyData.value!.fontWeight as any,
   set: (v: any) => (curElementProxyData.value!.fontWeight = v),
+});
+const italic = computed({
+  get: () => curElementProxyData.value!.italic as any,
+  set: (v: any) => (curElementProxyData.value!.italic = v),
 });
 
 const componentJson = computed(() => {

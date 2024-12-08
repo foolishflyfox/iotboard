@@ -36,6 +36,7 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
         },
         strokeWidth: 2,
         textAlign: 'left',
+        italic: false,
         ...data,
       });
     }
