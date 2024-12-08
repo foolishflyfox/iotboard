@@ -7,6 +7,7 @@ import {
 } from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
 import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
+import { customTextGenerate } from '../generator/custom-text';
 
 export const elementRegistrar: Record<string, () => void> = {};
 
@@ -27,11 +28,11 @@ function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => voi
 // 添加内置组件的注册器
 addElementRegistrar(customRectGenerate, {
   tag: 'element:rect',
-  appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth', 'dashPattern'],
+  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'dashPattern'],
 });
 addElementRegistrar(customEllipseGenerate, {
   tag: 'element:ellipse',
-  appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth', 'dashPattern'],
+  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'dashPattern'],
 });
 addElementRegistrar(customLineGenerate, {
   tag: 'element:line',
@@ -43,6 +44,10 @@ addElementRegistrar(customLineGenerate, {
     'cornerRadius',
     'dashPattern',
   ],
+});
+addElementRegistrar(customTextGenerate, {
+  tag: 'element:text',
+  appearanceTypes: [...defaultAppearances, 'fill'],
 });
 
 /** 元素注册 */

@@ -24,7 +24,7 @@
           />
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
-              <ColorProperty v-model="fill" label="填充颜色" />
+              <ColorProperty v-model:value="fill" label="填充颜色" />
             </template>
           </template>
           <ArrowSelector

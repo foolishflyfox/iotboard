@@ -63,11 +63,11 @@ const drawingToolOptions: DrawingToolOption[] = [
     type: 'line',
     tooltip: '折线(可带箭头)',
   },
-  {
-    icon: Pencil,
-    type: 'pen',
-    tooltip: '画笔',
-  },
+  // {
+  //   icon: Pencil,
+  //   type: 'pen',
+  //   tooltip: '画笔',
+  // },
 ];
 
 function selectDrawingTool(tool: DrawingTool) {

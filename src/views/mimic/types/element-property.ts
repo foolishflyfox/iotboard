@@ -77,17 +77,19 @@ export interface CustomPropertyMeta {
 
 // 通用属性定义
 export const allCommonAppearanceType = [
-  'x',
-  'y',
-  'width',
-  'height',
-  'fill',
-  'stroke',
-  'strokeWidth',
-  'startArrow',
-  'endArrow',
-  'cornerRadius',
-  'dashPattern',
+  'x', // 横坐标
+  'y', // 纵坐标
+  'width', // 宽度
+  'height', // 高度
+  'fill', // 填充
+  'stroke', // 线样式
+  'strokeWidth', // 线宽度
+  'startArrow', // 折线起始的箭头
+  'endArrow', // 折线结尾的箭头类型
+  'cornerRadius', // 折线转折点半径
+  'dashPattern', // 虚线样式
+  'fontSize', // 字体大小
+  'fontWeight', // 字体粗细
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];

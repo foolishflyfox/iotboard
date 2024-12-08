@@ -11,6 +11,9 @@ importers:
       '@leafer-in/arrow':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
+      '@leafer-in/text-editor':
+        specifier: ^1.1.0
+        version: 1.1.0(@leafer-in/editor@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0)
       '@leafer-in/view':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)

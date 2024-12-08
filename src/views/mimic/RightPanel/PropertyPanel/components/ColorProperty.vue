@@ -21,6 +21,11 @@ defineProps<{
 const emit = defineEmits<{
   'update:value': [v: string];
 }>();
+
+onMounted(() => {
+  // const r = (colorPickerRef.value as unknown as HTMLElement).querySelector('input');
+  // console.log('r =', colorPickerRef.value);
+});
 </script>
 
 <style scoped>
