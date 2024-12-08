@@ -57,6 +57,7 @@
             v-model:value="textDecoration"
           />
           <TextAlignProperty v-else-if="pt === 'textAlign'" v-model:value="textAlign" />
+          <VerticalAlignProperty v-else-if="pt === 'verticalAlign'" v-model:value="verticalAlign" />
         </template>
       </n-collapse-item>
 
@@ -89,6 +90,7 @@ import FontWeightProperty from './FontWeightProperty.vue';
 import CheckboxProperty from './components/CheckboxProperty.vue';
 import TextDecorationProperty from './TextDecorationProperty.vue';
 import TextAlignProperty from './TextAlignProperty.vue';
+import VerticalAlignProperty from './VerticalAlignProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -181,6 +183,10 @@ const textDecoration = computed({
 const textAlign = computed({
   get: () => curElementProxyData.value!.textAlign as any,
   set: (v: any) => (curElementProxyData.value!.textAlign = v),
+});
+const verticalAlign = computed({
+  get: () => curElementProxyData.value!.verticalAlign as any,
+  set: (v: any) => (curElementProxyData.value!.verticalAlign = v),
 });
 
 const componentJson = computed(() => {

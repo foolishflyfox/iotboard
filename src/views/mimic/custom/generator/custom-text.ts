@@ -38,6 +38,7 @@ export function customTextGenerate(textCustomCfg: TextCustomCfg) {
         italic: false,
         textDecoration: 'none',
         textAlign: 'left',
+        verticalAlign: 'top',
         ...data,
       });
     }

@@ -93,6 +93,7 @@ export const allCommonAppearanceType = [
   'italic', // 字体斜体
   'textDecoration', // 字体装饰线
   'textAlign', // 文本对齐方式
+  'verticalAlign', // 文本垂直对齐
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];

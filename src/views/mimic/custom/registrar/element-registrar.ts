@@ -57,6 +57,7 @@ addElementRegistrar(customTextGenerate, {
     'italic',
     'textDecoration',
     'textAlign',
+    'verticalAlign',
   ],
 });
 
