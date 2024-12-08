@@ -17,11 +17,9 @@
             </template> -->
             <StrokeProperty :stroke="stroke" @update:value="v => (stroke = v)" />
           </template>
-          <NumberProperty
-            v-else-if="pt === 'strokeWidth'"
-            v-model:value="strokeWidth"
-            label="线宽"
-          />
+          <template v-else-if="pt === 'strokeWidth'">
+            <NumberProperty v-if="stroke.type" v-model:value="strokeWidth" label="线宽" />
+          </template>
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
               <ColorProperty v-model:value="fill" label="填充颜色" />
@@ -52,6 +50,7 @@
             :min="9"
             label="字体大小"
           />
+          <FontWeightProperty v-else-if="pt === 'fontWeight'" />
         </template>
       </n-collapse-item>
 
@@ -80,6 +79,7 @@ import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
 import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
 import DashPatternProperty from './DashPatternProperty.vue';
+import FontWeightProperty from './FontWeightProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
