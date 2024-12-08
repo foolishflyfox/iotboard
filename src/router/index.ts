@@ -30,6 +30,11 @@ const router = createRouter({
           name: 'StrokeLinearGradientDoc',
           component: () => import('../views/docs/StrokeLinearGradientDoc.vue'),
         },
+        {
+          path: 'StrokeDashPatternDoc',
+          name: 'StrokeDashPatternDoc',
+          component: () => import('../views/docs/StrokeDashPatternDoc.vue'),
+        },
       ],
     },
   ],

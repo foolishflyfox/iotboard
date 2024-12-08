@@ -1,5 +1,5 @@
 <template>
-  <PropertyContainer :label="label" :route-name="helpRouteName" @keydown.stop>
+  <PropertyContainer :label="label" :route-name="helpRouteName" @keydown.stop="() => {}">
     <!-- <n-input :value="value" /> -->
 
     <n-button type="primary" ghost size="tiny" @click="showEditModal">

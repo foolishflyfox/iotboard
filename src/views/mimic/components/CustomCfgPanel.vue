@@ -17,7 +17,7 @@
               <CfgInput
                 class="flex-1"
                 :value="String(cfg.defaultValue)"
-                @update:value="v => cfgValueUpdate(cfg.name, v)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
             </div>
           </template>

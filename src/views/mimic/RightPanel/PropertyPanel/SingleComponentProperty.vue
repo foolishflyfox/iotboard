@@ -45,7 +45,6 @@
             :min="0"
             label="圆角半径"
           />
-
           <DashPatternProperty v-else-if="pt === 'dashPattern'" v-model:value="dashPattern" />
         </template>
       </n-collapse-item>
