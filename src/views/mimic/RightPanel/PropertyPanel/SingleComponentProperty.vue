@@ -81,7 +81,6 @@ const curElementProxyData = useCurElementProxyData();
 const curAppearancePropertyTypes = computed(() => {
   let result: AppearanceType[] = [];
   const uiCustomCfg = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag!);
-  console.log('###', uiCustomCfg);
   if (uiCustomCfg?.appearanceTypes) {
     result = uiCustomCfg.appearanceTypes;
   }

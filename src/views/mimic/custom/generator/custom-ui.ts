@@ -38,12 +38,7 @@ export function groupCustomPropertyCfgs(cfgs: CustomPropertyCfgs) {
   return result;
 }
 export type DefaultAppearanceValues = { [k in AppearanceType]?: any };
-// const setters = {
-//   setValue: function (v: any) {
-//     console.log('@@@### setValue');
-//     (this as any)._value = v;
-//   },
-// };
+
 export interface UiCustomCfg {
   /** 自定义组件名 */
   tag: string;
