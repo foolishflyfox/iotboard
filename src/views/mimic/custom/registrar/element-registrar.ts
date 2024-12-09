@@ -8,6 +8,7 @@ import {
 import { getUiClassByTag } from '@mimic/utils';
 import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
 import { customTextGenerate } from '../generator/custom-text';
+import { customTextBoxGenerate } from '../generator/custom-text-box';
 
 export const elementRegistrar: Record<string, () => void> = {};
 
@@ -60,6 +61,10 @@ addElementRegistrar(customTextGenerate, {
     'textAlign',
     'verticalAlign',
   ],
+});
+addElementRegistrar(customTextBoxGenerate, {
+  tag: 'element:textbox',
+  appearanceTypes: [...defaultAppearances],
 });
 
 /** 元素注册 */

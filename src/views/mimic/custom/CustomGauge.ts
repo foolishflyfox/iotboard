@@ -35,19 +35,19 @@ export class CustomGauge extends UI {
   }
 
   @dataProcessor(CustomGaugeData)
-  public declare __: ICustomGaugeData;
+  declare public __: ICustomGaugeData;
 
   @boundsType('0')
-  public declare min: string;
+  declare public min: string;
 
   @boundsType('300')
-  public declare max: string;
+  declare public max: string;
 
   @boundsType('30')
-  public declare value: string;
+  declare public value: string;
 
   @boundsType('km/h')
-  public declare unit: string;
+  declare public unit: string;
 
   constructor(data: ICustomGaugeInputData) {
     data.width = data.width ?? 80;
