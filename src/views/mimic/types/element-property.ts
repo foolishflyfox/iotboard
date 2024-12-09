@@ -88,6 +88,7 @@ export const allCommonAppearanceType = [
   'endArrow', // 折线结尾的箭头类型
   'cornerRadius', // 折线转折点半径
   'dashPattern', // 虚线样式
+  'text', // 文本内容
   'fontSize', // 字体大小
   'fontWeight', // 字体粗细
   'italic', // 字体斜体

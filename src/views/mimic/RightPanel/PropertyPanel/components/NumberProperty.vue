@@ -4,7 +4,7 @@
     <CfgInputNumber
       :value="value"
       @update:value="v => emit('update:value', v!)"
-      size="small"
+      size="tiny"
       :min
       :max
       :step

@@ -52,6 +52,7 @@ addElementRegistrar(customTextGenerate, {
     'fill',
     'stroke',
     'strokeWidth',
+    'text',
     'fontSize',
     'fontWeight',
     'italic',

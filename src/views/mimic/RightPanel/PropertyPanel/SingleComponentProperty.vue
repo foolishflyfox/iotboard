@@ -44,6 +44,7 @@
             label="圆角半径"
           />
           <DashPatternProperty v-else-if="pt === 'dashPattern'" v-model:value="dashPattern" />
+          <StringProperty v-else-if="pt === 'text'" label="文本内容" v-model:value="text" />
           <NumberProperty
             v-else-if="pt === 'fontSize'"
             v-model:value="fontSize"
@@ -91,6 +92,7 @@ import CheckboxProperty from './components/CheckboxProperty.vue';
 import TextDecorationProperty from './TextDecorationProperty.vue';
 import TextAlignProperty from './TextAlignProperty.vue';
 import VerticalAlignProperty from './VerticalAlignProperty.vue';
+import StringProperty from './components/StringProperty.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -163,6 +165,10 @@ const dashPattern = computed({
   set: (v: any) => {
     curElementProxyData.value!.dashPattern = v;
   },
+});
+const text = computed({
+  get: () => curElementProxyData.value!.text as any,
+  set: (v: any) => (curElementProxyData.value!.text = v),
 });
 const fontSize = computed({
   get: () => curElementProxyData.value!.fontSize as any,
