@@ -42,6 +42,11 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
 
     constructor(data: ICustomTextBoxInputData) {
       data = {
+        stroke: {
+          type: 'solid',
+          color: '#97694F',
+        },
+        strokeWidth: 3,
         fill: '#FF4B4B',
         cornerRadius: 3,
         ...data,

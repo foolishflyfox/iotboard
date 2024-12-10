@@ -95,6 +95,7 @@ export const allCommonAppearanceType = [
   'textDecoration', // 字体装饰线
   'textAlign', // 文本对齐方式
   'verticalAlign', // 文本垂直对齐
+  'cornerRadius', // 矩形圆角半径
 ] as const;
 
 export type AppearanceType = (typeof allCommonAppearanceType)[number];

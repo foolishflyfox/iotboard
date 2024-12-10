@@ -59,6 +59,7 @@
           />
           <TextAlignProperty v-else-if="pt === 'textAlign'" v-model:value="textAlign" />
           <VerticalAlignProperty v-else-if="pt === 'verticalAlign'" v-model:value="verticalAlign" />
+          <NumberProperty v-else-if="pt === 'cornerRadius'" :min="9" label="圆角半径" />
         </template>
       </n-collapse-item>
 

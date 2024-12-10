@@ -29,7 +29,14 @@ function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => voi
 // 添加内置组件的注册器
 addElementRegistrar(customRectGenerate, {
   tag: 'element:rect',
-  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'dashPattern'],
+  appearanceTypes: [
+    ...defaultAppearances,
+    'fill',
+    'stroke',
+    'strokeWidth',
+    'dashPattern',
+    'cornerRadius',
+  ],
 });
 addElementRegistrar(customEllipseGenerate, {
   tag: 'element:ellipse',
@@ -64,7 +71,7 @@ addElementRegistrar(customTextGenerate, {
 });
 addElementRegistrar(customTextBoxGenerate, {
   tag: 'element:textbox',
-  appearanceTypes: [...defaultAppearances],
+  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'cornerRadius'],
 });
 
 /** 元素注册 */
