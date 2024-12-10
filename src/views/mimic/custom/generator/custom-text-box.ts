@@ -4,6 +4,7 @@ import {
   BoxData,
   dataProcessor,
   registerUI,
+  Text,
   type IBoxData,
   type IBoxInputData,
 } from 'leafer-ui';
@@ -20,7 +21,18 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
   }
   interface ICustomTextBoxInputData extends IBoxInputData, CustomData {}
   interface ICustomTextBoxData extends IBoxData, CustomData {}
-  class InnerData extends BoxData implements ICustomTextBoxData {}
+  class InnerData extends BoxData implements ICustomTextBoxData {
+    protected _textFill?: string;
+    protected setTextFill(v: string) {
+      this._textFill = v;
+      // console.log('@@@', this.__leaf.children?.length);
+      console.log('@@@ text fill:', v);
+      if (this.__leaf.children?.length) {
+        const text: Text = this.__leaf.children[0] as Text;
+        text.fill = v;
+      }
+    }
+  }
 
   @registerUI()
   @autoId()
@@ -53,7 +65,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
         ...data,
       };
       const textContent = data.textContent || 'Text';
-      const textFill = data.textFill || '#000000';
+      const textFill = data.textFill || '#00FF00';
       const newData = _.omit(data, ['textContent', 'textFill']);
       newData.children = [
         {
@@ -69,6 +81,10 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       super(newData);
       this.textContent = textContent;
       this.textFill = textFill;
+
+      setTimeout(() => {
+        this.textFill = '#0000FF';
+      }, 1000);
     }
   }
 }
