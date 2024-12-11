@@ -44,7 +44,7 @@ import {
 import { NCollapse, NCollapseItem, NSpace, NInput } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { CfgInput } from '@/components';
-import { ColorProperty } from '../RightPanel/PropertyPanel/components';
+import { ColorProperty } from './PropertyPanel/components';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

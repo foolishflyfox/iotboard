@@ -130,7 +130,7 @@ import type {
   DefaultAppearanceValues,
   UiCustomCfg,
 } from '@mimic/custom/generator';
-import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
+import CustomCfgPanel from '@/views/mimic/RightPanel/CustomCfgPanel.vue';
 import * as path from 'pathe';
 
 const props = defineProps<{

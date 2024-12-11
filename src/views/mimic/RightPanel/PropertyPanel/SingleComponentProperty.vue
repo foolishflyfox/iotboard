@@ -85,7 +85,7 @@ import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generat
 import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
-import CustomCfgPanel from '@mimic/components/CustomCfgPanel.vue';
+import CustomCfgPanel from '@/views/mimic/RightPanel/CustomCfgPanel.vue';
 import ArrowSelector from './ArrowSelector.vue';
 import * as path from 'pathe';
 import DashPatternProperty from './DashPatternProperty.vue';
