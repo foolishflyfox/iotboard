@@ -7,7 +7,7 @@
         </template>
         <n-space vertical :size="2">
           <template v-for="cfg of groupedCfgs[groupName]">
-            <div class="px-5px kv-property flex-y-center" v-if="cfg.variable">
+            <div class="kv-property flex-y-center" v-if="cfg.variable">
               <span
                 :title="generateCfgLabel(cfg)"
                 class="font-semibold ellipsis-text cursor-default property-label"
