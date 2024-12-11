@@ -11,6 +11,7 @@ import {
 import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
 import * as _ from 'lodash-es';
+import type { CustomPropertyCfgs } from './custom-ui';
 
 export interface TextBoxCustomCfg extends BaseCustomCfg {}
 
@@ -81,10 +82,18 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       super(newData);
       this.textContent = textContent;
       this.textFill = textFill;
-
-      setTimeout(() => {
-        this.textFill = '#0000FF';
-      }, 1000);
     }
   }
+  const group = '文本';
+  const customCfgs: CustomPropertyCfgs = [
+    {
+      id: '1',
+      group,
+      name: 'textFill',
+      label: '填充色',
+      type: 'string',
+      variable: true,
+    },
+  ];
+  return customCfgs;
 }

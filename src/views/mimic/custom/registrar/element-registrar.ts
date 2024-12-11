@@ -4,24 +4,32 @@ import {
   type UiCustomCfg,
   customCfgService,
   customLineGenerate,
+  type CustomPropertyCfgs,
 } from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
 import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
 import { customTextGenerate } from '../generator/custom-text';
 import { customTextBoxGenerate } from '../generator/custom-text-box';
 
-export const elementRegistrar: Record<string, () => void> = {};
+const elementRegistrars: Record<string, () => void> = {};
+// const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
 
 // 默认的基础属性
 const defaultAppearances: AppearanceType[] = ['x', 'y', 'width', 'height'];
 
-function addElementRegistrar<T extends BaseCustomCfg>(generator: (cfg: T) => void, customCfg: T) {
+function addElementRegistrar(
+  generator: (cfg: UiCustomCfg) => CustomPropertyCfgs | void,
+  customCfg: UiCustomCfg,
+) {
   const elementTag = customCfg.tag;
-  elementRegistrar[elementTag] = () => {
+  elementRegistrars[elementTag] = () => {
     if (!customCfg.appearanceTypes) {
       customCfg.appearanceTypes = [...defaultAppearances];
     }
-    generator(customCfg);
+    const customPropertyCfgs = generator(customCfg);
+    if (customPropertyCfgs && !customCfg.customPropertyCfgs) {
+      customCfg.customPropertyCfgs = customPropertyCfgs;
+    }
     customCfgService.addUiCustomCfg(elementTag, customCfg);
   };
 }
@@ -76,7 +84,7 @@ addElementRegistrar(customTextBoxGenerate, {
 
 /** 元素注册 */
 export function registerElement(tag: string) {
-  const registerHandler = elementRegistrar[tag];
+  const registerHandler = elementRegistrars[tag];
   if (!registerHandler) {
     throw new Error(`不存在元素 tag 为 ${tag} 的注册处理函数`);
   } else {
