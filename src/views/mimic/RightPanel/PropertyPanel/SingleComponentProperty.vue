@@ -65,6 +65,7 @@
 
       <CustomCfgPanel
         :cfgs="customPropertyCfgs"
+        :getCfgValue
         :default-group-name="path.basename(curElementProxyData?.tag)"
         @update:cfg-value="handleCfgValueUpdate"
       />
@@ -214,8 +215,13 @@ const componentJson = computed(() => {
 const customPropertyCfgs = computed(() => {
   return (componentJson.value.customPropertyCfgs as CustomPropertyCfgs) || [];
 });
+
 function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
   curElementProxyData.value![cfgName] = cfgValue;
+}
+
+function getCfgValue(cfgName: string): any {
+  return curElementProxyData.value?.[cfgName];
 }
 </script>
 

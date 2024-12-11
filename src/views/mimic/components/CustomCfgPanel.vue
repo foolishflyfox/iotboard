@@ -16,7 +16,7 @@
               </span>
               <CfgInput
                 class="flex-1"
-                :value="String(cfg.defaultValue)"
+                :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
             </div>
@@ -41,6 +41,7 @@ const props = defineProps<{
   cfgs: CustomPropertyCfgs;
   /** 是否显示属性名 */
   showCfgName?: boolean;
+  getCfgValue?: (cfgName: string) => any;
   defaultGroupName?: string;
 }>();
 
