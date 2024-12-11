@@ -24,13 +24,20 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
   interface ICustomTextBoxData extends IBoxData, CustomData {}
   class InnerData extends BoxData implements ICustomTextBoxData {
     protected _textFill?: string;
+    protected _textContent?: string;
     protected setTextFill(v: string) {
       this._textFill = v;
       // console.log('@@@', this.__leaf.children?.length);
-      console.log('@@@ text fill:', v);
       if (this.__leaf.children?.length) {
         const text: Text = this.__leaf.children[0] as Text;
         text.fill = v;
+      }
+    }
+    protected setTextContent(v: string) {
+      this._textContent = v;
+      if (this.__leaf.children?.length) {
+        const text: Text = this.__leaf.children[0] as Text;
+        text.text = v;
       }
     }
   }
@@ -92,6 +99,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       name: 'textFill',
       label: '填充色',
       type: 'color',
+      variable: true,
+    },
+    {
+      id: '2',
+      group,
+      name: 'textContent',
+      label: '内容',
+      type: 'string',
       variable: true,
     },
   ];

@@ -14,19 +14,12 @@
                 :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
-              <div class="kv-property flex-y-center" v-else>
-                <span
-                  :title="generateCfgLabel(cfg)"
-                  class="font-semibold ellipsis-text cursor-default property-label"
-                >
-                  {{ generateCfgLabel(cfg) }}, {{ cfg.type }}
-                </span>
-                <CfgInput
-                  class="flex-1"
-                  :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
-                  @update:value="v => cfgValueUpdate(cfg.name, v!)"
-                />
-              </div>
+              <StringProperty
+                v-else
+                :label="generateCfgLabel(cfg)"
+                :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
             </template>
           </template>
         </n-space>
@@ -45,6 +38,7 @@ import { NCollapse, NCollapseItem, NSpace, NInput } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { CfgInput } from '@/components';
 import { ColorProperty } from './PropertyPanel/components';
+import StringProperty from './PropertyPanel/components/StringProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
