@@ -91,7 +91,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       group,
       name: 'textFill',
       label: '填充色',
-      type: 'string',
+      type: 'color',
       variable: true,
     },
   ];

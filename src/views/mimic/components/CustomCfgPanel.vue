@@ -7,19 +7,27 @@
         </template>
         <n-space vertical :size="2">
           <template v-for="cfg of groupedCfgs[groupName]">
-            <div class="kv-property flex-y-center" v-if="cfg.variable">
-              <span
-                :title="generateCfgLabel(cfg)"
-                class="font-semibold ellipsis-text cursor-default property-label"
-              >
-                {{ generateCfgLabel(cfg) }}
-              </span>
-              <CfgInput
-                class="flex-1"
+            <template v-if="cfg.variable">
+              <ColorProperty
+                v-if="cfg.type === 'color'"
+                :label="generateCfgLabel(cfg)"
                 :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
-            </div>
+              <div class="kv-property flex-y-center" v-else>
+                <span
+                  :title="generateCfgLabel(cfg)"
+                  class="font-semibold ellipsis-text cursor-default property-label"
+                >
+                  {{ generateCfgLabel(cfg) }}, {{ cfg.type }}
+                </span>
+                <CfgInput
+                  class="flex-1"
+                  :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
+                  @update:value="v => cfgValueUpdate(cfg.name, v!)"
+                />
+              </div>
+            </template>
           </template>
         </n-space>
       </n-collapse-item>
@@ -36,6 +44,7 @@ import {
 import { NCollapse, NCollapseItem, NSpace, NInput } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { CfgInput } from '@/components';
+import { ColorProperty } from '../RightPanel/PropertyPanel/components';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
