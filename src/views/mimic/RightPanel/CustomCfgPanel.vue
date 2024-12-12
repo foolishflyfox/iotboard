@@ -32,6 +32,12 @@
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <NumberProperty
+                v-else-if="cfg.type === 'number'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
@@ -60,6 +66,7 @@ import StringProperty from './PropertyPanel/components/StringProperty.vue';
 import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue';
 import TextAlignProperty from './PropertyPanel/TextAlignProperty.vue';
 import VerticalAlignProperty from './PropertyPanel/VerticalAlignProperty.vue';
+import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
@@ -70,12 +77,12 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:cfgValue': [cfgName: string, cfgValue: string];
+  'update:cfgValue': [cfgName: string, cfgValue: any];
 }>();
 
 const groupedCfgs = computed(() => groupCustomPropertyCfgs(props.cfgs));
 
-function cfgValueUpdate(cfgName: string, v: string) {
+function cfgValueUpdate(cfgName: string, v: any) {
   emit('update:cfgValue', cfgName, v);
 }
 

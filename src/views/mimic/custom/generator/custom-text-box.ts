@@ -24,12 +24,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     textPadding?: number | number[];
     textAlign?: ITextAlign;
     textVerticalAlign?: IVerticalAlign;
+    textFontSize?: number;
   }
   interface ICustomTextBoxInputData extends IBoxInputData, CustomData {}
   interface ICustomTextBoxData extends IBoxData, CustomData {}
   class InnerData extends BoxData implements ICustomTextBoxData {
-    protected _textFill?: string;
     protected _textContent?: string;
+    protected _textFontSize?: number;
+    protected _textFill?: string;
     protected _textPadding?: number | number[];
     protected _textAlign?: ITextAlign;
     protected _textVerticalAlign?: IVerticalAlign;
@@ -37,13 +39,17 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     private getTextUi() {
       return this.__leaf.children![0] as Text;
     }
+    protected setTextContent(v: string) {
+      this._textContent = v;
+      this.getTextUi().text = v;
+    }
     protected setTextFill(v: string) {
       this._textFill = v;
       this.getTextUi().fill = v;
     }
-    protected setTextContent(v: string) {
-      this._textContent = v;
-      this.getTextUi().text = v;
+    protected setTextFontSize(v: number) {
+      this._textFontSize = v;
+      this.getTextUi().fontSize = v;
     }
     protected setTextPadding(v: number | number[]) {
       this._textPadding = v;
@@ -75,6 +81,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     declare public textContent: string | number;
 
     @boundsType()
+    declare public textFontSize: number;
+
+    @boundsType()
     declare public textFill: string;
 
     @boundsType()
@@ -99,6 +108,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
         ...data,
       };
       const textContent = data.textContent || 'Text';
+      const textFontSize = 22;
       const textFill = data.textFill || '#00FF00';
       const textPadding = data.textPadding || [3, 5];
       const textAlign = 'left';
@@ -109,6 +119,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
         {
           tag: 'Text',
           text: textContent,
+          fontSize: textFontSize,
           fill: textFill,
           textAlign,
           verticalAlign: textVerticalAlign,
@@ -118,6 +129,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
 
       super(newData);
       this.textContent = textContent;
+      this.textFontSize = textFontSize;
       this.textFill = textFill;
       this.textPadding = textPadding;
       this.textAlign = textAlign;
@@ -130,14 +142,6 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     {
       id: id++,
       group,
-      name: 'textFill',
-      label: '填充色',
-      type: 'color',
-      variable: true,
-    },
-    {
-      id: id++,
-      group,
       name: 'textContent',
       label: '内容',
       type: 'string',
@@ -146,9 +150,17 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     {
       id: id++,
       group,
-      name: 'textPadding',
-      label: '内边距',
-      type: 'jsonInput',
+      name: 'textFontSize',
+      label: '字体大小',
+      type: 'number',
+      variable: true,
+    },
+    {
+      id: id++,
+      group,
+      name: 'textFill',
+      label: '填充色',
+      type: 'color',
       variable: true,
     },
     {
@@ -165,6 +177,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       name: 'textVerticalAlign',
       label: '垂直对齐',
       type: 'textVerticalAlign',
+      variable: true,
+    },
+    {
+      id: id++,
+      group,
+      name: 'textPadding',
+      label: '内边距',
+      type: 'jsonInput',
       variable: true,
     },
   ];
