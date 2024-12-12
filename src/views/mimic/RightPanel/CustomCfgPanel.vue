@@ -44,6 +44,12 @@
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <TextDecorationProperty
+                v-else-if="cfg.type === 'textDecoration'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
@@ -74,6 +80,7 @@ import TextAlignProperty from './PropertyPanel/TextAlignProperty.vue';
 import VerticalAlignProperty from './PropertyPanel/VerticalAlignProperty.vue';
 import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
 import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
+import TextDecorationProperty from './PropertyPanel/TextDecorationProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

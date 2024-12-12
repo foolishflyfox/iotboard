@@ -27,7 +27,8 @@ export interface CustomPropertyCfg {
     | 'jsonInput'
     | 'textAlign'
     | 'textVerticalAlign'
-    | 'textFontWeight';
+    | 'textFontWeight'
+    | 'textDecoration';
   defaultValue?: any;
   group?: string;
   setter?: Setter;
