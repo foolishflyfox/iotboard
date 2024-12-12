@@ -38,6 +38,12 @@
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <FontWeightProperty
+                v-else-if="cfg.type === 'textFontWeight'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
@@ -67,6 +73,7 @@ import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue'
 import TextAlignProperty from './PropertyPanel/TextAlignProperty.vue';
 import VerticalAlignProperty from './PropertyPanel/VerticalAlignProperty.vue';
 import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
+import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

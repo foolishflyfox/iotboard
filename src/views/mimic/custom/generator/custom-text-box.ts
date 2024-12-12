@@ -1,7 +1,7 @@
 import {
-  boundsType,
   Box,
   BoxData,
+  boundsType,
   dataProcessor,
   registerUI,
   Text,
@@ -9,6 +9,7 @@ import {
   type IBoxInputData,
   type ITextAlign,
   type IVerticalAlign,
+  type IFontWeight,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
@@ -21,16 +22,18 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
   interface CustomData {
     textContent?: string | number;
     textFill?: string;
-    textPadding?: number | number[];
+    textFontSize?: number;
+    textFontWeight?: IFontWeight;
     textAlign?: ITextAlign;
     textVerticalAlign?: IVerticalAlign;
-    textFontSize?: number;
+    textPadding?: number | number[];
   }
   interface ICustomTextBoxInputData extends IBoxInputData, CustomData {}
   interface ICustomTextBoxData extends IBoxData, CustomData {}
   class InnerData extends BoxData implements ICustomTextBoxData {
     protected _textContent?: string;
     protected _textFontSize?: number;
+    protected _textFontWeight?: IFontWeight;
     protected _textFill?: string;
     protected _textPadding?: number | number[];
     protected _textAlign?: ITextAlign;
@@ -63,6 +66,10 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       this._textVerticalAlign = v;
       this.getTextUi().verticalAlign = v;
     }
+    protected setTextFontWeight(v: IFontWeight) {
+      this._textFontWeight = v;
+      this.getTextUi().fontWeight = v;
+    }
   }
 
   @registerUI()
@@ -82,6 +89,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
 
     @boundsType()
     declare public textFontSize: number;
+
+    @boundsType()
+    declare public textFontWeight: IFontWeight;
 
     @boundsType()
     declare public textFill: string;
@@ -109,6 +119,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       };
       const textContent = data.textContent || 'Text';
       const textFontSize = 22;
+      const textFontWeight = 400;
       const textFill = data.textFill || '#00FF00';
       const textPadding = data.textPadding || [3, 5];
       const textAlign = 'left';
@@ -120,6 +131,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
           tag: 'Text',
           text: textContent,
           fontSize: textFontSize,
+          fontWeight: textFontWeight,
           fill: textFill,
           textAlign,
           verticalAlign: textVerticalAlign,
@@ -130,6 +142,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       super(newData);
       this.textContent = textContent;
       this.textFontSize = textFontSize;
+      this.textFontWeight = textFontWeight;
       this.textFill = textFill;
       this.textPadding = textPadding;
       this.textAlign = textAlign;
@@ -153,6 +166,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       name: 'textFontSize',
       label: '字体大小',
       type: 'number',
+      variable: true,
+    },
+    {
+      id: id++,
+      group,
+      name: 'textFontWeight',
+      label: '字体粗细',
+      type: 'textFontWeight',
       variable: true,
     },
     {
