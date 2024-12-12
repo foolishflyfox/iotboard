@@ -11,7 +11,13 @@
               <ColorProperty
                 v-if="cfg.type === 'color'"
                 :label="generateCfgLabel(cfg)"
-                :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
+              <CheckboxProperty
+                v-else-if="cfg.type === 'checkbox'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
               <JsonInputProperty
@@ -81,6 +87,7 @@ import VerticalAlignProperty from './PropertyPanel/VerticalAlignProperty.vue';
 import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
 import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
 import TextDecorationProperty from './PropertyPanel/TextDecorationProperty.vue';
+import CheckboxProperty from './PropertyPanel/components/CheckboxProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

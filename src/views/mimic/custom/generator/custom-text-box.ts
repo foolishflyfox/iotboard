@@ -26,6 +26,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     textFill?: string;
     textFontSize?: number;
     textFontWeight?: IFontWeight;
+    textItalic?: boolean;
     textAlign?: ITextAlign;
     textVerticalAlign?: IVerticalAlign;
     textPadding?: number | number[];
@@ -38,6 +39,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     protected _textFontSize?: number;
     protected _textFontWeight?: IFontWeight;
     protected _textFill?: string;
+    protected _textItalic?: boolean;
     protected _textAlign?: ITextAlign;
     protected _textVerticalAlign?: IVerticalAlign;
     protected _textDecoration?: ITextDecoration;
@@ -78,6 +80,10 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       this._textDecoration = v;
       this.getTextUi().textDecoration = v;
     }
+    protected setTextItalic(v: boolean) {
+      this._textItalic = v;
+      this.getTextUi().italic = v;
+    }
   }
 
   @registerUI()
@@ -116,6 +122,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     @surfaceType()
     declare public textDecoration: ITextDecoration;
 
+    @boundsType()
+    declare public textItalic: boolean;
+
     constructor(data: ICustomTextBoxInputData) {
       data = {
         textBox: true,
@@ -136,6 +145,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       const textAlign = 'left';
       const textVerticalAlign = 'top';
       const textDecoration = 'none';
+      const textItalic = false;
       // const newData = _.omit(data, ['textContent', 'textFill']);
       const newData = _.cloneDeep(data);
       newData.children = [
@@ -149,6 +159,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
           verticalAlign: textVerticalAlign,
           textDecoration,
           padding: textPadding,
+          italic: textItalic,
         },
       ];
 
@@ -161,6 +172,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       this.textAlign = textAlign;
       this.textVerticalAlign = textVerticalAlign;
       this.textDecoration = textDecoration;
+      this.textItalic = textItalic;
     }
   }
   const group = '文本';
@@ -185,6 +197,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     {
       id: id++,
       group,
+      name: 'textFill',
+      label: '填充色',
+      type: 'color',
+      variable: true,
+    },
+    {
+      id: id++,
+      group,
       name: 'textFontWeight',
       label: '字体粗细',
       type: 'textFontWeight',
@@ -193,9 +213,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     {
       id: id++,
       group,
-      name: 'textFill',
-      label: '填充色',
-      type: 'color',
+      name: 'textItalic',
+      label: '斜体',
+      type: 'checkbox',
       variable: true,
     },
     {

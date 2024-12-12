@@ -23,6 +23,7 @@ export interface CustomPropertyCfg {
   type:
     | 'string'
     | 'number'
+    | 'checkbox'
     | 'color'
     | 'jsonInput'
     | 'textAlign'
