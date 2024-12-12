@@ -79,7 +79,14 @@ addElementRegistrar(customTextGenerate, {
 });
 addElementRegistrar(customTextBoxGenerate, {
   tag: 'element:textbox',
-  appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'cornerRadius'],
+  appearanceTypes: [
+    ...defaultAppearances,
+    'fill',
+    'stroke',
+    'strokeWidth',
+    'cornerRadius',
+    'dashPattern',
+  ],
 });
 
 /** 元素注册 */
