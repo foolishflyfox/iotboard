@@ -8,6 +8,7 @@ import {
   type IBoxData,
   type IBoxInputData,
   type ITextAlign,
+  type IVerticalAlign,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
@@ -21,6 +22,8 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     textContent?: string | number;
     textFill?: string;
     textPadding?: number | number[];
+    textAlign?: ITextAlign;
+    textVerticalAlign?: IVerticalAlign;
   }
   interface ICustomTextBoxInputData extends IBoxInputData, CustomData {}
   interface ICustomTextBoxData extends IBoxData, CustomData {}
@@ -29,6 +32,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     protected _textContent?: string;
     protected _textPadding?: number | number[];
     protected _textAlign?: ITextAlign;
+    protected _textVerticalAlign?: IVerticalAlign;
 
     private getTextUi() {
       return this.__leaf.children![0] as Text;
@@ -48,6 +52,10 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     protected setTextAlign(v: ITextAlign) {
       this._textAlign = v;
       this.getTextUi().textAlign = v;
+    }
+    protected setTextVerticalAlign(v: IVerticalAlign) {
+      this._textVerticalAlign = v;
+      this.getTextUi().verticalAlign = v;
     }
   }
 
@@ -75,6 +83,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     @boundsType()
     declare public textAlign: ITextAlign;
 
+    @boundsType()
+    declare public textVerticalAlign: IVerticalAlign;
+
     constructor(data: ICustomTextBoxInputData) {
       data = {
         textBox: true,
@@ -91,14 +102,16 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       const textFill = data.textFill || '#00FF00';
       const textPadding = data.textPadding || [3, 5];
       const textAlign = 'left';
-      const newData = _.omit(data, ['textContent', 'textFill']);
+      const textVerticalAlign = 'top';
+      // const newData = _.omit(data, ['textContent', 'textFill']);
+      const newData = _.cloneDeep(data);
       newData.children = [
         {
           tag: 'Text',
           text: textContent,
           fill: textFill,
           textAlign,
-          verticalAlign: 'top',
+          verticalAlign: textVerticalAlign,
           padding: textPadding,
         },
       ];
@@ -108,12 +121,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       this.textFill = textFill;
       this.textPadding = textPadding;
       this.textAlign = textAlign;
+      this.textVerticalAlign = textVerticalAlign;
     }
   }
   const group = '文本';
+  let id = 1;
   const customCfgs: CustomPropertyCfgs = [
     {
-      id: '1',
+      id: id++,
       group,
       name: 'textFill',
       label: '填充色',
@@ -121,7 +136,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       variable: true,
     },
     {
-      id: '2',
+      id: id++,
       group,
       name: 'textContent',
       label: '内容',
@@ -129,7 +144,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       variable: true,
     },
     {
-      id: '3',
+      id: id++,
       group,
       name: 'textPadding',
       label: '内边距',
@@ -137,11 +152,19 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       variable: true,
     },
     {
-      id: '4',
+      id: id++,
       group,
       name: 'textAlign',
       label: '水平对齐',
       type: 'textAlign',
+      variable: true,
+    },
+    {
+      id: id++,
+      group,
+      name: 'textVerticalAlign',
+      label: '垂直对齐',
+      type: 'textVerticalAlign',
       variable: true,
     },
   ];

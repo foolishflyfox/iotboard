@@ -26,10 +26,16 @@
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <VerticalAlignProperty
+                v-else-if="cfg.type === 'textVerticalAlign'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
-                :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
+                :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
             </template>
@@ -53,6 +59,7 @@ import { ColorProperty } from './PropertyPanel/components';
 import StringProperty from './PropertyPanel/components/StringProperty.vue';
 import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue';
 import TextAlignProperty from './PropertyPanel/TextAlignProperty.vue';
+import VerticalAlignProperty from './PropertyPanel/VerticalAlignProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

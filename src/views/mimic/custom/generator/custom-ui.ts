@@ -15,15 +15,17 @@ import { type AppearanceType } from '@mimic/types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {
-  id: string;
+  id: string | number;
   name: string;
   label: string;
   /** 配置项是否可变，即是否可以由用户配置或由外部动态改变 */
   variable: boolean;
-  type: 'string' | 'color' | 'jsonInput' | 'textAlign';
+  type: 'string' | 'color' | 'jsonInput' | 'textAlign' | 'textVerticalAlign';
   defaultValue?: any;
   group?: string;
   setter?: Setter;
+  /** 额外的信息 */
+  extra?: any;
 }
 // export type CustomPropertyCfgs = Record<string, CustomPropertyCfg>;
 export type CustomPropertyCfgs = CustomPropertyCfg[];
