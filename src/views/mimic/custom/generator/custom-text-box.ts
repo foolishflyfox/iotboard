@@ -19,26 +19,28 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
   interface CustomData {
     textContent?: string | number;
     textFill?: string;
+    textPadding?: number | number[];
   }
   interface ICustomTextBoxInputData extends IBoxInputData, CustomData {}
   interface ICustomTextBoxData extends IBoxData, CustomData {}
   class InnerData extends BoxData implements ICustomTextBoxData {
     protected _textFill?: string;
     protected _textContent?: string;
+    protected _textPadding?: number | number[];
+    private getTextUi() {
+      return this.__leaf.children![0] as Text;
+    }
     protected setTextFill(v: string) {
       this._textFill = v;
-      // console.log('@@@', this.__leaf.children?.length);
-      if (this.__leaf.children?.length) {
-        const text: Text = this.__leaf.children[0] as Text;
-        text.fill = v;
-      }
+      this.getTextUi().fill = v;
     }
     protected setTextContent(v: string) {
       this._textContent = v;
-      if (this.__leaf.children?.length) {
-        const text: Text = this.__leaf.children[0] as Text;
-        text.text = v;
-      }
+      this.getTextUi().text = v;
+    }
+    protected setTextPadding(v: number | number[]) {
+      this._textPadding = v;
+      this.getTextUi().padding = v;
     }
   }
 
@@ -60,6 +62,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     @boundsType()
     declare public textFill: string;
 
+    @boundsType()
+    declare public textPadding: number | number[];
+
     constructor(data: ICustomTextBoxInputData) {
       data = {
         textBox: true,
@@ -74,6 +79,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       };
       const textContent = data.textContent || 'Text';
       const textFill = data.textFill || '#00FF00';
+      const textPadding = data.textPadding || [3, 5];
       const newData = _.omit(data, ['textContent', 'textFill']);
       newData.children = [
         {
@@ -82,13 +88,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
           fill: textFill,
           textAlign: 'left',
           verticalAlign: 'top',
+          padding: textPadding,
         },
       ];
-      console.log('newData =', newData);
 
       super(newData);
       this.textContent = textContent;
       this.textFill = textFill;
+      this.textPadding = textPadding;
     }
   }
   const group = '文本';
@@ -107,6 +114,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       name: 'textContent',
       label: '内容',
       type: 'string',
+      variable: true,
+    },
+    {
+      id: '3',
+      group,
+      name: 'textPadding',
+      label: '内边距',
+      type: 'jsonInput',
       variable: true,
     },
   ];

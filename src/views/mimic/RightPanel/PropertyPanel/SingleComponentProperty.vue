@@ -221,6 +221,7 @@ function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
 }
 
 function getCfgValue(cfgName: string): any {
+  console.log('@@@', cfgName, curElementProxyData.value);
   return curElementProxyData.value?.[cfgName];
 }
 </script>

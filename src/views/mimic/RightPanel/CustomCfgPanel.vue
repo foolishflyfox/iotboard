@@ -14,6 +14,12 @@
                 :value="String(getCfgValue?.(cfg.name) || cfg.defaultValue)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <JsonInputProperty
+                v-else-if="cfg.type === 'jsonInput'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name) || cfg.defaultValue"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
@@ -39,6 +45,7 @@ import * as _ from 'lodash-es';
 import { CfgInput } from '@/components';
 import { ColorProperty } from './PropertyPanel/components';
 import StringProperty from './PropertyPanel/components/StringProperty.vue';
+import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
