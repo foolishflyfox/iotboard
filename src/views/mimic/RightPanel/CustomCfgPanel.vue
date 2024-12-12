@@ -8,8 +8,22 @@
         <n-space vertical :size="0">
           <template v-for="cfg of groupedCfgs[groupName]">
             <template v-if="cfg.variable">
+              <StringProperty
+                v-if="cfg.type === 'string'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
+              <NumberProperty
+                v-else-if="cfg.type === 'number'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
+                :min="cfg.extra?.min"
+                :max="cfg.extra?.max"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
               <ColorProperty
-                v-if="cfg.type === 'color'"
+                v-else-if="cfg.type === 'color'"
                 :label="generateCfgLabel(cfg)"
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
@@ -34,12 +48,6 @@
               />
               <VerticalAlignProperty
                 v-else-if="cfg.type === 'textVerticalAlign'"
-                :label="generateCfgLabel(cfg)"
-                :value="getCfgValue?.(cfg.name)"
-                @update:value="v => cfgValueUpdate(cfg.name, v!)"
-              />
-              <NumberProperty
-                v-else-if="cfg.type === 'number'"
                 :label="generateCfgLabel(cfg)"
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"

@@ -193,6 +193,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       label: '字体大小',
       type: 'number',
       variable: true,
+      extra: {
+        min: 1,
+      },
     },
     {
       id: id++,
