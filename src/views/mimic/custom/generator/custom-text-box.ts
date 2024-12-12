@@ -7,6 +7,7 @@ import {
   Text,
   type IBoxData,
   type IBoxInputData,
+  type ITextAlign,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
@@ -27,6 +28,8 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     protected _textFill?: string;
     protected _textContent?: string;
     protected _textPadding?: number | number[];
+    protected _textAlign?: ITextAlign;
+
     private getTextUi() {
       return this.__leaf.children![0] as Text;
     }
@@ -41,6 +44,10 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     protected setTextPadding(v: number | number[]) {
       this._textPadding = v;
       this.getTextUi().padding = v;
+    }
+    protected setTextAlign(v: ITextAlign) {
+      this._textAlign = v;
+      this.getTextUi().textAlign = v;
     }
   }
 
@@ -65,6 +72,9 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     @boundsType()
     declare public textPadding: number | number[];
 
+    @boundsType()
+    declare public textAlign: ITextAlign;
+
     constructor(data: ICustomTextBoxInputData) {
       data = {
         textBox: true,
@@ -80,13 +90,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       const textContent = data.textContent || 'Text';
       const textFill = data.textFill || '#00FF00';
       const textPadding = data.textPadding || [3, 5];
+      const textAlign = 'left';
       const newData = _.omit(data, ['textContent', 'textFill']);
       newData.children = [
         {
           tag: 'Text',
           text: textContent,
           fill: textFill,
-          textAlign: 'left',
+          textAlign,
           verticalAlign: 'top',
           padding: textPadding,
         },
@@ -96,6 +107,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       this.textContent = textContent;
       this.textFill = textFill;
       this.textPadding = textPadding;
+      this.textAlign = textAlign;
     }
   }
   const group = '文本';
@@ -122,6 +134,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
       name: 'textPadding',
       label: '内边距',
       type: 'jsonInput',
+      variable: true,
+    },
+    {
+      id: '4',
+      group,
+      name: 'textAlign',
+      label: '水平对齐',
+      type: 'textAlign',
       variable: true,
     },
   ];

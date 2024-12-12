@@ -1,5 +1,5 @@
 <template>
-  <PropertyContainer label="水平对齐">
+  <PropertyContainer :label>
     <n-select
       :options
       :render-label
@@ -21,9 +21,15 @@ import {
 } from '@vicons/fluent';
 import IconLable from './components/IconLable.vue';
 
-defineProps<{
-  value: string;
-}>();
+withDefaults(
+  defineProps<{
+    label?: string;
+    value: string;
+  }>(),
+  {
+    label: '水平对齐',
+  },
+);
 const emit = defineEmits<{
   'update:value': [string];
 }>();

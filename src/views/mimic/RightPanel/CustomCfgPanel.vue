@@ -5,7 +5,7 @@
         <template #header>
           <div class="font-bold">{{ groupName || defaultGroupName || '默认' }}</div>
         </template>
-        <n-space vertical :size="2">
+        <n-space vertical :size="0">
           <template v-for="cfg of groupedCfgs[groupName]">
             <template v-if="cfg.variable">
               <ColorProperty
@@ -17,7 +17,13 @@
               <JsonInputProperty
                 v-else-if="cfg.type === 'jsonInput'"
                 :label="generateCfgLabel(cfg)"
-                :value="getCfgValue?.(cfg.name) || cfg.defaultValue"
+                :value="getCfgValue?.(cfg.name)"
+                @update:value="v => cfgValueUpdate(cfg.name, v!)"
+              />
+              <TextAlignProperty
+                v-else-if="cfg.type === 'textAlign'"
+                :label="generateCfgLabel(cfg)"
+                :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
               <StringProperty
@@ -46,6 +52,7 @@ import { CfgInput } from '@/components';
 import { ColorProperty } from './PropertyPanel/components';
 import StringProperty from './PropertyPanel/components/StringProperty.vue';
 import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue';
+import TextAlignProperty from './PropertyPanel/TextAlignProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
