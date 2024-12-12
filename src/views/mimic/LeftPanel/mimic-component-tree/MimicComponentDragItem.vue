@@ -60,7 +60,6 @@ function openComponent() {
 
 async function deleteComponent() {
   const componentPath = `${props.folderPath}/${props.fileName}.json`;
-  // console.log(`待删除组件 ${componentPath}`);
   await mimicFileApi.deleteComponent(componentPath);
   emit('delete');
 }

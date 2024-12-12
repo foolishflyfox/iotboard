@@ -200,7 +200,6 @@ const verticalAlign = computed({
 const componentJson = computed(() => {
   if (mimicDisplayStatus.curUi instanceof UI) {
     let json: any = {};
-    // console.log('@@@@', mimicDisplayStatus.curUi.tag);
     if (mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]) {
       json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
     } else if (mimicDisplayStatus.curUi.tag?.startsWith('element:')) {
@@ -221,7 +220,6 @@ function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
 }
 
 function getCfgValue(cfgName: string): any {
-  console.log('@@@', cfgName, curElementProxyData.value);
   return curElementProxyData.value?.[cfgName];
 }
 </script>

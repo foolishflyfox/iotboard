@@ -224,7 +224,6 @@ function clickRemoveCfg(cfg: CustomPropertyCfg) {
   showDeleteCfgModal.value = true;
 }
 function deleteCfg() {
-  console.log('删除配置: id =', toDeleteCfg.value?.id);
   _.pull(innerCfgs.value, toDeleteCfg.value);
   toDeleteCfg.value = undefined;
   emit('update:cfgs', innerCfgs.value!);
