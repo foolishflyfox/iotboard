@@ -10,6 +10,7 @@ import {
   type ITextAlign,
   type IVerticalAlign,
   type IFontWeight,
+  surfaceType,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
 import type { BaseCustomCfg } from '@mimic/types';
@@ -93,7 +94,7 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     @boundsType()
     declare public textFontWeight: IFontWeight;
 
-    @boundsType()
+    @surfaceType()
     declare public textFill: string;
 
     @boundsType()
