@@ -5,6 +5,13 @@ import { autoId } from '@mimic/decorates';
 export interface LineCustomCfg extends BaseCustomCfg {}
 
 export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
+  interface CustomData {
+    /** 线条在虚线模式下的，0 表示无流动
+     * 正数和负数表示不同的流动方向
+     * 值表示流动速度，绝对值越大，流动速度越快 */
+    flowSpeed?: number;
+  }
+
   class InnerData extends LineData {}
 
   @registerUI()
