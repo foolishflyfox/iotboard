@@ -13,7 +13,7 @@ import type { CustomPropertyCfgs } from './custom-ui';
 
 export interface LineCustomCfg extends BaseCustomCfg {}
 
-const FLOW_SPEED_MAX = 10;
+const FLOW_SPEED_MAX = 5;
 
 export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
   interface CustomData {
@@ -34,6 +34,7 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
 
     private renderFlow() {
       if (this._flowSpeed) {
+        const t = this.currentTick;
         this.currentTick += this._flowSpeed < 0 ? -1 : 1;
         if (this.currentTick < -1 * FLOW_SPEED_MAX) {
           this.innerDashOffset += 1;
@@ -45,19 +46,22 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
           this.__leaf.dashOffset = this.innerDashOffset;
         }
         this.__leaf.nextRender(this.renderFlow, this);
+        // window.setTimeout(this.renderFlow, 1000);
       }
     }
 
     protected setFlowSpeed(v: number) {
-      this._flowSpeed = v;
-      // this.__leaf.nextRender
       this.__leaf.removeNextRender(this.renderFlow);
-      if (v) {
-        this.currentTick = this._flowSpeed;
-        this.__leaf.nextRender(this.renderFlow, this);
-      } else {
-        this.currentTick = 0;
-      }
+      this._flowSpeed = 0;
+      setTimeout(() => {
+        this._flowSpeed = v;
+        if (v) {
+          this.currentTick = this._flowSpeed;
+          this.__leaf.nextRender(this.renderFlow, this);
+        } else {
+          this.currentTick = 0;
+        }
+      }, 500);
     }
   }
 
@@ -84,6 +88,7 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
           type: 'solid',
           color: '#000000',
         },
+        strokeJoin: 'round',
         startArrow: 'circle',
         endArrow: 'arrow',
         cornerRadius: 0,
@@ -104,8 +109,9 @@ export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
       type: 'number',
       variable: true,
       extra: {
-        min: -10,
-        max: 10,
+        min: -1 * FLOW_SPEED_MAX,
+        max: FLOW_SPEED_MAX,
+        step: 1,
       },
     },
   ];

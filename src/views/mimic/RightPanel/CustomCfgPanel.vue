@@ -20,6 +20,7 @@
                 :value="getCfgValue?.(cfg.name)"
                 :min="cfg.extra?.min"
                 :max="cfg.extra?.max"
+                :step="cfg.extra?.step"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
               <ColorProperty
