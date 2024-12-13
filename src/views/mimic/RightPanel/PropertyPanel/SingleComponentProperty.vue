@@ -59,7 +59,11 @@
           />
           <TextAlignProperty v-else-if="pt === 'textAlign'" v-model:value="textAlign" />
           <VerticalAlignProperty v-else-if="pt === 'verticalAlign'" v-model:value="verticalAlign" />
-          <NumberProperty v-else-if="pt === 'cornerRadius'" :min="9" label="圆角半径" />
+          <StrokeJoinSelector
+            v-else-if="pt === 'strokeJoin'"
+            label="拐角样式"
+            v-model:value="strokeJoin"
+          />
         </template>
       </n-collapse-item>
 
@@ -95,6 +99,7 @@ import TextDecorationProperty from './TextDecorationProperty.vue';
 import TextAlignProperty from './TextAlignProperty.vue';
 import VerticalAlignProperty from './VerticalAlignProperty.vue';
 import StringProperty from './components/StringProperty.vue';
+import StrokeJoinSelector from './StrokeJoinSelector.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const curElementProxyData = useCurElementProxyData();
@@ -195,6 +200,10 @@ const textAlign = computed({
 const verticalAlign = computed({
   get: () => curElementProxyData.value!.verticalAlign as any,
   set: (v: any) => (curElementProxyData.value!.verticalAlign = v),
+});
+const strokeJoin = computed({
+  get: () => curElementProxyData.value!.strokeJoin as any,
+  set: (v: any) => (curElementProxyData.value!.strokeJoin = v),
 });
 
 const componentJson = computed(() => {

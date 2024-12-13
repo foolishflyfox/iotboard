@@ -87,6 +87,7 @@ export const allCommonAppearanceType = [
   'startArrow', // 折线起始的箭头
   'endArrow', // 折线结尾的箭头类型
   'cornerRadius', // 折线转折点半径
+  'strokeJoin', // 折线拐点样式
   'dashPattern', // 虚线样式
   'text', // 文本内容
   'fontSize', // 字体大小

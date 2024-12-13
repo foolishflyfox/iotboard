@@ -59,6 +59,7 @@ addElementRegistrar(customLineGenerate, {
     'endArrow',
     'cornerRadius',
     'dashPattern',
+    'strokeJoin',
   ],
 });
 addElementRegistrar(customTextGenerate, {
