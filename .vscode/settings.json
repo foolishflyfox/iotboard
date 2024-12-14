@@ -7,5 +7,6 @@
   "files.associations": {
     "*.css": "css"
   },
+  "sort-json.settings.ignoreFiles": ["package.json"],
   "vue.autoInsert.dotValue": true
 }
