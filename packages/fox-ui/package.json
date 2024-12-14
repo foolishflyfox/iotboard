@@ -1,0 +1,10 @@
+{
+  "author": "",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.ts",
+  "name": "@fff/fox-ui",
+  "scripts": {},
+  "version": "1.0.0"
+}
