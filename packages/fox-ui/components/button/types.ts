@@ -1,6 +1,7 @@
 import type { IUIInputData } from '@leafer-ui/interface';
+import type { FoxButton } from '.';
 
-export interface ButtonProps {
+export interface FoxButtonProps {
   text?: string
   size?: 'large' | 'default' | 'small' | ''
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | ''
@@ -17,3 +18,5 @@ export interface ButtonProps {
   children?: IUIInputData[];
   onClick?: (...args: any) => any
 }
+
+export type FoxButtonInstance = InstanceType<typeof FoxButton>;

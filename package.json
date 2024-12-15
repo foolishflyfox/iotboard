@@ -14,6 +14,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
     "@leafer-in/animate": "^1.1.0",
     "@leafer-in/arrow": "^1.1.0",
     "@leafer-in/flow": "^1.1.0",
