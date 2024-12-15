@@ -137,7 +137,7 @@ export class CustomGauge extends UI {
 
     // 外环数值进度
     const valComp = Number(this.value);
-    const val = isNaN(valComp) ? 0 : valComp;
+    const val = Number.isNaN(valComp) ? 0 : valComp;
     const unit = this.unit;
     const max = Number(this.max);
     const min = Number(this.min);

@@ -97,7 +97,7 @@ const cfg: any = {
 
     // 外环数值进度
     const valComp = Number((this as any).value);
-    const val = isNaN(valComp) ? 0 : valComp;
+    const val = Number.isNaN(valComp) ? 0 : valComp;
     const unit = (this as any).unit;
     const max = Number((this as any).max);
     const min = Number((this as any).min);
