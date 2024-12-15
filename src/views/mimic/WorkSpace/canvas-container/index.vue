@@ -173,7 +173,9 @@ onMounted(() => {
     type: 'primary'
   }, {
     x: 20,
-    y: 20
+    y: 20,
+    editable: true,
+    draggable: true
   });
   setTimeout(() => app?.tree.add(button), 1500);
 
