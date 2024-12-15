@@ -8,11 +8,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@mimic/*": ["./src/views/mimic/*"]
+      "@mimic/*": ["./src/views/mimic/*"],
+      "@foxui/*": ["packages/fox-ui/*"]
     },
     // "module": "ESNext",
     "noImplicitAny": false
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "packages/**/*"],
   "exclude": ["src/**/__tests__/*"]
 }

@@ -8,9 +8,9 @@
 import { RouterView } from 'vue-router';
 import NaiveProvider from '@/views/containers/NaiveProvider.vue';
 import '@mimic/utils/proxyData';
-import { foxTest } from '@fff/fox-ui';
+import { barBottom } from '@foxui/components';
 
-foxTest();
+barBottom();
 
 function bodyKeydownHandler(e: KeyboardEvent) {
   // 解决颜色面板的输入框中按方向键导致选中的组件被移动的问题

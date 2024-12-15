@@ -12,7 +12,7 @@ export default antfu(
       // 引号风格 'single' | 'double'
       quotes: 'single',
       // 是否启用分号
-      semi: false,
+      semi: true,
     },
     // 忽略文件
     ignores: [],
@@ -30,7 +30,7 @@ export default antfu(
       'node/prefer-global/process': 'off',
       // style
       'style/comma-dangle': 'off',
-      'style/semi': 'off',
+      'style/semi': ['error'],
       'style/member-delimiter-style': 'off',
       'style/eol-last': 'off',
       'style/brace-style': ['error', '1tbs'],

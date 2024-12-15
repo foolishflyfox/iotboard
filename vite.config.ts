@@ -44,6 +44,7 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@mimic': fileURLToPath(new URL('./src/views/mimic', import.meta.url)),
+      '@foxui': fileURLToPath(new URL('./packages/fox-ui', import.meta.url)),
     },
   },
   esbuild: {
