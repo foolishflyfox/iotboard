@@ -1,28 +1,49 @@
-import pluginVue from 'eslint-plugin-vue';
-import vueTsEslintConfig from '@vue/eslint-config-typescript';
-import pluginVitest from '@vitest/eslint-plugin';
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import antfu from '@antfu/eslint-config';
 
-export default [
+// 更多自定义配置可查阅仓库：https://github.com/antfu/eslint-config
+export default antfu(
   {
-    name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
-    // rules: {
-    //   'vue/multi-word-component-names': 'off',
-    // },
+    // 使用外部格式化程序格式化 css、html、markdown 等文件
+    formatters: true,
+    // 启用样式规则
+    stylistic: {
+      // 缩进级别
+      indent: 2,
+      // 引号风格 'single' | 'double'
+      quotes: 'single',
+      // 是否启用分号
+      semi: false,
+    },
+    // 忽略文件
+    ignores: [],
   },
-
   {
-    name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    // 对所有文件都生效的规则
+    rules: {
+      // vue
+      'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
+      'vue/attributes-order': 'off',
+      // ts
+      'ts/no-use-before-define': 'off',
+      'ts/consistent-type-imports': 'off',
+      // node
+      'node/prefer-global/process': 'off',
+      // style
+      'style/comma-dangle': 'off',
+      'style/semi': 'off',
+      'style/member-delimiter-style': 'off',
+      'style/eol-last': 'off',
+      'style/brace-style': ['error', '1tbs'],
+      'perfectionist/sort-named-imports': 'off',
+      'perfectionist/sort-imports': 'off',
+      // regexp
+      'regexp/no-unused-capturing-group': 'off',
+      // other
+      'no-console': ['warn'],
+      'no-debugger': 'off',
+      'symbol-description': 'off',
+      'antfu/if-newline': 'off',
+      'new-cap': 'off',
+    },
   },
-
-  ...pluginVue.configs['flat/essential'],
-  ...vueTsEslintConfig(),
-
-  {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
-  },
-  skipFormatting,
-];
+);
