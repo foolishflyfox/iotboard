@@ -13,15 +13,16 @@
     <div>填充</div>
     <div>颜色</div>
     <HeadVerticalDivider />
-    <n-space size="small">
+    <NSpace size="small">
       <HeadIconContainer
         v-for="o of drawingToolOptions"
+        :key="o.tooltip"
         :vicons="o.icon"
         :is-active="drawingTool === o.type"
         :tooltip="o.tooltip"
         @click="() => selectDrawingTool(o.type)"
       />
-    </n-space>
+    </NSpace>
     <HeadVerticalDivider />
     <div>线样式</div>
     <div>线宽</div>
@@ -34,7 +35,6 @@ import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { Cursor1 } from '@vicons/carbon';
 import { ArrowBounce16Filled } from '@vicons/fluent';
-import { Pencil } from '@vicons/tabler';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
 import type { Component } from 'vue';

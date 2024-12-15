@@ -1,12 +1,20 @@
 <template>
   <PropertyContainer label="字体粗细">
-    <n-select :options="options" :value @update:value="v => emit('update:value', v)" />
+    <NSelect :options="options" :value @update:value="v => emit('update:value', v)" />
   </PropertyContainer>
 </template>
 
 <script setup lang="ts">
 import { NSelect } from 'naive-ui';
 import { PropertyContainer } from './components/containers';
+
+defineProps<{
+  value: number;
+}>();
+
+const emit = defineEmits<{
+  'update:value': [number];
+}>();
 
 const options = [
   { label: 'thin', value: 100 },
@@ -19,14 +27,6 @@ const options = [
   { label: 'extra-bold', value: 800 },
   { label: 'black', value: 900 },
 ];
-
-defineProps<{
-  value: number;
-}>();
-
-const emit = defineEmits<{
-  'update:value': [number];
-}>();
 </script>
 
 <style scoped></style>

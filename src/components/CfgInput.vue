@@ -1,6 +1,6 @@
 <!-- 输入回车或按下 tab 后才会向父组件发送值修改的事件 -->
 <template>
-  <n-input size="tiny" v-model:value="innerValue" @keydown.stop="cfgInputKeydown" />
+  <NInput size="tiny" v-model:value="innerValue" @keydown.stop="cfgInputKeydown" />
 </template>
 
 <script setup lang="ts">

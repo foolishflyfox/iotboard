@@ -7,9 +7,9 @@
     ref="mimicObjectViewerRef"
   >
     <div>
-      <n-space>
-        <template v-for="item of currentTargets">
-          <mimic-component-drag-item
+      <NSpace>
+        <template v-for="item of currentTargets" :key="item.name">
+          <MimicComponentDragItem
             v-if="item"
             :folder-path="currentTargetDirPath!"
             :file-name="item.name"
@@ -17,7 +17,7 @@
             @delete="updateCurrentTargets"
           />
         </template>
-      </n-space>
+      </NSpace>
     </div>
   </MimicObjectViewer>
   <QueryDialog
@@ -28,7 +28,7 @@
   >
     <div class="flex-y-center">
       <span class="mr-10px">组件名:</span>
-      <n-input
+      <NInput
         ref="newComponentNameInputRef"
         size="small"
         class="flex-1"
@@ -110,7 +110,7 @@ async function clickNewCodeComponent() {
 }
 async function confirmNewCodeComponent() {
   if (!newComponentName.value) return;
-  const componentPath = path.join(currentTargetDirPath.value!, newComponentName.value + '.json');
+  const componentPath = path.join(currentTargetDirPath.value!, `${newComponentName.value}.json`);
   const newComponentJson = _.cloneDeep(defaultComponentJson);
   newComponentJson.tag = componentPathToTag(componentPath);
   await mimicFileApi.createComponent(componentPath, newComponentJson);

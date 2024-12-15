@@ -1,11 +1,11 @@
 <template>
   <MimicItem
-    editorType="asset"
-    :imgSrc
+    editor-type="asset"
+    :img-src
     :draggable
-    :fileName
+    :file-name
     @delete="deleteAsset"
-    @dragStart="assetStartDragHandler"
+    @drag-start="assetStartDragHandler"
   />
 </template>
 

@@ -1,6 +1,6 @@
 <!-- 输入回车或按下 tab 后才会向父组件发送值修改的事件 -->
 <template>
-  <n-input-number
+  <NInputNumber
     size="tiny"
     v-model:value="innerValue"
     @keydown.stop="cfgInputKeydown"
@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { keyboardKeys } from '@/constant';
 import { NInputNumber } from 'naive-ui';
 
 const props = defineProps<{

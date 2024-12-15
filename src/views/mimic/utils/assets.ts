@@ -1,7 +1,6 @@
 import type { TreeOption } from 'naive-ui';
 import type { FileTreeNode } from '@mimic/types';
 import * as _ from 'lodash-es';
-import * as path from 'pathe';
 
 const elementPreviewPrefix = '/preview/element';
 /** 获取元素缩略图路径 */

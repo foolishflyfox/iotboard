@@ -4,7 +4,6 @@ import {
   Line,
   PropertyEvent,
   Rect,
-  UI,
   type App,
   type IPointData,
   type IUI,
@@ -13,7 +12,6 @@ import { displayBaseMapId } from '@mimic/constant';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
-import { getUniqueId } from '@/utils';
 import '@leafer-in/arrow';
 import { getElementClassByTag } from '../custom/registrar';
 
@@ -57,6 +55,7 @@ export class DisplayEditor {
       this.app.tree.add(line);
     }
   }
+
   /** 修改最后一个点的坐标 */
   moveLineEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
@@ -67,6 +66,7 @@ export class DisplayEditor {
       this.drawingToolStatus.line.ui.points = newPoints;
     }
   }
+
   /** 添加一个中转点 */
   addLineEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
@@ -76,6 +76,7 @@ export class DisplayEditor {
       this.drawingToolStatus.line.ui.points = newPoints;
     }
   }
+
   /** 结束折线绘制 */
   endDrawLine(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
@@ -173,6 +174,7 @@ export class DisplayEditor {
     }
     return displayData;
   }
+
   /** 根据元素 id 查询 UI 对象 */
   findUiById(id?: null | string | string[]) {
     if (_.isNil(id)) return null;

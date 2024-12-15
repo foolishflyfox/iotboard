@@ -1,5 +1,5 @@
 <template>
-  <hr class="border-gray-300" />
+  <hr class="border-gray-300">
   <div class="h-full flex-col">
     <div>
       <VCodeBlock
@@ -12,7 +12,7 @@
         :copy-button="false"
       />
     </div>
-    <v-ace-editor
+    <VAceEditor
       v-model:value="innerValue"
       lang="javascript"
       theme="tomorrow"
@@ -51,7 +51,7 @@ const emit = defineEmits<{
   'update:value': [newValue: string];
 }>();
 const innerValue = ref(props.value);
-watch(innerValue, nv => {
+watch(innerValue, (nv) => {
   emit('update:value', nv);
 });
 

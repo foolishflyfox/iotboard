@@ -1,4 +1,3 @@
-import type { AxiosInstance } from 'axios';
 import { CustomAxiosInstance } from '../request';
 import type { DisplayData, EditorType, FileItem, FileTreeNode } from '@/views/mimic/types';
 import * as path from 'pathe';

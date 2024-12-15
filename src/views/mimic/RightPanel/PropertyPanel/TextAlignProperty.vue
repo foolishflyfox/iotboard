@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label>
-    <n-select
+    <NSelect
       :options
       :render-label
       size="tiny"

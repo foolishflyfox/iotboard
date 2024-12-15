@@ -2,7 +2,7 @@
   <div class="h-full flex-col" :style="{ width: `${panelAnimateWidth}px` }">
     <!-- <mimic-left-panel-head /> -->
     <div class="flex-1 flex">
-      <n-tabs
+      <NTabs
         placement="left"
         default-value="display"
         size="medium"
@@ -19,63 +19,63 @@
       >
         <template #prefix>
           <div class="h-30px">
-            <n-button :focusable="false" circle @click="isExpandPane = !isExpandPane">
+            <NButton :focusable="false" circle @click="isExpandPane = !isExpandPane">
               <template #icon>
-                <n-icon size="24">
+                <NIcon size="24">
                   <ChevronsLeft v-if="isExpandPane" />
                   <ChevronsRight v-else />
-                </n-icon>
+                </NIcon>
               </template>
-            </n-button>
+            </NButton>
           </div>
         </template>
-        <n-tab-pane name="display" display-directive="show">
+        <NTabPane name="display" display-directive="show">
           <template #tab>
             <div>
-              <n-icon size="26" :component="AppGeneric24Filled" />
+              <NIcon size="26" :component="AppGeneric24Filled" />
               <div>图纸</div>
             </div>
           </template>
           <MimicDisplayTree />
-        </n-tab-pane>
-        <n-tab-pane name="module" display-directive="show">
+        </NTabPane>
+        <NTabPane name="module" display-directive="show">
           <template #tab>
             <div>
-              <n-icon size="26" :component="GroupObjects" />
+              <NIcon size="26" :component="GroupObjects" />
               <div>模块</div>
             </div>
           </template>
           <MimicModuleTree />
-        </n-tab-pane>
-        <n-tab-pane name="component" display-directive="show">
+        </NTabPane>
+        <NTabPane name="component" display-directive="show">
           <template #tab>
             <div>
-              <n-icon size="26" :component="Components" />
+              <NIcon size="26" :component="Components" />
               <div>组件</div>
             </div>
           </template>
           <!-- <MimicComponent /> -->
           <MimicComponentTree />
-        </n-tab-pane>
-        <n-tab-pane name="element" display-directive="show">
+        </NTabPane>
+        <NTabPane name="element" display-directive="show">
           <template #tab>
             <div>
-              <n-icon size="26" :component="Atom" />
+              <NIcon size="26" :component="Atom" />
               <div>元素</div>
             </div>
           </template>
           <ElementContent />
-        </n-tab-pane>
-        <n-tab-pane name="resource" display-directive="show">
+        </NTabPane>
+        <NTabPane name="resource" display-directive="show">
           <template #tab>
             <div>
-              <n-icon size="26" :component="ImagesOutline" />
+              <NIcon size="26" :component="ImagesOutline" />
               <div>资源</div>
             </div>
           </template>
           <MimicAssetTree />
-        </n-tab-pane>
-      </n-tabs>
+        </NTabPane>
+      </NTabs>
     </div>
   </div>
 </template>
@@ -100,9 +100,9 @@ defineOptions({
 });
 
 const isExpandPane = ref(true);
-const calcPanelWidth = () => {
+function calcPanelWidth() {
   return isExpandPane.value ? leftPanel.expandWidth : leftPanel.shrinkWidth;
-};
+}
 const panelWidth = ref(calcPanelWidth());
 watchEffect(() => (panelWidth.value = calcPanelWidth()));
 // 为面板收缩/展开添加动画

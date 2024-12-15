@@ -1,7 +1,7 @@
 <template>
   <!-- todo: 分析 65px 魔法数的原因 -->
   <div class="flex flex-col" style="height: calc(100vh - 65px)">
-    <n-input
+    <NInput
       type="text"
       round
       :placeholder="`搜索${editorTypeName[editorType]}`"
@@ -9,10 +9,10 @@
       @keydown.stop
     >
       <template #suffix>
-        <n-icon :component="Search" />
+        <NIcon :component="Search" />
       </template>
-    </n-input>
-    <n-split
+    </NInput>
+    <NSplit
       class="flex-1"
       direction="vertical"
       :resize-trigger-size="2"
@@ -30,27 +30,29 @@
             }
           "
         >
-          <n-tree
+          <NTree
             v-if="isShowTree"
             block-line
             :data="data"
             v-model:expanded-keys="expandedKeys"
             v-model:selected-keys="selectedKeys"
-            :renderPrefix
+            :render-prefix
             :node-props="treeNodeProps"
           />
         </div>
       </template>
       <template #2>
         <div>
-          <div class="bg-[#ccc] my-5px p-2px font-bold">文件夹: {{ selectedFolder }}</div>
+          <div class="bg-[#ccc] my-5px p-2px font-bold">
+            文件夹: {{ selectedFolder }}
+          </div>
           <slot />
         </div>
       </template>
-    </n-split>
-    <context-menu
+    </NSplit>
+    <ContextMenu
       ref="contextMenuRef"
-      :editorType
+      :editor-type
       @new-folder="
         v => {
           newFolderName = '';
@@ -84,14 +86,18 @@
       :positive-btn-disabled="_.isEmpty(newFolderName)"
       @positive-click="confirmCreateFolder(targetFolderPath, newFolderName)"
     >
-      <n-space vertical>
+      <NSpace vertical>
         <div class="flex-y-center">
-          <div class="w-110px text-right pr-15px">父文件夹路径:</div>
+          <div class="w-110px text-right pr-15px">
+            父文件夹路径:
+          </div>
           <span class="px-3px">{{ targetFolderPath }}</span>
         </div>
         <div class="flex-y-center">
-          <div class="w-110px text-right pr-15px">新建文件夹名:</div>
-          <n-input
+          <div class="w-110px text-right pr-15px">
+            新建文件夹名:
+          </div>
+          <NInput
             v-model:value="newFolderName"
             placeholder="请输入文件夹名"
             ref="folderNameInputRef"
@@ -100,23 +106,27 @@
             @keydown.enter="confirmCreateFolder(targetFolderPath, newFolderName)"
           />
         </div>
-      </n-space>
+      </NSpace>
     </QueryDialog>
     <!-- 重命名文件夹对话框 -->
     <QueryDialog
       title="重命名"
-      v-model:showModal="showRenameFolderModal"
+      v-model:show-modal="showRenameFolderModal"
       :positive-btn-disabled="_.isEmpty(newFolderName)"
       @positive-click="confirmRenameFolder(targetFolderPath, newFolderName)"
     >
-      <n-space vertical>
+      <NSpace vertical>
         <div class="flex-y-center">
-          <div class="w-100px text-right pr-15px">文件夹路径:</div>
+          <div class="w-100px text-right pr-15px">
+            文件夹路径:
+          </div>
           <span class="px-3px">{{ targetFolderPath }}</span>
         </div>
         <div class="flex-y-center">
-          <div class="w-100px text-right pr-15px">新文件夹名:</div>
-          <n-input
+          <div class="w-100px text-right pr-15px">
+            新文件夹名:
+          </div>
+          <NInput
             class="flex-1"
             v-model:value="newFolderName"
             placeholder="请输入新文件夹名"
@@ -125,13 +135,13 @@
             @keydown.enter="confirmRenameFolder(targetFolderPath, newFolderName)"
           />
         </div>
-      </n-space>
+      </NSpace>
     </QueryDialog>
     <!-- 删除文件夹对话框 -->
     <QueryDialog
       title="删除"
       type="warning"
-      v-model:showModal="showDeleteFolderModal"
+      v-model:show-modal="showDeleteFolderModal"
       @positive-click="deleteFolder(targetFolderPath)"
     >
       <div>删除文件夹【 {{ targetFolderPath }} 】?</div>
@@ -158,6 +168,15 @@ defineOptions({
 
 const props = defineProps<{
   editorType: EditorType;
+}>();
+
+const emit = defineEmits<{
+  newDisplay: [folderPath: string];
+  newModule: [folderPath: string];
+  newCodeComponent: [folderPath: string];
+  newGraphComponent: [folderPath: string];
+  changeSelectedFolder: [folderPath: string | null];
+  uploadImage: [folderPath: string];
 }>();
 
 /** 后端返回的树 */
@@ -201,17 +220,8 @@ async function deleteFolder(targetDirPath) {
   }
 }
 
-const emit = defineEmits<{
-  newDisplay: [folderPath: string];
-  newModule: [folderPath: string];
-  newCodeComponent: [folderPath: string];
-  newGraphComponent: [folderPath: string];
-  changeSelectedFolder: [folderPath: string | null];
-  uploadImage: [folderPath: string];
-}>();
-
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
-const treeNodeProps = ({ option }: { option: TreeOption }) => {
+function treeNodeProps({ option }: { option: TreeOption }) {
   return {
     onClick() {
       console.log(`点击 ${props.editorType} 文件夹`);
@@ -223,12 +233,13 @@ const treeNodeProps = ({ option }: { option: TreeOption }) => {
       contextMenuRef.value?.onFileTreeContextMenuClick(e, option, fileTreeNodes.value);
     },
   };
-};
+}
 
 // isShowTree 变量主要为了删除 tree 组件，并重新渲染，否则存在 data 被更新了，但是 ui 没变化的bug
 const isShowTree = ref(true);
 const data = computed(() => {
   const r = fileTreeNodes.value.map(e => convertToTreeOption(e)!);
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   isShowTree.value = false;
   nextTick(() => {
     isShowTree.value = true;
@@ -243,7 +254,7 @@ const selectedFolder = computed(() => {
   else return selectedKeys.value[0];
 });
 
-watch(selectedFolder, nv => {
+watch(selectedFolder, (nv) => {
   emit('changeSelectedFolder', nv);
 });
 

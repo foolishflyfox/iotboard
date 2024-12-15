@@ -5,20 +5,20 @@
     :tooltip
     border-radius="15%"
   >
-    <n-button text :focusable="false">
+    <NButton text :focusable="false">
       <template v-if="_.isNil(isActive)">
         <!-- 触发型图标 -->
-        <n-icon :component="vicons" :size="sideLength" />
+        <NIcon :component="vicons" :size="sideLength" />
       </template>
       <template v-else>
         <!-- 保持型图标 -->
-        <n-icon
+        <NIcon
           :component="vicons"
           :size="sideLength"
           :color="isActive ? headIconSetting.activeColor : undefined"
         />
       </template>
-    </n-button>
+    </NButton>
   </HoverContainer>
 </template>
 

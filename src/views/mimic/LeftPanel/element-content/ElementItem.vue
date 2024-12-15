@@ -12,7 +12,7 @@
         "
         :draggable
         @dragstart="startDragElement"
-      />
+      >
     </div>
     <div class="text-12px text-[#555] font-medium text-center cursor-default">
       {{ label }}

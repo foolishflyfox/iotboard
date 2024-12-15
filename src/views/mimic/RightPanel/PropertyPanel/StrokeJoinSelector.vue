@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label>
-    <n-select
+    <NSelect
       size="small"
       :options
       :render-label
@@ -21,8 +21,14 @@ const props = defineProps<{
   value: IStrokeJoin;
 }>();
 
-type StrokeJoinOption = { label: string; value: IStrokeJoin };
-const options: StrokeJoinOption[] = [
+const emit = defineEmits<{
+  'update:value': [IStrokeJoin];
+}>();
+interface StrokeJoinOption {
+  label: string;
+  value: IStrokeJoin
+}
+const options = [
   { value: 'miter', label: '直角' },
   { value: 'bevel', label: '平角' },
   { value: 'round', label: '圆角' },
@@ -31,10 +37,6 @@ const options: StrokeJoinOption[] = [
 function renderLabel(option: StrokeJoinOption) {
   return h(StrokeJoinSelectItem, { type: option.value, label: option.label });
 }
-
-const emit = defineEmits<{
-  'update:value': [IStrokeJoin];
-}>();
 </script>
 
 <style scoped></style>

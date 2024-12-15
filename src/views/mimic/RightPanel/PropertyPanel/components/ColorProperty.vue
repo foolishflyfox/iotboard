@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label="label">
-    <n-color-picker
+    <NColorPicker
       style="width: 100%"
       :value
       size="small"

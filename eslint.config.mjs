@@ -45,6 +45,7 @@ export default antfu(
       'symbol-description': 'off',
       'antfu/if-newline': 'off',
       'new-cap': 'off',
+      'unused-imports/no-unused-vars': 'off'
     },
   },
 );

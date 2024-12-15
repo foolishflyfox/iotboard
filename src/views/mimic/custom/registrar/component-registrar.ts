@@ -2,7 +2,7 @@ import { mimicFileApi } from '@/service/api';
 import { deleteUiClassByTag, getUiClassByTag, jsonToCustomUiClass } from '@mimic/utils';
 import * as _ from 'lodash-es';
 import { customUiGenerate, customCfgService, type UiCustomCfg } from '@mimic/custom/generator';
-import { type UI } from 'leafer-ui';
+import type { UI } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
 
 export async function registerUiClass(tag: string) {

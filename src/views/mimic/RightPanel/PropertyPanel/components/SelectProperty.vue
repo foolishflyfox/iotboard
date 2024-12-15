@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label="label">
-    <n-select
+    <NSelect
       :options
       :value="value"
       @update:value="v => emit('update:value', v)"

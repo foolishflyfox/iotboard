@@ -1,5 +1,5 @@
 <template>
-  <n-modal
+  <NModal
     display-directive="if"
     :show="showModal"
     preset="dialog"
@@ -13,74 +13,76 @@
       <div>编辑组件</div>
     </template>
     <template #close>
-      <n-space size="small">
-        <n-icon
+      <NSpace size="small">
+        <NIcon
           size="20"
           class="cursor-pointer"
           :component="isFullView ? Contract : Expand"
           @click="isFullView = !isFullView"
         />
-        <n-icon size="20" class="cursor-pointer" @click="close">
+        <NIcon size="20" class="cursor-pointer" @click="close">
           <Close />
-        </n-icon>
-      </n-space>
+        </NIcon>
+      </NSpace>
     </template>
     <!-- <div>默认显示: todo - 测试自定义 bound 等的作用，并写说明文档</div> -->
     <div class="h-full flex">
       <div class="bg-gray-200 w-60%">
-        <n-tabs default-value="property" class="px-10px h-full">
-          <n-tab-pane name="property" class="h-full">
-            <template #tab> 属性 </template>
+        <NTabs default-value="property" class="px-10px h-full">
+          <NTabPane name="property" class="h-full">
+            <template #tab>
+              属性
+            </template>
             <PropertyConfig
-              :customPropertyCfgs
-              :defaultAppearanceValues
+              :custom-property-cfgs
+              :default-appearance-values
               @update:cfgs="v => (newCustomPropertyCfgs = v)"
               @update:appearance-values="v => (newDefaultAppearanceValues = v)"
             />
-          </n-tab-pane>
-          <n-tab-pane name="draw" class="h-full" display-directive="show">
+          </NTabPane>
+          <NTabPane name="draw" class="h-full" display-directive="show">
             <template #tab>
               绘图
-              <n-icon class="ml-2px cursor-help">
+              <NIcon class="ml-2px cursor-help">
                 <!-- todo 点击后跳转帮助 -->
                 <QuestionCircle16Filled />
-              </n-icon>
+              </NIcon>
             </template>
             <DrawCodeEditor
               :value="drawCode"
               :prefix-code="drawPrefixCode"
               @update:value="updateDrawCode"
             />
-          </n-tab-pane>
-          <n-tab-pane name="drawHitPath" class="h-full" display-directive="show">
+          </NTabPane>
+          <NTabPane name="drawHitPath" class="h-full" display-directive="show">
             <template #tab>
               轮廓
-              <n-icon class="ml-2px cursor-help">
+              <NIcon class="ml-2px cursor-help">
                 <!-- todo 点击后跳转帮助 -->
                 <QuestionCircle16Filled />
-              </n-icon>
+              </NIcon>
             </template>
             <DrawCodeEditor
               :value="drawHitPathCode"
               :prefix-code="drawHitPathPrefixCode"
               @update:value="updateDrawHitPathCode"
             />
-          </n-tab-pane>
-          <n-tab-pane name="hit" class="h-full" display-directive="show">
+          </NTabPane>
+          <NTabPane name="hit" class="h-full" display-directive="show">
             <template #tab>
               碰撞检测
-              <n-icon class="ml-2px cursor-help">
+              <NIcon class="ml-2px cursor-help">
                 <!-- todo 点击后跳转帮助 -->
                 <QuestionCircle16Filled />
-              </n-icon>
+              </NIcon>
             </template>
             <DrawCodeEditor
               :value="hitCode"
               :prefix-code="hitPrefixCode"
               @update:value="updateHitCode"
             />
-          </n-tab-pane>
-        </n-tabs>
+          </NTabPane>
+        </NTabs>
       </div>
       <div class="flex-1 flex-col">
         <div class="bg-gray-100 h-60%">
@@ -95,15 +97,19 @@
       </div>
     </div>
     <template #action>
-      <n-space>
-        <n-button type="primary" size="small" @click="refresh">刷新</n-button>
-        <n-button type="primary" size="small" :disabled="isConfirmBtnDisabled" @click="save">
+      <NSpace>
+        <NButton type="primary" size="small" @click="refresh">
+          刷新
+        </NButton>
+        <NButton type="primary" size="small" :disabled="isConfirmBtnDisabled" @click="save">
           确定
-        </n-button>
-        <n-button type="primary" size="small" @click="close">取消</n-button>
-      </n-space>
+        </NButton>
+        <NButton type="primary" size="small" @click="close">
+          取消
+        </NButton>
+      </NSpace>
     </template>
-  </n-modal>
+  </NModal>
 </template>
 
 <script setup lang="ts">
@@ -120,7 +126,7 @@ import {
   eventBus,
   getUiClassByTag,
 } from '@mimic/utils';
-import { App, Rect, ResizeEvent, UI, type IUI } from 'leafer-ui';
+import { App, ResizeEvent, type IUI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
@@ -128,7 +134,6 @@ import PropertyConfig from './PropertyConfig.vue';
 import type {
   CustomPropertyCfgs,
   DefaultAppearanceValues,
-  UiCustomCfg,
 } from '@mimic/custom/generator';
 import CustomCfgPanel from '@/views/mimic/RightPanel/CustomCfgPanel.vue';
 import * as path from 'pathe';
@@ -137,9 +142,12 @@ const props = defineProps<{
   showModal?: boolean;
 }>();
 
+const emit = defineEmits<{
+  'update:showModal': [v: boolean];
+}>();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-let app: App | undefined = undefined;
-let componentUi: IUI | undefined = undefined;
+let app: App | undefined;
+let componentUi: IUI | undefined;
 
 const componentTag = computed(() => {
   if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
@@ -195,11 +203,11 @@ function updateDrawCode(newCode: string) {
 
 const isConfirmBtnDisabled = computed(() => {
   return (
-    _.isEmpty(newDrawCode.value) &&
-    _.isEmpty(newDrawHitPathCode.value) &&
-    _.isEmpty(newHitCode.value) &&
-    !newCustomPropertyCfgs.value &&
-    !newDefaultAppearanceValues.value
+    _.isEmpty(newDrawCode.value)
+    && _.isEmpty(newDrawHitPathCode.value)
+    && _.isEmpty(newHitCode.value)
+    && !newCustomPropertyCfgs.value
+    && !newDefaultAppearanceValues.value
   );
 });
 
@@ -247,10 +255,6 @@ const normalViewStyle = {
 const isFullView = ref(false);
 const modalStyle = computed(() => (isFullView.value ? fullViewStyle : normalViewStyle));
 
-const emit = defineEmits<{
-  'update:showModal': [v: boolean];
-}>();
-
 function close() {
   emit('update:showModal', false);
 }
@@ -258,13 +262,13 @@ function close() {
 function generateNewComponentJson() {
   const newComponentJson = _.cloneDeep(componentJson.value);
   if (!_.isEmpty(newDrawCode.value)) {
-    newComponentJson.draw = 'function(canvas) {\n' + newDrawCode.value + '\n}';
+    newComponentJson.draw = `function(canvas) {\n${newDrawCode.value}\n}`;
   }
   if (!_.isEmpty(newDrawHitPathCode.value)) {
-    newComponentJson.drawHitPath = 'function(hitCanvas) {\n' + newDrawHitPathCode.value + '\n}';
+    newComponentJson.drawHitPath = `function(hitCanvas) {\n${newDrawHitPathCode.value}\n}`;
   }
   if (!_.isEmpty(newHitCode.value)) {
-    newComponentJson.hit = 'function(inner) {\n' + newHitCode.value + '\n}';
+    newComponentJson.hit = `function(inner) {\n${newHitCode.value}\n}`;
   }
   if (newCustomPropertyCfgs.value) {
     newComponentJson.customPropertyCfgs = newCustomPropertyCfgs.value;

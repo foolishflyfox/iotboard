@@ -2,14 +2,14 @@
   <PropertyContainer :label="label" :route-name="helpRouteName" @keydown.stop="() => {}">
     <!-- <n-input :value="value" /> -->
 
-    <n-button type="primary" ghost size="tiny" @click="showEditModal">
+    <NButton type="primary" ghost size="tiny" @click="showEditModal">
       编辑
       <template #icon>
-        <n-icon><DocumentEdit16Regular /></n-icon>
+        <NIcon><DocumentEdit16Regular /></NIcon>
       </template>
-    </n-button>
+    </NButton>
   </PropertyContainer>
-  <n-modal
+  <NModal
     v-model:show="isShowEditModal"
     preset="dialog"
     class="w-620px!"
@@ -19,20 +19,20 @@
     negative-text="取消"
     @positive-click="handlePositiveClick"
   >
-    <v-ace-editor
+    <VAceEditor
       v-model:value="innerValue"
       lang="json"
       theme="tomorrow"
       class="h-550px w-full"
       :options="{ useWorker: true }"
     />
-  </n-modal>
+  </NModal>
 </template>
 
 <script setup lang="ts">
 import PropertyContainer from './containers/PropertyContainer.vue';
 import { VAceEditor } from 'vue3-ace-editor';
-import { NButton, NIcon, NModal, NCard } from 'naive-ui';
+import { NButton, NIcon, NModal } from 'naive-ui';
 import '@mimic/utils/ace-config';
 import { DocumentEdit16Regular } from '@vicons/fluent';
 import 'ace-builds/src-noconflict/theme-tomorrow';
@@ -44,6 +44,9 @@ const props = defineProps<{
   helpRouteName?: string;
 }>();
 
+const emit = defineEmits<{
+  'update:value': [v: string];
+}>();
 const isShowEditModal = ref(false);
 const innerValue = ref<string>('');
 
@@ -51,10 +54,6 @@ function showEditModal() {
   isShowEditModal.value = true;
   innerValue.value = props.value || '';
 }
-
-const emit = defineEmits<{
-  'update:value': [v: string];
-}>();
 
 function handlePositiveClick() {
   if (!isJSON(innerValue.value)) {

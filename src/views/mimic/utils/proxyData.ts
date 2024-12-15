@@ -35,7 +35,7 @@ UI.prototype.createProxyData = function () {
   for (const name in data) {
     watch(
       () => proxyData[name], // source
-      newValue => {
+      (newValue) => {
         if (this.__.__get(name) !== newValue) (this as any)[name] = newValue;
       }, // callback
     );

@@ -1,11 +1,10 @@
 import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
-import { customUiGenerate, type UiCustomCfg } from '@mimic/custom/generator/custom-ui';
 
 const cfg: any = {
   tag: 'testGauge',
   customPropertyCfgs: {
     value: {
-      setter: function (v: string) {
+      setter(v: string) {
         (this as any)._value = v;
       },
       defaultValue: 66,
@@ -23,7 +22,7 @@ const cfg: any = {
     width: 80,
     height: 80,
   },
-  updateBoxBounds: function () {
+  updateBoxBounds() {
     const box = (this as any).__layout.boxBounds;
     const { width, height } = (this as any).__;
     box.x = 0;
@@ -31,7 +30,7 @@ const cfg: any = {
     box.width = width!;
     box.height = height!;
   },
-  drawHitPath: function (hitCanvas: ILeaferCanvas) {
+  drawHitPath(hitCanvas: ILeaferCanvas) {
     const { context } = hitCanvas;
     const { width, height } = (this as any).__layout.boxBounds;
     context.save();
@@ -40,7 +39,7 @@ const cfg: any = {
     context.arc(200, 200, 200 * 0.95, 0, Math.PI * 2);
     context.restore();
   },
-  hit: function (inner: IRadiusPointData) {
+  hit(inner: IRadiusPointData) {
     const { context } = (this as any).__hitCanvas!;
     if (context.isPointInPath(inner.x, inner.y)) return true;
 
@@ -53,7 +52,7 @@ const cfg: any = {
 
     return context.isPointInStroke(inner.x, inner.y);
   },
-  draw: function (canvas: ILeaferCanvas) {
+  draw(canvas: ILeaferCanvas) {
     const ctx = canvas!.context;
     // const ctx = this.__hitCanvas?.context!;
     const obj = (this as any).__;

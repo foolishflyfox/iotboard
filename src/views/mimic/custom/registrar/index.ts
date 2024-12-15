@@ -1,2 +1,2 @@
-export * from './element-registrar';
 export * from './component-registrar';
+export * from './element-registrar';

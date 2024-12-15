@@ -7,7 +7,7 @@ import {
   type CustomPropertyCfgs,
 } from '@mimic/custom/generator';
 import { getUiClassByTag } from '@mimic/utils';
-import type { AppearanceType, BaseCustomCfg } from '@mimic/types';
+import type { AppearanceType } from '@mimic/types';
 import { customTextGenerate } from '../generator/custom-text';
 import { customTextBoxGenerate } from '../generator/custom-text-box';
 

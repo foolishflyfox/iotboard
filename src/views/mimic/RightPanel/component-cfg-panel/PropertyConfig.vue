@@ -1,15 +1,15 @@
 <template>
   <div class="flex-col h-full">
     <div v-if="false">
-      <n-divider>通用属性</n-divider>
+      <NDivider>通用属性</NDivider>
       <div>通用属性(多选框)，默认 x/y/width/height</div>
     </div>
     <div class="flex-1 flex-col">
-      <n-divider>外观属性</n-divider>
-      <n-space size="small" vertical>
+      <NDivider>外观属性</NDivider>
+      <NSpace size="small" vertical>
         <div class="flex-y-center">
           <span class="mr-10px">宽度:</span>
-          <n-input-number
+          <NInputNumber
             size="small"
             :value="innerAppearanceValues.width"
             @update:value="v => updateAppearanceValue('width', v)"
@@ -17,31 +17,35 @@
         </div>
         <div class="flex-y-center">
           <span class="mr-10px">高度:</span>
-          <n-input-number
+          <NInputNumber
             size="small"
             :value="innerAppearanceValues.height"
             @update:value="v => updateAppearanceValue('height', v)"
           />
         </div>
-      </n-space>
-      <n-divider>自定义属性</n-divider>
+      </NSpace>
+      <NDivider>自定义属性</NDivider>
       <!-- <div>自定义属性配置，是否导出/类型</div> -->
       <div class="mx-10px my-5px">
-        <n-space>
-          <icon-button :icon="Add12Filled" size="tiny" @click="() => clickAddCfg()" />
-        </n-space>
+        <NSpace>
+          <IconButton :icon="Add12Filled" size="tiny" @click="() => clickAddCfg()" />
+        </NSpace>
       </div>
       <div class="flex-1">
-        <n-table :single-line="false" size="small">
+        <NTable :single-line="false" size="small">
           <thead>
             <tr>
               <th>属性</th>
               <th>名称</th>
-              <th class="w-3em">可配置</th>
+              <th class="w-3em">
+                可配置
+              </th>
               <th>类型</th>
               <th>默认值</th>
               <th>组</th>
-              <th class="w-110px text-center!">操作</th>
+              <th class="w-110px text-center!">
+                操作
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -49,7 +53,7 @@
               <td>{{ cfg.name }}</td>
               <td>{{ cfg.label }}</td>
               <td>
-                <n-checkbox
+                <NCheckbox
                   class="ml-1em"
                   :checked="cfg.variable"
                   @update:checked="
@@ -64,14 +68,14 @@
               <td>{{ cfg.defaultValue }}</td>
               <td>{{ cfg.group }}</td>
               <td>
-                <n-space justify="center" :size="[1, 0]">
-                  <icon-button
+                <NSpace justify="center" :size="[1, 0]">
+                  <IconButton
                     type="error"
                     text
                     :icon="Delete24Filled"
                     @click="() => clickRemoveCfg(cfg)"
                   />
-                  <icon-button
+                  <IconButton
                     type="primary"
                     text
                     :icon="NotepadEdit20Filled"
@@ -79,15 +83,15 @@
                   />
                   <!-- </n-space>
                 <n-space size="small" justify="center"> -->
-                  <icon-button text :icon="ArrowUpload16Filled" size="tiny" />
-                  <icon-button text :icon="ArrowUp16Filled" size="tiny" />
-                  <icon-button text :icon="ArrowDown16Filled" size="tiny" />
-                  <icon-button text :icon="ArrowDownload16Filled" size="tiny" />
-                </n-space>
+                  <IconButton text :icon="ArrowUpload16Filled" size="tiny" />
+                  <IconButton text :icon="ArrowUp16Filled" size="tiny" />
+                  <IconButton text :icon="ArrowDown16Filled" size="tiny" />
+                  <IconButton text :icon="ArrowDownload16Filled" size="tiny" />
+                </NSpace>
               </td>
             </tr>
           </tbody>
-        </n-table>
+        </NTable>
       </div>
     </div>
   </div>
@@ -107,10 +111,10 @@
     @update:show-modal="v => (cfgModalType = v ? cfgModalType : undefined)"
     @positive-click="confirmCfgEdit"
   >
-    <n-space vertical class="my-20px">
+    <NSpace vertical class="my-20px">
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">属性:</span>
-        <n-input
+        <NInput
           class="flex-1"
           size="small"
           :value="toEditCfg?.name"
@@ -119,7 +123,7 @@
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">名称:</span>
-        <n-input
+        <NInput
           class="flex-1"
           size="small"
           :value="toEditCfg?.label"
@@ -129,7 +133,7 @@
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">可配置:</span>
         <div class="flex-1">
-          <n-checkbox
+          <NCheckbox
             :checked="toEditCfg?.variable"
             @update:checked="v => (toEditCfg!.variable = v)"
           />
@@ -138,7 +142,7 @@
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">类型:</span>
         <!-- <n-input class="flex-1" size="small" /> -->
-        <n-select
+        <NSelect
           class="flex-1"
           size="small"
           :options="cfgTypeOptions"
@@ -148,7 +152,7 @@
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">默认值:</span>
-        <n-input
+        <NInput
           class="flex-1"
           size="small"
           :value="String(toEditCfg?.defaultValue)"
@@ -157,14 +161,14 @@
       </div>
       <div class="cfg-edit-item flex justify-center">
         <span class="w-60px">组:</span>
-        <n-input
+        <NInput
           class="flex-1"
           size="small"
           :value="toEditCfg?.group"
           @update:value="v => (toEditCfg!.group = v)"
         />
       </div>
-    </n-space>
+    </NSpace>
   </QueryDialog>
 </template>
 
@@ -204,13 +208,12 @@ const props = defineProps<{
   defaultAppearanceValues: DefaultAppearanceValues;
 }>();
 
-const innerCfgs = ref(_.cloneDeep(props.customPropertyCfgs));
-const innerAppearanceValues = ref(_.cloneDeep(props.defaultAppearanceValues));
-
 const emit = defineEmits<{
   'update:cfgs': [CustomPropertyCfgs];
   'update:appearanceValues': [DefaultAppearanceValues];
 }>();
+const innerCfgs = ref(_.cloneDeep(props.customPropertyCfgs));
+const innerAppearanceValues = ref(_.cloneDeep(props.defaultAppearanceValues));
 
 function updateAppearanceValue(key: AppearanceType, value: any) {
   innerAppearanceValues.value[key] = value;
@@ -231,7 +234,7 @@ function deleteCfg() {
 
 const cfgModalType = ref<'add' | 'edit'>();
 const cfgModalTitle = ref('');
-watch(cfgModalType, nv => {
+watch(cfgModalType, (nv) => {
   let newTitle = '';
   if (nv === 'add') newTitle = '新增';
   if (nv === 'edit') newTitle = '编辑';

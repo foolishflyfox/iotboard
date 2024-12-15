@@ -1,10 +1,12 @@
 <template>
   <div>
     <!-- <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div> -->
-    <n-collapse :default-expanded-names="['base', 'custom']">
-      <n-collapse-item name="base">
+    <NCollapse :default-expanded-names="['base', 'custom']">
+      <NCollapseItem name="base">
         <template #header>
-          <div class="font-bold">基础</div>
+          <div class="font-bold">
+            基础
+          </div>
         </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
           <NumberProperty v-if="pt === 'x'" v-model:value="x" label="X坐标" />
@@ -65,15 +67,15 @@
             v-model:value="strokeJoin"
           />
         </template>
-      </n-collapse-item>
+      </NCollapseItem>
 
       <CustomCfgPanel
         :cfgs="customPropertyCfgs"
-        :getCfgValue
+        :get-cfg-value
         :default-group-name="path.basename(curElementProxyData?.tag)"
         @update:cfg-value="handleCfgValueUpdate"
       />
-    </n-collapse>
+    </NCollapse>
   </div>
 </template>
 
@@ -106,7 +108,7 @@ const curElementProxyData = useCurElementProxyData();
 
 const curAppearancePropertyTypes = computed(() => {
   let result: AppearanceType[] = [];
-  const uiCustomCfg = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag!);
+  const uiCustomCfg = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag);
   if (uiCustomCfg?.appearanceTypes) {
     result = uiCustomCfg.appearanceTypes;
   }
@@ -213,7 +215,7 @@ const componentJson = computed(() => {
       json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
     } else if (mimicDisplayStatus.curUi.tag?.startsWith('element:')) {
       console.log('显示 textbox 自定义属性');
-      json = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag!) || {};
+      json = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag) || {};
     }
     return json;
   } else {

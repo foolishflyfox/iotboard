@@ -29,18 +29,18 @@ export function createAxiosInstance(axiosConfig: AxiosRequestConfig) {
   const instance = axios.create(axiosConfig);
   // 设置请求拦截器
   instance.interceptors.request.use(
-    async function (config) {
+    async (config) => {
       // 修改请求信息，如为请求头添加 token 字段
       return config;
     },
-    function (error: AxiosError) {
+    (error: AxiosError) => {
       // 对请求错误的处理
       return Promise.reject(error);
     },
   );
   // 设置响应拦截器
   instance.interceptors.response.use(
-    async function (response) {
+    async (response) => {
       const { status } = response;
       let errorMsg = '';
       if (isSuccessCode(status)) {
@@ -55,7 +55,7 @@ export function createAxiosInstance(axiosConfig: AxiosRequestConfig) {
       window.$message?.error(errorMsg);
       return Promise.reject(new Error(errorMsg));
     },
-    function (error: AxiosError) {
+    (error: AxiosError) => {
       window.$message?.error(`请求 ${error.config?.baseURL} 失败: ${error.message}`);
       return Promise.reject(error);
     },

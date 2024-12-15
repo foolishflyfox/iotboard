@@ -1,5 +1,5 @@
 <template>
-  <n-dropdown
+  <NDropdown
     placement="bottom-start"
     trigger="manual"
     :options
@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { NDropdown, type TreeOption } from 'naive-ui';
-import * as _ from 'lodash-es';
 import { useContextShowHide } from '@mimic/hooks';
 import type { EditorType, FileTreeNode } from '@mimic/types';
 import { findFileTreeNodeByPath } from './utils';
@@ -23,6 +22,16 @@ const props = defineProps<{
   editorType: EditorType;
 }>();
 
+const emit = defineEmits<{
+  newFolder: [folderPath: string];
+  newDisplay: [folderPath: string];
+  newModule: [folderPath: string];
+  newCodeComponent: [folderPath: string];
+  newGraphComponent: [folderPath: string];
+  uploadImage: [folderPath: string];
+  renameFolder: [folderPath: string];
+  deleteFolder: [folderPath: string];
+}>();
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const targetDirDeleteDisabled = ref(false);
 const targetDirPath = ref('');
@@ -43,17 +52,6 @@ function onFileTreeContextMenuClick(
   }
   showMenu(event);
 }
-
-const emit = defineEmits<{
-  newFolder: [folderPath: string];
-  newDisplay: [folderPath: string];
-  newModule: [folderPath: string];
-  newCodeComponent: [folderPath: string];
-  newGraphComponent: [folderPath: string];
-  uploadImage: [folderPath: string];
-  renameFolder: [folderPath: string];
-  deleteFolder: [folderPath: string];
-}>();
 
 function newFolder() {
   emit('newFolder', targetDirPath.value);

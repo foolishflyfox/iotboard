@@ -8,7 +8,7 @@
       v-model:value="sizeType"
     />
     <PropertyContainer>
-      <n-input-number
+      <NInputNumber
         placeholder="宽"
         size="small"
         class="mr-8px"
@@ -17,15 +17,15 @@
         @update:value="changeWidth"
       >
         <template #suffix>
-          <div><span class="text-12px">px</span><n-divider vertical />W</div>
+          <div><span class="text-12px">px</span><NDivider vertical />W</div>
         </template>
-      </n-input-number>
-      <n-button size="small" class="bg-gray-100" @click="swapWidthHeight">
+      </NInputNumber>
+      <NButton size="small" class="bg-gray-100" @click="swapWidthHeight">
         <template #icon>
-          <n-icon><ArrowSwap24Filled /></n-icon>
+          <NIcon><ArrowSwap24Filled /></NIcon>
         </template>
-      </n-button>
-      <n-input-number
+      </NButton>
+      <NInputNumber
         placeholder="高"
         size="small"
         class="ml-8px"
@@ -34,11 +34,11 @@
         @update:value="changeHeight"
       >
         <template #suffix>
-          <div><span class="text-12px">px</span><n-divider vertical />H</div>
+          <div><span class="text-12px">px</span><NDivider vertical />H</div>
         </template>
-      </n-input-number>
+      </NInputNumber>
     </PropertyContainer>
-    <n-divider />
+    <NDivider />
   </div>
 </template>
 
@@ -50,7 +50,6 @@ import { PropertyContainer } from '../containers';
 import { ArrowSwap24Filled } from '@vicons/fluent';
 import { titleSizeMap } from './misc';
 import { useCurElementProxyData } from '@mimic/hooks';
-import * as _ from 'lodash-es';
 import { updateElementData } from '@mimic/utils';
 
 defineOptions({

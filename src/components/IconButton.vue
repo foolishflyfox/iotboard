@@ -1,11 +1,11 @@
 <template>
-  <n-button :type :size :text>
+  <NButton :type :size :text>
     <template #icon>
-      <n-icon>
+      <NIcon>
         <component :is="icon" />
-      </n-icon>
+      </NIcon>
     </template>
-  </n-button>
+  </NButton>
 </template>
 
 <script setup lang="ts">

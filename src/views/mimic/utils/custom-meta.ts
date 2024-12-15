@@ -23,6 +23,7 @@ export class CustomMeta {
     }
     return this._component!;
   }
+
   get appearanceTypes() {
     return (this.component as any).appearanceTypes as AppearanceType[];
   }

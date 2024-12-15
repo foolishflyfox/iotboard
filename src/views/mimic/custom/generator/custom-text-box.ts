@@ -48,38 +48,47 @@ export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
     private getTextUi() {
       return this.__leaf.children![0] as Text;
     }
+
     protected setTextContent(v: string) {
       this._textContent = v;
       this.getTextUi().text = v;
     }
+
     protected setTextFill(v: string) {
       this._textFill = v;
       this.getTextUi().fill = v;
     }
+
     protected setTextFontSize(v: number) {
       this._textFontSize = v;
       this.getTextUi().fontSize = v;
     }
+
     protected setTextPadding(v: number | number[]) {
       this._textPadding = v;
       this.getTextUi().padding = v;
     }
+
     protected setTextAlign(v: ITextAlign) {
       this._textAlign = v;
       this.getTextUi().textAlign = v;
     }
+
     protected setTextVerticalAlign(v: IVerticalAlign) {
       this._textVerticalAlign = v;
       this.getTextUi().verticalAlign = v;
     }
+
     protected setTextFontWeight(v: IFontWeight) {
       this._textFontWeight = v;
       this.getTextUi().fontWeight = v;
     }
+
     protected setTextDecoration(v: ITextDecoration) {
       this._textDecoration = v;
       this.getTextUi().textDecoration = v;
     }
+
     protected setTextItalic(v: boolean) {
       this._textItalic = v;
       this.getTextUi().italic = v;

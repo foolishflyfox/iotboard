@@ -1,4 +1,3 @@
-import * as _ from 'lodash-es';
 /** 元素属性元信息 */
 export type PropertyUiType = 'colorPicker' | 'input' | 'input-number' | 'checkbox';
 
@@ -23,7 +22,8 @@ export interface CustomAppearancePropertyUi {
   // convertAccurancyType?: ConvertAccurancyType;
 }
 
-/** 数据生成方式:
+/**
+ * 数据生成方式:
  * static - 固定静态
  * random - 随机数
  * script - 指定脚本方式产生(弹出脚本编辑器，添加帮助文档,可搜索,添加智能提示功能)

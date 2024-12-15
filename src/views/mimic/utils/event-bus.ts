@@ -17,7 +17,7 @@ export const eventBus = {
     }
   },
   unregisterComponentUpdateHandler(componentUpdateHandler: ComponentUpdateHandler) {
-    if (!!componentUpdateHandler) {
+    if (componentUpdateHandler) {
       _.pull(eventBusStore.componentUpdateHandlers, componentUpdateHandler);
     }
   },

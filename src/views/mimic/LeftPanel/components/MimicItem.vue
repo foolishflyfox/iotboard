@@ -17,14 +17,14 @@
       :style="{ cursor: draggable ? 'grab' : 'default' }"
       @dragstart="e => emit('dragStart', e)"
       :draggable
-    />
+    >
     <div
       :title="fileName"
       class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text select-none"
     >
       {{ fileName }}
     </div>
-    <n-dropdown
+    <NDropdown
       placement="bottom-start"
       size="small"
       trigger="manual"
@@ -52,7 +52,6 @@ import { useContextShowHide } from '@mimic/hooks';
 import type { EditorType } from '@mimic/types';
 import { QueryDialog } from '@/components';
 import { onClickOutside } from '@vueuse/core';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 const props = withDefaults(
   defineProps<{

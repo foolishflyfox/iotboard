@@ -4,7 +4,8 @@ export function getDataUrl() {
   return '/data';
 }
 
-/** 获取文件名，不包含后缀
+/**
+ * 获取文件名，不包含后缀
  * 例如 a/bb/c.txt，返回 c
  */
 export function fileNameWithoutExt(filePath: string) {

@@ -2,9 +2,9 @@
   <div class="kv-property">
     <div v-if="!isEmpty(label)" class="property-label flex-y-center">
       <span class="cursor-default">{{ label }}</span>
-      <n-icon v-if="!_.isEmpty(routeName)" class="cursor-pointer" size="16" color="#1785ff">
+      <NIcon v-if="!_.isEmpty(routeName)" class="cursor-pointer" size="16" color="#1785ff">
         <QuestionCircle16Filled @click="jumpTo" />
-      </n-icon>
+      </NIcon>
     </div>
     <div class="flex-1 flex">
       <slot />

@@ -1,5 +1,5 @@
 <template>
-  <MimicItem editorType="display" :imgSrc :fileName @delete="deleteDisplay" @open="openDisplay" />
+  <MimicItem editor-type="display" :img-src :file-name @delete="deleteDisplay" @open="openDisplay" />
 </template>
 
 <script setup lang="ts">
@@ -15,6 +15,10 @@ const props = defineProps<{
   hasPreview?: boolean;
 }>();
 
+const emit = defineEmits<{
+  afterDelete: [];
+}>();
+
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const imgSrc = computed(() => {
@@ -22,10 +26,6 @@ const imgSrc = computed(() => {
     ? `${getDataUrl()}/display/${props.folderPath}/${props.fileName}.png`
     : 'preview/miss.png';
 });
-
-const emit = defineEmits<{
-  afterDelete: [];
-}>();
 
 async function deleteDisplay() {
   const displayPath = `${props.folderPath}/${props.fileName}.json`;

@@ -15,10 +15,6 @@
 <script setup lang="ts">
 import { defineComponent } from 'vue';
 
-defineComponent({
-  name: 'MingcuteRulerLine',
-});
-
 withDefaults(
   defineProps<{
     width?: string;
@@ -29,4 +25,8 @@ withDefaults(
     height: '12px',
   },
 );
+
+defineComponent({
+  name: 'MingcuteRulerLine',
+});
 </script>

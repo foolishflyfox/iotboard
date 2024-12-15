@@ -1,9 +1,11 @@
 <template>
   <div class="flex-y-center">
-    <n-icon size="22">
+    <NIcon size="22">
       <component :is="icon" />
-    </n-icon>
-    <div class="ml-0.6em">{{ label }}</div>
+    </NIcon>
+    <div class="ml-0.6em">
+      {{ label }}
+    </div>
   </div>
 </template>
 

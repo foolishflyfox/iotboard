@@ -1,4 +1,3 @@
-import type { App } from 'leafer-ui';
 import type { CustomMeta } from '@mimic/utils';
 import { DisplayEditor } from './display-editor';
 import { ComponentEditor } from './component-editor';

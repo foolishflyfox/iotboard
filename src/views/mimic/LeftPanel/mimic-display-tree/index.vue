@@ -7,15 +7,16 @@
   >
     <!-- <div>【{{ currentTargetDirPath }}】图纸显示(不包含文件夹)</div> -->
     <div>
-      <n-space>
-        <mimic-display-item
+      <NSpace>
+        <MimicDisplayItem
           v-for="item of currentTargets"
+          :key="item.name"
           :folder-path="currentTargetDirPath!"
           :file-name="item.name"
           :has-preview="item.hasPreview"
           @after-delete="updateCurrentTargets"
         />
-      </n-space>
+      </NSpace>
     </div>
   </MimicObjectViewer>
   <QueryDialog
@@ -24,14 +25,18 @@
     :positive-btn-disabled="_.isEmpty(newDisplayName)"
     @positive-click="confirmCreateDisplay"
   >
-    <n-space vertical>
+    <NSpace vertical>
       <div class="flex-y-center">
-        <div class="w-80px">父文件夹:</div>
+        <div class="w-80px">
+          父文件夹:
+        </div>
         <span>{{ targetFolderPath }}</span>
       </div>
       <div class="flex-y-center">
-        <div class="w-80px">图纸名:</div>
-        <n-input
+        <div class="w-80px">
+          图纸名:
+        </div>
+        <NInput
           v-model:value="newDisplayName"
           placeholder="请输入图纸名"
           ref="displayNameInputRef"
@@ -40,7 +45,7 @@
           @keydown.enter="confirmCreateDisplay"
         />
       </div>
-    </n-space>
+    </NSpace>
   </QueryDialog>
 </template>
 

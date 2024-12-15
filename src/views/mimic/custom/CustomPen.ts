@@ -1,9 +1,9 @@
 import { isNil } from 'lodash-es';
 import type { IPenInputData, IPenData, IPen } from 'leafer-ui';
-import { Leafer, registerUI, dataProcessor, Pen, PenData, boundsType } from 'leafer-ui';
+import { registerUI, dataProcessor, Pen, PenData, boundsType } from 'leafer-ui';
 
 export interface ICustomPen extends IPen {
-  createShapes(): void;
+  createShapes: () => void;
 }
 export interface ICustomPenInputData extends IPenInputData {
   size?: number;
@@ -25,13 +25,17 @@ export class CustomPen extends Pen implements ICustomPen {
   public get __tag() {
     return 'CustomPen';
   }
+
   @dataProcessor(CustomPenData)
   public declare __: ICustomPenData;
+
   @boundsType(0)
   public declare size: number; // 增加自定义属性， 注意必须加上 declare 关键词
+
   constructor(data: ICustomPenInputData) {
     super(data);
   }
+
   // 根据size创建组合图形
   public createShapes(): void {
     this.clear(); // 清除之前创建的路径

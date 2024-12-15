@@ -1,6 +1,6 @@
 <template>
   <div class="mx-5px my-5px">
-    <n-button
+    <NButton
       ghost
       strong
       type="primary"
@@ -8,15 +8,15 @@
       class="ml-5px"
       @click="showComponentEditModal"
     >
-      <n-icon size="20">
+      <NIcon size="20">
         <WindowDevEdit20Regular />
-      </n-icon>
+      </NIcon>
       编辑
-    </n-button>
+    </NButton>
   </div>
   <ComponentEditModal
     v-if="componentEditModalVisible"
-    v-model:showModal="componentEditModalVisible"
+    v-model:show-modal="componentEditModalVisible"
   />
 </template>
 

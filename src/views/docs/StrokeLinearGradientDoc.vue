@@ -14,9 +14,9 @@
         </li>
       </ul>
     </div>
-    <hr />
+    <hr>
     <p>线性渐变对象可用于描边，如下所示:</p>
-    <div id="demo1" class="mt-10px h-110px"></div>
+    <div id="demo1" class="mt-10px h-110px" />
 
     <h2>关键属性</h2>
 
@@ -28,8 +28,11 @@
     <h4>枚举字符串类型 <code>IAlign</code></h4>
     <p>
       from 和 to 可以为 <code>IAlign</code> 类型，可选值为
-      <template v-for="v of aligns">
-        <code>{{ v }}</code> <template v-if="v !== 'bottom-right'">, </template>
+      <template v-for="v of aligns" :key="v">
+        <code>{{ v }}</code>
+        <template v-if="v !== 'bottom-right'">
+          ,
+        </template>
       </template>
       。下面的例子演示了这两个属性的使用。
     </p>
@@ -39,16 +42,18 @@
           <Rect
             :width
             :height
-            :cornerRadius
-            :strokeWidth
+            :corner-radius
+            :stroke-width
             :stroke="{ type: 'linear', ...demo2Cfg }"
           />
         </Leafer>
       </LeaferApp>
       <div class="flex mb-5px">
         <div class="flex">
-          <div class=""><span class="font-bold">from:</span></div>
-          <n-select
+          <div class="">
+            <span class="font-bold">from:</span>
+          </div>
+          <NSelect
             class="w-10em ml-5px"
             size="small"
             :options="alignOptions"
@@ -57,8 +62,10 @@
           />
         </div>
         <div class="flex ml-2em">
-          <div class=""><span class="font-bold">to:</span></div>
-          <n-select
+          <div class="">
+            <span class="font-bold">to:</span>
+          </div>
+          <NSelect
             class="w-10em ml-5px"
             size="small"
             :options="alignOptions"
@@ -92,16 +99,18 @@
           <Rect
             :width
             :height
-            :cornerRadius
-            :strokeWidth
+            :corner-radius
+            :stroke-width
             :stroke="{ type: 'linear', ...demo3Cfg }"
           />
         </Leafer>
       </LeaferApp>
       <div class="flex mb-5px">
         <div class="flex">
-          <div class=""><span class="font-bold">from:</span></div>
-          <n-input-number
+          <div class="">
+            <span class="font-bold">from:</span>
+          </div>
+          <NInputNumber
             :min="0"
             :max="width"
             :step="10"
@@ -110,9 +119,11 @@
             :value="demo3Cfg.from.x"
             @update:value="x => (demo3Cfg.from = { ...demo3Cfg.from, x })"
           >
-            <template #prefix><code>X</code></template>
-          </n-input-number>
-          <n-input-number
+            <template #prefix>
+              <code>X</code>
+            </template>
+          </NInputNumber>
+          <NInputNumber
             :min="0"
             :max="height"
             :step="10"
@@ -121,12 +132,16 @@
             :value="demo3Cfg.from.y"
             @update:value="y => (demo3Cfg.from = { ...demo3Cfg.from, y })"
           >
-            <template #prefix><code>y</code></template>
-          </n-input-number>
+            <template #prefix>
+              <code>y</code>
+            </template>
+          </NInputNumber>
         </div>
         <div class="flex ml-2em">
-          <div class=""><span class="font-bold">to:</span></div>
-          <n-input-number
+          <div class="">
+            <span class="font-bold">to:</span>
+          </div>
+          <NInputNumber
             :min="0"
             :max="width"
             :step="10"
@@ -135,9 +150,11 @@
             :value="demo3Cfg.to.x"
             @update:value="x => (demo3Cfg.to = { ...demo3Cfg.to, x })"
           >
-            <template #prefix><code>X</code></template>
-          </n-input-number>
-          <n-input-number
+            <template #prefix>
+              <code>X</code>
+            </template>
+          </NInputNumber>
+          <NInputNumber
             :min="0"
             :max="height"
             :step="10"
@@ -146,8 +163,10 @@
             :value="demo3Cfg.to.y"
             @update:value="y => (demo3Cfg.to = { ...demo3Cfg.to, y })"
           >
-            <template #prefix><code>y</code></template>
-          </n-input-number>
+            <template #prefix>
+              <code>y</code>
+            </template>
+          </NInputNumber>
         </div>
       </div>
       <VCodeBlock :code="JSON.stringify(demo3Cfg)" highlightjs lang="json" theme="atom-one-dark" />
@@ -160,16 +179,18 @@
           <Rect
             :width
             :height
-            :cornerRadius
-            :strokeWidth
+            :corner-radius
+            :stroke-width
             :stroke="{ type: 'linear', ...demo4Cfg }"
           />
         </Leafer>
       </LeaferApp>
       <div class="flex mb-5px">
         <div class="flex">
-          <div class=""><span class="font-bold">from:</span></div>
-          <n-input-number
+          <div class="">
+            <span class="font-bold">from:</span>
+          </div>
+          <NInputNumber
             :min="0"
             :max="1"
             :step="0.1"
@@ -178,9 +199,11 @@
             :value="demo4Cfg.from.x"
             @update:value="x => (demo4Cfg.from = { ...demo4Cfg.from, x })"
           >
-            <template #prefix><code>X</code></template>
-          </n-input-number>
-          <n-input-number
+            <template #prefix>
+              <code>X</code>
+            </template>
+          </NInputNumber>
+          <NInputNumber
             :min="0"
             :max="1"
             :step="0.1"
@@ -189,12 +212,16 @@
             :value="demo4Cfg.from.y"
             @update:value="y => (demo4Cfg.from = { ...demo4Cfg.from, y })"
           >
-            <template #prefix><code>y</code></template>
-          </n-input-number>
+            <template #prefix>
+              <code>y</code>
+            </template>
+          </NInputNumber>
         </div>
         <div class="flex ml-2em">
-          <div class=""><span class="font-bold">to:</span></div>
-          <n-input-number
+          <div class="">
+            <span class="font-bold">to:</span>
+          </div>
+          <NInputNumber
             :min="0"
             :max="1"
             :step="0.1"
@@ -203,9 +230,11 @@
             :value="demo4Cfg.to.x"
             @update:value="x => (demo4Cfg.to = { ...demo4Cfg.to, x })"
           >
-            <template #prefix><code>X</code></template>
-          </n-input-number>
-          <n-input-number
+            <template #prefix>
+              <code>X</code>
+            </template>
+          </NInputNumber>
+          <NInputNumber
             :min="0"
             :max="1"
             :step="0.1"
@@ -214,8 +243,10 @@
             :value="demo4Cfg.to.y"
             @update:value="y => (demo4Cfg.to = { ...demo4Cfg.to, y })"
           >
-            <template #prefix><code>y</code></template>
-          </n-input-number>
+            <template #prefix>
+              <code>y</code>
+            </template>
+          </NInputNumber>
         </div>
       </div>
       <VCodeBlock :code="JSON.stringify(demo4Cfg)" highlightjs lang="json" theme="atom-one-dark" />
@@ -231,15 +262,15 @@
           <Rect
             :width="300"
             :height
-            :cornerRadius
-            :strokeWidth
+            :corner-radius
+            :stroke-width
             :stroke="{ type: 'linear', ...demo5Cfg }"
           />
         </Leafer>
       </LeaferApp>
       <div class="my-10px flex">
         <span class="mr-10px">颜色列表:</span>
-        <n-dynamic-tags
+        <NDynamicTags
           :value="demo5Cfg.stops"
           :render-tag="demo5RenderTag"
           @update:value="demo5AddColor"
@@ -255,15 +286,15 @@
           <Rect
             :width="300"
             :height
-            :cornerRadius
-            :strokeWidth
+            :corner-radius
+            :stroke-width
             :stroke="{ type: 'linear', ...demo6Cfg }"
           />
         </Leafer>
       </LeaferApp>
       <div class="my-10px flex-y-center">
         <span class="mr-10px">offset:</span>
-        <n-slider :step="0.01" class="w-300px" :min="0" :max="1" v-model:value="demo6Offset" />
+        <NSlider :step="0.01" class="w-300px" :min="0" :max="1" v-model:value="demo6Offset" />
       </div>
       <VCodeBlock :code="JSON.stringify(demo6Cfg)" highlightjs lang="json" theme="atom-one-dark" />
     </div>
@@ -274,7 +305,7 @@
 import VCodeBlock from '@wdns/vue-code-block';
 import { Leafer, Rect, type IAlign } from 'leafer-ui';
 import { LeaferApp } from 'leafer-vue';
-import { NSelect, NInputNumber, NDynamicTags, NTag, NSlider, NSpace } from 'naive-ui';
+import { NSelect, NInputNumber, NDynamicTags, NTag, NSlider } from 'naive-ui';
 import { h } from 'vue';
 import * as _ from 'lodash-es';
 
@@ -321,7 +352,7 @@ const demo5Cfg = reactive<any>({
   to: { type: 'percent', x: 1, y: 0 },
   stops: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#00ffff', '#0000ff', '#800080'],
 });
-const demo5RenderTag = (tag: string, index: number) => {
+function demo5RenderTag(tag: string, index: number) {
   return h(
     NTag,
     {
@@ -336,10 +367,10 @@ const demo5RenderTag = (tag: string, index: number) => {
       default: () => tag,
     },
   );
-};
-const demo5AddColor = (v: string[]) => {
+}
+function demo5AddColor(v: string[]) {
   demo5Cfg.stops = [...v];
-};
+}
 
 const demo6Offset = ref(0.5);
 const getDemo6Stops = () => ['#ff0000', { offset: demo6Offset.value, color: '#00ff00' }, '#0000ff'];

@@ -1,9 +1,7 @@
-import type { DrawingTool, EditorType, OpenedTarget } from '@mimic/types';
+import type { DrawingTool, OpenedTarget } from '@mimic/types';
 import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
-import { registerUiClass } from '@mimic/custom/registrar';
-import { removeExtention } from '@/utils';
 import { componentPathToTag } from '../utils';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
@@ -43,7 +41,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     if (currentTarget.value?.editorType === 'display') {
       let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
       if (!displayData) {
-        displayData = await mimicFileApi.openDisplay(currentTarget.value?.path!);
+        displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
       }
       mimicVar.displayEditor.loadDisplayData(displayData);

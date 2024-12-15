@@ -1,5 +1,5 @@
 <template>
-  <n-divider vertical :style="{ backgroundColor: head.dividerColor }" />
+  <NDivider vertical :style="{ backgroundColor: head.dividerColor }" />
 </template>
 
 <script setup lang="ts">

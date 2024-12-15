@@ -17,9 +17,11 @@ const FLOW_SPEED_MAX = 5;
 
 export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
   interface CustomData {
-    /** 线条在虚线模式下的，0 表示无流动
+    /**
+     * 线条在虚线模式下的，0 表示无流动
      * 正数表示从起始点流向结束点，负数表示从结束点流向起始点
-     * 值表示流动速度，绝对值越大，流动速度越快 */
+     * 值表示流动速度，绝对值越大，流动速度越快
+     */
     flowSpeed?: number;
   }
 

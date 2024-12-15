@@ -1,14 +1,14 @@
 <template>
-  <n-loading-bar-provider>
-    <n-dialog-provider>
-      <n-notification-provider>
-        <n-message-provider>
-          <slot></slot>
-          <naive-provider-content />
-        </n-message-provider>
-      </n-notification-provider>
-    </n-dialog-provider>
-  </n-loading-bar-provider>
+  <NLoadingBarProvider>
+    <NDialogProvider>
+      <NNotificationProvider>
+        <NMessageProvider>
+          <slot />
+          <NaiveProviderContent />
+        </NMessageProvider>
+      </NNotificationProvider>
+    </NDialogProvider>
+  </NLoadingBarProvider>
 </template>
 
 <script setup lang="ts">
@@ -17,9 +17,12 @@ import {
   NDialogProvider,
   NNotificationProvider,
   NMessageProvider,
+  useDialog,
+  useLoadingBar,
+  useMessage,
+  useNotification
 } from 'naive-ui';
 import { defineComponent, h } from 'vue';
-import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
 
 defineOptions({ name: 'NaiveProvider' });
 
@@ -41,4 +44,5 @@ const NaiveProviderContent = defineComponent({
   },
 });
 </script>
+
 <style scoped></style>

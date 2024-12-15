@@ -1,12 +1,14 @@
 <template>
   <div>
-    <n-collapse :default-expanded-names="_.keys(groupedCfgs)">
-      <n-collapse-item v-for="groupName of _.keys(groupedCfgs)" :name="groupName">
+    <NCollapse :default-expanded-names="_.keys(groupedCfgs)">
+      <NCollapseItem v-for="groupName of _.keys(groupedCfgs)" :name="groupName" :key="groupName">
         <template #header>
-          <div class="font-bold">{{ groupName || defaultGroupName || '默认' }}</div>
+          <div class="font-bold">
+            {{ groupName || defaultGroupName || '默认' }}
+          </div>
         </template>
-        <n-space vertical :size="0">
-          <template v-for="cfg of groupedCfgs[groupName]">
+        <NSpace vertical :size="0">
+          <template v-for="cfg of groupedCfgs[groupName]" :key="cfg.id">
             <template v-if="cfg.variable">
               <StringProperty
                 v-if="cfg.type === 'string'"
@@ -73,9 +75,9 @@
               />
             </template>
           </template>
-        </n-space>
-      </n-collapse-item>
-    </n-collapse>
+        </NSpace>
+      </NCollapseItem>
+    </NCollapse>
   </div>
 </template>
 
@@ -85,9 +87,8 @@ import {
   type CustomPropertyCfgs,
   groupCustomPropertyCfgs,
 } from '@mimic/custom/generator';
-import { NCollapse, NCollapseItem, NSpace, NInput } from 'naive-ui';
+import { NCollapse, NCollapseItem, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
-import { CfgInput } from '@/components';
 import { ColorProperty } from './PropertyPanel/components';
 import StringProperty from './PropertyPanel/components/StringProperty.vue';
 import JsonInputProperty from './PropertyPanel/components/JsonInputProperty.vue';

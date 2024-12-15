@@ -11,7 +11,7 @@ import {
 } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { autoId } from '@mimic/decorates';
-import { type AppearanceType } from '@mimic/types';
+import type { AppearanceType } from '@mimic/types';
 
 export type Setter = (v: any) => void;
 export interface CustomPropertyCfg {
@@ -90,6 +90,7 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
     public get __tag() {
       return uiCustomCfg.tag;
     }
+
     @dataProcessor(InnerData)
     declare public __: any;
 

@@ -1,4 +1,4 @@
-import { Leafer, UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
 import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
 
 // 定义数据

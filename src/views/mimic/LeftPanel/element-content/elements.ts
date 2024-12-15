@@ -1,4 +1,4 @@
-import { type CustomDragIcon } from '@mimic/types';
+import type { CustomDragIcon } from '@mimic/types';
 
 type ElementCategories = Record<
   string,

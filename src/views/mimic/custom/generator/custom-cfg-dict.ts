@@ -6,14 +6,18 @@ export class CustomCfgService {
   constructor() {
     this.cfgDict = {};
   }
+
   addUiCustomCfg(tag: string, cfg: UiCustomCfg) {
     console.log(`${tag} add cfg:`, cfg);
     if (cfg && !_.isEmpty(tag)) {
       this.cfgDict[tag] = cfg;
     }
   }
-  getUiCustomCfg(tag: string) {
-    return this.cfgDict[tag];
+
+  getUiCustomCfg(tag: string | undefined) {
+    if (tag) {
+      return this.cfgDict[tag];
+    }
   }
 }
 

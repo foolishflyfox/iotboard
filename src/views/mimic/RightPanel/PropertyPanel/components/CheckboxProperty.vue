@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label>
-    <n-checkbox :checked="value" @update:checked="v => emit('update:value', v)" />
+    <NCheckbox :checked="value" @update:checked="v => emit('update:value', v)" />
   </PropertyContainer>
 </template>
 

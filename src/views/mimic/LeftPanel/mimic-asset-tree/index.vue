@@ -1,15 +1,15 @@
 <template>
   <MimicObjectViewer
     editor-type="asset"
-    @uploadImage="clickUploadImage"
+    @upload-image="clickUploadImage"
     @change-selected-folder="onChangeSelectedFolder"
   >
     <div>
-      <n-space>
-        <template v-for="imgSrc of currentTargets">
-          <mimic-asset-drag-item :imgSrc @after-delete="updateCurrentTargets" />
+      <NSpace>
+        <template v-for="imgSrc of currentTargets" :key="imgSrc">
+          <MimicAssetDragItem :img-src @after-delete="updateCurrentTargets" />
         </template>
-      </n-space>
+      </NSpace>
     </div>
   </MimicObjectViewer>
   <input
@@ -18,7 +18,7 @@
     accept=".png, .jpg, .jpeg, .svg"
     class="hidden"
     @change="uploadImage"
-  />
+  >
 </template>
 
 <script setup lang="ts">

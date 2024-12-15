@@ -97,7 +97,7 @@ export const keyboardKeys = {
   BracketRight: ']',
   Backslash: '\\',
   Semicolon: ';',
-  Quote: "'",
+  Quote: '\'',
   Comma: ',',
   Period: '.',
   Slash: '/',

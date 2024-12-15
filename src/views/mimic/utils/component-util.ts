@@ -1,8 +1,3 @@
-import { mimicVar } from '../global';
-import * as _ from 'lodash-es';
-import { useMimicComponentStatus } from '@mimic/stores';
-import type { IUI } from 'leafer-ui';
-
 export const componentEditorUtils = {
   // getCurrentSelectedElements() {
   //   const mimicComponentStatus = useMimicComponentStatus();

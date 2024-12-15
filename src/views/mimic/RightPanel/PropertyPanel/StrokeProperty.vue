@@ -31,6 +31,14 @@ import JsonProperty from './components/JsonProperty.vue';
 import type { IPaint, IPaintType, ISolidPaint } from 'leafer-ui';
 import * as _ from 'lodash-es';
 
+const props = defineProps<{
+  stroke: IPaint;
+}>();
+
+const emit = defineEmits<{
+  'update:value': [v: any];
+}>();
+
 const options: SelectOption[] = [
   {
     label: '纯色',
@@ -50,16 +58,8 @@ const options: SelectOption[] = [
   },
 ];
 
-const props = defineProps<{
-  stroke: IPaint;
-}>();
-
 const defaultSolidColor = (props.stroke as ISolidPaint).color || '#000000';
 const strokeColor = computed(() => (props.stroke as any).color as string);
-
-const emit = defineEmits<{
-  'update:value': [v: any];
-}>();
 
 function updateType(newType: IPaintType) {
   if (props.stroke.type === newType) return;

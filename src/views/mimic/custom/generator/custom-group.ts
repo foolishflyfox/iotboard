@@ -1,6 +1,6 @@
 import { dataProcessor, Ellipse, Group, GroupData, Rect, registerUI } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import { type BaseCustomCfg } from '@mimic/types';
+import type { BaseCustomCfg } from '@mimic/types';
 
 export interface GroupCustomCfg extends BaseCustomCfg {}
 

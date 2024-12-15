@@ -1,6 +1,6 @@
 <template>
   <PropertyContainer :label>
-    <n-select
+    <NSelect
       size="small"
       :options
       :render-label
@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { NSelect, type SelectOption } from 'naive-ui';
+import { NSelect } from 'naive-ui';
 import PropertyContainer from './components/containers/PropertyContainer.vue';
 import { ArrowSelectItem } from '@/components';
 import type { IArrowType, IPathDataArrow } from 'leafer-ui';
@@ -22,9 +22,16 @@ const props = defineProps<{
   value: Exclude<IArrowType, IPathDataArrow>;
 }>();
 
-type ArrowTypeOption = { label: string; value: Exclude<IArrowType, IPathDataArrow> };
+const emit = defineEmits<{
+  'update:value': [Exclude<IArrowType, IPathDataArrow>];
+}>();
 
-const options: ArrowTypeOption[] = [
+interface ArrowTypeOption {
+  label: string;
+  value: Exclude<IArrowType, IPathDataArrow>
+}
+
+const options = [
   { value: 'none', label: '无' },
   { value: 'arrow', label: '标准' },
   { value: 'angle', label: '角度' },
@@ -47,10 +54,6 @@ function renderLabel(option: ArrowTypeOption) {
     label: option.label,
   });
 }
-
-const emit = defineEmits<{
-  'update:value': [Exclude<IArrowType, IPathDataArrow>];
-}>();
 </script>
 
 <style scoped></style>

@@ -1,22 +1,23 @@
 <template>
-  <n-tooltip trigger="hover" :disabled="_.isEmpty(tooltip)">
+  <NTooltip trigger="hover" :disabled="_.isEmpty(tooltip)">
     <template #trigger>
       <div
         class="current-color hover-color default-style"
         :style="{ borderRadius }"
         @click="emit('click')"
       >
-        <slot></slot>
+        <slot />
       </div>
     </template>
     {{ tooltip }}
-  </n-tooltip>
+  </NTooltip>
 </template>
 
 <script setup lang="ts">
 import type { Cursor } from '@/types/css';
 import * as _ from 'lodash-es';
 import { NTooltip } from 'naive-ui';
+
 const props = withDefaults(
   defineProps<{
     tooltip?: string;

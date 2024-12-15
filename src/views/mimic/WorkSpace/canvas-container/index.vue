@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, Image, Line, PointerEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, Image, PointerEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
@@ -33,7 +33,13 @@ import loadjs from 'loadjs';
 import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 
-const loadScript = () => {
+// loadScript();
+
+defineOptions({
+  name: 'CanvasContainer',
+});
+
+function loadScript() {
   loadjs('/mytest.js', {
     success: () => {
       console.log('script load success');
@@ -43,13 +49,7 @@ const loadScript = () => {
       console.log('script load fail');
     },
   });
-};
-
-// loadScript();
-
-defineOptions({
-  name: 'CanvasContainer',
-});
+}
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
@@ -112,9 +112,9 @@ async function handleSaveShortcut(e: KeyboardEvent) {
     e.preventDefault();
     const displayData = mimicVar.displayEditor.generateDisplayData();
     if (
-      displayData &&
-      mimicWorkspaceStatus.currentTarget?.editorType === 'display' &&
-      mimicWorkspaceStatus.currentTarget?.path
+      displayData
+      && mimicWorkspaceStatus.currentTarget?.editorType === 'display'
+      && mimicWorkspaceStatus.currentTarget?.path
     ) {
       await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
       window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
@@ -122,7 +122,7 @@ async function handleSaveShortcut(e: KeyboardEvent) {
   }
 }
 
-let app: App | undefined = undefined;
+let app: App | undefined;
 onMounted(() => {
   app = new App({
     view: 'mimicCanvasContainer',
@@ -170,7 +170,7 @@ onMounted(() => {
 
   watch(
     () => mimicWorkspaceStatus.currentTarget,
-    nv => {
+    (nv) => {
       // console.log('处理图纸', nv);
       // mimicVar.displayEditor.loadDisplayData()
       if (nv) {

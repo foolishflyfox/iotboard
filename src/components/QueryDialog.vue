@@ -1,5 +1,5 @@
 <template>
-  <n-modal
+  <NModal
     :show="showModal"
     preset="dialog"
     :type="type"
@@ -11,9 +11,11 @@
     </template>
     <slot />
     <template #action>
-      <n-space>
-        <n-button size="small" @click="close">{{ negativeText }}</n-button>
-        <n-button
+      <NSpace>
+        <NButton size="small" @click="close">
+          {{ negativeText }}
+        </NButton>
+        <NButton
           type="primary"
           size="small"
           :disabled="positiveBtnDisabled"
@@ -25,10 +27,10 @@
           "
         >
           {{ positiveText }}
-        </n-button>
-      </n-space>
+        </NButton>
+      </NSpace>
     </template>
-  </n-modal>
+  </NModal>
 </template>
 
 <script setup lang="ts">
@@ -53,13 +55,13 @@ withDefaults(
 );
 
 const emit = defineEmits<{
-  positiveClick: [];
+  'positiveClick': [];
   'update:showModal': [v: boolean];
 }>();
 
-const close = () => {
+function close() {
   emit('update:showModal', false);
-};
+}
 </script>
 
 <style scoped></style>

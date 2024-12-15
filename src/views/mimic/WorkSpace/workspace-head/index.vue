@@ -2,17 +2,18 @@
   <div :style="{ height: `${studioHeight}px` }" class="px-1px flex border-b-gray-200 border-b-1px">
     <div
       v-for="item of mimicWorkspaceStatus.openedTargets"
+      :key="item.path"
       class="fw-500 text-16px mx-5px px-8px rounded-t-lg flex-y-center"
       :style="{ backgroundColor: _.isEqual(item, currentTarget) ? '#00bfffbb' : '#b0b0b0' }"
       @click="changeCurrentTarget(item)"
     >
-      <n-icon size="16" class="mr-3px" :component="editorTypeIconDict[item.editorType]" />
+      <NIcon size="16" class="mr-3px" :component="editorTypeIconDict[item.editorType]" />
       <span class="mr-3px cursor-default">
         {{ path.parse(item.path).name }}
       </span>
-      <n-icon size="16" color="#fd4a4e" class="cursor-pointer" @click.stop="closeTarget(item)">
+      <NIcon size="16" color="#fd4a4e" class="cursor-pointer" @click.stop="closeTarget(item)">
         <CloseFilled />
-      </n-icon>
+      </NIcon>
     </div>
   </div>
 </template>

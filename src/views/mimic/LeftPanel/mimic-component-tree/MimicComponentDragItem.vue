@@ -1,10 +1,10 @@
 <template>
   <MimicItem
-    editorType="component"
-    :imgSrc
+    editor-type="component"
+    :img-src
     :draggable
-    :fileName
-    @dragStart="startDragHandler"
+    :file-name
+    @drag-start="startDragHandler"
     @open="openComponent"
     @delete="deleteComponent"
   />

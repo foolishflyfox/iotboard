@@ -10,16 +10,13 @@
 
 <script setup lang="ts">
 import { useDropZone } from '@vueuse/core';
-import { App, ResizeEvent, UI, type IUI } from 'leafer-ui';
+import { App, ResizeEvent } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
-import { componentEditorUtils, getUiClassByTag } from '@mimic/utils';
 import { Ruler } from 'leafer-x-ruler';
 import { useMimicWorkspaceStatus, useMimicComponentStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
-import { registerElement } from '@mimic/custom/registrar';
 import ContextMenu from './ContextMenu.vue';
 import { EditorEvent } from 'leafer-editor';
-import { convertToArray } from '@/utils';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 
 const componentEditorWorkspace = ref<HTMLElement>();
@@ -32,7 +29,7 @@ function selectHandler(event: EditorEvent) {}
 
 const contextMenuRef = ref<InstanceType<typeof ContextMenu>>();
 
-let app: App | undefined = undefined;
+let app: App | undefined;
 onMounted(() => {
   app = new App({
     view: 'mimicComponentEditor',

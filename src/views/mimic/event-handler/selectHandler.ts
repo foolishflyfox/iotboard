@@ -1,4 +1,4 @@
-import type { EditorEvent, IUI } from 'leafer-editor';
+import type { EditorEvent } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { displayBaseMapId } from '@mimic/constant';
