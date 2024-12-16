@@ -7,15 +7,10 @@ import {
   registerUI,
   surfaceType,
   Text,
-  type IBoxData,
-  type IBoxInputData,
   type IFontWeight,
-  type ITextAlign,
   type ITextDecoration,
-  type IVerticalAlign,
 } from 'leafer-ui';
 import { autoId } from '../../decorates';
-import * as _ from 'lodash-es';
 import '@leafer-in/state';
 import '@leafer-in/animate';
 

@@ -20,7 +20,8 @@
     >
     <div
       :title="fileName"
-      class="text-12px text-[#555] font-medium text-center cursor-default w-42px ellipsis-text select-none"
+      class="text-12px text-[#555] font-medium text-center
+      cursor-default w-42px ellipsis-text select-none"
     >
       {{ fileName }}
     </div>

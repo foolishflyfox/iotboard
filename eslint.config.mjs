@@ -15,7 +15,7 @@ export default antfu(
       semi: true,
     },
     // 忽略文件
-    ignores: [],
+    ignores: ['**/*.md', '**/default-component.json'],
   },
   {
     // 对所有文件都生效的规则
@@ -42,7 +42,7 @@ export default antfu(
       // regexp
       'regexp/no-unused-capturing-group': 'off',
       // other
-      'no-console': ['warn'],
+      'no-console': 'off',
       'no-debugger': 'off',
       'no-unused-vars': 'off',
       'symbol-description': 'off',

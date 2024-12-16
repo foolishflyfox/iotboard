@@ -1,5 +1,11 @@
 <template>
-  <MimicItem editor-type="display" :img-src :file-name @delete="deleteDisplay" @open="openDisplay" />
+  <MimicItem
+    editor-type="display"
+    :img-src
+    :file-name
+    @delete="deleteDisplay"
+    @open="openDisplay"
+  />
 </template>
 
 <script setup lang="ts">
