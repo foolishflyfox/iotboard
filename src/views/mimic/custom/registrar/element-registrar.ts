@@ -92,7 +92,7 @@ addElementRegistrar(customTextBoxGenerate, {
 });
 addElementRegistrar(customButtonGenerate, {
   tag: 'element:button',
-  appearanceTypes: [...defaultAppearances]
+  appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth']
 });
 
 /** 元素注册 */
