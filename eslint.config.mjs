@@ -36,6 +36,9 @@ export default antfu(
       'style/brace-style': ['error', '1tbs'],
       'perfectionist/sort-named-imports': 'off',
       'perfectionist/sort-imports': 'off',
+      'max-len': ['warn', {
+        code: 100, // 设置最大行长度
+      }],
       // regexp
       'regexp/no-unused-capturing-group': 'off',
       // other

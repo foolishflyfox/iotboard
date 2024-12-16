@@ -32,7 +32,6 @@ import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
 import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
-import { FoxButton } from '@foxui/components';
 
 // loadScript();
 
@@ -168,16 +167,6 @@ onMounted(() => {
   ruler.addTheme('custom1', rulerTheme);
   // 切换主题
   ruler.changeTheme('custom1');
-  const button = new FoxButton({
-    text: 'Button',
-    type: 'primary'
-  }, {
-    x: 20,
-    y: 20,
-    editable: true,
-    draggable: true
-  });
-  setTimeout(() => app?.tree.add(button), 1500);
 
   watch(
     () => mimicWorkspaceStatus.currentTarget,

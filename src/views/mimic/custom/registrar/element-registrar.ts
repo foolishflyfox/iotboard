@@ -10,6 +10,7 @@ import { getUiClassByTag } from '@mimic/utils';
 import type { AppearanceType } from '@mimic/types';
 import { customTextGenerate } from '../generator/custom-text';
 import { customTextBoxGenerate } from '../generator/custom-text-box';
+import { customButtonGenerate } from '../generator/custom-button';
 
 const elementRegistrars: Record<string, () => void> = {};
 // const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
@@ -88,6 +89,10 @@ addElementRegistrar(customTextBoxGenerate, {
     'cornerRadius',
     'dashPattern',
   ],
+});
+addElementRegistrar(customButtonGenerate, {
+  tag: 'element:button',
+  appearanceTypes: [...defaultAppearances]
 });
 
 /** 元素注册 */

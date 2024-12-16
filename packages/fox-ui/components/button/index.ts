@@ -1,6 +1,7 @@
 import { PointerEvent } from 'leafer-ui';
 import { Component, NOOP, defineMap, lighten, darken, isSameColor } from '@foxui/utils';
-import { BorderColor, Color, TextColor, ComponentSize, BorderRadius, FontSize, FillColor } from '@foxui/constants';
+import { BorderColor, Color, TextColor, ComponentSize, BorderRadius, FontSize, FillColor }
+  from '@foxui/constants';
 import type { FoxButtonProps } from './types';
 import type { IFlowInputData } from 'leafer-ui';
 import { FoxIcon } from '@foxui/components';
@@ -98,7 +99,10 @@ export function getColor(props: FoxButtonProps) {
 
   const _color = color || (type ? Color[type] : '');
 
-  const get = (status: 'default' | 'hover' | 'press' | 'disabled', field: 'fill' | 'stroke' | 'textFill') => {
+  const get = (
+    status: 'default' | 'hover' | 'press' | 'disabled',
+    field: 'fill' | 'stroke' | 'textFill'
+  ) => {
     if (plain) {
       return buttonPlain(_color)[status][field];
     } else if (link) {
