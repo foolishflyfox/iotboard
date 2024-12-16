@@ -1,10 +1,8 @@
 import { dataProcessor, Ellipse, Group, GroupData, Rect, registerUI } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import type { BaseCustomCfg } from '@mimic/types';
+import type { UiCustomCfg } from './custom-ui';
 
-export interface GroupCustomCfg extends BaseCustomCfg {}
-
-export function customGroupGenerate(groupCustomCfg: GroupCustomCfg) {
+export function customGroupGenerate(groupCustomCfg: UiCustomCfg) {
   class InnerData extends GroupData {}
 
   @registerUI()

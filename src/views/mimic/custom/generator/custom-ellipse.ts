@@ -1,10 +1,8 @@
-import type { BaseCustomCfg } from '@mimic/types';
 import { dataProcessor, Ellipse, EllipseData, registerUI } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
+import type { UiCustomCfg } from './custom-ui';
 
-export interface EllipseCustomCfg extends BaseCustomCfg {}
-
-export function customEllipseGenerate(ellipseCustomCfg: EllipseCustomCfg) {
+export function customEllipseGenerate(ellipseCustomCfg: UiCustomCfg) {
   class InnerData extends EllipseData {}
 
   @registerUI()

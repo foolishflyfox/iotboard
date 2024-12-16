@@ -1,6 +1,6 @@
-import { customGroupGenerate, type GroupCustomCfg } from './generator';
+import { customGroupGenerate } from './generator';
 
-const cfg: GroupCustomCfg = {
+const cfg = {
   tag: 'testGroup',
 };
 

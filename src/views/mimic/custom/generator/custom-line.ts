@@ -1,4 +1,3 @@
-import type { BaseCustomCfg } from '@mimic/types';
 import {
   dataProcessor,
   Line,
@@ -9,13 +8,11 @@ import {
   type ILineInputData,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import type { CustomPropertyCfgs } from './custom-ui';
-
-export interface LineCustomCfg extends BaseCustomCfg {}
+import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
 
 const FLOW_SPEED_MAX = 5;
 
-export function customLineGenerate(lineCustomCfg: LineCustomCfg) {
+export function customLineGenerate(lineCustomCfg: UiCustomCfg) {
   interface CustomData {
     /**
      * 线条在虚线模式下的，0 表示无流动

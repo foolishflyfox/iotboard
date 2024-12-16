@@ -1,10 +1,8 @@
 import { dataProcessor, Rect, RectData, registerUI } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import type { BaseCustomCfg } from '@mimic/types';
+import type { UiCustomCfg } from './custom-ui';
 
-export interface RectCustomCfg extends BaseCustomCfg {}
-
-export function customRectGenerate(rectCustomCfg: RectCustomCfg) {
+export function customRectGenerate(rectCustomCfg: UiCustomCfg) {
   class InnerData extends RectData {}
 
   @registerUI()

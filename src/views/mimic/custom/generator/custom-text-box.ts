@@ -14,13 +14,10 @@ import {
   type ITextDecoration,
 } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
-import type { BaseCustomCfg } from '@mimic/types';
 import * as _ from 'lodash-es';
-import type { CustomPropertyCfgs } from './custom-ui';
+import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
 
-export interface TextBoxCustomCfg extends BaseCustomCfg {}
-
-export function customTextBoxGenerate(textBoxCustomCfg: TextBoxCustomCfg) {
+export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
   interface CustomData {
     textContent?: string | number;
     textFill?: string;

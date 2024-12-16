@@ -1,10 +1,8 @@
-import type { BaseCustomCfg } from '@mimic/types';
 import { dataProcessor, registerUI, Text, TextData } from 'leafer-ui';
 import { autoId } from '@mimic/decorates';
+import type { UiCustomCfg } from './custom-ui';
 
-export interface TextCustomCfg extends BaseCustomCfg {}
-
-export function customTextGenerate(textCustomCfg: TextCustomCfg) {
+export function customTextGenerate(textCustomCfg: UiCustomCfg) {
   class InnerData extends TextData {}
 
   @registerUI()
