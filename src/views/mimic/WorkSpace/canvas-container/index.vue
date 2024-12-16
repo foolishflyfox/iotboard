@@ -169,7 +169,7 @@ onMounted(() => {
   // 切换主题
   ruler.changeTheme('custom1');
   const button = new FoxButton({
-    text: 'hello, foxui',
+    text: 'Button',
     type: 'primary'
   }, {
     x: 20,

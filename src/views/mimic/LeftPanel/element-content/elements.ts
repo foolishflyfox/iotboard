@@ -8,14 +8,26 @@ type ElementCategories = Record<
   }
 >;
 
+export const elementCategories: ElementCategories = {};
+
 const baseElements: Omit<CustomDragIcon, 'type'>[] = [
   { path: 'rect', label: '矩形' },
   { path: 'ellipse', label: '椭圆' },
   { path: 'text', label: '纯文本' },
   { path: 'textbox', label: '带边框文本' },
 ];
-export const elementCategories: ElementCategories = {};
+
 elementCategories.base = {
   label: '基础',
   elements: baseElements.map(e => ({ type: 'element', ...e })),
+};
+
+const htmlElements: Omit<CustomDragIcon, 'type'>[] = [
+  { path: 'button', label: '按钮' },
+  { path: 'html', label: '自定义' }
+];
+
+elementCategories.html = {
+  label: '页面元素',
+  elements: htmlElements.map(e => ({ type: 'element', ...e }))
 };
