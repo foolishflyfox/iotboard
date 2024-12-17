@@ -67,6 +67,7 @@
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
+              <SvgColorEditor v-else-if="cfg.type === 'svgColorEditor'" />
               <StringProperty
                 v-else
                 :label="generateCfgLabel(cfg)"
@@ -98,6 +99,7 @@ import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
 import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
 import TextDecorationProperty from './PropertyPanel/TextDecorationProperty.vue';
 import CheckboxProperty from './PropertyPanel/components/CheckboxProperty.vue';
+import SvgColorEditor from './PropertyPanel/SvgColorEditor.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

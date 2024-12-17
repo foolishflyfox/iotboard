@@ -1,5 +1,5 @@
 import { dataProcessor, Image, ImageData, registerUI } from 'leafer-ui';
-import type { UiCustomCfg } from './custom-ui';
+import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
 import { autoId } from '../../decorates';
 
 export function customSvgGenerate(customCfg: UiCustomCfg) {
@@ -30,4 +30,17 @@ export function customSvgGenerate(customCfg: UiCustomCfg) {
       }, 500);
     }
   }
+
+  let id = 1;
+  const customCfgs: CustomPropertyCfgs = [
+    {
+      id: id++,
+      group: '编辑',
+      name: 'svgColor',
+      label: '',
+      type: 'svgColorEditor',
+      variable: true,
+    },
+  ];
+  return customCfgs;
 }

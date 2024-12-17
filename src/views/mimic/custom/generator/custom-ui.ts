@@ -29,7 +29,8 @@ export interface CustomPropertyCfg {
     | 'textAlign'
     | 'textVerticalAlign'
     | 'textFontWeight'
-    | 'textDecoration';
+    | 'textDecoration'
+    | 'svgColorEditor';
   defaultValue?: any;
   group?: string;
   setter?: Setter;

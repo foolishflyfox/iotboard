@@ -22,13 +22,13 @@ export function customImgGenerate(customCfg: UiCustomCfg) {
       super({
         ...data
       });
+      // 解决第一次直接通过输入修改 width/hight 时，同步修改宽高的问题
       setTimeout(() => {
-        console.log('@@@@@', this.width, this.height);
         const w = this.width;
         const h = this.height;
         this.width = w;
         this.height = h;
-      }, 1000);
+      }, 500);
     }
   }
 }
