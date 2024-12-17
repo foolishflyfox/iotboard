@@ -15,7 +15,7 @@ export default antfu(
       semi: true,
     },
     // 忽略文件
-    ignores: ['**/*.md', '**/default-component.json'],
+    ignores: ['**/*.md', '**/default-component.json', '**/reset.css'],
   },
   {
     // 对所有文件都生效的规则
