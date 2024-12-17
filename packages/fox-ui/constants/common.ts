@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { defineMap, isDark } from '@foxui/utils';
 
 const dark = isDark();

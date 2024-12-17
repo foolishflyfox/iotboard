@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, Image, PointerEvent, Leafer } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
@@ -85,14 +85,34 @@ async function onDisplayEditorDrop(e: MouseEvent) {
     });
     mimicVar.displayEditor.app?.tree.add(newElement);
   } else if (mimicVar.displayEditor.draggingType === 'asset') {
-    const image = new Image({
-      id: getUniqueId(),
-      url: mimicVar.displayEditor.draggingTag,
-      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
-      draggable: true,
-      editable: true,
-    });
-    mimicVar.displayEditor.app?.tree.add(image);
+    console.log(`@@@ ${mimicVar.displayEditor.draggingTag}`);
+    if (mimicVar.displayEditor.draggingTag.endsWith('.svg')) {
+      const elementClass = getElementClassByTag('element:svg');
+      const newElement = new elementClass({
+        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+        url: mimicVar.displayEditor.draggingTag,
+        draggable: true,
+        editable: true,
+      });
+      mimicVar.displayEditor.app?.tree.add(newElement);
+    } else {
+      const elementClass = getElementClassByTag('element:img');
+      const newElement = new elementClass({
+        url: mimicVar.displayEditor.draggingTag,
+        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+        draggable: true,
+        editable: true,
+      });
+      mimicVar.displayEditor.app?.tree.add(newElement);
+    }
+    // const image = new Image({
+    //   id: getUniqueId(),
+    //   url: mimicVar.displayEditor.draggingTag,
+    //   ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+    //   draggable: true,
+    //   editable: true,
+    // });
+    // mimicVar.displayEditor.app?.tree.add(image);
   }
   // if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
   //   const newElement = new mimicVar.draggingCustomMeta.component({

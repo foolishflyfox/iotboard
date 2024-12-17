@@ -126,7 +126,9 @@ const y = computed({
 });
 const width = computed({
   get: () => curElementProxyData.value?.width,
-  set: (v: number) => (curElementProxyData.value!.width = v),
+  set: (v: number) => {
+    curElementProxyData.value!.width = v;
+  }
 });
 const height = computed({
   get: () => curElementProxyData.value?.height,
@@ -214,7 +216,6 @@ const componentJson = computed(() => {
     if (mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]) {
       json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
     } else if (mimicDisplayStatus.curUi.tag?.startsWith('element:')) {
-      console.log('显示 textbox 自定义属性');
       json = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag) || {};
     }
     return json;

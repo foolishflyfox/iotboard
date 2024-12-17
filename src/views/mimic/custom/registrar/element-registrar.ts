@@ -11,6 +11,8 @@ import type { AppearanceType } from '@mimic/types';
 import { customTextGenerate } from '../generator/custom-text';
 import { customTextBoxGenerate } from '../generator/custom-text-box';
 import { customButtonGenerate } from '../generator/custom-button';
+import { customSvgGenerate } from '../generator/custom-svg';
+import { customImgGenerate } from '../generator/custom-img';
 
 const elementRegistrars: Record<string, () => void> = {};
 // const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
@@ -93,6 +95,14 @@ addElementRegistrar(customTextBoxGenerate, {
 addElementRegistrar(customButtonGenerate, {
   tag: 'element:button',
   appearanceTypes: [...defaultAppearances, 'stroke', 'strokeWidth']
+});
+addElementRegistrar(customSvgGenerate, {
+  tag: 'element:svg',
+  appearanceTypes: [...defaultAppearances]
+});
+addElementRegistrar(customImgGenerate, {
+  tag: 'element:img',
+  appearanceTypes: [...defaultAppearances]
 });
 
 /** 元素注册 */
