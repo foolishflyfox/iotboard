@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, Image, PointerEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, Image, PointerEvent, Leafer } from 'leafer-editor';
 import { Ruler } from 'leafer-x-ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
@@ -32,6 +32,7 @@ import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
 import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
+import { HTMLText } from '@leafer-in/html';
 
 // loadScript();
 
@@ -167,6 +168,13 @@ onMounted(() => {
   ruler.addTheme('custom1', rulerTheme);
   // 切换主题
   ruler.changeTheme('custom1');
+  const text = new HTMLText({
+    // text: '<i style="color: red; font-weight: bold;">Welcome</i> to <i style="color: rgb(50,205,121); font-size: 30px">LeaferJS</i>',
+    text: '<input type="checkbox" /> <label for="vehicle1"> I have a bike</label>',
+    editable: true,
+    draggable: true
+  });
+  // setTimeout(() => app?.tree.add(text), 2000);
 
   watch(
     () => mimicWorkspaceStatus.currentTarget,

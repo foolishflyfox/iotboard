@@ -38,6 +38,8 @@ export default antfu(
       'perfectionist/sort-imports': 'off',
       'max-len': ['warn', {
         code: 100, // 设置最大行长度
+        ignoreStrings: true,
+        ignoreComments: true
       }],
       // regexp
       'regexp/no-unused-capturing-group': 'off',

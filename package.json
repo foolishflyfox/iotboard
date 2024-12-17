@@ -18,6 +18,7 @@
     "@leafer-in/animate": "^1.1.0",
     "@leafer-in/arrow": "^1.1.0",
     "@leafer-in/flow": "^1.1.0",
+    "@leafer-in/html": "^1.1.0",
     "@leafer-in/state": "^1.1.0",
     "@leafer-in/text-editor": "^1.1.0",
     "@leafer-in/view": "^1.1.0",

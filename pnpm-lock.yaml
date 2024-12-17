@@ -20,6 +20,9 @@ importers:
       '@leafer-in/flow':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
+      '@leafer-in/html':
+        specifier: ^1.1.0
+        version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
       '@leafer-in/state':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0)
