@@ -5,7 +5,7 @@
     preset="dialog"
     :close="close"
     :show-icon="false"
-    class="flex flex-col px-8px py-10px"
+    class="flex flex-col px-8px py-10px bg-#fff"
     :style="modalStyle"
     content-class="flex-1"
   >
@@ -27,7 +27,7 @@
     </template>
     <div class="h-full bg-green flex">
       <div ref="svgContainerRef" class="bg-#eee w-60% flex-col justify-center">
-        <div ref="svgTargetRef" />
+        <div ref="svgTargetRef" class="chess" />
       </div>
     </div>
   </NModal>
@@ -104,5 +104,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+.chess {
+  background-color: #00bfff30;
+}
 </style>
