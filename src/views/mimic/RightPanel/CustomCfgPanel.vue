@@ -99,7 +99,7 @@ import NumberProperty from './PropertyPanel/components/NumberProperty.vue';
 import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
 import TextDecorationProperty from './PropertyPanel/TextDecorationProperty.vue';
 import CheckboxProperty from './PropertyPanel/components/CheckboxProperty.vue';
-import SvgColorEditor from './PropertyPanel/SvgColorEditor.vue';
+import SvgColorEditor from './PropertyPanel/SvgColorProperty.vue';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;

@@ -85,7 +85,6 @@ async function onDisplayEditorDrop(e: MouseEvent) {
     });
     mimicVar.displayEditor.app?.tree.add(newElement);
   } else if (mimicVar.displayEditor.draggingType === 'asset') {
-    console.log(`@@@ ${mimicVar.displayEditor.draggingTag}`);
     if (mimicVar.displayEditor.draggingTag.endsWith('.svg')) {
       const elementClass = getElementClassByTag('element:svg');
       const newElement = new elementClass({
