@@ -25,9 +25,9 @@
         </NIcon>
       </NSpace>
     </template>
-    <div class="h-full bg-green flex">
+    <div class="h-full bg-#ccc flex">
       <div ref="svgContainerRef" class="bg-#eee w-60% flex-col justify-center">
-        <div ref="svgTargetRef" class="chess" />
+        <div ref="svgTargetRef" class="chess" @click="svgClickHandler" />
       </div>
     </div>
   </NModal>
@@ -82,10 +82,6 @@ async function loadSvg() {
       const svg = dom.getElementsByTagName('svg')[0];
       const svgAttributes = svg.attributes as any;
 
-      console.log('w =', svgAttributes.width.value);
-      console.log('h =', svgAttributes.height.value);
-      console.log('cw =', svgContainerWidth.value);
-      console.log('ch =', svgContainerHeight.value);
       let nw = svgContainerWidth.value;
       let nh = nw * svgAttributes.height.value / svgAttributes.width.value;
       if (nh > svgContainerHeight.value) {
@@ -98,6 +94,17 @@ async function loadSvg() {
     }
   }
 }
+
+const selectedElement = ref<HTMLElement>();
+
+function svgClickHandler(e: MouseEvent) {
+  // console.log('@@@', e.target);
+  console.log('@@@', e.target instanceof SVGPathElement);
+  console.log('###', e.target);
+  const targetAttributes: any = (e.target as any).attributes;
+  console.log('!!!', targetAttributes?.fill?.value);
+}
+
 onMounted(() => {
   loadSvg();
 });
