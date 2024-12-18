@@ -81,6 +81,7 @@ export const allCommonAppearanceType = [
   'y', // 纵坐标
   'width', // 宽度
   'height', // 高度
+  'sides', // 正多边形边数
   'fill', // 填充
   'stroke', // 线样式
   'strokeWidth', // 线宽度

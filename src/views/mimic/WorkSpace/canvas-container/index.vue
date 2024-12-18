@@ -104,14 +104,6 @@ async function onDisplayEditorDrop(e: MouseEvent) {
       });
       mimicVar.displayEditor.app?.tree.add(newElement);
     }
-    // const image = new Image({
-    //   id: getUniqueId(),
-    //   url: mimicVar.displayEditor.draggingTag,
-    //   ...mimicVar.displayEditor.app?.getPagePointByClient(e),
-    //   draggable: true,
-    //   editable: true,
-    // });
-    // mimicVar.displayEditor.app?.tree.add(image);
   }
   // if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
   //   const newElement = new mimicVar.draggingCustomMeta.component({
@@ -193,7 +185,16 @@ onMounted(() => {
     editable: true,
     draggable: true
   });
-  // setTimeout(() => app?.tree.add(text), 2000);
+  // const hexagon = new Polygon({
+  //   width: 30,
+  //   height: 30,
+  //   sides: 6,
+  //   stroke: 'black',
+  //   strokeWidth: 3,
+  //   draggable: true,
+  //   editable: true
+  // });
+  // setTimeout(() => app?.tree.add(hexagon), 500);
 
   watch(
     () => mimicWorkspaceStatus.currentTarget,

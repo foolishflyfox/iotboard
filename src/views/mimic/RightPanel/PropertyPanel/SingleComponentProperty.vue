@@ -13,6 +13,7 @@
           <NumberProperty v-else-if="pt === 'y'" v-model:value="y" label="Y坐标" />
           <NumberProperty v-else-if="pt === 'width'" v-model:value="width" label="宽度" />
           <NumberProperty v-else-if="pt === 'height'" v-model:value="height" label="高度" />
+          <NumberProperty v-else-if="pt === 'sides'" v-model:value="sides" label="边数" :min="3" />
           <template v-else-if="pt === 'stroke'">
             <!-- <template v-if="_.isString(stroke)">
               <ColorProperty v-model="stroke" label="边框颜色" />
@@ -20,7 +21,7 @@
             <StrokeProperty :stroke="stroke" @update:value="v => (stroke = v)" />
           </template>
           <template v-else-if="pt === 'strokeWidth'">
-            <NumberProperty v-if="stroke.type" v-model:value="strokeWidth" label="线宽" />
+            <NumberProperty v-if="stroke.type" v-model:value="strokeWidth" label="线宽" :min="0" />
           </template>
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
@@ -133,6 +134,10 @@ const width = computed({
 const height = computed({
   get: () => curElementProxyData.value?.height,
   set: (v: number) => (curElementProxyData.value!.height = v),
+});
+const sides = computed({
+  get: () => curElementProxyData.value?.sides,
+  set: (v: number) => (curElementProxyData.value!.sides = v)
 });
 interface Stroke extends Record<string, any> {
   type: IPaintType;

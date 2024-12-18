@@ -13,8 +13,9 @@ export const elementCategories: ElementCategories = {};
 const baseElements: Omit<CustomDragIcon, 'type'>[] = [
   { path: 'rect', label: '矩形' },
   { path: 'ellipse', label: '椭圆' },
+  { path: 'regular-polygon', label: '正多边形' },
   { path: 'text', label: '纯文本' },
-  { path: 'textbox', label: '带边框文本' },
+  { path: 'textbox', label: '边框文本' },
 ];
 
 elementCategories.base = {

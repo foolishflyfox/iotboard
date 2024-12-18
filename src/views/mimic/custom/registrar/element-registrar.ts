@@ -13,6 +13,7 @@ import { customTextBoxGenerate } from '../generator/custom-text-box';
 import { customButtonGenerate } from '../generator/custom-button';
 import { customSvgGenerate } from '../generator/custom-svg';
 import { customImgGenerate } from '../generator/custom-img';
+import { customRegularPolygonGenerate } from '../generator/custom-regular-polygon';
 
 const elementRegistrars: Record<string, () => void> = {};
 // const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
@@ -52,6 +53,18 @@ addElementRegistrar(customRectGenerate, {
 addElementRegistrar(customEllipseGenerate, {
   tag: 'element:ellipse',
   appearanceTypes: [...defaultAppearances, 'fill', 'stroke', 'strokeWidth', 'dashPattern'],
+});
+addElementRegistrar(customRegularPolygonGenerate, {
+  tag: 'element:regular-polygon',
+  appearanceTypes: [
+    ...defaultAppearances,
+    'sides',
+    'fill',
+    'stroke',
+    'strokeWidth',
+    'dashPattern',
+    'cornerRadius',
+  ]
 });
 addElementRegistrar(customLineGenerate, {
   tag: 'element:line',
