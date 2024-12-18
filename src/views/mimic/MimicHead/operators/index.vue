@@ -34,6 +34,7 @@
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { Cursor1 } from '@vicons/carbon';
+import { Polygon } from '@vicons/tabler';
 import { ArrowBounce16Filled } from '@vicons/fluent';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
@@ -63,6 +64,11 @@ const drawingToolOptions: DrawingToolOption[] = [
     type: 'line',
     tooltip: '折线(可带箭头)',
   },
+  {
+    icon: Polygon,
+    type: 'polygon',
+    tooltip: '多边形'
+  }
   // {
   //   icon: Pencil,
   //   type: 'pen',
