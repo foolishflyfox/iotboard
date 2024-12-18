@@ -47,7 +47,6 @@
           </div>
           <div class="svg-element-attr">
             <div>当前颜色:</div>
-            <!-- <div>{{ currentColor }}</div> -->
             <ColorProperty
               style="margin: 0;"
               class="w-10em"
@@ -66,6 +65,7 @@
         <NButton
           type="primary"
           size="small"
+          :disabled="confirmBtnDisabled"
           @click="
             () => {
               close();
@@ -144,8 +144,9 @@ async function loadSvg() {
 }
 
 const selectedElement = ref<HTMLElement>();
-const changeData = ref<Map<HTMLElement, { old: string; new: string; }>>(new Map());
+const changeColorData = ref<Map<HTMLElement, { old: string; new: string; }>>(new Map());
 const currentColor = ref<string>();
+const confirmBtnDisabled = computed(() => changeColorData.value.size === 0);
 watchEffect(() => {
   if (selectedElement.value) {
     currentColor.value = selectedElement.value.getAttribute('fill')!;
@@ -155,8 +156,8 @@ watchEffect(() => {
 });
 const originColor = computed(() => {
   if (selectedElement.value) {
-    if (changeData.value.get(selectedElement.value)) {
-      return changeData.value.get(selectedElement.value)!.old;
+    if (changeColorData.value.get(selectedElement.value)) {
+      return changeColorData.value.get(selectedElement.value)!.old;
     } else {
       return currentColor.value;
     }
@@ -182,8 +183,15 @@ function svgClickHandler(e: MouseEvent) {
 }
 
 function changeElementColor(v: string) {
-  // console.log('修改颜色', v);
   if (selectedElement.value) {
+    if (changeColorData.value.get(selectedElement.value)) {
+      changeColorData.value.get(selectedElement.value)!.new = v;
+    } else {
+      changeColorData.value.set(selectedElement.value, {
+        old: currentColor.value!,
+        new: v
+      });
+    }
     currentColor.value = v;
     selectedElement.value.setAttribute('fill', v);
   }
