@@ -12,6 +12,8 @@ export function keyHolderHandler(keyEvent: KeyEvent) {
     const mimicWorkspaceStatus = useMimicWorkspaceStatus();
     if (mimicWorkspaceStatus.drawingTool === 'line') {
       mimicVar.displayEditor.deleteDrawingLine();
+    } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
+      mimicVar.displayEditor.deleteDrawingPolygon();
     }
   }
 }

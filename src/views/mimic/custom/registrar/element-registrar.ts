@@ -14,6 +14,7 @@ import { customButtonGenerate } from '../generator/custom-button';
 import { customSvgGenerate } from '../generator/custom-svg';
 import { customImgGenerate } from '../generator/custom-img';
 import { customRegularPolygonGenerate } from '../generator/custom-regular-polygon';
+import { customPolygonGenerate } from '../generator/custom-polygon';
 
 const elementRegistrars: Record<string, () => void> = {};
 // const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
@@ -69,6 +70,7 @@ addElementRegistrar(customRegularPolygonGenerate, {
 addElementRegistrar(customLineGenerate, {
   tag: 'element:line',
   appearanceTypes: [
+    ...defaultAppearances,
     'stroke',
     'strokeWidth',
     'startArrow',
@@ -77,6 +79,18 @@ addElementRegistrar(customLineGenerate, {
     'dashPattern',
     'strokeJoin',
   ],
+});
+addElementRegistrar(customPolygonGenerate, {
+  tag: 'element:polygon',
+  appearanceTypes: [
+    ...defaultAppearances,
+    'fill',
+    'stroke',
+    'strokeWidth',
+    'cornerRadius',
+    'dashPattern',
+    'strokeJoin',
+  ]
 });
 addElementRegistrar(customTextGenerate, {
   tag: 'element:text',

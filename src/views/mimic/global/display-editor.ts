@@ -2,6 +2,7 @@ import type { DisplayData, OpenedTarget } from '@mimic/types';
 import {
   ChildEvent,
   Line,
+  Polygon,
   PropertyEvent,
   Rect,
   type App,
@@ -28,17 +29,26 @@ export class DisplayEditor {
     line: {
       ui?: Line;
     };
+    polygon: {
+      ui?: Polygon;
+    }
   };
 
   constructor() {
     this.displayDataDict = {};
     this.drawingToolStatus = {
       line: {},
+      polygon: {}
     };
   }
 
   getDrawLineStatus() {
     if (this.drawingToolStatus.line.ui) return 'start';
+    return 'end';
+  }
+
+  getDrawPolygonStatus() {
+    if (this.drawingToolStatus.polygon.ui) return 'start';
     return 'end';
   }
 
@@ -56,6 +66,20 @@ export class DisplayEditor {
     }
   }
 
+  /** 开始绘制多边形 */
+  beginDrawPolygon(point: IPointData) {
+    if (this.app?.tree) {
+      const polygonClass = getElementClassByTag('element:polygon');
+      const polygon = new polygonClass({
+        points: [point.x, point.y + 0.1, point.x, point.y, point.x, point.y + 0.2],
+        draggable: false,
+        editable: false
+      });
+      this.drawingToolStatus.polygon.ui = polygon;
+      this.app.tree.add(polygon);
+    }
+  }
+
   /** 修改最后一个点的坐标 */
   moveLineEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
@@ -64,6 +88,16 @@ export class DisplayEditor {
       newPoints[len - 2] = point.x;
       newPoints[len - 1] = point.y;
       this.drawingToolStatus.line.ui.points = newPoints;
+    }
+  }
+
+  movePolygonEndPoint(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
+      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as number[];
+      const len = newPoints.length;
+      newPoints[len - 2] = point.x;
+      newPoints[len - 1] = point.y;
+      this.drawingToolStatus.polygon.ui.points = newPoints;
     }
   }
 
@@ -77,6 +111,15 @@ export class DisplayEditor {
     }
   }
 
+  addPolygonEndPoint(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
+      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as number[];
+      newPoints.push(point.x);
+      newPoints.push(point.y);
+      this.drawingToolStatus.polygon.ui.points = newPoints;
+    }
+  }
+
   /** 结束折线绘制 */
   endDrawLine(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
@@ -87,11 +130,36 @@ export class DisplayEditor {
     }
   }
 
+  endDrawPolygon(point: IPointData) {
+    if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
+      const points = this.drawingToolStatus.polygon.ui?.points;
+      if (points && points.length > 6) {
+        const newPoints = _.slice(points as number[], 2);
+        const len = newPoints.length;
+        newPoints[len - 2] = point.x;
+        newPoints[len - 1] = point.y;
+        this.drawingToolStatus.polygon.ui.points = newPoints;
+      } else {
+        this.movePolygonEndPoint(point);
+      }
+      this.drawingToolStatus.polygon.ui.draggable = true;
+      this.drawingToolStatus.polygon.ui.editable = true;
+      this.drawingToolStatus.polygon.ui = undefined;
+    }
+  }
+
   /** 删除正在绘制的折线 */
   deleteDrawingLine() {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
       this.app.tree.remove(this.drawingToolStatus.line.ui);
       this.drawingToolStatus.line.ui = undefined;
+    }
+  }
+
+  deleteDrawingPolygon() {
+    if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
+      this.app.tree.remove(this.drawingToolStatus.polygon.ui);
+      this.drawingToolStatus.polygon.ui = undefined;
     }
   }
 
