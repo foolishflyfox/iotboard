@@ -29,16 +29,64 @@
       <div ref="svgContainerRef" class="bg-#eee w-60% flex-col justify-center">
         <div ref="svgTargetRef" class="chess" @click="svgClickHandler" />
       </div>
+      <div v-if="selectedElement" class="px-0.5em py-1em">
+        <NSpace :vertical="true">
+          <div class="svg-element-attr">
+            <div>元素类型:</div>
+            <div>{{ selectedElement.tagName }}</div>
+          </div>
+          <div class="svg-element-attr">
+            <!-- todo: 添加恢复元素颜色功能 -->
+            <div>原始颜色:</div>
+            <div
+              class="w-10em text-align-center text-15px ml-3px"
+              :style="{ backgroundColor: originColor || '#00000000' }"
+            >
+              {{ originColor }}
+            </div>
+          </div>
+          <div class="svg-element-attr">
+            <div>当前颜色:</div>
+            <!-- <div>{{ currentColor }}</div> -->
+            <ColorProperty
+              style="margin: 0;"
+              class="w-10em"
+              :value="currentColor!"
+              @update:value="changeElementColor"
+            />
+          </div>
+        </NSpace>
+      </div>
     </div>
+    <template #action>
+      <NSpace>
+        <NButton size="small" @click="close">
+          取消
+        </NButton>
+        <NButton
+          type="primary"
+          size="small"
+          @click="
+            () => {
+              close();
+            }
+          "
+        >
+          确定
+        </NButton>
+      </NSpace>
+    </template>
   </NModal>
 </template>
 
 <script setup lang="ts">
 /** eslint-disable-next-line dot-notation */
-import { NModal, NSpace, NIcon } from 'naive-ui';
+import { NModal, NSpace, NIcon, NButton } from 'naive-ui';
 import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { useElementSize } from '@vueuse/core';
 import { useMimicDisplayStatus } from '@/views/mimic/stores';
+import { colord } from 'colord';
+import ColorProperty from './ColorProperty.vue';
 
 const props = defineProps<{
   showModal?: boolean;
@@ -66,7 +114,7 @@ const fullViewStyle = {
   height: '100vh',
 };
 const normalViewStyle = {
-  width: '1150px',
+  width: '1000px',
   height: '750px',
 };
 const modalStyle = computed(() => (isFullView.value ? fullViewStyle : normalViewStyle));
@@ -96,13 +144,49 @@ async function loadSvg() {
 }
 
 const selectedElement = ref<HTMLElement>();
+const changeData = ref<Map<HTMLElement, { old: string; new: string; }>>(new Map());
+const currentColor = ref<string>();
+watchEffect(() => {
+  if (selectedElement.value) {
+    currentColor.value = selectedElement.value.getAttribute('fill')!;
+  } else {
+    currentColor.value = undefined;
+  }
+});
+const originColor = computed(() => {
+  if (selectedElement.value) {
+    if (changeData.value.get(selectedElement.value)) {
+      return changeData.value.get(selectedElement.value)!.old;
+    } else {
+      return currentColor.value;
+    }
+  }
+  return undefined;
+});
 
 function svgClickHandler(e: MouseEvent) {
-  // console.log('@@@', e.target);
-  console.log('@@@', e.target instanceof SVGPathElement);
-  console.log('###', e.target);
-  const targetAttributes: any = (e.target as any).attributes;
-  console.log('!!!', targetAttributes?.fill?.value);
+  const target = e.target as HTMLElement;
+  if (target.getAttribute?.('fill')) {
+    if (colord(target.getAttribute('fill')!).isValid()) {
+      selectedElement.value = target;
+      console.log('有效的颜色:', target.getAttribute('fill'));
+    } else {
+      // todo: 未支持 fill 为 url(xxx) 时引用其他元素，如 linearGradient 的处理
+      selectedElement.value = undefined;
+      console.log('无效的颜色:', target.getAttribute('fill'));
+    }
+  } else {
+    selectedElement.value = undefined;
+    console.log('没有 fill 属性');
+  }
+}
+
+function changeElementColor(v: string) {
+  // console.log('修改颜色', v);
+  if (selectedElement.value) {
+    currentColor.value = v;
+    selectedElement.value.setAttribute('fill', v);
+  }
 }
 
 onMounted(() => {
@@ -113,5 +197,14 @@ onMounted(() => {
 <style scoped>
 .chess {
   background-color: #00bfff30;
+}
+.svg-element-attr {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.svg-element-attr > :first-child {
+  width: 6em;
+  font-weight: bold;
 }
 </style>
