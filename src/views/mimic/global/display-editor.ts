@@ -15,6 +15,9 @@ import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
 import '@leafer-in/arrow';
 import { getElementClassByTag } from '../custom/registrar';
+import { useKeyModifier } from '@vueuse/core';
+
+const shiftState = useKeyModifier('Shift');
 
 export class DisplayEditor {
   app?: App;
@@ -87,6 +90,12 @@ export class DisplayEditor {
       const len = newPoints.length;
       newPoints[len - 2] = point.x;
       newPoints[len - 1] = point.y;
+      if (shiftState.value && newPoints.length >= 4) {
+        const dx = Math.abs(newPoints[len - 2] - newPoints[len - 4]);
+        const dy = Math.abs(newPoints[len - 1] - newPoints[len - 3]);
+        if (dx > dy) newPoints[len - 1] = newPoints[len - 3];
+        else newPoints[len - 2] = newPoints[len - 4];
+      }
       this.drawingToolStatus.line.ui.points = newPoints;
     }
   }
@@ -97,6 +106,12 @@ export class DisplayEditor {
       const len = newPoints.length;
       newPoints[len - 2] = point.x;
       newPoints[len - 1] = point.y;
+      if (shiftState.value && newPoints.length >= 4) {
+        const dx = Math.abs(newPoints[len - 2] - newPoints[len - 4]);
+        const dy = Math.abs(newPoints[len - 1] - newPoints[len - 3]);
+        if (dx > dy) newPoints[len - 1] = newPoints[len - 3];
+        else newPoints[len - 2] = newPoints[len - 4];
+      }
       this.drawingToolStatus.polygon.ui.points = newPoints;
     }
   }
