@@ -36,14 +36,29 @@
             <div>{{ selectedElement.tagName }}</div>
           </div>
           <div class="svg-element-attr">
-            <!-- todo: 添加恢复元素颜色功能 -->
             <div>原始颜色:</div>
-            <div
-              class="w-10em text-align-center text-15px ml-3px"
-              :style="{ backgroundColor: originColor || '#00000000' }"
-            >
-              {{ originColor }}
-            </div>
+            <ColorProperty
+              style="margin: 0;"
+              class="w-10em cursor-not-allowed"
+              disabled
+              :value="originColor"
+            />
+            <NTooltip trigger="hover">
+              <template #trigger>
+                <NButton
+                  class="ml-0.5em"
+                  type="primary"
+                  size="tiny"
+                  :disabled="originColor === currentColor"
+                  @click="resetElementColor"
+                >
+                  <template #icon>
+                    <ArrowReset20Filled />
+                  </template>
+                </NButton>
+              </template>
+              恢复初始值
+            </NTooltip>
           </div>
           <div class="svg-element-attr">
             <div>当前颜色:</div>
@@ -81,8 +96,9 @@
 
 <script setup lang="ts">
 /** eslint-disable-next-line dot-notation */
-import { NModal, NSpace, NIcon, NButton } from 'naive-ui';
+import { NModal, NSpace, NIcon, NButton, NTooltip } from 'naive-ui';
 import { Close, Expand, Contract } from '@vicons/ionicons5';
+import { ArrowReset20Filled } from '@vicons/fluent';
 import { useElementSize } from '@vueuse/core';
 import { useMimicDisplayStatus } from '@/views/mimic/stores';
 import { colord } from 'colord';
@@ -194,6 +210,15 @@ function changeElementColor(v: string) {
     }
     currentColor.value = v;
     selectedElement.value.setAttribute('fill', v);
+  }
+}
+
+function resetElementColor() {
+  if (selectedElement.value && changeColorData.value.get(selectedElement.value)) {
+    const colorChange = changeColorData.value.get(selectedElement.value)!;
+    selectedElement.value.setAttribute('fill', colorChange.old);
+    currentColor.value = colorChange.old;
+    changeColorData.value.delete(selectedElement.value);
   }
 }
 

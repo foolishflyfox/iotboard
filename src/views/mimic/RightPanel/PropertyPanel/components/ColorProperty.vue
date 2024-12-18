@@ -3,6 +3,7 @@
     <NColorPicker
       style="width: 100%"
       :value
+      :disabled
       :swatches
       size="small"
       @update:value="v => emit('update:value', v)"
@@ -17,6 +18,7 @@ import { PropertyContainer } from './containers';
 defineProps<{
   value?: string;
   label?: string;
+  disabled?: boolean;
 }>();
 
 const emit = defineEmits<{
