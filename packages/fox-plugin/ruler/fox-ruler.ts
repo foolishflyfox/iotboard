@@ -59,6 +59,7 @@ export class FoxRuler {
     };
     this.config = config || { enabled: true, theme: 'light' };
     this.forceRender = this.forceRender.bind(this);
+    this.resize = this.resize.bind(this);
     this.enabled = this.config.enabled;
   }
 
@@ -103,13 +104,13 @@ export class FoxRuler {
   public set enabled(value: boolean) {
     this.config.enabled = value;
     if (value) {
-      this.app.tree.on(LayoutEvent.AFTER, this.forceRender.bind(this));
-      this.app.tree.on(ResizeEvent.RESIZE, this.resize.bind(this));
+      this.app.tree.on(LayoutEvent.AFTER, this.forceRender);
+      this.app.tree.on(ResizeEvent.RESIZE, this.resize);
       this.app.editor?.on(EditorEvent.SELECT, this.forceRender);
       this.resize();
     } else {
-      this.app.tree.off(RenderEvent.AFTER, this.forceRender.bind(this));
-      this.app.tree.off(ResizeEvent.RESIZE, this.resize.bind(this));
+      this.app.tree.off(RenderEvent.AFTER, this.forceRender);
+      this.app.tree.off(ResizeEvent.RESIZE, this.resize);
       this.app.editor?.off(EditorEvent.SELECT, this.forceRender);
       this.rulerLeafer.forceRender();
     }
