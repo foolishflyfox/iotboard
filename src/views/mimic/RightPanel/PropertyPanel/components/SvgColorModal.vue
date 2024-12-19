@@ -81,11 +81,7 @@
           type="primary"
           size="small"
           :disabled="confirmBtnDisabled"
-          @click="
-            () => {
-              close();
-            }
-          "
+          @click="updateSvgData"
         >
           确定
         </NButton>
@@ -103,6 +99,7 @@ import { useElementSize } from '@vueuse/core';
 import { useMimicDisplayStatus } from '@/views/mimic/stores';
 import { colord } from 'colord';
 import ColorProperty from './ColorProperty.vue';
+import { mimicFileApi } from '@/service/api';
 
 const props = defineProps<{
   showModal?: boolean;
@@ -221,6 +218,21 @@ function resetElementColor() {
     currentColor.value = colorChange.old;
     changeColorData.value.delete(selectedElement.value);
   }
+}
+
+async function updateSvgData() {
+  const svg = svgTargetRef.value?.getElementsByTagName('svg')[0];
+  if (svg) {
+    const prefixPath = '/data/asset/';
+    let targetPath = svgUrl.value as string;
+    if (targetPath.startsWith(prefixPath)) {
+      targetPath = targetPath.slice(prefixPath.length);
+    }
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    await mimicFileApi.updateDisplaySvgData(targetPath, blob);
+  }
+  close();
 }
 
 onMounted(() => {

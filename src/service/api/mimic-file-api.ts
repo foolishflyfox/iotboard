@@ -123,6 +123,17 @@ class MimicFileApi {
       },
     });
   }
+
+  async updateDisplaySvgData(svgPath: string, blob: Blob) {
+    const formData = new FormData();
+
+    formData.append('file', blob, path.basename(svgPath));
+    await this.instance.post(`upload/custom/${path.dirname(svgPath)}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 }
 
 export const mimicFileApi = new MimicFileApi();
