@@ -3,12 +3,14 @@ import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
 import { componentPathToTag } from '../utils';
+import type { IPointData } from 'leafer-ui';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   // 工作区标尺是否可见
   const rulerVisible = ref(true);
   // 工作区点阵是否可见
   const dotMatrixVisible = ref(true);
+  const cursorPos: Ref<IPointData | undefined> = ref();
   // 选中的绘制工具
   const drawingTool = ref<DrawingTool>('cursor');
   // 已经打开的对象列表
@@ -57,13 +59,13 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   return {
     rulerVisible,
     dotMatrixVisible,
+    cursorPos,
     curEditorType,
     openedTargets,
     addOpenedTarget,
     currentTarget,
     setCurrentTaget,
     closeOpenedTarget,
-
     drawingTool,
     selectDrawingTool,
   };
