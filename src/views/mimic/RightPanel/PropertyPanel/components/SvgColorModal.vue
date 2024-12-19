@@ -143,8 +143,9 @@ async function loadSvg() {
     const parser = new DOMParser();
     const dom = parser.parseFromString(svgString, 'application/xml');
     if (svgTargetRef.value) {
-      const svg = dom.getElementsByTagName('svg')[0];
-      const svgAttributes = svg.attributes as any;
+      const svg = dom.getElementsByTagName('svg');
+      const svgItem0 = svg[0];
+      const svgAttributes = svgItem0.attributes as any;
 
       let nw = svgContainerWidth.value;
       let nh = nw * svgAttributes.height.value / svgAttributes.width.value;
@@ -152,9 +153,9 @@ async function loadSvg() {
         nh = svgContainerHeight.value;
         nw = nh * svgAttributes.width.value / svgAttributes.height.value;
       }
-      svg.style.width = `${nw}px`;
-      svg.style.height = `${nh}px`;
-      svgTargetRef.value.innerHTML = svg.outerHTML;
+      svgItem0.style.width = `${nw}px`;
+      svgItem0.style.height = `${nh}px`;
+      svgTargetRef.value.innerHTML = svgItem0.outerHTML;
     }
   }
 }

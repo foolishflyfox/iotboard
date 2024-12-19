@@ -25,7 +25,7 @@ elementCategories.base = {
 
 const htmlElements: Omit<CustomDragIcon, 'type'>[] = [
   { path: 'button', label: '按钮' },
-  { path: 'html', label: '自定义' }
+  // { path: 'html', label: '自定义' }
 ];
 
 elementCategories.html = {

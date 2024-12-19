@@ -1,5 +1,9 @@
 <template>
   <div class="h-full flex-y-center tool-container">
+    <HeadIconContainer
+      :vicons="Keyboard24Regular"
+      tooltip="快捷键"
+    />
     <HeadVerticalDivider />
     <HeadIconContainer
       :vicons="PageFit16Regular"
@@ -29,7 +33,7 @@
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
-import { PageFit16Regular, Send20Regular, GridDots20Filled } from '@vicons/fluent';
+import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular } from '@vicons/fluent';
 import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
