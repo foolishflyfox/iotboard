@@ -12,4 +12,4 @@ export interface OpenedTarget {
   path: string;
 }
 
-export type DrawingTool = 'cursor' | 'line' | 'polygon' | 'pen';
+export type DrawingTool = 'cursor' | 'horizontalBase' | 'verticalBase' | 'line' | 'polygon' | 'pen';
