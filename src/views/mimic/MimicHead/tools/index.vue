@@ -41,7 +41,6 @@ import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
 import HotkeyHelp from './HotkeyHelp.vue';
 
-
 defineOptions({
   name: 'HeadTools',
 });

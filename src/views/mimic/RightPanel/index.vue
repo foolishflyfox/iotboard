@@ -3,9 +3,9 @@
     <DisplayCfgPanel v-if="mimicWorkspaceStatus.curEditorType === 'display'" />
     <ModuleCfgPanel v-else-if="mimicWorkspaceStatus.curEditorType === 'module'" />
     <ComponentCfgPanel v-else-if="mimicWorkspaceStatus.curEditorType === 'component'" />
-    <template v-else>
+    <!-- <template v-else>
       未设置 {{ mimicWorkspaceStatus.curEditorType }} 的配置面板组件
-    </template>
+    </template> -->
   </div>
 </template>
 
