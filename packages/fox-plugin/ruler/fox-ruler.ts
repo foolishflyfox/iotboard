@@ -1,5 +1,5 @@
 import type { ICanvasContext2D, IUI } from '@leafer-ui/interface';
-import { App, LayoutEvent, Leafer, RenderEvent, ResizeEvent } from '@leafer-ui/core';
+import { App, LayoutEvent, Leafer, PointerEvent, RenderEvent, ResizeEvent } from '@leafer-ui/core';
 import { EditorEvent } from '@leafer-in/editor';
 import type { ThemeOption, RulerConfig, RulerOptions } from './types';
 
@@ -38,6 +38,9 @@ export class FoxRuler {
   constructor(app: App, config?: RulerConfig, options?: RulerOptions) {
     this.app = app;
     this.rulerLeafer = app.addLeafer();
+    this.app.on(PointerEvent.DOUBLE_CLICK, () => {
+      console.log('@@@@');
+    });
     this.contextContainer = this.rulerLeafer.canvas.context;
     this.options = options || {
       ruleSize: 20,
@@ -171,7 +174,7 @@ export class FoxRuler {
     });
     // 绘制标尺底部矩形和文字
     const themeOption = this.options?.themes?.get(this.config.theme);
-    this.darwRect(ctx, {
+    this.drawRect(ctx, {
       left: 0,
       top: 0,
       width: this.options.ruleSize!,
@@ -180,7 +183,7 @@ export class FoxRuler {
       stroke: themeOption?.borderColor
     });
 
-    this.darwText(ctx, {
+    this.drawText(ctx, {
       text: 'px',
       left: this.options.ruleSize! / 2,
       top: this.options.ruleSize! / 2,
@@ -217,7 +220,7 @@ export class FoxRuler {
     const padding = 2.5;
 
     // 背景
-    this.darwRect(ctx, {
+    this.drawRect(ctx, {
       left: 0,
       top: 0,
       width: isHorizontal ? canvasSize.width! : ruleSize!,
@@ -235,7 +238,7 @@ export class FoxRuler {
           ? [position, isMajorLine ? 0 : ruleSize! - 8]
           : [isMajorLine ? 0 : ruleSize! - 8, position];
         const [width, height] = isHorizontal ? [0, ruleSize! - top] : [ruleSize! - left, 0];
-        this.darwLine(ctx, {
+        this.drawLine(ctx, {
           left,
           top,
           width,
@@ -260,7 +263,7 @@ export class FoxRuler {
 
         // 高亮遮罩
         // ctx.save()
-        this.darwRect(ctx, {
+        this.drawRect(ctx, {
           left,
           top,
           width,
@@ -280,7 +283,7 @@ export class FoxRuler {
         ? [position + 6, padding, 0]
         : [padding, position - 6, -90];
 
-      this.darwText(ctx, {
+      this.drawText(ctx, {
         text: textValue,
         left,
         top,
@@ -303,7 +306,7 @@ export class FoxRuler {
     return gaps[i - 1] || 10000;
   }
 
-  private darwRect(
+  private drawRect(
     ctx: ICanvasContext2D,
     {
       left,
@@ -336,7 +339,7 @@ export class FoxRuler {
     ctx.restore();
   }
 
-  private darwText(
+  private drawText(
     ctx: ICanvasContext2D,
     {
       left,
@@ -372,7 +375,7 @@ export class FoxRuler {
     ctx.restore();
   }
 
-  private darwLine(
+  private drawLine(
     ctx: ICanvasContext2D,
     {
       left,
