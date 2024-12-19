@@ -128,11 +128,13 @@ class MimicFileApi {
     const formData = new FormData();
 
     formData.append('file', blob, path.basename(svgPath));
-    await this.instance.post(`upload/custom/${path.dirname(svgPath)}`, formData, {
+    const svgFolderPath = path.join('custom', path.dirname(svgPath));
+    await this.instance.post(path.join('upload', svgFolderPath), formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+    return path.join('custom', svgPath);
   }
 }
 

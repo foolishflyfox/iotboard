@@ -92,6 +92,7 @@
 
 <script setup lang="ts">
 /** eslint-disable-next-line dot-notation */
+import * as path from 'pathe';
 import { NModal, NSpace, NIcon, NButton, NTooltip } from 'naive-ui';
 import { Close, Expand, Contract } from '@vicons/ionicons5';
 import { ArrowReset20Filled } from '@vicons/fluent';
@@ -100,16 +101,19 @@ import { useMimicDisplayStatus } from '@/views/mimic/stores';
 import { colord } from 'colord';
 import ColorProperty from './ColorProperty.vue';
 import { mimicFileApi } from '@/service/api';
+import { getDataUrl } from '@/utils';
+import { useCurElementProxyData } from '@mimic/hooks';
 
 const props = defineProps<{
   showModal?: boolean;
 }>();
 
 const emit = defineEmits<{
-  'update:showModal': [v: boolean]
+  'update:showModal': [v: boolean];
 }>();
 
 const { curUi } = toRefs(useMimicDisplayStatus());
+const curElementProxyData = useCurElementProxyData();
 const svgUrl = computed(() => (curUi.value as any).url);
 
 const svgTargetRef = ref<HTMLDivElement>();
@@ -223,14 +227,18 @@ function resetElementColor() {
 async function updateSvgData() {
   const svg = svgTargetRef.value?.getElementsByTagName('svg')[0];
   if (svg) {
-    const prefixPath = '/data/asset/';
+    const prefixPath = `${getDataUrl()}/asset/`;
     let targetPath = svgUrl.value as string;
     if (targetPath.startsWith(prefixPath)) {
       targetPath = targetPath.slice(prefixPath.length);
     }
     const svgData = new XMLSerializer().serializeToString(svg);
     const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-    await mimicFileApi.updateDisplaySvgData(targetPath, blob);
+    const svgUrlPath = await mimicFileApi.updateDisplaySvgData(targetPath, blob);
+    if (curElementProxyData.value) {
+      console.log('@@@', path.join(getDataUrl(), svgUrlPath));
+      curElementProxyData.value.url = path.join(getDataUrl(), svgUrlPath);
+    }
   }
   close();
 }
