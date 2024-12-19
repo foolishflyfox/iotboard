@@ -9,7 +9,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@mimic/*": ["./src/views/mimic/*"],
-      "@foxui/*": ["packages/fox-ui/*"]
+      "@foxui/*": ["packages/fox-ui/*"],
+      "@fox-plugin/*": ["packages/fox-plugin/*"]
     },
     // "module": "ESNext",
     "noImplicitAny": false

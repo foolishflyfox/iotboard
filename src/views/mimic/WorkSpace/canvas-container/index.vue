@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent } from 'leafer-editor';
-import { Ruler } from 'leafer-x-ruler';
+import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';

@@ -12,7 +12,7 @@
 import { useDropZone } from '@vueuse/core';
 import { App, ResizeEvent } from 'leafer-ui';
 import { mimicVar } from '@mimic/global';
-import { Ruler } from 'leafer-x-ruler';
+import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { useMimicWorkspaceStatus, useMimicComponentStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
 import ContextMenu from './ContextMenu.vue';

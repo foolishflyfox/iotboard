@@ -14,6 +14,9 @@ importers:
       '@leafer-in/arrow':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
+      '@leafer-in/editor':
+        specifier: ^1.1.0
+        version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0)
       '@leafer-in/flow':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
@@ -29,6 +32,9 @@ importers:
       '@leafer-in/view':
         specifier: ^1.1.0
         version: 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)
+      '@leafer-ui/core':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@vueuse/core':
         specifier: ^11.3.0
         version: 11.3.0(vue@3.5.13(typescript@5.5.4))
@@ -56,9 +62,6 @@ importers:
       leafer-x-dot-matrix:
         specifier: ^1.0.2
         version: 1.0.2(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0)
-      leafer-x-ruler:
-        specifier: ^1.0.14
-        version: 1.0.14(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))
       loadjs:
         specifier: ^4.3.0
         version: 4.3.0
@@ -2507,9 +2510,6 @@ packages:
     peerDependencies:
       '@leafer-ui/core': '>=1.0.9'
       '@leafer-ui/interface': '>=1.0.9'
-
-  leafer-x-ruler@1.0.14:
-    resolution: {integrity: sha512-n5VymaIPQbAU0rJTB4x7if3Um/vQJUP/nx6qWDAFROAGVpuJzIv4mdtiE3PY4oXXZQC3xT0HLoNBDWEUdjCE2g==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -6202,15 +6202,6 @@ snapshots:
     dependencies:
       '@leafer-ui/core': 1.1.0
       '@leafer-ui/interface': 1.1.0
-
-  leafer-x-ruler@1.0.14(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0)):
-    dependencies:
-      '@leafer-in/editor': 1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-in/resize@1.1.0(@leafer-in/interface@1.1.0(@leafer-ui/interface@1.1.0)(@leafer/interface@1.1.0))(@leafer-ui/draw@1.1.0)(@leafer-ui/interface@1.1.0))(@leafer-ui/core@1.1.0)(@leafer-ui/interface@1.1.0)
-      '@leafer-ui/core': 1.1.0
-      '@leafer-ui/interface': 1.1.0
-    transitivePeerDependencies:
-      - '@leafer-in/interface'
-      - '@leafer-in/resize'
 
   levn@0.4.1:
     dependencies:
