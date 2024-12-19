@@ -37,6 +37,7 @@ export class BaselineManager {
       }
     }
     const newLine = this.curHorizontalLine.clone() as Line;
+    newLine.dashPattern = undefined;
     mimicVar.displayEditor.app?.sky.add(newLine);
     this.horizontalLines.push(newLine);
   }
@@ -79,5 +80,11 @@ export class BaselineManager {
     }
     this.horizontalLines = [];
     this.verticalLines = [];
+    this.clearCurBaseLine();
+  }
+
+  clearCurBaseLine() {
+    this.deleteCurHorizontalLine();
+    this.deleteCurVerticalLine();
   }
 }

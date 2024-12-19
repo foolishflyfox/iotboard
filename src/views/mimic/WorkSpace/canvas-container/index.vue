@@ -22,6 +22,7 @@ import {
   appMouseTapHandler,
   appMouseDoubleTapHandler,
   appMouseMoveHandler,
+  leaveWorkspaceHandler,
 } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
@@ -154,6 +155,7 @@ onMounted(() => {
   app.on(PointerEvent.DOUBLE_TAP, appMouseDoubleTapHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
   app.on(KeyEvent.HOLD, keyHolderHandler);
+  displayEditorWorkspace.value?.addEventListener('mouseleave', leaveWorkspaceHandler);
   const ruler = new Ruler(app);
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;
@@ -206,6 +208,7 @@ onUnmounted(() => {
     app.editor.off(EditorEvent.SELECT, selectHandler);
     app.off(KeyEvent.HOLD, keyHolderHandler);
     app.clear();
+    displayEditorWorkspace.value?.removeEventListener('mouseleave', leaveWorkspaceHandler);
     app = undefined;
   }
   window.removeEventListener('keydown', handleSaveShortcut);
