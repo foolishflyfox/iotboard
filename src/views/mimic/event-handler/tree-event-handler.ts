@@ -18,6 +18,10 @@ export function appMouseTapHandler(e: PointerEvent) {
     } else if (mimicVar.displayEditor.getDrawPolygonStatus() === 'start') {
       mimicVar.displayEditor.addPolygonEndPoint(point!);
     }
+  } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
+    mimicVar.baselineManager.addHorizontalLine();
+  } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
+    mimicVar.baselineManager.addVerticalLine();
   }
 }
 
@@ -58,5 +62,3 @@ export function appMouseDoubleTapHandler(e: PointerEvent) {
     mimicVar.displayEditor.endDrawPolygon(point!);
   }
 }
-
-// export function t
