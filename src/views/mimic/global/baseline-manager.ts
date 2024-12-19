@@ -72,4 +72,12 @@ export class BaselineManager {
       this.curVerticalLine = undefined;
     }
   }
+
+  clearAllBaselines() {
+    for (const line of [...this.horizontalLines, ...this.verticalLines]) {
+      mimicVar.displayEditor.app?.sky.remove(line);
+    }
+    this.horizontalLines = [];
+    this.verticalLines = [];
+  }
 }

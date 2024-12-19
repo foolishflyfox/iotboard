@@ -24,6 +24,7 @@
       />
     </NSpace>
     <HeadVerticalDivider />
+    <HeadIconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
     <div>线样式</div>
     <div>线宽</div>
     <HeadVerticalDivider />
@@ -33,13 +34,14 @@
 <script setup lang="ts">
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
-import { Cursor1 } from '@vicons/carbon';
+import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
 import { ArrowBounce16Filled, SplitHorizontal16Regular, SplitVertical16Regular } from '@vicons/fluent';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
 import type { Component } from 'vue';
 import { NSpace } from 'naive-ui';
+import { mimicVar } from '../../global';
 
 defineOptions({
   name: 'HeadOperators',
@@ -88,6 +90,10 @@ const drawingToolOptions: DrawingToolOption[] = [
 
 function selectDrawingTool(tool: DrawingTool) {
   mimicWorkspaceStatus.selectDrawingTool(tool);
+}
+
+function clearBaselinse() {
+  mimicVar.baselineManager.clearAllBaselines();
 }
 </script>
 
