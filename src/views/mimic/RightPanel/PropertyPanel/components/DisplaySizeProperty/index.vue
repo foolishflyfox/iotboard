@@ -34,7 +34,11 @@
         @update:value="changeHeight"
       >
         <template #suffix>
-          <div><span class="text-12px">px</span><NDivider vertical />H</div>
+          <div>
+            <span class="text-12px">px</span>
+            <NDivider vertical />
+            H
+          </div>
         </template>
       </NInputNumber>
     </PropertyContainer>

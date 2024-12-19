@@ -3,6 +3,7 @@
     <HeadIconContainer
       :vicons="Keyboard24Regular"
       tooltip="快捷键"
+      @click="() => hotkeyModalVisible = true"
     />
     <HeadVerticalDivider />
     <HeadIconContainer
@@ -27,6 +28,7 @@
     <HeadIconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" />
     <HeadIconContainer :vicons="Send20Regular" tooltip="发布" />
   </div>
+  <HotkeyHelp v-model:show="hotkeyModalVisible" />
 </template>
 
 <script setup lang="ts">
@@ -37,11 +39,14 @@ import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular } 
 import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
+import HotkeyHelp from './HotkeyHelp.vue';
+
 
 defineOptions({
   name: 'HeadTools',
 });
 
+const hotkeyModalVisible = ref(false);
 const { rulerVisible, dotMatrixVisible } = toRefs(useMimicWorkspaceStatus());
 
 function changeRulerVisible() {
