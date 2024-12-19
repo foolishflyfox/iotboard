@@ -1,4 +1,3 @@
-import type { CustomMeta } from '@mimic/utils';
 import { DisplayEditor } from './display-editor';
 import { ComponentEditor } from './component-editor';
 import { BaselineManager } from './baseline-manager';

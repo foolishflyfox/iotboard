@@ -1,5 +1,5 @@
 import type { ICanvasContext2D, IUI } from '@leafer-ui/interface';
-import { App, LayoutEvent, Leafer, Line, PointerEvent, RenderEvent, ResizeEvent } from '@leafer-ui/core';
+import { App, LayoutEvent, Leafer, RenderEvent, ResizeEvent } from '@leafer-ui/core';
 import { EditorEvent } from '@leafer-in/editor';
 import type { ThemeOption, RulerConfig, RulerOptions } from './types';
 
