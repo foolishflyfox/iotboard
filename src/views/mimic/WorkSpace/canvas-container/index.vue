@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, Line, LayoutEvent } from 'leafer-editor';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import '@leafer-in/view';
@@ -105,17 +105,6 @@ async function onDisplayEditorDrop(e: MouseEvent) {
       mimicVar.displayEditor.app?.tree.add(newElement);
     }
   }
-  // if (mimicVar.draggingCustomMeta?.component && mimicVar.displayEditor.app) {
-  //   const newElement = new mimicVar.draggingCustomMeta.component({
-  //     ...mimicVar.displayEditor.app.getPagePointByClient(e),
-  //     draggable: true,
-  //     editable: true,
-  //   });
-  //   if (_.isEmpty(newElement.id)) {
-  //     newElement.id = getUniqueId();
-  //   }
-  //   mimicVar.displayEditor.app.tree.add(newElement);
-  // }
 }
 
 async function handleSaveShortcut(e: KeyboardEvent) {
@@ -140,6 +129,7 @@ onMounted(() => {
     view: 'mimicCanvasContainer',
     ground: {},
     tree: { usePartRender: true },
+    sky: { type: 'draw', usePartRender: false },
     editor: {
       // circle: {
       //   pointType: 'button',
@@ -156,6 +146,9 @@ onMounted(() => {
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
+  app.tree.on(LayoutEvent.AFTER, () => {
+    app!.sky.setTransform({ ...app!.tree.localTransform });
+  });
   app.on(PointerEvent.TAP, appMouseTapHandler);
   app.on(PointerEvent.MOVE, appMouseMoveHandler);
   app.on(PointerEvent.DOUBLE_TAP, appMouseDoubleTapHandler);
@@ -185,16 +178,6 @@ onMounted(() => {
     editable: true,
     draggable: true
   });
-  // const hexagon = new Polygon({
-  //   width: 30,
-  //   height: 30,
-  //   sides: 6,
-  //   stroke: 'black',
-  //   strokeWidth: 3,
-  //   draggable: true,
-  //   editable: true
-  // });
-  // setTimeout(() => app?.tree.add(hexagon), 500);
 
   watch(
     () => mimicWorkspaceStatus.currentTarget,

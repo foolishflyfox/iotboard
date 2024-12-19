@@ -14,6 +14,13 @@ export function keyHolderHandler(keyEvent: KeyEvent) {
       mimicVar.displayEditor.deleteDrawingLine();
     } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
       mimicVar.displayEditor.deleteDrawingPolygon();
+    } else if (['horizontalBase', 'verticalBase'].includes(mimicWorkspaceStatus.drawingTool)) {
+      if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
+        mimicVar.baselineManager.deleteCurHorizontalLine();
+      } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
+        mimicVar.baselineManager.deleteCurVerticalLine();
+      }
+      mimicWorkspaceStatus.drawingTool = 'cursor';
     }
   }
 }

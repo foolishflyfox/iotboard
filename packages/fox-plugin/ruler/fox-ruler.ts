@@ -1,5 +1,5 @@
 import type { ICanvasContext2D, IUI } from '@leafer-ui/interface';
-import { App, LayoutEvent, Leafer, PointerEvent, RenderEvent, ResizeEvent } from '@leafer-ui/core';
+import { App, LayoutEvent, Leafer, Line, PointerEvent, RenderEvent, ResizeEvent } from '@leafer-ui/core';
 import { EditorEvent } from '@leafer-in/editor';
 import type { ThemeOption, RulerConfig, RulerOptions } from './types';
 
@@ -38,9 +38,6 @@ export class FoxRuler {
   constructor(app: App, config?: RulerConfig, options?: RulerOptions) {
     this.app = app;
     this.rulerLeafer = app.addLeafer();
-    this.app.on(PointerEvent.DOUBLE_CLICK, () => {
-      console.log('@@@@');
-    });
     this.contextContainer = this.rulerLeafer.canvas.context;
     this.options = options || {
       ruleSize: 20,
