@@ -87,9 +87,11 @@
       <div class="flex-1 flex-col">
         <div class="bg-gray-100 h-60%">
           <CustomCfgPanel
+            v-if="componentUiValid"
             :cfgs="customPropertyCfgs"
             :default-group-name="path.basename(componentTag!)"
             :show-cfg-name="true"
+            :get-cfg-value
             @update:cfg-value="handleCfgValueUpdate"
           />
         </div>
@@ -148,6 +150,7 @@ const emit = defineEmits<{
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 let app: App | undefined;
 let componentUi: IUI | undefined;
+const componentUiValid = ref(false);
 
 const componentTag = computed(() => {
   if (mimicWorkspaceStatus.currentTarget?.editorType === 'component') {
@@ -332,6 +335,12 @@ function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
   setComponentUiProperty(cfgName, cfgValue);
 }
 
+function getCfgValue(cfgName: string): any {
+  if (componentUi?.proxyData) {
+    return componentUi.proxyData?.[cfgName];
+  }
+}
+
 onMounted(() => {
   newDrawCode.value = '';
   nextTick(() => {
@@ -349,6 +358,7 @@ onMounted(() => {
         componentUi = new uiClass({ x: 0, y: 0, draggable: false });
         app.tree.add(componentUi!);
         autofit();
+        componentUiValid.value = true;
       }
     }
   });

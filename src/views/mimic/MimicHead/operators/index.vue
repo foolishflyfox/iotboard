@@ -25,8 +25,6 @@
     </NSpace>
     <HeadVerticalDivider />
     <HeadIconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
-    <div>线样式</div>
-    <div>线宽</div>
     <HeadVerticalDivider />
   </div>
 </template>
