@@ -39,8 +39,19 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     _.remove(openedTargets.value, e => _.isEqual(e, openedTarget));
   };
   async function setCurrentTaget(target: OpenedTarget) {
+    if (currentTarget.value?.editorType === 'display') {
+      // 将原有图纸数据保存在内存中
+      const data = mimicVar.displayEditor.generateDisplayData();
+      if (data) {
+        mimicVar.displayEditor.setDisplayData(
+          currentTarget.value,
+          data
+        );
+      }
+    }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
+      // 保存
       let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
       if (!displayData) {
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
