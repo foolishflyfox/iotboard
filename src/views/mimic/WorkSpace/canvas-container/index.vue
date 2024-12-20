@@ -120,6 +120,7 @@ async function handleSaveShortcut(e: KeyboardEvent) {
     ) {
       await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
       window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
+      mimicWorkspaceStatus.setCurrentDisplaySaved();
     }
   }
 }

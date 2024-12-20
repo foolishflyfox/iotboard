@@ -56,12 +56,14 @@ import { titleSizeMap } from './misc';
 import { useCurElementProxyData } from '@mimic/hooks';
 import { updateElementData } from '@mimic/utils';
 import NumberProperty from '../NumberProperty.vue';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 defineOptions({
   name: 'DisplaySizeProperty',
 });
 
 const curElementProxyData = useCurElementProxyData();
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const sizeOptions: SelectOption[] = [...titleSizeMap.keys()].map(k => ({
   label: k,
@@ -89,6 +91,7 @@ const width = computed({
   },
   set(v: number) {
     curElementProxyData.value!.width = v;
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
   },
 });
 
@@ -98,6 +101,7 @@ const height = computed({
   },
   set(v: number) {
     curElementProxyData.value!.height = v;
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
   },
 });
 

@@ -10,7 +10,9 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   const rulerVisible = ref(true);
   // 工作区点阵是否可见
   const dotMatrixVisible = ref(true);
+  // 鼠标在图纸中的位置信息
   const cursorPos: Ref<IPointData | undefined> = ref();
+
   // 选中的绘制工具
   const drawingTool = ref<DrawingTool>('cursor');
   // 已经打开的对象列表
@@ -67,6 +69,19 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     drawingTool.value = tool;
   }
 
+  // 没保存的图纸
+  const unsavedDisplayPaths = ref<Set<string>>(new Set());
+  function setCurrentDisplayUnsave() {
+    if (currentTarget.value?.path) {
+      unsavedDisplayPaths.value.add(currentTarget.value.path);
+    }
+  }
+  function setCurrentDisplaySaved() {
+    if (currentTarget.value?.path) {
+      unsavedDisplayPaths.value.delete(currentTarget.value.path);
+    }
+  }
+
   return {
     rulerVisible,
     dotMatrixVisible,
@@ -79,5 +94,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     closeOpenedTarget,
     drawingTool,
     selectDrawingTool,
+    unsavedDisplayPaths,
+    setCurrentDisplaySaved,
+    setCurrentDisplayUnsave
   };
 });

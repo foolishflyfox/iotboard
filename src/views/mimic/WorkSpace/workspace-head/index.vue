@@ -7,6 +7,10 @@
       :style="{ backgroundColor: _.isEqual(item, currentTarget) ? '#00bfffbb' : '#b0b0b0' }"
       @click="changeCurrentTarget(item)"
     >
+      <div
+        v-if="mimicWorkspaceStatus.unsavedDisplayPaths.has(item.path)"
+        class="w-8px h-8px rounded-4 bg-#333 mr-3px"
+      />
       <NIcon size="16" class="mr-3px" :component="editorTypeIconDict[item.editorType]" />
       <span class="mr-3px cursor-default">
         {{ path.parse(item.path).name }}

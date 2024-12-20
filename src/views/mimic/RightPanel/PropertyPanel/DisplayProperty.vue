@@ -6,10 +6,12 @@
 </template>
 
 <script setup lang="ts">
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { ColorProperty, DisplaySizeProperty } from './components';
 import { useCurElementProxyData } from '@mimic/hooks';
 
 const curElementProxyData = useCurElementProxyData();
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 const bgColor = computed({
   get: () => {
@@ -18,6 +20,7 @@ const bgColor = computed({
   set: (v: string) => {
     if (curElementProxyData.value) {
       curElementProxyData.value.fill = v;
+      mimicWorkspaceStatus.setCurrentDisplayUnsave();
     }
   },
 });
