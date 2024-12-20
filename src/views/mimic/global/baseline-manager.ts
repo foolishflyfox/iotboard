@@ -1,6 +1,5 @@
 import { Line, Text, type IPointData } from 'leafer-ui';
 import { mimicVar } from '.';
-import * as _ from 'lodash-es';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 export class BaselineManager {

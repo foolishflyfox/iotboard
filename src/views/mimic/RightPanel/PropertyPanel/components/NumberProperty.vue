@@ -8,7 +8,13 @@
       :min
       :max
       :step
-    />
+      :placeholder
+      :show-button
+    >
+      <template #suffix>
+        <slot name="suffix" />
+      </template>
+    </CfgInputNumber>
   </PropertyContainer>
 </template>
 
@@ -24,9 +30,12 @@ withDefaults(
     min?: number;
     max?: number;
     step?: number;
+    placeholder?: string;
+    showButton?: boolean;
   }>(),
   {
     stopKeyDownEvent: true,
+    showButton: true
   },
 );
 

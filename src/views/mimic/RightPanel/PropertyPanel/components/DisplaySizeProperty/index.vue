@@ -8,7 +8,7 @@
       v-model:value="sizeType"
     />
     <PropertyContainer>
-      <NInputNumber
+      <NumberProperty
         placeholder="宽"
         size="small"
         class="mr-8px"
@@ -19,13 +19,13 @@
         <template #suffix>
           <div><span class="text-12px">px</span><NDivider vertical />W</div>
         </template>
-      </NInputNumber>
+      </NumberProperty>
       <NButton size="small" class="bg-gray-100" @click="swapWidthHeight">
         <template #icon>
           <NIcon><ArrowSwap24Filled /></NIcon>
         </template>
       </NButton>
-      <NInputNumber
+      <NumberProperty
         placeholder="高"
         size="small"
         class="ml-8px"
@@ -40,14 +40,14 @@
             H
           </div>
         </template>
-      </NInputNumber>
+      </NumberProperty>
     </PropertyContainer>
     <NDivider />
   </div>
 </template>
 
 <script setup lang="ts">
-import { NInputNumber, NButton, NIcon, NDivider } from 'naive-ui';
+import { NButton, NIcon, NDivider } from 'naive-ui';
 import type { SelectOption } from 'naive-ui';
 import SelectProperty from '../SelectProperty.vue';
 import { PropertyContainer } from '../containers';
@@ -55,6 +55,7 @@ import { ArrowSwap24Filled } from '@vicons/fluent';
 import { titleSizeMap } from './misc';
 import { useCurElementProxyData } from '@mimic/hooks';
 import { updateElementData } from '@mimic/utils';
+import NumberProperty from '../NumberProperty.vue';
 
 defineOptions({
   name: 'DisplaySizeProperty',

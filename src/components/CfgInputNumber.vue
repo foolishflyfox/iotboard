@@ -3,12 +3,18 @@
   <NInputNumber
     size="tiny"
     v-model:value="innerValue"
-    @keydown.stop="cfgInputKeydown"
     :update-value-on-input="false"
     :min
     :max
     :step
-  />
+    :placeholder
+    :show-button
+    @keydown.stop="cfgInputKeydown"
+  >
+    <template #suffix>
+      <slot name="suffix" />
+    </template>
+  </NInputNumber>
 </template>
 
 <script setup lang="ts">
@@ -19,6 +25,8 @@ const props = defineProps<{
   min?: number;
   max?: number;
   step?: number;
+  placeholder?: string;
+  showButton?: boolean;
 }>();
 
 const emit = defineEmits<{
