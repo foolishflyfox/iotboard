@@ -23,6 +23,7 @@ import {
   appMouseDoubleTapHandler,
   appMouseMoveHandler,
   leaveWorkspaceHandler,
+  layoutAfterHandler,
 } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
@@ -148,9 +149,7 @@ onMounted(() => {
   app.tree.zIndex = 0;
   mimicVar.displayEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
-  app.tree.on(LayoutEvent.AFTER, () => {
-    app!.sky.setTransform({ ...app!.tree.localTransform });
-  });
+  app.tree.on(LayoutEvent.AFTER, layoutAfterHandler);
   app.on(PointerEvent.TAP, appMouseTapHandler);
   app.on(PointerEvent.MOVE, appMouseMoveHandler);
   app.on(PointerEvent.DOUBLE_TAP, appMouseDoubleTapHandler);
@@ -204,6 +203,7 @@ onMounted(() => {
 onUnmounted(() => {
   if (app) {
     app.tree.off(ResizeEvent.RESIZE, resizeHandler);
+    app.tree.off(LayoutEvent.AFTER, layoutAfterHandler);
     app.off(PointerEvent.TAP, appMouseTapHandler);
     app.off(PointerEvent.MOVE, appMouseMoveHandler);
     app.off(PointerEvent.DOUBLE_CLICK, appMouseDoubleTapHandler);
