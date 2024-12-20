@@ -24,35 +24,48 @@ export class BaselineManager {
     }
   }
 
-  addHorizontalLine() {
+  deleteHorizontalLine() {
     if (!this.curHorizontalLine) return;
     const curY = this.curHorizontalLine.points![1] as number;
+    const newHorizontalLines: Line[] = [];
     for (const line of this.horizontalLines) {
       const lineY = line.proxyData!.points![1] as number;
       if (Math.abs(curY - lineY) < 3) {
         // 删除线
         mimicVar.displayEditor.app?.sky.remove(line);
-        _.pull(this.horizontalLines, line);
-        return;
+      } else {
+        newHorizontalLines.push(line);
       }
     }
+    this.horizontalLines = newHorizontalLines;
+  }
+
+  addHorizontalLine() {
+    if (!this.curHorizontalLine) return;
     const newLine = this.curHorizontalLine.clone() as Line;
     newLine.dashPattern = undefined;
     mimicVar.displayEditor.app?.sky.add(newLine);
     this.horizontalLines.push(newLine);
   }
 
-  addVerticalLine() {
+  deleteVerticalLine() {
     if (!this.curVerticalLine) return;
     const curX = this.curVerticalLine.points![0] as number;
+    const newVerticalLines: Line[] = [];
     for (const line of this.verticalLines) {
       const lineX = line.proxyData!.points![0] as number;
       if (Math.abs(curX - lineX) < 3) {
         mimicVar.displayEditor.app?.sky.remove(line);
         _.pull(this.verticalLines, line);
-        return;
+      } else {
+        newVerticalLines.push(line);
       }
     }
+    this.verticalLines = newVerticalLines;
+  }
+
+  addVerticalLine() {
+    if (!this.curVerticalLine) return;
     const newLine = this.curVerticalLine.clone() as Line;
     mimicVar.displayEditor.app?.sky.add(newLine);
     this.verticalLines.push(newLine);

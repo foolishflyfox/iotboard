@@ -99,5 +99,19 @@ export function appMouseDoubleTapHandler(e: PointerEvent) {
   } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
     const point = mimicVar.displayEditor.app?.getPagePoint(e);
     mimicVar.displayEditor.endDrawPolygon(point!);
+  } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
+    mimicVar.baselineManager.deleteHorizontalLine();
+  } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
+    mimicVar.baselineManager.deleteVerticalLine();
+  } else if (mimicWorkspaceStatus.drawingTool === 'cursor') {
+    if (mimicWorkspaceStatus.rulerVisible) {
+      if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {
+        if (e.x <= 20 && e.y > 20) {
+          mimicVar.baselineManager.deleteHorizontalLine();
+        } else {
+          mimicVar.baselineManager.deleteVerticalLine();
+        }
+      }
+    }
   }
 }

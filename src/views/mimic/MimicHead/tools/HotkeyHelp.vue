@@ -63,6 +63,8 @@ const hotKeyGroups = [{
     { label: '视图放大', value: 'ctrl/cmd + 鼠标滚轮↑' },
     { label: '视图缩小', value: 'ctrl/cmd + 鼠标滚轮↓' },
     { label: '视图拖动', value: '按下鼠标中键 + 移动' },
+    { label: '添加辅助线', value: '单击标尺' },
+    { label: '删除辅助线', value: '双击标尺' }
   ]
 }, {
   group: '图纸',
