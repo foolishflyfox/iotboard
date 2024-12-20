@@ -130,7 +130,7 @@ onMounted(() => {
     view: 'mimicCanvasContainer',
     ground: {},
     tree: { usePartRender: true },
-    sky: { type: 'draw', usePartRender: false },
+    // sky: { type: 'draw', usePartRender: false },
     editor: {
       // circle: {
       //   pointType: 'button',
@@ -157,6 +157,7 @@ onMounted(() => {
   app.on(KeyEvent.HOLD, keyHolderHandler);
   displayEditorWorkspace.value?.addEventListener('mouseleave', leaveWorkspaceHandler);
   const ruler = new Ruler(app);
+  app.sky = app.addLeafer({ type: 'draw', usePartRender: false });
   watchEffect(() => {
     ruler.enabled = rulerVisible.value;
   });

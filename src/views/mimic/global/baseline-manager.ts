@@ -1,16 +1,68 @@
-import { Line } from 'leafer-ui';
+import { Line, Text, type IPointData } from 'leafer-ui';
 import { mimicVar } from '.';
 import * as _ from 'lodash-es';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 export class BaselineManager {
   private horizontalLines: Line[] = [];
   private verticalLines: Line[] = [];
   private curHorizontalLine?: Line;
   private curVerticalLine?: Line;
+  /** 用于显示当前辅助线位置的文本 */
+  private posText?: Text;
+  private cursorPos?: Ref<IPointData | undefined>;
+
+  private getPosText(): Text {
+    if (this.posText) return this.posText;
+    this.posText = new Text({
+      text: '',
+      fill: '#FF0000',
+      x: 0,
+      y: 0,
+      visible: false,
+      fontSize: 6
+    });
+    mimicVar.displayEditor.app!.sky.add(this.posText);
+    return this.posText;
+  }
+
+  private getCursorPos(): Ref<IPointData | undefined> {
+    if (!this.cursorPos) {
+      const { cursorPos } = toRefs(useMimicWorkspaceStatus());
+      this.cursorPos = cursorPos;
+      watch(cursorPos, (nv) => {
+        if (nv) {
+          this.movePosText();
+        }
+      });
+    }
+    return this.cursorPos;
+  }
+
+  private movePosText() {
+    const posText = this.getPosText();
+    const cursorPos = this.getCursorPos();
+    if (cursorPos.value && (this.curHorizontalLine || this.curVerticalLine)) {
+      if (this.curHorizontalLine) {
+        posText.text = cursorPos.value.y.toFixed(3);
+      } else {
+        posText.text = cursorPos.value.x.toFixed(3);
+      }
+      posText.x = cursorPos.value.x + 3;
+      posText.y = cursorPos.value.y + 3;
+      posText.visible = true;
+    }
+  }
+
+  private hidePosText() {
+    if (!this.posText) return;
+    this.posText.visible = false;
+  }
 
   setCurHorizontalLine(line: Line) {
     this.curHorizontalLine = line;
     mimicVar.displayEditor.app!.sky.add(line);
+    this.movePosText();
   }
 
   getCurHorizontalLine() {
@@ -21,6 +73,7 @@ export class BaselineManager {
     if (this.curHorizontalLine) {
       mimicVar.displayEditor.app?.sky.remove(this.curHorizontalLine);
       this.curHorizontalLine = undefined;
+      this.hidePosText();
     }
   }
 
@@ -75,6 +128,7 @@ export class BaselineManager {
   setCurVerticalLine(line: Line) {
     this.curVerticalLine = line;
     mimicVar.displayEditor.app!.sky.add(line);
+    this.movePosText();
   }
 
   getCurVerticalLine() {
@@ -85,6 +139,7 @@ export class BaselineManager {
     if (this.curVerticalLine) {
       mimicVar.displayEditor.app?.sky.remove(this.curVerticalLine);
       this.curVerticalLine = undefined;
+      this.hidePosText();
     }
   }
 
