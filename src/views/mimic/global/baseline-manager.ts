@@ -109,7 +109,6 @@ export class BaselineManager {
       const lineX = line.proxyData!.points![0] as number;
       if (Math.abs(curX - lineX) < 3) {
         mimicVar.displayEditor.app?.sky.remove(line);
-        _.pull(this.verticalLines, line);
       } else {
         newVerticalLines.push(line);
       }
