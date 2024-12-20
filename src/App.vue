@@ -18,6 +18,9 @@ function bodyKeydownHandler(e: KeyboardEvent) {
 }
 
 onMounted(() => {
+  if (import.meta.env.VITE_APP_TITLE) {
+    document.title = import.meta.env.VITE_APP_TITLE;
+  }
   document.body.addEventListener('keydown', bodyKeydownHandler);
 });
 onUnmounted(() => {
