@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { getDataUrl } from '@/utils';
 import { MimicItem } from '../components';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import type { OpenedTarget } from '@mimic/types';
 import { mimicFileApi } from '@/service/api';
 
@@ -26,6 +26,7 @@ const emit = defineEmits<{
 }>();
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const mimicDisplayStatus = useMimicDisplayStatus();
 
 const imgSrc = computed(() => {
   return props.hasPreview
@@ -48,7 +49,7 @@ async function openDisplay() {
     editorType: 'display',
     path: displayPath,
   };
-
+  mimicDisplayStatus.selectedUiId = null;
   mimicWorkspaceStatus.addOpenedTarget(openedDisplay);
 }
 </script>

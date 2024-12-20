@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { studioHeight } from '@mimic/settings';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import * as path from 'pathe';
 import { CloseFilled, GroupObjects } from '@vicons/carbon';
 import { ImagesOutline } from '@vicons/ionicons5';
@@ -33,6 +33,7 @@ import * as _ from 'lodash-es';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const { currentTarget } = toRefs(mimicWorkspaceStatus);
+const mimicDisplayStatus = useMimicDisplayStatus();
 const editorTypeIconDict: Record<EditorType, Component> = {
   display: AppGeneric24Filled,
   module: GroupObjects,
@@ -42,6 +43,7 @@ const editorTypeIconDict: Record<EditorType, Component> = {
 
 function changeCurrentTarget(openedTarget: OpenedTarget) {
   mimicWorkspaceStatus.setCurrentTaget(openedTarget);
+  mimicDisplayStatus.selectedUiId = null;
 }
 function closeTarget(openedTarget: OpenedTarget) {
   console.log('关闭目标');
