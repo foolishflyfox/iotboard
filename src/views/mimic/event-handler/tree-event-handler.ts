@@ -49,7 +49,7 @@ function moveVerticalBaseline(point: IPointData) {
   let line = mimicVar.baselineManager.getCurVerticalLine();
   const points = [point.x, -10000, point.x, 10000];
   if (!line) {
-    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000' });
+    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
     mimicVar.baselineManager.setCurVerticalLine(line);
   }
   line!.proxyData!.points = points;

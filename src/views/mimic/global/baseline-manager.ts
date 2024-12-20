@@ -67,6 +67,7 @@ export class BaselineManager {
   addVerticalLine() {
     if (!this.curVerticalLine) return;
     const newLine = this.curVerticalLine.clone() as Line;
+    newLine.dashPattern = undefined;
     mimicVar.displayEditor.app?.sky.add(newLine);
     this.verticalLines.push(newLine);
   }
