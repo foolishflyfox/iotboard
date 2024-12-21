@@ -20,6 +20,7 @@ const bgColor = computed({
   set: (v: string) => {
     if (curElementProxyData.value) {
       curElementProxyData.value.fill = v;
+      console.log('@@@@1');
       mimicWorkspaceStatus.setCurrentDisplayUnsave();
     }
   },

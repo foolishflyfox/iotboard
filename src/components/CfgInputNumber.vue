@@ -2,13 +2,14 @@
 <template>
   <NInputNumber
     size="tiny"
-    v-model:value="innerValue"
+    :value="innerValue"
     :update-value-on-input="false"
     :min
     :max
     :step
     :placeholder
     :show-button
+    @update:value="updateValue"
     @keydown.stop="cfgInputKeydown"
   >
     <template #suffix>
@@ -21,7 +22,7 @@
 import { NInputNumber } from 'naive-ui';
 
 const props = defineProps<{
-  value?: number;
+  value?: number | null;
   min?: number;
   max?: number;
   step?: number;
@@ -30,7 +31,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:value': [v: number | undefined];
+  'update:value': [v: number | undefined | null];
 }>();
 
 const innerValue = ref(props.value);
@@ -40,7 +41,11 @@ watch(
   nv => (innerValue.value = nv),
 );
 
-watch(innerValue, nv => emit('update:value', nv));
+// watch(innerValue, nv => emit('update:value', nv));
+function updateValue(v?: number | null) {
+  innerValue.value = v;
+  emit('update:value', v);
+}
 
 function cfgInputKeydown(e: KeyboardEvent) {
   // if ([keyboardKeys.Enter, keyboardKeys.Tab].includes(e.key)) {
