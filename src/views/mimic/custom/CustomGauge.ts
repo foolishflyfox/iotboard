@@ -20,7 +20,6 @@ class CustomGaugeData extends UIData implements ICustomGaugeData {
   // 如果需要自定义设置 value 时的逻辑，需要 定义 _xxx，并重新实现 setXxx
   // protected _value?: string;
   // protected setValue(v: string) {
-  //   console.log('@@@ setValue');
   //   this._value = v;
   // }
 }

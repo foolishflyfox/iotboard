@@ -59,7 +59,6 @@ export function appMouseMoveHandler(e: PointerEvent) {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   const point = mimicVar.displayEditor.app!.getPagePoint(e);
   mimicWorkspaceStatus.cursorPos = point;
-  // console.log('@@@', e.x, e.y);
   if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
       if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {

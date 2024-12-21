@@ -56,7 +56,6 @@ export class BaselineManager {
       const newFontSize = Math.round(
         fontSize / getScaleX(mimicVar.displayEditor.app!.sky.getTransform()) * 3
       );
-      console.log('@@@111', newFontSize);
       if (newFontSize !== posText.fontSize) {
         posText.fontSize = newFontSize;
       }

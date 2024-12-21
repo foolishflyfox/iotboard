@@ -236,7 +236,6 @@ async function updateSvgData() {
     const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
     const svgUrlPath = await mimicFileApi.updateDisplaySvgData(targetPath, blob);
     if (curElementProxyData.value) {
-      console.log('@@@', path.join(getDataUrl(), svgUrlPath));
       curElementProxyData.value.url = path.join(getDataUrl(), svgUrlPath);
     }
   }
