@@ -1,6 +1,9 @@
 import { Line, Text, type IPointData } from 'leafer-ui';
 import { mimicVar } from '.';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { getScaleX } from '@/utils';
+
+const fontSize = 6;
 
 export class BaselineManager {
   private horizontalLines: Line[] = [];
@@ -19,7 +22,7 @@ export class BaselineManager {
       x: 0,
       y: 0,
       visible: false,
-      fontSize: 6
+      fontSize
     });
     mimicVar.displayEditor.app!.sky.add(this.posText);
     return this.posText;
@@ -50,6 +53,13 @@ export class BaselineManager {
       posText.x = cursorPos.value.x + 3;
       posText.y = cursorPos.value.y + 3;
       posText.visible = true;
+      const newFontSize = Math.round(
+        fontSize / getScaleX(mimicVar.displayEditor.app!.sky.getTransform()) * 3
+      );
+      console.log('@@@111', newFontSize);
+      if (newFontSize !== posText.fontSize) {
+        posText.fontSize = newFontSize;
+      }
     }
   }
 
