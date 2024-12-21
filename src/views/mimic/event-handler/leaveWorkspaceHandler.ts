@@ -3,6 +3,6 @@ import { useMimicWorkspaceStatus } from '@mimic/stores';
 
 export function leaveWorkspaceHandler() {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-  mimicVar.baselineManager.clearCurBaseLine();
+  mimicVar.baselineManagerContainer.getBaselineManager()?.clearCurBaseLine();
   mimicWorkspaceStatus.cursorPos = undefined;
 }

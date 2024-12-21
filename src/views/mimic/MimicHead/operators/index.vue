@@ -91,7 +91,7 @@ function selectDrawingTool(tool: DrawingTool) {
 }
 
 function clearBaselinse() {
-  mimicVar.baselineManager.clearAllBaselines();
+  mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
 }
 </script>
 

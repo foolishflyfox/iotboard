@@ -154,4 +154,18 @@ export class BaselineManager {
     this.deleteCurHorizontalLine();
     this.deleteCurVerticalLine();
   }
+
+  // 隐藏 baselines
+  hideAllBaselines() {
+    for (const line of [...this.horizontalLines, ...this.verticalLines]) {
+      line.visible = false;
+    }
+  }
+
+  // 显示 baselines
+  showAllBaselines() {
+    for (const line of [...this.horizontalLines, ...this.verticalLines]) {
+      line.visible = true;
+    }
+  }
 }

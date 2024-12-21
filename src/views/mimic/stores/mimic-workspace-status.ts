@@ -1,6 +1,6 @@
 import type { DrawingTool, OpenedTarget } from '@mimic/types';
 import * as _ from 'lodash-es';
-import { mimicVar } from '@mimic/global';
+import { mimicVar, BaselineManager } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
 import { componentPathToTag } from '../utils';
 import type { IPointData } from 'leafer-ui';
@@ -32,6 +32,9 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     if (_.isEqual(openedTarget, currentTarget.value)) {
       let newTargetIndex = _.findIndex(openedTargets.value, e => _.isEqual(e, openedTarget)) + 1;
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
+      if (currentTarget.value?.editorType === 'display') {
+        mimicVar.baselineManagerContainer.removeBaselineManager(currentTarget.value.path);
+      }
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
       } else {
@@ -50,16 +53,22 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
           data
         );
       }
+      mimicVar.baselineManagerContainer.getBaselineManager()?.hideAllBaselines();
     }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
-      // 保存
       let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
       if (!displayData) {
+        // 打开新的图纸
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+        mimicVar.baselineManagerContainer.addBaselineManager(
+          currentTarget.value.path,
+          new BaselineManager()
+        );
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
+      mimicVar.baselineManagerContainer.getBaselineManager()?.showAllBaselines();
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);

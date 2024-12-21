@@ -19,16 +19,16 @@ export function appMouseTapHandler(e: PointerEvent) {
       mimicVar.displayEditor.addPolygonEndPoint(point!);
     }
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
-    mimicVar.baselineManager.addHorizontalLine();
+    mimicVar.baselineManagerContainer.getBaselineManager()?.addHorizontalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
-    mimicVar.baselineManager.addVerticalLine();
+    mimicVar.baselineManagerContainer.getBaselineManager()?.addVerticalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
       if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {
         if (e.x <= 20 && e.y > 20) {
-          mimicVar.baselineManager.addHorizontalLine();
+          mimicVar.baselineManagerContainer.getBaselineManager()?.addHorizontalLine();
         } else {
-          mimicVar.baselineManager.addVerticalLine();
+          mimicVar.baselineManagerContainer.getBaselineManager()?.addVerticalLine();
         }
       }
     }
@@ -36,21 +36,21 @@ export function appMouseTapHandler(e: PointerEvent) {
 }
 
 function moveHorizontalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManager.getCurHorizontalLine();
+  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurHorizontalLine();
   const points = [-10000, point.y, 10000, point.y];
   if (!line) {
     line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManager.setCurHorizontalLine(line);
+    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurHorizontalLine(line);
   }
   line!.proxyData!.points = points;
 }
 
 function moveVerticalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManager.getCurVerticalLine();
+  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurVerticalLine();
   const points = [point.x, -10000, point.x, 10000];
   if (!line) {
     line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManager.setCurVerticalLine(line);
+    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurVerticalLine(line);
   }
   line!.proxyData!.points = points;
 }
@@ -73,10 +73,10 @@ export function appMouseMoveHandler(e: PointerEvent) {
           return;
         }
       } else {
-        mimicVar.baselineManager.clearCurBaseLine();
+        mimicVar.baselineManagerContainer.getBaselineManager()?.clearCurBaseLine();
       }
     } else {
-      mimicVar.baselineManager.clearAllBaselines();
+      mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
     }
     return;
   }
@@ -100,16 +100,16 @@ export function appMouseDoubleTapHandler(e: PointerEvent) {
     const point = mimicVar.displayEditor.app?.getPagePoint(e);
     mimicVar.displayEditor.endDrawPolygon(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
-    mimicVar.baselineManager.deleteHorizontalLine();
+    mimicVar.baselineManagerContainer.getBaselineManager()?.deleteHorizontalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
-    mimicVar.baselineManager.deleteVerticalLine();
+    mimicVar.baselineManagerContainer.getBaselineManager()?.deleteVerticalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
       if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {
         if (e.x <= 20 && e.y > 20) {
-          mimicVar.baselineManager.deleteHorizontalLine();
+          mimicVar.baselineManagerContainer.getBaselineManager()?.deleteHorizontalLine();
         } else {
-          mimicVar.baselineManager.deleteVerticalLine();
+          mimicVar.baselineManagerContainer.getBaselineManager()?.deleteVerticalLine();
         }
       }
     }

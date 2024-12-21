@@ -50,7 +50,6 @@ function changeCurrentTarget(openedTarget: OpenedTarget) {
   mimicDisplayStatus.selectedUiId = null;
 }
 function closeTarget(openedTarget: OpenedTarget) {
-  console.log('关闭目标');
   mimicWorkspaceStatus.closeOpenedTarget(openedTarget);
 }
 </script>
