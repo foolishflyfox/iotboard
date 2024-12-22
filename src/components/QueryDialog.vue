@@ -9,24 +9,28 @@
     <template #header>
       <div>{{ title }}</div>
     </template>
+
     <slot />
+
     <template #action>
       <NSpace>
+        <slot name="positive-action">
+          <NButton
+            type="primary"
+            size="small"
+            :disabled="positiveBtnDisabled"
+            @click="
+              () => {
+                emit('positiveClick');
+                close();
+              }
+            "
+          >
+            {{ positiveText }}
+          </NButton>
+        </slot>
         <NButton size="small" @click="close">
           {{ negativeText }}
-        </NButton>
-        <NButton
-          type="primary"
-          size="small"
-          :disabled="positiveBtnDisabled"
-          @click="
-            () => {
-              emit('positiveClick');
-              close();
-            }
-          "
-        >
-          {{ positiveText }}
         </NButton>
       </NSpace>
     </template>

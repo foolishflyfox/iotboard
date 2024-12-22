@@ -20,6 +20,31 @@
       </NIcon>
     </div>
   </div>
+  <QueryDialog
+    title="删除"
+    v-model:show-modal="showUnsavedDisplayDealModal"
+    type="warning"
+  >
+    <template #positive-action>
+      <NButton
+        type="primary"
+        size="small"
+      >
+        保存
+      </NButton>
+      <NButton
+        type="warning"
+        size="small"
+        @click="() => {
+          mimicWorkspaceStatus.closeOpenedTarget(toCloseTarget);
+          showUnsavedDisplayDealModal = false;
+        }"
+      >
+        不保存
+      </NButton>
+    </template>
+    <div>确认删除图纸 【{{ toCloseTarget.path }}】?</div>
+  </QueryDialog>
 </template>
 
 <script setup lang="ts">
@@ -28,12 +53,13 @@ import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import * as path from 'pathe';
 import { CloseFilled, GroupObjects } from '@vicons/carbon';
 import { ImagesOutline } from '@vicons/ionicons5';
-import { NIcon } from 'naive-ui';
+import { NIcon, NButton } from 'naive-ui';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import type { EditorType, OpenedTarget } from '@mimic/types';
 import type { Component } from 'vue';
 import { Components } from '@vicons/tabler';
 import * as _ from 'lodash-es';
+import { QueryDialog } from '@/components';
 
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const { currentTarget } = toRefs(mimicWorkspaceStatus);
@@ -49,8 +75,17 @@ function changeCurrentTarget(openedTarget: OpenedTarget) {
   mimicWorkspaceStatus.setCurrentTaget(openedTarget);
   mimicDisplayStatus.selectedUiId = null;
 }
+
+const showUnsavedDisplayDealModal = ref(false);
+
+let toCloseTarget: OpenedTarget;
 function closeTarget(openedTarget: OpenedTarget) {
-  mimicWorkspaceStatus.closeOpenedTarget(openedTarget);
+  if (mimicWorkspaceStatus.unsavedDisplayPaths.has(openedTarget.path)) {
+    showUnsavedDisplayDealModal.value = true;
+    toCloseTarget = openedTarget;
+  } else {
+    mimicWorkspaceStatus.closeOpenedTarget(openedTarget);
+  }
 }
 </script>
 
