@@ -87,6 +87,22 @@ function closeTarget(openedTarget: OpenedTarget) {
     mimicWorkspaceStatus.closeOpenedTarget(openedTarget);
   }
 }
+
+function closeCurrentTabHandler(event: BeforeUnloadEvent) {
+  if (mimicWorkspaceStatus.unsavedDisplayPaths.size > 0) {
+    const message = '您有未保存的更改，确定要离开吗？';
+    event.returnValue = message;
+    return message;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('beforeunload', closeCurrentTabHandler);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('beforeunload', closeCurrentTabHandler);
+});
 </script>
 
 <style scoped></style>
