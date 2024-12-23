@@ -14,7 +14,7 @@ import { useMimicDisplayStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
 import '@leafer-in/arrow';
-import { getElementClassByTag } from '../custom/registrar';
+import { getElementClassByTag, registerUiClass } from '../custom/registrar';
 import { useKeyModifier } from '@vueuse/core';
 
 const shiftState = useKeyModifier('Shift');
@@ -236,6 +236,17 @@ export class DisplayEditor {
     });
     this.app?.tree.clear();
     this.app?.tree.add(displayBaseMap);
+    // 加载子元素
+    for (const child of displayData.children || []) {
+      if (child.tag) {
+        if (child.tag.startsWith('element:')) {
+          getElementClassByTag(child.tag);
+        } else {
+          registerUiClass(child.tag);
+        }
+      }
+      this.app?.tree.add(child);
+    }
 
     this.viewAutoFit();
   }
@@ -244,7 +255,7 @@ export class DisplayEditor {
   generateDisplayData() {
     if (!this.app?.tree) return null;
     const allUi = this.app?.tree.find(() => 1);
-    const displayData: DisplayData = { baseMap: {} } as any;
+    const displayData = { baseMap: {}, children: ([] as object) } as DisplayData;
     for (const ui of allUi) {
       if (ui.id === displayBaseMapId) {
         const baseMap = displayData.baseMap;
@@ -252,7 +263,13 @@ export class DisplayEditor {
         baseMap.width = ui.width!;
         baseMap.height = ui.height!;
         baseMap.sizeType = ui.data?.sizeType;
-        console.log('保存图纸信息: ', baseMap);
+      } else {
+        if (ui.tag === 'Leafer') {
+          // 对 leafer 层的处理
+        } else {
+          if (!displayData.children) displayData.children = [];
+          displayData.children.push(ui.toJSON());
+        }
       }
     }
     return displayData;

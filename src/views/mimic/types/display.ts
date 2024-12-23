@@ -1,3 +1,5 @@
+import type { IUIJSONData } from 'leafer-ui';
+
 export interface DisplayData {
   /** 底图 */
   baseMap: {
@@ -10,4 +12,6 @@ export interface DisplayData {
     /** 高度，单位 px */
     height: number;
   };
+  /** 子元素 */
+  children?: IUIJSONData[];
 }
