@@ -46,49 +46,56 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
       return this.__leaf.children![0] as Text;
     }
 
+    private setTextUiAttr(attr: string, v: any) {
+      const textUi = this.getTextUi();
+      if (textUi) {
+        textUi[attr] = v;
+      }
+    }
+
     protected setTextContent(v: string) {
       this._textContent = v;
-      this.getTextUi().text = v;
+      this.setTextUiAttr('text', v);
     }
 
     protected setTextFill(v: string) {
       this._textFill = v;
-      this.getTextUi().fill = v;
+      this.setTextUiAttr('fill', v);
     }
 
     protected setTextFontSize(v: number) {
       this._textFontSize = v;
-      this.getTextUi().fontSize = v;
+      this.setTextUiAttr('fontSize', v);
     }
 
     protected setTextPadding(v: number | number[]) {
       this._textPadding = v;
-      this.getTextUi().padding = v;
+      this.setTextUiAttr('padding', v);
     }
 
     protected setTextAlign(v: ITextAlign) {
       this._textAlign = v;
-      this.getTextUi().textAlign = v;
+      this.setTextUiAttr('textAlign', v);
     }
 
     protected setTextVerticalAlign(v: IVerticalAlign) {
       this._textVerticalAlign = v;
-      this.getTextUi().verticalAlign = v;
+      this.setTextUiAttr('verticalAlign', v);
     }
 
     protected setTextFontWeight(v: IFontWeight) {
       this._textFontWeight = v;
-      this.getTextUi().fontWeight = v;
+      this.setTextUiAttr('fontWeight', v);
     }
 
     protected setTextDecoration(v: ITextDecoration) {
       this._textDecoration = v;
-      this.getTextUi().textDecoration = v;
+      this.setTextUiAttr('textDecoration', v);
     }
 
     protected setTextItalic(v: boolean) {
       this._textItalic = v;
-      this.getTextUi().italic = v;
+      this.setTextUiAttr('italic', v);
     }
   }
 
