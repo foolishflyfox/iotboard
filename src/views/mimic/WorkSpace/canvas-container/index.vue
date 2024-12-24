@@ -182,19 +182,17 @@ onMounted(() => {
     draggable: true
   });
 
-  watch(
-    () => mimicWorkspaceStatus.currentTarget,
-    (nv) => {
-      // console.log('处理图纸', nv);
-      // mimicVar.displayEditor.loadDisplayData()
-      if (nv) {
-        mimicVar.displayEditor.loadOpenedDisplay(nv);
-      }
-    },
-    {
-      immediate: true,
-    },
-  );
+  // watch(
+  //   () => mimicWorkspaceStatus.currentTarget,
+  //   (nv) => {
+  //     if (nv) {
+  //       // mimicVar.displayEditor.loadOpenedDisplay(nv);
+  //     }
+  //   },
+  //   {
+  //     immediate: true,
+  //   },
+  // );
   window.addEventListener('keydown', handleSaveShortcut);
   // const image = new Image({ url: '/data/component/基础/gauge.png', draggable: true });
   // app.tree.add(image);
