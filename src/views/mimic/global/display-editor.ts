@@ -240,12 +240,18 @@ export class DisplayEditor {
     for (const child of displayData.children || []) {
       if (child.tag) {
         if (child.tag.startsWith('element:')) {
-          getElementClassByTag(child.tag);
+          const elementClass = getElementClassByTag(child.tag);
+          const element = new elementClass(child);
+          // 不用 nextTick，element 将不能添加到 tree
+          nextTick(() => {
+            this.app?.tree.add(element);
+          });
         } else {
           registerUiClass(child.tag);
         }
       }
-      this.app?.tree.add(child);
+
+      // this.app?.tree.add(child);
     }
 
     this.viewAutoFit();
@@ -267,8 +273,10 @@ export class DisplayEditor {
         if (ui.tag === 'Leafer') {
           // 对 leafer 层的处理
         } else {
-          if (!displayData.children) displayData.children = [];
-          displayData.children.push(ui.toJSON());
+          if (ui.parent?.tag === 'Leafer') {
+            if (!displayData.children) displayData.children = [];
+            displayData.children.push(ui.toJSON());
+          }
         }
       }
     }

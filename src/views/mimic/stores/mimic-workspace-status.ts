@@ -45,6 +45,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   };
   async function setCurrentTaget(target: OpenedTarget) {
     if (currentTarget.value?.editorType === 'display') {
+      // 取消选中的元素
+      mimicVar.displayEditor.app?.editor.cancel();
       // 将原有图纸数据保存在内存中
       const data = mimicVar.displayEditor.generateDisplayData();
       if (data) {
