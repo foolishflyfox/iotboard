@@ -38,7 +38,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
       } else {
-        currentTarget.value = openedTargets.value[newTargetIndex];
+        setCurrentTaget(openedTargets.value[newTargetIndex]);
       }
     }
     _.remove(openedTargets.value, e => _.isEqual(e, openedTarget));
