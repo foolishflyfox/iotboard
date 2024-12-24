@@ -27,7 +27,7 @@ import {
 } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
-import { getUniqueId } from '@/utils';
+import { getUniqueId, removeExtention } from '@/utils';
 import ContextMenu from './ContextMenu.vue';
 import { useDropZone } from '@vueuse/core';
 import * as _ from 'lodash-es';
@@ -126,6 +126,11 @@ async function handleSaveShortcut(e: KeyboardEvent) {
       && mimicWorkspaceStatus.currentTarget?.path
     ) {
       await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
+      const blob = (await mimicVar.displayEditor.app?.tree.export('png', { blob: true }))?.data;
+      if (blob) {
+        const pngPath = `${removeExtention(mimicWorkspaceStatus.currentTarget.path)}.png`;
+        await mimicFileApi.uploadPreviewPng('display', pngPath, blob);
+      }
       window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
       mimicWorkspaceStatus.setCurrentDisplaySaved();
     }
