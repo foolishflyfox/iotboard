@@ -34,6 +34,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
       if (currentTarget.value?.editorType === 'display') {
         mimicVar.baselineManagerContainer.removeBaselineManager(currentTarget.value.path);
+        mimicVar.displayEditor.delDisplayData(currentTarget.value);
       }
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
