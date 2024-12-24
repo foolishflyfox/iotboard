@@ -66,6 +66,7 @@ useDropZone(displayEditorWorkspace);
 
 async function onDisplayEditorDrop(e: MouseEvent) {
   if (!mimicVar.displayEditor.draggingTag) return;
+  let displayDataChanged = true;
   if (mimicVar.displayEditor.draggingType === 'component') {
     console.log(`将组件 ${mimicVar.displayEditor.draggingTag} 拖放到图纸`);
     const componentClass = await registerUiClass(mimicVar.displayEditor.draggingTag);
@@ -106,6 +107,11 @@ async function onDisplayEditorDrop(e: MouseEvent) {
       });
       mimicVar.displayEditor.app?.tree.add(newElement);
     }
+  } else {
+    displayDataChanged = false;
+  }
+  if (displayDataChanged) {
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
 }
 

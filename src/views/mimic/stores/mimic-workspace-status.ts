@@ -2,10 +2,13 @@ import type { DrawingTool, OpenedTarget } from '@mimic/types';
 import * as _ from 'lodash-es';
 import { mimicVar, BaselineManager } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
-import { componentPathToTag } from '../utils';
+import { componentPathToTag } from '@mimic/utils';
 import type { IPointData } from 'leafer-ui';
+import { useMimicDisplayStatus } from './mimic-display-status';
+import { displayBaseMapId } from '@mimic/constant';
 
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
+  const mimicDisplayStatus = useMimicDisplayStatus();
   // 工作区标尺是否可见
   const rulerVisible = ref(true);
   // 工作区点阵是否可见
@@ -72,6 +75,9 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
       mimicVar.baselineManagerContainer.getBaselineManager()?.showAllBaselines();
+      nextTick(() => {
+        mimicDisplayStatus.selectedUiId = displayBaseMapId;
+      });
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);

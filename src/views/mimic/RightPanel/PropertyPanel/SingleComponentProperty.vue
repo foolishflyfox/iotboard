@@ -87,10 +87,10 @@ import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
-import { UI, type IArrowType, type IPaint, type IPaintType, type IUI } from 'leafer-ui';
+import { UI, type IArrowType, type IPaintType, type IUI } from 'leafer-ui';
 import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
-import { useMimicDisplayStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import CustomCfgPanel from '@/views/mimic/RightPanel/CustomCfgPanel.vue';
 import ArrowSelector from './ArrowSelector.vue';
@@ -105,6 +105,7 @@ import StringProperty from './components/StringProperty.vue';
 import StrokeJoinSelector from './StrokeJoinSelector.vue';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 const curElementProxyData = useCurElementProxyData();
 
 const curAppearancePropertyTypes = computed(() => {
@@ -116,104 +117,53 @@ const curAppearancePropertyTypes = computed(() => {
   return result;
 });
 
-const x = computed({
-  get: () => curElementProxyData.value?.x,
-  set: (v: number) => (curElementProxyData.value!.x = v),
-});
+function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
+  return computed({
+    get: () => curElementProxyData.value?.[attrName],
+    set: (v: any) => {
+      if (customSetter) {
+        customSetter(v);
+      } else {
+        curElementProxyData.value![attrName] = v;
+      }
+      // 设置图纸为未保存
+      mimicWorkspaceStatus.setCurrentDisplayUnsave();
+    }
+  });
+}
 
-const y = computed({
-  get: () => curElementProxyData.value?.y,
-  set: (v: number) => (curElementProxyData.value!.y = v),
-});
-const width = computed({
-  get: () => curElementProxyData.value?.width,
-  set: (v: number) => {
-    curElementProxyData.value!.width = v;
-  }
-});
-const height = computed({
-  get: () => curElementProxyData.value?.height,
-  set: (v: number) => (curElementProxyData.value!.height = v),
-});
-const sides = computed({
-  get: () => curElementProxyData.value?.sides,
-  set: (v: number) => (curElementProxyData.value!.sides = v)
-});
 interface Stroke extends Record<string, any> {
   type: IPaintType;
 }
-const stroke = computed({
-  get: () => curElementProxyData.value?.stroke as IPaint,
-  set: (v: Stroke) => (curElementProxyData.value!.stroke = v as any),
+
+const x = useAttrProxy('x');
+const y = useAttrProxy('y');
+const width = useAttrProxy('width');
+const height = useAttrProxy('height');
+const sides = useAttrProxy('sides');
+const stroke = useAttrProxy('stroke');
+const strokeWidth = useAttrProxy('strokeWidth');
+const fill = useAttrProxy('fill');
+const startArrow = useAttrProxy('startArrow', (v: IArrowType) => {
+  curElementProxyData.value!.startArrow = v;
+  (mimicDisplayStatus.curUi as IUI).forceUpdate();
 });
-const strokeWidth = computed({
-  get: () => curElementProxyData.value?.strokeWidth as number,
-  set: (v: number) => (curElementProxyData.value!.strokeWidth = v),
+const endArrow = useAttrProxy('endArrow', (v: IArrowType) => {
+  curElementProxyData.value!.endArrow = v;
+  // 存在修改了样式后，canvas 中绘制的样式没有变化的情况
+  // (startArrow 和 endArrow 中的第一个修改生效，第二个修改不生效)
+  (mimicDisplayStatus.curUi as IUI).forceUpdate();
 });
-const fill = computed({
-  get: () => curElementProxyData.value?.fill,
-  set: (v: string) => (curElementProxyData.value!.fill = v),
-});
-const startArrow = computed({
-  get: () => curElementProxyData.value!.startArrow as any,
-  set: (v: IArrowType) => {
-    curElementProxyData.value!.startArrow = v;
-    (mimicDisplayStatus.curUi as IUI).forceUpdate();
-  },
-});
-const endArrow = computed({
-  get: () => curElementProxyData.value?.endArrow as any,
-  set: (v: IArrowType) => {
-    curElementProxyData.value!.endArrow = v;
-    // 存在修改了样式后，canvas 中绘制的样式没有变化的情况
-    // (startArrow 和 endArrow 中的第一个修改生效，第二个修改不生效)
-    (mimicDisplayStatus.curUi as IUI).forceUpdate();
-  },
-});
-const cornerRadius = computed({
-  get: () => curElementProxyData.value!.cornerRadius as number,
-  set: (v: number) => {
-    curElementProxyData.value!.cornerRadius = v;
-  },
-});
-const dashPattern = computed({
-  get: () => curElementProxyData.value!.dashPattern as any,
-  set: (v: any) => {
-    curElementProxyData.value!.dashPattern = v;
-  },
-});
-const text = computed({
-  get: () => curElementProxyData.value!.text as any,
-  set: (v: any) => (curElementProxyData.value!.text = v),
-});
-const fontSize = computed({
-  get: () => curElementProxyData.value!.fontSize as any,
-  set: (v: any) => (curElementProxyData.value!.fontSize = v),
-});
-const fontWeight = computed({
-  get: () => curElementProxyData.value!.fontWeight as any,
-  set: (v: any) => (curElementProxyData.value!.fontWeight = v),
-});
-const italic = computed({
-  get: () => curElementProxyData.value!.italic as any,
-  set: (v: any) => (curElementProxyData.value!.italic = v),
-});
-const textDecoration = computed({
-  get: () => curElementProxyData.value!.textDecoration as any,
-  set: (v: any) => (curElementProxyData.value!.textDecoration = v),
-});
-const textAlign = computed({
-  get: () => curElementProxyData.value!.textAlign as any,
-  set: (v: any) => (curElementProxyData.value!.textAlign = v),
-});
-const verticalAlign = computed({
-  get: () => curElementProxyData.value!.verticalAlign as any,
-  set: (v: any) => (curElementProxyData.value!.verticalAlign = v),
-});
-const strokeJoin = computed({
-  get: () => curElementProxyData.value!.strokeJoin as any,
-  set: (v: any) => (curElementProxyData.value!.strokeJoin = v),
-});
+const cornerRadius = useAttrProxy('cornerRadius');
+const dashPattern = useAttrProxy('dashPattern');
+const text = useAttrProxy('text');
+const fontSize = useAttrProxy('fontSize');
+const fontWeight = useAttrProxy('fontWeight');
+const italic = useAttrProxy('italic');
+const textDecoration = useAttrProxy('textDecoration');
+const textAlign = useAttrProxy('textAlign');
+const verticalAlign = useAttrProxy('verticalAlign');
+const strokeJoin = useAttrProxy('strokeJoin');
 
 const componentJson = computed(() => {
   if (mimicDisplayStatus.curUi instanceof UI) {
@@ -239,6 +189,10 @@ function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
 function getCfgValue(cfgName: string): any {
   return curElementProxyData.value?.[cfgName];
 }
+
+watch([x, y, width, height], () => {
+  mimicWorkspaceStatus.setCurrentDisplayUnsave();
+});
 </script>
 
 <style scoped>
