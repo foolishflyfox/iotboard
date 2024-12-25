@@ -212,7 +212,7 @@ export class DisplayEditor {
   }
 
   /** 载入图纸数据在编辑器中渲染 */
-  loadDisplayData(displayData: DisplayData) {
+  async loadDisplayData(displayData: DisplayData) {
     const { width, height, backgroundColor } = displayData.baseMap;
     const displayBaseMap = new Rect({
       id: displayBaseMapId,
@@ -247,7 +247,11 @@ export class DisplayEditor {
             this.app?.tree.add(element);
           });
         } else {
-          registerUiClass(child.tag);
+          const componentClass = await registerUiClass(child.tag);
+          const component = new componentClass(child);
+          nextTick(() => {
+            this.app?.tree.add(component);
+          });
         }
       }
 
