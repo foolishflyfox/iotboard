@@ -1,6 +1,6 @@
 <template>
   <div
-    class="inline-block bg-[#fff8] rounded-lg"
+    class="inline-block bg-[#fff8] rounded-lg flex flex-col justify-between"
     @contextmenu.prevent="
       e => {
         selected = true;

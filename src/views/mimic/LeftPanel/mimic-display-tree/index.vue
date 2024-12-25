@@ -9,6 +9,7 @@
     <div>
       <NSpace>
         <MimicDisplayItem
+          class="h-62px"
           v-for="item of currentTargets"
           :key="item.name"
           :folder-path="currentTargetDirPath!"
