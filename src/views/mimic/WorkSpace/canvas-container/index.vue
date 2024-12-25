@@ -35,6 +35,7 @@ import loadjs from 'loadjs';
 import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import { HTMLText } from '@leafer-in/html';
+import { mimicDisplayTreeExpose } from '@mimic/LeftPanel/mimic-display-tree/expose';
 
 // loadScript();
 
@@ -133,6 +134,7 @@ async function handleSaveShortcut(e: KeyboardEvent) {
       }
       window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
       mimicWorkspaceStatus.setCurrentDisplaySaved();
+      mimicDisplayTreeExpose.updateDisplayPreview?.(mimicWorkspaceStatus.currentTarget.path);
     }
   }
 }

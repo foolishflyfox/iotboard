@@ -30,7 +30,7 @@ const mimicDisplayStatus = useMimicDisplayStatus();
 
 const imgSrc = computed(() => {
   return props.hasPreview
-    ? `${getDataUrl()}/display/${props.folderPath}/${props.fileName}.png`
+    ? `${getDataUrl()}/display/${props.folderPath}/${props.fileName}.png?t=${Date.now()}`
     : 'preview/miss.png';
 });
 

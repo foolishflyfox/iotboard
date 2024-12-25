@@ -59,6 +59,8 @@ import { initDisplayData } from '@mimic/display';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import MimicDisplayItem from './MimicDisplayItem.vue';
 import type { FileItem } from '@mimic/types';
+import { mimicDisplayTreeExpose } from './expose';
+import * as path from 'pathe';
 
 defineOptions({
   name: 'MimicDisplayTree',
@@ -70,6 +72,7 @@ const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
 const currentTargets = ref<FileItem[]>();
+
 async function updateCurrentTargets() {
   if (currentTargetDirPath.value) {
     currentTargets.value = await mimicFileApi.listFiles('display', currentTargetDirPath.value);
@@ -110,6 +113,19 @@ async function confirmCreateDisplay() {
     mimicWorkspaceStatus.addOpenedTarget({ editorType: 'display', path: displayPath });
   }
 }
+
+mimicDisplayTreeExpose.updateDisplayPreview = (displayPath: string) => {
+  if (currentTargets.value?.length) {
+    for (const t of currentTargets.value) {
+      if (`${path.join(currentTargetDirPath.value, t.name)}.json` === displayPath) {
+        t.hasPreview = false;
+        nextTick(() => {
+          t.hasPreview = true;
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style scoped></style>
