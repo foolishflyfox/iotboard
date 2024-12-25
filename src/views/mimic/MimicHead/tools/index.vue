@@ -24,9 +24,9 @@
       @click="changeDotMatrixVisible"
     />
     <HeadVerticalDivider />
-    <HeadIconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" />
-    <HeadIconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" />
-    <HeadIconContainer :vicons="Send20Regular" tooltip="发布" />
+    <HeadIconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" cursor="not-allowed" />
+    <HeadIconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" cursor="not-allowed" />
+    <HeadIconContainer :vicons="Send20Regular" tooltip="发布" cursor="not-allowed" />
   </div>
   <HotkeyHelp v-model:show="hotkeyModalVisible" />
 </template>

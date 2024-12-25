@@ -5,8 +5,11 @@
     <!-- 支持 png / jpg / svg / gif 导出 -->
     <div>导出</div>
     <HeadVerticalDivider />
-    <div>撤销</div>
-    <div>重做</div>
+    <NSpace size="small">
+      <HeadIconContainer :vicons="UndoRound" tooltip="撤销" @click="undo" />
+      <HeadIconContainer :vicons="RedoRound" tooltip="重做" @click="redo" />
+    </NSpace>
+
     <HeadVerticalDivider />
     <div>格式化</div>
     <div>字体族</div>
@@ -34,6 +37,7 @@ import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
+import { RedoRound, UndoRound } from '@vicons/material';
 import { ArrowBounce16Filled, SplitHorizontal16Regular, SplitVertical16Regular } from '@vicons/fluent';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
@@ -92,6 +96,14 @@ function selectDrawingTool(tool: DrawingTool) {
 
 function clearBaselinse() {
   mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
+}
+
+function undo() {
+  window.$message?.info('撤销操作');
+}
+
+function redo() {
+  window.$message?.info('重做操作');
 }
 </script>
 

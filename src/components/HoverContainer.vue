@@ -39,7 +39,7 @@ const currentHoverColor = computed(() => currentBgColor.value || props.hoverBgCo
 </script>
 
 <style scoped>
-.default-style {
+.default-style * {
   cursor: v-bind(cursor);
 }
 .hover-color:hover {

@@ -3,6 +3,7 @@
     :hover-bg-color="hasHoverColor ? hoverColor : undefined"
     :is-active="isActive"
     :tooltip
+    :cursor
     border-radius="15%"
   >
     <NButton text :focusable="false">
@@ -28,6 +29,7 @@ import { HoverContainer } from '@/components';
 import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
 import * as _ from 'lodash-es';
+import type { Cursor } from '@/types/css';
 
 withDefaults(
   defineProps<{
@@ -35,6 +37,7 @@ withDefaults(
     isActive?: boolean;
     tooltip?: string;
     hasHoverColor?: boolean;
+    cursor?: Cursor;
   }>(),
   {
     isActive: undefined,
