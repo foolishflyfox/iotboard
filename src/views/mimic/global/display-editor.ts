@@ -10,7 +10,7 @@ import {
   type IUI,
 } from 'leafer-ui';
 import { displayBaseMapId } from '@mimic/constant';
-import { useMimicDisplayStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
 import '@leafer-in/arrow';
@@ -36,6 +36,22 @@ export class DisplayEditor {
       ui?: Polygon;
     }
   };
+
+  private mimicDisplayStatus?: ReturnType<typeof useMimicDisplayStatus>;
+  private getMimicDisplayStatus() {
+    if (!this.mimicDisplayStatus) {
+      this.mimicDisplayStatus = useMimicDisplayStatus();
+    }
+    return this.mimicDisplayStatus;
+  }
+
+  private mimicWorkspaceStatus?: ReturnType<typeof useMimicWorkspaceStatus>;
+  private getMimicWorkspaceStatus() {
+    if (!this.mimicWorkspaceStatus) {
+      this.mimicWorkspaceStatus = useMimicWorkspaceStatus();
+    }
+    return this.mimicWorkspaceStatus;
+  }
 
   constructor() {
     this.displayDataDict = {};
@@ -229,7 +245,7 @@ export class DisplayEditor {
           }
         },
         [ChildEvent.MOUNTED]: () => {
-          const mimicDisplayStatus = useMimicDisplayStatus();
+          const mimicDisplayStatus = this.getMimicDisplayStatus();
           mimicDisplayStatus.selectBaseMap();
         },
       },
