@@ -21,12 +21,13 @@
     </div>
   </div>
   <QueryDialog
-    title="删除"
+    title="关闭"
     v-model:show-modal="showUnsavedDisplayDealModal"
     type="warning"
   >
     <template #positive-action>
       <NButton
+        v-if="false"
         type="primary"
         size="small"
       >
@@ -40,10 +41,10 @@
           showUnsavedDisplayDealModal = false;
         }"
       >
-        不保存
+        确定
       </NButton>
     </template>
-    <div>确认删除图纸 【{{ toCloseTarget.path }}】?</div>
+    <div>确定关闭未保存图纸 【{{ toCloseTarget.path }}】？</div>
   </QueryDialog>
 </template>
 
