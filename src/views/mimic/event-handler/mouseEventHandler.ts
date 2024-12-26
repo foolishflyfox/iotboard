@@ -1,6 +1,15 @@
-import { Line, type IPointData } from 'leafer-ui';
+import { Line, type IPointData, type IUI } from 'leafer-ui';
 import { mimicVar } from '../global';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
+import type { Action } from '@mimic/global/action-manager';
+import * as _ from 'lodash-es';
+
+const oldUiPosSize = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0
+};
 
 export function appMouseTapHandler(e: PointerEvent) {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
@@ -35,24 +44,18 @@ export function appMouseTapHandler(e: PointerEvent) {
   }
 }
 
-function moveHorizontalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurHorizontalLine();
-  const points = [-10000, point.y, 10000, point.y];
-  if (!line) {
-    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurHorizontalLine(line);
+export function appMouseDownHandler(e: PointerEvent) {
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  if (mimicWorkspaceStatus.drawingTool === 'cursor') {
+    const mimicDisplayStatus = useMimicDisplayStatus();
+    if (mimicDisplayStatus.curUi) {
+      const curUi = mimicDisplayStatus.curUi as IUI;
+      oldUiPosSize.x = curUi.x!;
+      oldUiPosSize.y = curUi.y!;
+      oldUiPosSize.width = curUi.width!;
+      oldUiPosSize.height = curUi.height!;
+    }
   }
-  line!.proxyData!.points = points;
-}
-
-function moveVerticalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurVerticalLine();
-  const points = [point.x, -10000, point.x, 10000];
-  if (!line) {
-    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurVerticalLine(line);
-  }
-  line!.proxyData!.points = points;
 }
 
 export function appMouseMoveHandler(e: PointerEvent) {
@@ -113,4 +116,49 @@ export function appMouseDoubleTapHandler(e: PointerEvent) {
       }
     }
   }
+}
+
+export function appMouseUpHandler(e: PointerEvent) {
+  const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  if (mimicWorkspaceStatus.drawingTool === 'cursor') {
+    const mimicDisplayStatus = useMimicDisplayStatus();
+    if (_.isString(mimicDisplayStatus.selectedUiId) && mimicDisplayStatus.curUi) {
+      const action: Action = [];
+      const curUi = mimicDisplayStatus.curUi as IUI;
+      for (const attrName of ['x', 'y', 'width', 'height']) {
+        if (curUi[attrName] !== oldUiPosSize[attrName]) {
+          action.push({
+            uiId: mimicDisplayStatus.selectedUiId,
+            attrName,
+            oldValue: oldUiPosSize[attrName],
+            newValue: curUi[attrName]
+          });
+        }
+      }
+      if (action.length > 0) {
+        console.log('@@@', action);
+        mimicVar.actionManagerContainer.getActionManager()?.addAction(action);
+      }
+    }
+  }
+}
+
+function moveHorizontalBaseline(point: IPointData) {
+  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurHorizontalLine();
+  const points = [-10000, point.y, 10000, point.y];
+  if (!line) {
+    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
+    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurHorizontalLine(line);
+  }
+  line!.proxyData!.points = points;
+}
+
+function moveVerticalBaseline(point: IPointData) {
+  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurVerticalLine();
+  const points = [point.x, -10000, point.x, 10000];
+  if (!line) {
+    line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
+    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurVerticalLine(line);
+  }
+  line!.proxyData!.points = points;
 }

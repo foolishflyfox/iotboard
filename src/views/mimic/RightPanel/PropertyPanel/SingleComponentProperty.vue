@@ -134,7 +134,7 @@ function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
         curElementProxyData.value![attrName] = v;
       }
       const actionManager = mimicVar.actionManagerContainer.getActionManager();
-      actionManager?.addDiff([actionItem]);
+      actionManager?.addAction([actionItem]);
       // 设置图纸为未保存
       mimicWorkspaceStatus.setCurrentDisplayUnsave();
     }

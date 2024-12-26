@@ -74,7 +74,7 @@ export class ActionManager {
     }
   }
 
-  addDiff(diff: Action) {
+  addAction(diff: Action) {
     this.undoPatchs.push(diff);
     this.redoPatchs.length = 0;
     this.updateCount();

@@ -24,6 +24,8 @@ import {
   appMouseMoveHandler,
   leaveWorkspaceHandler,
   layoutAfterHandler,
+  appMouseUpHandler,
+  appMouseDownHandler,
 } from '@mimic/event-handler';
 import { rulerTheme } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
@@ -173,6 +175,8 @@ onMounted(() => {
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
   app.tree.on(LayoutEvent.AFTER, layoutAfterHandler);
   app.on(PointerEvent.TAP, appMouseTapHandler);
+  app.on(PointerEvent.DOWN, appMouseDownHandler);
+  app.on(PointerEvent.UP, appMouseUpHandler);
   app.on(PointerEvent.MOVE, appMouseMoveHandler);
   app.on(PointerEvent.DOUBLE_TAP, appMouseDoubleTapHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
@@ -225,6 +229,8 @@ onUnmounted(() => {
     app.tree.off(ResizeEvent.RESIZE, resizeHandler);
     app.tree.off(LayoutEvent.AFTER, layoutAfterHandler);
     app.off(PointerEvent.TAP, appMouseTapHandler);
+    app.off(PointerEvent.DOWN, appMouseDownHandler);
+    app.off(PointerEvent.UP, appMouseUpHandler);
     app.off(PointerEvent.MOVE, appMouseMoveHandler);
     app.off(PointerEvent.DOUBLE_CLICK, appMouseDoubleTapHandler);
     app.editor.off(EditorEvent.SELECT, selectHandler);
