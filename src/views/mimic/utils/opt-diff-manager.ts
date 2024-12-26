@@ -1,4 +1,8 @@
+import { mimicVar } from '@mimic/global';
+import * as _ from 'lodash-es';
+
 export interface OptDiffItem {
+  uiId: string;
   attrName: string;
   oldValue: any;
   newValue: any;
@@ -43,7 +47,13 @@ export class JsonDiffPatchManager {
       this.redoPatchs.push(diff);
       this.updateCount();
     }
-    return diff;
+    for (const delta of diff) {
+      if (_.isEmpty(delta.uiId)) continue;
+      const ui = mimicVar.displayEditor.app?.tree.findId(delta.uiId);
+      if (ui && ui.proxyData) {
+        ui.proxyData[delta.attrName] = delta.oldValue;
+      }
+    }
   }
 
   redo() {
@@ -53,6 +63,18 @@ export class JsonDiffPatchManager {
       this.undoPatchs.push(diff);
       this.updateCount();
     }
-    return diff;
+    for (const delta of diff) {
+      if (_.isEmpty(delta.uiId)) continue;
+      const ui = mimicVar.displayEditor.app?.tree.findId(delta.uiId);
+      if (ui && ui.proxyData) {
+        ui.proxyData[delta.attrName] = delta.newValue;
+      }
+    }
+  }
+
+  addDiff(diff: OptDiff) {
+    this.undoPatchs.push(diff);
+    this.redoPatchs.length = 0;
+    this.updateCount();
   }
 }
