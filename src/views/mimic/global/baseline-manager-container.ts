@@ -1,5 +1,5 @@
 import { useMimicWorkspaceStatus } from '@mimic/stores';
-import type { BaselineManager } from './baseline-manager';
+import { BaselineManager } from './baseline-manager';
 
 export class BaselineManagerContainer {
   private baselineManagerMap: Map<string, BaselineManager>;
@@ -16,8 +16,12 @@ export class BaselineManagerContainer {
     return this.mimicWorkspaceStatus;
   }
 
-  addBaselineManager(displayPath: string, baselineManager: BaselineManager) {
-    this.baselineManagerMap.set(displayPath, baselineManager);
+  addBaselineManager(displayPath: string, baselineManager?: BaselineManager) {
+    if (baselineManager) {
+      this.baselineManagerMap.set(displayPath, baselineManager);
+    } else {
+      this.baselineManagerMap.set(displayPath, new BaselineManager());
+    }
   }
 
   removeBaselineManager(displayPath?: string) {

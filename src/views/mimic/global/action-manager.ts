@@ -1,22 +1,22 @@
 import { mimicVar } from '@mimic/global';
 import * as _ from 'lodash-es';
 
-export interface OptDiffItem {
+export interface ActionItem {
   uiId: string;
   attrName: string;
   oldValue: any;
   newValue: any;
 }
 
-export type OptDiff = OptDiffItem[];
+export type Action = ActionItem[];
 
-export class JsonDiffPatchManager {
-  private undoPatchs: OptDiff[];
+export class ActionManager {
+  private undoPatchs: Action[];
   private undoCount: Ref<number>;
   private undoEnable: ComputedRef<boolean>;
-  private redoPatchs: OptDiff[];
+  private redoPatchs: Action[];
   private redoCount: Ref<number>;
-  private redoEnable: ComputedRef<boolean>;
+  redoEnable: ComputedRef<boolean>;
 
   constructor() {
     this.undoPatchs = [];
@@ -41,7 +41,7 @@ export class JsonDiffPatchManager {
   }
 
   undo() {
-    let diff: OptDiff = [];
+    let diff: Action = [];
     if (this.undoPatchs.length > 0) {
       diff = this.undoPatchs.pop()!;
       this.redoPatchs.push(diff);
@@ -57,7 +57,7 @@ export class JsonDiffPatchManager {
   }
 
   redo() {
-    let diff: OptDiff = [];
+    let diff: Action = [];
     if (this.redoPatchs.length > 0) {
       diff = this.redoPatchs.pop()!;
       this.undoPatchs.push(diff);
@@ -72,7 +72,7 @@ export class JsonDiffPatchManager {
     }
   }
 
-  addDiff(diff: OptDiff) {
+  addDiff(diff: Action) {
     this.undoPatchs.push(diff);
     this.redoPatchs.length = 0;
     this.updateCount();

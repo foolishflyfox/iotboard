@@ -37,6 +37,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
       if (currentTarget.value?.editorType === 'display') {
         mimicVar.baselineManagerContainer.removeBaselineManager(currentTarget.value.path);
+        mimicVar.actionManagerContainer.removeActionManager(currentTarget.value.path);
         mimicVar.displayEditor.delDisplayData(currentTarget.value);
       }
       if (newTargetIndex < 0) {
@@ -68,10 +69,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         // 打开新的图纸
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
-        mimicVar.baselineManagerContainer.addBaselineManager(
-          currentTarget.value.path,
-          new BaselineManager()
-        );
+        mimicVar.baselineManagerContainer.addBaselineManager(currentTarget.value.path);
+        mimicVar.actionManagerContainer.addActionManager(currentTarget.value.path);
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
       mimicVar.baselineManagerContainer.getBaselineManager()?.showAllBaselines();
