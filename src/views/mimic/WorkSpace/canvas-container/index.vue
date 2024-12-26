@@ -36,6 +36,7 @@ import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import { HTMLText } from '@leafer-in/html';
 import { mimicDisplayTreeExpose } from '@mimic/LeftPanel/mimic-display-tree/expose';
+import { keyboardKeys } from '@/constant';
 
 // loadScript();
 
@@ -117,8 +118,8 @@ async function onDisplayEditorDrop(e: MouseEvent) {
 }
 
 async function handleSaveShortcut(e: KeyboardEvent) {
-  /** 处理图纸保存事件 */
-  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+  if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.S) {
+    /** 处理图纸保存事件 */
     e.preventDefault();
     const displayData = mimicVar.displayEditor.generateDisplayData();
     if (
@@ -136,6 +137,14 @@ async function handleSaveShortcut(e: KeyboardEvent) {
       mimicWorkspaceStatus.setCurrentDisplaySaved();
       mimicDisplayTreeExpose.updateDisplayPreview?.(mimicWorkspaceStatus.currentTarget.path);
     }
+  } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
+    // 处理重做动作
+    console.log('######222');
+    mimicVar.actionManagerContainer.getActionManager()?.redo();
+  } else if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
+    // 处理撤销动作
+    console.log('######111');
+    mimicVar.actionManagerContainer.getActionManager()?.undo();
   }
 }
 
