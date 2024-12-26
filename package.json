@@ -41,7 +41,7 @@
     "vue3-ace-editor": "^2.2.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.12.0",
+    "@antfu/eslint-config": "^3.12.1",
     "@leafer-ui/interface": "^1.1.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
