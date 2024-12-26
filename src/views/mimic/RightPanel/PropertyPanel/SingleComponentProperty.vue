@@ -103,6 +103,7 @@ import TextAlignProperty from './TextAlignProperty.vue';
 import VerticalAlignProperty from './VerticalAlignProperty.vue';
 import StringProperty from './components/StringProperty.vue';
 import StrokeJoinSelector from './StrokeJoinSelector.vue';
+import type { ActionItem } from '@mimic/global/action-manager';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
@@ -121,11 +122,19 @@ function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
   return computed({
     get: () => curElementProxyData.value?.[attrName],
     set: (v: any) => {
+      const actionItem: ActionItem = {
+        uiId: mimicDisplayStatus.selectedUiId as string,
+        attrName,
+        oldValue: curElementProxyData.value![attrName],
+        newValue: v
+      };
       if (customSetter) {
         customSetter(v);
       } else {
         curElementProxyData.value![attrName] = v;
       }
+      const actionManager = mimicVar.actionManagerContainer.getActionManager();
+      actionManager?.addDiff([actionItem]);
       // 设置图纸为未保存
       mimicWorkspaceStatus.setCurrentDisplayUnsave();
     }

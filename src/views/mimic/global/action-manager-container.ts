@@ -28,12 +28,15 @@ export class ActionManagerContainer {
     return this.mimicWorkspaceStatus;
   }
 
-  addActionManager(target: string, manager?: ActionManager) {
-    if (manager) {
-      this.actionManagerMap.set(target, manager);
-    } else {
-      this.actionManagerMap.set(target, new ActionManager());
+  switchActionManager(target: string, manager?: ActionManager) {
+    if (!this.actionManagerMap.has(target)) {
+      if (manager) {
+        this.actionManagerMap.set(target, manager);
+      } else {
+        this.actionManagerMap.set(target, new ActionManager());
+      }
     }
+    this.currentActionManager.value = this.actionManagerMap.get(target);
   }
 
   removeActionManager(target?: string) {
@@ -47,7 +50,7 @@ export class ActionManagerContainer {
     }
   }
 
-  getActionManager(target?: string) {
+  getActionManager(target?: string): ActionManager | undefined {
     if (target) {
       return this.actionManagerMap.get(target);
     } else {

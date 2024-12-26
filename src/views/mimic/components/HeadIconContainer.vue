@@ -3,10 +3,10 @@
     :hover-bg-color="hasHoverColor ? hoverColor : undefined"
     :is-active="isActive"
     :tooltip
-    :cursor
+    :cursor="disabled ? 'not-allowed' : undefined"
     border-radius="15%"
   >
-    <NButton text :focusable="false">
+    <NButton text :focusable="false" :disabled>
       <template v-if="_.isNil(isActive)">
         <!-- 触发型图标 -->
         <NIcon :component="vicons" :size="sideLength" />
@@ -29,19 +29,19 @@ import { HoverContainer } from '@/components';
 import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
 import * as _ from 'lodash-es';
-import type { Cursor } from '@/types/css';
 
 withDefaults(
   defineProps<{
     vicons: Component;
     isActive?: boolean;
+    disabled?: boolean;
     tooltip?: string;
     hasHoverColor?: boolean;
-    cursor?: Cursor;
   }>(),
   {
     isActive: undefined,
     hasHoverColor: false,
+    disabled: false
   },
 );
 

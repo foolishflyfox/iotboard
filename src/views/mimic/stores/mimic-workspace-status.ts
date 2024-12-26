@@ -1,6 +1,6 @@
 import type { DrawingTool, OpenedTarget } from '@mimic/types';
 import * as _ from 'lodash-es';
-import { mimicVar, BaselineManager } from '@mimic/global';
+import { mimicVar } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
 import { componentPathToTag } from '@mimic/utils';
 import type { IPointData } from 'leafer-ui';
@@ -70,9 +70,9 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
         mimicVar.baselineManagerContainer.addBaselineManager(currentTarget.value.path);
-        mimicVar.actionManagerContainer.addActionManager(currentTarget.value.path);
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
+      mimicVar.actionManagerContainer.switchActionManager(currentTarget.value.path);
       mimicVar.baselineManagerContainer.getBaselineManager()?.showAllBaselines();
       nextTick(() => {
         mimicDisplayStatus.selectedUiId = displayBaseMapId;

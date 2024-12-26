@@ -16,12 +16,14 @@ export class ActionManager {
   private undoEnable: ComputedRef<boolean>;
   private redoPatchs: Action[];
   private redoCount: Ref<number>;
-  redoEnable: ComputedRef<boolean>;
+  private redoEnable: ComputedRef<boolean>;
 
   constructor() {
     this.undoPatchs = [];
     this.undoCount = ref(this.undoPatchs.length);
-    this.undoEnable = computed(() => this.undoCount.value > 0);
+    this.undoEnable = computed(() => {
+      return this.undoCount.value > 0;
+    });
     this.redoPatchs = [];
     this.redoCount = ref(this.redoPatchs.length);
     this.redoEnable = computed(() => this.redoCount.value > 0);

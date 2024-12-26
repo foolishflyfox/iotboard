@@ -6,8 +6,18 @@
     <div>导出</div>
     <HeadVerticalDivider />
     <NSpace size="small">
-      <HeadIconContainer :vicons="UndoRound" tooltip="撤销" @click="undo" />
-      <HeadIconContainer :vicons="RedoRound" tooltip="重做" @click="redo" />
+      <HeadIconContainer
+        tooltip="撤销"
+        :vicons="UndoRound"
+        :disabled="!currentUndoEnable"
+        @click="undo"
+      />
+      <HeadIconContainer
+        tooltip="重做"
+        :vicons="RedoRound"
+        :disabled="!currentRedoEnable"
+        @click="redo"
+      />
     </NSpace>
 
     <HeadVerticalDivider />
@@ -98,12 +108,15 @@ function clearBaselinse() {
   mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
 }
 
+const currentRedoEnable = mimicVar.actionManagerContainer.getCurrentRedoEnable();
+const currentUndoEnable = mimicVar.actionManagerContainer.getCurrentUndoEnable();
+
 function undo() {
-  window.$message?.info('撤销操作');
+  mimicVar.actionManagerContainer.getActionManager()?.undo();
 }
 
 function redo() {
-  window.$message?.info('重做操作');
+  mimicVar.actionManagerContainer.getActionManager()?.redo();
 }
 </script>
 
