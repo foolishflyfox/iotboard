@@ -27,6 +27,7 @@ const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const mimicDisplayStatus = useMimicDisplayStatus();
 
 function onContextMenuClick(event: MouseEvent) {
+  event.preventDefault();
   if (_.isArray(mimicDisplayStatus.selectedUiId)) {
     showMultiSelectContextMenu();
   } else if (mimicDisplayStatus.selectedUiId === displayBaseMapId) {
