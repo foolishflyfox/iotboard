@@ -1,7 +1,10 @@
 import { mimicVar } from '@mimic/global';
 import * as _ from 'lodash-es';
 
+export type ActionType = 'add' | 'delete' | 'set';
+
 export interface ActionItem {
+  type: ActionType;
   uiId: string;
   attrName: string;
   oldValue: any;

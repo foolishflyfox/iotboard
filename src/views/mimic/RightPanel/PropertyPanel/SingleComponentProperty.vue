@@ -123,6 +123,7 @@ function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
     get: () => curElementProxyData.value?.[attrName],
     set: (v: any) => {
       const actionItem: ActionItem = {
+        type: 'set',
         uiId: mimicDisplayStatus.selectedUiId as string,
         attrName,
         oldValue: curElementProxyData.value![attrName],

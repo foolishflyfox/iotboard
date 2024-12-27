@@ -128,6 +128,7 @@ export function appMouseUpHandler(e: PointerEvent) {
       for (const attrName of ['x', 'y', 'width', 'height']) {
         if (curUi[attrName] !== oldUiPosSize[attrName]) {
           action.push({
+            type: 'set',
             uiId: mimicDisplayStatus.selectedUiId,
             attrName,
             oldValue: oldUiPosSize[attrName],
