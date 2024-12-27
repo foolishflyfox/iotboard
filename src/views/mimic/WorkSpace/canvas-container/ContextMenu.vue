@@ -1,5 +1,6 @@
 <template>
   <NDropdown
+    class="w-200px"
     placement="bottom-start"
     trigger="manual"
     :options
@@ -19,9 +20,7 @@ import * as _ from 'lodash-es';
 import { displayBaseMapId } from '@mimic/constant';
 import { doContextMenuAction } from './context-menu-action';
 import { useContextShowHide } from '@mimic/hooks';
-
-// defineProps<{
-// }>();
+import { ContextMenuItem } from '@/components';
 
 const { x, y, show, showMenu, hideMenu } = useContextShowHide();
 const mimicDisplayStatus = useMimicDisplayStatus();
@@ -52,34 +51,64 @@ function clickContextMenuHandler(action: string) {
   hideMenu();
 }
 
-const options = [
-  {
-    label: '克隆',
-    key: 'copy',
-  },
-  {
-    label: () => h('div', { style: { color: 'red' } }, '删除'),
-    key: 'delete',
-  },
-  {
-    type: 'divider',
-    key: 'd1',
-  },
-  {
-    label: '导出图片',
-    key: 'exportImage',
-    children: [
-      {
-        label: 'png',
-        key: 'png',
-      },
-      {
-        label: 'jpg',
-        key: 'jpg',
-      },
-    ],
-  },
-];
+const options = [{
+  label: () => h(ContextMenuItem, { label: '复制', hotkey: '⌘C' },),
+  key: 'copy',
+}, {
+  label: () => h(ContextMenuItem, { label: '粘贴', hotkey: '⌘V' },),
+  key: 'paste',
+}, {
+  label: () => h(ContextMenuItem, { label: '克隆', hotkey: '⇧⌘C' },),
+  key: 'clone',
+}, {
+  label: () => h(ContextMenuItem, { label: '删除', hotkey: 'Delete' },),
+  key: 'delete',
+}, {
+  label: () => h(ContextMenuItem, { label: '锁定', hotkey: '⌘L' },),
+  key: 'lock',
+}, {
+  type: 'divider',
+  key: 'd1',
+}, {
+  label: '导出 png',
+  key: 'png',
+}, {
+  label: '导出 jpg',
+  key: 'jpg'
+}, {
+  type: 'divider',
+  key: 'd2',
+}, {
+  label: () => h(ContextMenuItem, { label: '移到顶层', hotkey: '⇧⌘↑' },),
+  key: 'top',
+}, {
+  label: () => h(ContextMenuItem, { label: '移到底层', hotkey: '⇧⌘↓' },),
+  key: 'bottom'
+}, {
+  label: () => h(ContextMenuItem, { label: '上移', hotkey: '⌘↑' },),
+  key: 'up',
+}, {
+  label: () => h(ContextMenuItem, { label: '下移', hotkey: '⌘↓' },),
+  key: 'down',
+}, {
+  type: 'divider',
+  key: 'd3'
+}, {
+  label: '组合',
+  key: 'group'
+}, {
+  label: '解散组合',
+  key: 'ungroup'
+}, {
+  type: 'divider',
+  key: 'd4'
+}, {
+  label: '复制样式',
+  key: 'copyStyle'
+}, {
+  label: '粘贴样式',
+  key: 'pasteStyle'
+}];
 
 defineExpose({
   onContextMenuClick,
