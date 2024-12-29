@@ -1,6 +1,6 @@
 import type { IUI, UI } from 'leafer-ui';
 import * as _ from 'lodash-es';
-import { useMimicDisplayStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 
@@ -25,6 +25,8 @@ export function doContextMenuAction(action: string) {
         iui.destroy();
         mimicDisplayStatus.selectBaseMap();
         mimicVar.displayEditor.app?.editor?.cancel();
+        const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+        mimicWorkspaceStatus.setCurrentDisplayUnsave();
       }
     }
   }
