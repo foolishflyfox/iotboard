@@ -155,7 +155,7 @@ onMounted(() => {
   app = new App({
     view: 'mimicCanvasContainer',
     ground: {},
-    tree: { usePartRender: true },
+    tree: { usePartRender: true, type: 'viewport' },
     // sky: { type: 'draw', usePartRender: false },
     editor: {
       // circle: {

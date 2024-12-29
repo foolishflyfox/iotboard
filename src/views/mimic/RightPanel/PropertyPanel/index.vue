@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { NSplit, NScrollbar, NSpace, NDivider } from 'naive-ui';
+import { NSplit, NScrollbar, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
