@@ -8,6 +8,8 @@ export function keyHolderHandler(keyEvent: KeyEvent) {
   if (keyEvent.code === 'Backspace' || keyEvent.code === 'Delete') {
     /** 键盘按删除键，删除选中的元素功能 */
     nextTick(() => doContextMenuAction('delete'));
+  } else if ((keyEvent.ctrlKey || keyEvent.metaKey) && keyEvent.key === 'c') {
+    nextTick(() => doContextMenuAction('copy'));
   } else if (keyEvent.code === 'Escape') {
     const mimicWorkspaceStatus = useMimicWorkspaceStatus();
     if (mimicWorkspaceStatus.drawingTool === 'line') {

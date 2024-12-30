@@ -7,7 +7,9 @@ import { displayBaseMapId } from '@mimic/constant';
 export function doContextMenuAction(action: string) {
   const mimicDisplayStatus = useMimicDisplayStatus();
   const curUi = mimicDisplayStatus.curUi;
-
+  if (mimicDisplayStatus.contextMenuItemDisabled[action]) {
+    return;
+  }
   if (action === 'png' || action === 'jpg') {
     if (_.isNil(curUi)) {
       console.error('未选中元素，不允许导出图片');
@@ -29,6 +31,8 @@ export function doContextMenuAction(action: string) {
         mimicWorkspaceStatus.setCurrentDisplayUnsave();
       }
     }
+  } else if (action === 'copy') {
+    console.log('@@@@ copy');
   }
 }
 
