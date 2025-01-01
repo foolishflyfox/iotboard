@@ -1,38 +1,52 @@
-import type { IUI, UI } from 'leafer-ui';
+import type { IUI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
 
-export function doContextMenuAction(action: string) {
+function judgeCurUiTypeHelper() {
   const mimicDisplayStatus = useMimicDisplayStatus();
   const curUi = mimicDisplayStatus.curUi;
+  const noTargetHandler = (handler: () => void) => {
+    if (_.isNil(curUi)) {
+      handler();
+    }
+  };
+  const multiTargetHandler = (handler: (uis: IUI[]) => void) => {
+    if (_.isArray(curUi)) {
+      handler(curUi as IUI[]);
+    }
+  };
+  const singleTargetHandler = (handler: (ui: IUI) => void) => {
+    if (!_.isNil(curUi) && !_.isArray(curUi)) {
+      handler(curUi as IUI);
+    }
+  };
+  return { noTargetHandler, singleTargetHandler, multiTargetHandler };
+}
+
+export function doContextMenuAction(action: string) {
+  const mimicDisplayStatus = useMimicDisplayStatus();
+  const { noTargetHandler, singleTargetHandler, multiTargetHandler } = judgeCurUiTypeHelper();
   if (mimicDisplayStatus.contextMenuItemDisabled[action]) {
     return;
   }
   if (action === 'png' || action === 'jpg') {
-    if (_.isNil(curUi)) {
-      console.error('未选中元素，不允许导出图片');
-    } else if (_.isArray(curUi)) {
-      console.error('选中多个元素，不允许导出图片');
-    } else {
-      exportImage(curUi as UI, action);
-    }
+    singleTargetHandler(ui => exportImage(ui, action));
   } else if (action === 'delete') {
-    if (_.isNil(curUi)) {
-    } else if (_.isArray(curUi)) {
-    } else {
-      const iui = curUi as IUI;
-      if (iui.id !== displayBaseMapId) {
-        iui.destroy();
+    singleTargetHandler((ui) => {
+      if (ui.id !== displayBaseMapId) {
+        ui.destroy();
         mimicDisplayStatus.selectBaseMap();
         mimicVar.displayEditor.app?.editor?.cancel();
         const mimicWorkspaceStatus = useMimicWorkspaceStatus();
         mimicWorkspaceStatus.setCurrentDisplayUnsave();
       }
-    }
+    });
   } else if (action === 'copy') {
-    console.log('@@@@ copy');
+    singleTargetHandler((ui) => {
+      console.log('copy', ui.toJSON());
+    });
   }
 }
 
