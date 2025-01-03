@@ -1,17 +1,15 @@
-import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { ActionManager } from './action-manager';
 import type { ShallowRef } from 'vue';
+import { BaseContainer } from './base-container';
 
 /** display 和 module 使用不同的 container 实例 */
-export class ActionManagerContainer {
-  private actionManagerMap: Map<string, ActionManager>;
-  private mimicWorkspaceStatus?: ReturnType<typeof useMimicWorkspaceStatus>;
+export class ActionManagerContainer extends BaseContainer<ActionManager> {
   private currentActionManager: ShallowRef<ActionManager | undefined>;
   private currentUndoEnable: ComputedRef<boolean>;
   private currentRedoEnable: ComputedRef<boolean>;
 
   constructor() {
-    this.actionManagerMap = new Map();
+    super(ActionManager);
     this.currentActionManager = shallowRef();
     this.currentUndoEnable = computed(() => {
       return Boolean(this.currentActionManager.value?.getUndoEnable().value);
@@ -21,44 +19,15 @@ export class ActionManagerContainer {
     });
   }
 
-  private getMimicWorkspaceStatus() {
-    if (!this.mimicWorkspaceStatus) {
-      this.mimicWorkspaceStatus = useMimicWorkspaceStatus();
-    }
-    return this.mimicWorkspaceStatus;
-  }
-
   switchActionManager(target: string, manager?: ActionManager) {
-    if (!this.actionManagerMap.has(target)) {
+    if (!this.managerMap.has(target)) {
       if (manager) {
-        this.actionManagerMap.set(target, manager);
+        this.managerMap.set(target, manager);
       } else {
-        this.actionManagerMap.set(target, new ActionManager());
+        this.managerMap.set(target, new ActionManager());
       }
     }
-    this.currentActionManager.value = this.actionManagerMap.get(target);
-  }
-
-  removeActionManager(target?: string) {
-    if (target) {
-      this.actionManagerMap.delete(target);
-    } else {
-      const mimicWorkspaceStatus = this.getMimicWorkspaceStatus();
-      if (mimicWorkspaceStatus.currentTarget?.path) {
-        this.removeActionManager(mimicWorkspaceStatus.currentTarget.path);
-      }
-    }
-  }
-
-  getActionManager(target?: string): ActionManager | undefined {
-    if (target) {
-      return this.actionManagerMap.get(target);
-    } else {
-      const mimicWorkspaceStatus = this.getMimicWorkspaceStatus();
-      if (mimicWorkspaceStatus.currentTarget?.path) {
-        return this.getActionManager(mimicWorkspaceStatus.currentTarget.path);
-      }
-    }
+    this.currentActionManager.value = this.managerMap.get(target);
   }
 
   getCurrentUndoEnable() {

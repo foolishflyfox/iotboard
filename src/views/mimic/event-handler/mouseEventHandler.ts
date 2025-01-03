@@ -137,7 +137,7 @@ export function appMouseUpHandler(e: PointerEvent) {
         }
       }
       if (action.length > 0) {
-        mimicVar.actionManagerContainer.getActionManager()?.addAction(action);
+        mimicVar.actionManagerContainer.getManager()?.addAction(action);
       }
     }
   }

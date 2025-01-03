@@ -141,10 +141,10 @@ async function handleSaveShortcut(e: KeyboardEvent) {
     }
   } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
     // 处理重做动作
-    mimicVar.actionManagerContainer.getActionManager()?.redo();
+    mimicVar.actionManagerContainer.getManager()?.redo();
   } else if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
     // 处理撤销动作
-    mimicVar.actionManagerContainer.getActionManager()?.undo();
+    mimicVar.actionManagerContainer.getManager()?.undo();
   }
 }
 

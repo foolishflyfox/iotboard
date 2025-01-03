@@ -112,11 +112,11 @@ const currentRedoEnable = mimicVar.actionManagerContainer.getCurrentRedoEnable()
 const currentUndoEnable = mimicVar.actionManagerContainer.getCurrentUndoEnable();
 
 function undo() {
-  mimicVar.actionManagerContainer.getActionManager()?.undo();
+  mimicVar.actionManagerContainer.getManager()?.undo();
 }
 
 function redo() {
-  mimicVar.actionManagerContainer.getActionManager()?.redo();
+  mimicVar.actionManagerContainer.getManager()?.redo();
 }
 </script>
 
