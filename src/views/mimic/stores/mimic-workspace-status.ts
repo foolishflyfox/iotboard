@@ -36,7 +36,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       let newTargetIndex = _.findIndex(openedTargets.value, e => _.isEqual(e, openedTarget)) + 1;
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
       if (currentTarget.value?.editorType === 'display') {
-        mimicVar.baselineManagerContainer.removeBaselineManager(currentTarget.value.path);
+        mimicVar.baselineManagerContainer.removeManager(currentTarget.value.path);
         mimicVar.actionManagerContainer.removeActionManager(currentTarget.value.path);
         mimicVar.displayEditor.delDisplayData(currentTarget.value);
       }
@@ -60,7 +60,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
           data
         );
       }
-      mimicVar.baselineManagerContainer.getBaselineManager()?.hideAllBaselines();
+      mimicVar.baselineManagerContainer.getManager()?.hideAllBaselines();
     }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
@@ -69,11 +69,11 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         // 打开新的图纸
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
-        mimicVar.baselineManagerContainer.addBaselineManager(currentTarget.value.path);
+        mimicVar.baselineManagerContainer.addManager(currentTarget.value.path);
       }
       mimicVar.displayEditor.loadDisplayData(displayData);
       mimicVar.actionManagerContainer.switchActionManager(currentTarget.value.path);
-      mimicVar.baselineManagerContainer.getBaselineManager()?.showAllBaselines();
+      mimicVar.baselineManagerContainer.getManager()?.showAllBaselines();
       nextTick(() => {
         mimicDisplayStatus.selectedUiId = displayBaseMapId;
       });

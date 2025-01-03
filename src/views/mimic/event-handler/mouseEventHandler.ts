@@ -28,16 +28,16 @@ export function appMouseTapHandler(e: PointerEvent) {
       mimicVar.displayEditor.addPolygonEndPoint(point!);
     }
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
-    mimicVar.baselineManagerContainer.getBaselineManager()?.addHorizontalLine();
+    mimicVar.baselineManagerContainer.getManager()?.addHorizontalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
-    mimicVar.baselineManagerContainer.getBaselineManager()?.addVerticalLine();
+    mimicVar.baselineManagerContainer.getManager()?.addVerticalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
       if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {
         if (e.x <= 20 && e.y > 20) {
-          mimicVar.baselineManagerContainer.getBaselineManager()?.addHorizontalLine();
+          mimicVar.baselineManagerContainer.getManager()?.addHorizontalLine();
         } else {
-          mimicVar.baselineManagerContainer.getBaselineManager()?.addVerticalLine();
+          mimicVar.baselineManagerContainer.getManager()?.addVerticalLine();
         }
       }
     }
@@ -75,10 +75,10 @@ export function appMouseMoveHandler(e: PointerEvent) {
           return;
         }
       } else {
-        mimicVar.baselineManagerContainer.getBaselineManager()?.clearCurBaseLine();
+        mimicVar.baselineManagerContainer.getManager()?.clearCurBaseLine();
       }
     } else {
-      mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
+      mimicVar.baselineManagerContainer.getManager()?.clearAllBaselines();
     }
     return;
   }
@@ -102,16 +102,16 @@ export function appMouseDoubleTapHandler(e: PointerEvent) {
     const point = mimicVar.displayEditor.app?.getPagePoint(e);
     mimicVar.displayEditor.endDrawPolygon(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
-    mimicVar.baselineManagerContainer.getBaselineManager()?.deleteHorizontalLine();
+    mimicVar.baselineManagerContainer.getManager()?.deleteHorizontalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
-    mimicVar.baselineManagerContainer.getBaselineManager()?.deleteVerticalLine();
+    mimicVar.baselineManagerContainer.getManager()?.deleteVerticalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
       if ((e.x <= 20 && e.y > 20) || (e.x > 20 && e.y <= 20)) {
         if (e.x <= 20 && e.y > 20) {
-          mimicVar.baselineManagerContainer.getBaselineManager()?.deleteHorizontalLine();
+          mimicVar.baselineManagerContainer.getManager()?.deleteHorizontalLine();
         } else {
-          mimicVar.baselineManagerContainer.getBaselineManager()?.deleteVerticalLine();
+          mimicVar.baselineManagerContainer.getManager()?.deleteVerticalLine();
         }
       }
     }
@@ -144,21 +144,21 @@ export function appMouseUpHandler(e: PointerEvent) {
 }
 
 function moveHorizontalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurHorizontalLine();
+  let line = mimicVar.baselineManagerContainer.getManager()?.getCurHorizontalLine();
   const points = [-10000, point.y, 10000, point.y];
   if (!line) {
     line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurHorizontalLine(line);
+    mimicVar.baselineManagerContainer.getManager()?.setCurHorizontalLine(line);
   }
   line!.proxyData!.points = points;
 }
 
 function moveVerticalBaseline(point: IPointData) {
-  let line = mimicVar.baselineManagerContainer.getBaselineManager()?.getCurVerticalLine();
+  let line = mimicVar.baselineManagerContainer.getManager()?.getCurVerticalLine();
   const points = [point.x, -10000, point.x, 10000];
   if (!line) {
     line = new Line({ points, strokeWidth: 1, stroke: '#FF0000', dashPattern: [3] });
-    mimicVar.baselineManagerContainer.getBaselineManager()?.setCurVerticalLine(line);
+    mimicVar.baselineManagerContainer.getManager()?.setCurVerticalLine(line);
   }
   line!.proxyData!.points = points;
 }

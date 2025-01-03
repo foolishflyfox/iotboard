@@ -105,7 +105,7 @@ function selectDrawingTool(tool: DrawingTool) {
 }
 
 function clearBaselinse() {
-  mimicVar.baselineManagerContainer.getBaselineManager()?.clearAllBaselines();
+  mimicVar.baselineManagerContainer.getManager()?.clearAllBaselines();
 }
 
 const currentRedoEnable = mimicVar.actionManagerContainer.getCurrentRedoEnable();

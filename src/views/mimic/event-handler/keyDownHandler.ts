@@ -19,9 +19,9 @@ export function keyDownHandler(keyEvent: KeyEvent) {
       mimicVar.displayEditor.deleteDrawingPolygon();
     } else if (['horizontalBase', 'verticalBase'].includes(mimicWorkspaceStatus.drawingTool)) {
       if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
-        mimicVar.baselineManagerContainer.getBaselineManager()?.deleteCurHorizontalLine();
+        mimicVar.baselineManagerContainer.getManager()?.deleteCurHorizontalLine();
       } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
-        mimicVar.baselineManagerContainer.getBaselineManager()?.deleteCurVerticalLine();
+        mimicVar.baselineManagerContainer.getManager()?.deleteCurVerticalLine();
       }
       mimicWorkspaceStatus.drawingTool = 'cursor';
     }
