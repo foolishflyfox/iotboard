@@ -49,7 +49,9 @@
       <template #2>
         <div class="flex flex-col h-full">
           <div class="flex-1 ">
-            图层
+            <div class="bg-#ccc" v-for="e of uiLayers" :key="e.id">
+              {{ e.id }}
+            </div>
           </div>
           <div class="bg-#ddd mb-3px">
             坐标: {{ cursorPos ? `${cursorPos.x.toFixed(3)}, ${cursorPos.y.toFixed(3)}` : '' }}
@@ -89,6 +91,8 @@ const { selectedUiId } = toRefs(useMimicDisplayStatus());
 const { cursorPos } = toRefs(useMimicWorkspaceStatus());
 
 const selectedUI = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
+
+const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
 </script>
 
 <style scoped>

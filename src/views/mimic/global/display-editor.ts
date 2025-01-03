@@ -277,28 +277,40 @@ export class DisplayEditor {
     this.viewAutoFit();
   }
 
+  /** 获取所有图层ui */
+  getTreeUis() {
+    const allUis = this.app?.tree.find(() => 1) || [];
+    const subUis: IUI[] = [];
+    let baseMap: IUI | undefined;
+    for (const ui of allUis) {
+      if (ui.id === displayBaseMapId) {
+        baseMap = ui;
+      } else {
+        if (ui.tag === 'Leafer') {
+        } else {
+          if (ui.parent?.tag === 'Leafer') {
+            subUis.push(ui);
+          }
+        }
+      }
+    }
+    return { subUis, baseMap };
+  }
+
   /** 根据编辑器状态生成图纸数据 */
   generateDisplayData() {
     if (!this.app?.tree) return null;
     const allUi = this.app?.tree.find(() => 1);
     const displayData = { baseMap: {}, children: ([] as object) } as DisplayData;
-    for (const ui of allUi) {
-      if (ui.id === displayBaseMapId) {
-        const baseMap = displayData.baseMap;
-        baseMap.backgroundColor = ui.fill as string;
-        baseMap.width = ui.width!;
-        baseMap.height = ui.height!;
-        baseMap.sizeType = ui.data?.sizeType;
-      } else {
-        if (ui.tag === 'Leafer') {
-          // 对 leafer 层的处理
-        } else {
-          if (ui.parent?.tag === 'Leafer') {
-            if (!displayData.children) displayData.children = [];
-            displayData.children.push(ui.toJSON());
-          }
-        }
-      }
+    const { baseMap, subUis } = this.getTreeUis();
+    if (baseMap) {
+      displayData.baseMap.backgroundColor = baseMap.fill as string;
+      displayData.baseMap.width = baseMap.width!;
+      displayData.baseMap.height = baseMap.height!;
+      displayData.baseMap.sizeType = baseMap.data?.sizeType;
+    }
+    for (const ui of subUis) {
+      displayData.children!.push(ui.toJSON());
     }
     return displayData;
   }

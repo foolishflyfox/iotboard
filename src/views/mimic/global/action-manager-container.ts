@@ -21,11 +21,7 @@ export class ActionManagerContainer extends BaseContainer<ActionManager> {
 
   switchActionManager(target: string, manager?: ActionManager) {
     if (!this.managerMap.has(target)) {
-      if (manager) {
-        this.managerMap.set(target, manager);
-      } else {
-        this.managerMap.set(target, new ActionManager());
-      }
+      this.addManager(target, manager);
     }
     this.currentActionManager.value = this.managerMap.get(target);
   }
