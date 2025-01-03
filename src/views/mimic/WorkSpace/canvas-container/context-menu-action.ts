@@ -38,13 +38,19 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
   if (action === 'png' || action === 'jpg') {
     singleTargetHandler(ui => exportImage(ui, action));
   } else if (action === 'delete') {
-    singleTargetHandler((ui) => {
+    const singleTargetDelete = (ui: IUI) => {
       if (ui.id !== displayBaseMapId) {
         ui.destroy();
         mimicDisplayStatus.selectBaseMap();
         mimicVar.displayEditor.app?.editor?.cancel();
         const mimicWorkspaceStatus = useMimicWorkspaceStatus();
         mimicWorkspaceStatus.setCurrentDisplayUnsave();
+      }
+    };
+    singleTargetHandler(singleTargetDelete);
+    multiTargetHandler((uis) => {
+      for (const ui of uis) {
+        singleTargetDelete(ui);
       }
     });
   } else if (action === 'copy') {
