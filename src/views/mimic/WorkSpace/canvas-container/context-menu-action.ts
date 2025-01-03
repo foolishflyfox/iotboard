@@ -1,14 +1,18 @@
-import type { IUI } from 'leafer-ui';
+import type { IClientPointData, IUI } from 'leafer-ui';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 import { displayBaseMapId } from '@mimic/constant';
+import { uiStorage } from '@/utils/local-storage-manager';
+import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
+import { getUniqueId } from '@/utils';
 
 function judgeCurUiTypeHelper() {
   const mimicDisplayStatus = useMimicDisplayStatus();
   const curUi = mimicDisplayStatus.curUi;
   const noTargetHandler = (handler: () => void) => {
-    if (_.isNil(curUi)) {
+    if (_.isArray(curUi)) return;
+    if (_.isNil(curUi) || curUi.id === displayBaseMapId) {
       handler();
     }
   };
@@ -25,7 +29,7 @@ function judgeCurUiTypeHelper() {
   return { noTargetHandler, singleTargetHandler, multiTargetHandler };
 }
 
-export function doContextMenuAction(action: string) {
+export function doContextMenuAction(action: string, clientPointData?: IClientPointData) {
   const mimicDisplayStatus = useMimicDisplayStatus();
   const { noTargetHandler, singleTargetHandler, multiTargetHandler } = judgeCurUiTypeHelper();
   if (mimicDisplayStatus.contextMenuItemDisabled[action]) {
@@ -45,7 +49,34 @@ export function doContextMenuAction(action: string) {
     });
   } else if (action === 'copy') {
     singleTargetHandler((ui) => {
-      console.log('copy', ui.toJSON());
+      const uiJson = ui.toJSON();
+      uiStorage.saveUi(uiJson);
+    });
+  } else if (action === 'paste') {
+    noTargetHandler(async () => {
+      const uiJson = uiStorage.getUi();
+      if (uiJson) {
+        let pagePoint = { x: 0, y: 0 };
+        if (clientPointData && mimicVar.displayEditor.app) {
+          pagePoint = mimicVar.displayEditor.app.getPagePointByClient(clientPointData);
+        }
+        uiJson.x = pagePoint.x;
+        uiJson.y = pagePoint.y;
+        if (uiJson.tag.startsWith('element:')) {
+          uiJson.id = getUniqueId();
+          const elementClass = getElementClassByTag(uiJson.tag);
+          const element = new elementClass(uiJson);
+          // nextTick(() => {
+          mimicVar.displayEditor.app?.tree.add(element);
+          // });
+        } else {
+          const componentClass = await registerUiClass(uiJson.tag);
+          const component = new componentClass(uiJson);
+          nextTick(() => {
+            mimicVar.displayEditor.app?.tree.add(component);
+          });
+        }
+      }
     });
   }
 }

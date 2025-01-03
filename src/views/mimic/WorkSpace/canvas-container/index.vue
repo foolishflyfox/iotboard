@@ -17,7 +17,7 @@ import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import {
   selectHandler,
-  keyHolderHandler,
+  keyDownHandler,
   resizeHandler,
   appMouseTapHandler,
   appMouseDoubleTapHandler,
@@ -178,7 +178,7 @@ onMounted(() => {
   app.on(PointerEvent.MOVE, appMouseMoveHandler);
   app.on(PointerEvent.DOUBLE_TAP, appMouseDoubleTapHandler);
   app.editor.on(EditorEvent.SELECT, selectHandler);
-  app.on(KeyEvent.HOLD, keyHolderHandler);
+  app.on(KeyEvent.DOWN, keyDownHandler);
   displayEditorWorkspace.value?.addEventListener('mouseleave', leaveWorkspaceHandler);
   const ruler = new Ruler(app);
   app.sky = app.addLeafer({ type: 'draw', usePartRender: false });
@@ -232,7 +232,7 @@ onUnmounted(() => {
     app.off(PointerEvent.MOVE, appMouseMoveHandler);
     app.off(PointerEvent.DOUBLE_CLICK, appMouseDoubleTapHandler);
     app.editor.off(EditorEvent.SELECT, selectHandler);
-    app.off(KeyEvent.HOLD, keyHolderHandler);
+    app.off(KeyEvent.DOWN, keyDownHandler);
     app.clear();
     displayEditorWorkspace.value?.removeEventListener('mouseleave', leaveWorkspaceHandler);
     app = undefined;

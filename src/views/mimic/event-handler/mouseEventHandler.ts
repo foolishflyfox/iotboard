@@ -137,7 +137,6 @@ export function appMouseUpHandler(e: PointerEvent) {
         }
       }
       if (action.length > 0) {
-        console.log('@@@', action);
         mimicVar.actionManagerContainer.getActionManager()?.addAction(action);
       }
     }

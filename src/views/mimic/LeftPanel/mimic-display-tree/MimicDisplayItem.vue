@@ -36,7 +36,6 @@ const imgSrc = computed(() => {
 
 async function deleteDisplay() {
   const displayPath = `${props.folderPath}/${props.fileName}.json`;
-  // console.log(`删除文件`, displayPath);
   await mimicFileApi.deleteDisplay(displayPath);
   window.$message?.success(`删除 ${props.fileName} 成功`);
   mimicWorkspaceStatus.closeOpenedTarget({ editorType: 'display', path: displayPath });

@@ -1,4 +1,4 @@
-export * from './keyHolderHandler';
+export * from './keyDownHandler';
 export * from './layoutAfterHandler';
 export * from './leaveWorkspaceHandler';
 export * from './mouseEventHandler';

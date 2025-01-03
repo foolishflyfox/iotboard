@@ -25,10 +25,10 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   const addOpenedTarget = async (openedTarget: OpenedTarget) => {
     const existedTarget = _.find(openedTargets.value, e => _.isEqual(e, openedTarget));
     if (existedTarget) {
-      setCurrentTaget(existedTarget);
+      setCurrentTarget(existedTarget);
     } else {
       openedTargets.value.push(openedTarget);
-      setCurrentTaget(openedTarget);
+      setCurrentTarget(openedTarget);
     }
   };
   const closeOpenedTarget = (openedTarget: OpenedTarget) => {
@@ -43,12 +43,12 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
       } else {
-        setCurrentTaget(openedTargets.value[newTargetIndex]);
+        setCurrentTarget(openedTargets.value[newTargetIndex]);
       }
     }
     _.remove(openedTargets.value, e => _.isEqual(e, openedTarget));
   };
-  async function setCurrentTaget(target: OpenedTarget) {
+  async function setCurrentTarget(target: OpenedTarget) {
     if (currentTarget.value?.editorType === 'display') {
       // 取消选中的元素
       mimicVar.displayEditor.app?.editor.cancel();
@@ -107,7 +107,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     openedTargets,
     addOpenedTarget,
     currentTarget,
-    setCurrentTaget,
+    setCurrentTaget: setCurrentTarget,
     closeOpenedTarget,
     drawingTool,
     selectDrawingTool,

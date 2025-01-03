@@ -49,7 +49,7 @@ function showNoSelectContextMenu(event: MouseEvent) {
 }
 
 function clickContextMenuHandler(action: string) {
-  doContextMenuAction(action);
+  doContextMenuAction(action, { clientX: x.value, clientY: y.value });
   hideMenu();
 }
 

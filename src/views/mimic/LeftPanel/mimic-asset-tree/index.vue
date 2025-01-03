@@ -52,7 +52,6 @@ async function uploadImage() {
   const file = imageUploadInputRef.value?.files?.[0];
   if (file) {
     const imagePath = path.join(currentTargetDirPath.value, file.name);
-    console.log('image Blob: ', file);
     await mimicFileApi.uploadAssetImage(imagePath, file);
     console.log('完成图片资源上传');
     imageUploadInputRef.value!.value = '';
