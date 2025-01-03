@@ -49,9 +49,17 @@
       <template #2>
         <div class="flex flex-col h-100%">
           <div class="flex-1 overflow-auto">
-            <div class="bg-#ddd mb-1px flex" v-for="e of uiLayers" :key="e.id">
-              <div class="bg-#fff text-black font-bold">
-                {{ e.tag }}
+            <div class="bg-#ddd mb-1px flex flex-y-center" v-for="e of uiLayers" :key="e.id">
+              <div class="bg-#fff text-black font-bold mr-3px">
+                <template v-if="e.tag.startsWith('element:')">
+                  <img
+                    style="height: 16px"
+                    :src="getElementPreview(e.tag.slice('element:'.length))"
+                  >
+                </template>
+                <template v-else>
+                  {{ e.tag }}
+                </template>
               </div>
               <div>
                 {{ e.id }}
@@ -87,6 +95,7 @@ import {
 } from '@vicons/material';
 import { AutoFitWidth20Filled, AutoFitHeight20Filled } from '@vicons/fluent';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import { getElementPreview } from '../../utils';
 
 defineOptions({
   name: 'PropertyPanel',
