@@ -47,10 +47,15 @@
         </NScrollbar>
       </template>
       <template #2>
-        <div class="flex flex-col h-full">
-          <div class="flex-1 ">
-            <div class="bg-#ccc" v-for="e of uiLayers" :key="e.id">
-              {{ e.id }}
+        <div class="flex flex-col h-100%">
+          <div class="flex-1 overflow-auto">
+            <div class="bg-#ddd mb-1px flex" v-for="e of uiLayers" :key="e.id">
+              <div class="bg-#fff text-black font-bold">
+                {{ e.tag }}
+              </div>
+              <div>
+                {{ e.id }}
+              </div>
             </div>
           </div>
           <div class="bg-#ddd mb-3px">
