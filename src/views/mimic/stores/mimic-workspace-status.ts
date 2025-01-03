@@ -95,6 +95,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   function setCurrentDisplayUnsave() {
     if (currentTarget.value?.path) {
       unsavedDisplayPaths.value.add(currentTarget.value.path);
+      mimicVar.uiLayerManagerContainer.getManager()?.update();
     }
   }
   function setCurrentDisplaySaved() {
