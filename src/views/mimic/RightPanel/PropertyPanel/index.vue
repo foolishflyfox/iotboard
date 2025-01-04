@@ -48,8 +48,27 @@
       </template>
       <template #2>
         <div class="flex flex-col h-100%">
+          <NSpace :size="5">
+            <HeadIconContainer
+              :vicons="KeyboardArrowUpRound" tooltip="上移" :disabled="!selectedSingleUi"
+            />
+            <HeadIconContainer
+              :vicons="KeyboardDoubleArrowUpRound" tooltip="移至顶层" :disabled="!selectedSingleUi"
+            />
+            <HeadIconContainer
+              :vicons="KeyboardArrowDownRound" tooltip="下移" :disabled="!selectedSingleUi"
+            />
+            <HeadIconContainer
+              :vicons="KeyboardDoubleArrowDownRound" tooltip="移至底层" :disabled="!selectedSingleUi"
+            />
+          </NSpace>
           <div class="flex-1 overflow-auto">
-            <div class="bg-#ddd mb-1px flex flex-y-center" v-for="e of uiLayers" :key="e.id">
+            <div
+              v-for="e of uiLayers"
+              class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
+              :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
+              :key="e.id"
+            >
               <div class="bg-#fff text-black font-bold mr-3px">
                 <template v-if="e.tag.startsWith('element:')">
                   <img
@@ -83,6 +102,7 @@ import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
+import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import {
   AlignHorizontalLeftRound,
   AlignHorizontalCenterRound,
@@ -92,9 +112,12 @@ import {
   AlignVerticalBottomRound,
   HorizontalDistributeRound,
   VerticalDistributeRound,
+  KeyboardArrowUpRound,
+  KeyboardDoubleArrowUpRound,
+  KeyboardArrowDownRound,
+  KeyboardDoubleArrowDownRound
 } from '@vicons/material';
 import { AutoFitWidth20Filled, AutoFitHeight20Filled } from '@vicons/fluent';
-import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import { getElementPreview } from '../../utils';
 
 defineOptions({
@@ -105,6 +128,16 @@ const { selectedUiId } = toRefs(useMimicDisplayStatus());
 const { cursorPos } = toRefs(useMimicWorkspaceStatus());
 
 const selectedUI = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
+const selectedSingleUi = computed(() => {
+  if (!selectedUiId.value) {
+    return false;
+  } else if (_.isArray(selectedUiId.value)) {
+    return false;
+  } else if (selectedUiId.value === displayBaseMapId) {
+    return false;
+  }
+  return true;
+});
 
 const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
 </script>
