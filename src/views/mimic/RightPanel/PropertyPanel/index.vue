@@ -76,6 +76,9 @@
                     :src="getElementPreview(e.tag.slice('element:'.length))"
                   >
                 </template>
+                <template v-else-if="e.tag.startsWith('component/')">
+                  <img style="height: 16px" :src="`${getDataUrl()}/${e.tag}.png`">
+                </template>
                 <template v-else>
                   {{ e.tag }}
                 </template>
@@ -119,6 +122,7 @@ import {
 } from '@vicons/material';
 import { AutoFitWidth20Filled, AutoFitHeight20Filled } from '@vicons/fluent';
 import { getElementPreview } from '../../utils';
+import { getDataUrl } from '@/utils';
 
 defineOptions({
   name: 'PropertyPanel',
