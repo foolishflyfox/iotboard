@@ -1,5 +1,5 @@
 // import { componentEditorUtils } from '@mimic/utils';
-import type { IUI } from 'leafer-ui';
+import type { IUI } from 'leafer-editor';
 
 export function doComponentEditorAction(action: string) {
   if (action === 'png' || action === 'jpg') {

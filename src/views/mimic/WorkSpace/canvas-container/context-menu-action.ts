@@ -1,4 +1,4 @@
-import type { IClientPointData, IUI } from 'leafer-ui';
+import type { IClientPointData, IUI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';

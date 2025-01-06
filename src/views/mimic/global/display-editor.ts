@@ -8,12 +8,11 @@ import {
   type App,
   type IPointData,
   type IUI,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import { displayBaseMapId } from '@mimic/constant';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { generateTargetKey } from './inner-utils';
 import * as _ from 'lodash-es';
-import '@leafer-in/arrow';
 import { getElementClassByTag, registerUiClass } from '../custom/registrar';
 import { useKeyModifier } from '@vueuse/core';
 

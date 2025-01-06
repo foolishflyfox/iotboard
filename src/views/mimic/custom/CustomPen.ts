@@ -1,6 +1,6 @@
 import { isNil } from 'lodash-es';
-import type { IPenInputData, IPenData, IPen } from 'leafer-ui';
-import { registerUI, dataProcessor, Pen, PenData, boundsType } from 'leafer-ui';
+import type { IPenInputData, IPenData, IPen } from 'leafer-editor';
+import { registerUI, dataProcessor, Pen, PenData, boundsType } from 'leafer-editor';
 
 export interface ICustomPen extends IPen {
   createShapes: () => void;

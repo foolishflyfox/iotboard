@@ -9,7 +9,7 @@ import {
   Text,
   type IFontWeight,
   type ITextDecoration,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import { autoId } from '../../decorates';
 import '@leafer-in/state';
 import '@leafer-in/animate';

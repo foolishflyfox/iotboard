@@ -12,7 +12,7 @@ import {
   type IFontWeight,
   surfaceType,
   type ITextDecoration,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import * as _ from 'lodash-es';
 import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';

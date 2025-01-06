@@ -1,4 +1,4 @@
-import { Line, Text, type IPointData } from 'leafer-ui';
+import { Line, Text, type IPointData } from 'leafer-editor';
 import { mimicVar } from '.';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import { getScaleX } from '@/utils';

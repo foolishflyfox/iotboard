@@ -8,7 +8,7 @@ import {
   UIData,
   type ILeaferCanvas,
   type IRadiusPointData,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { autoId } from '@mimic/decorates';
 import type { AppearanceType } from '@mimic/types';

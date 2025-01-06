@@ -14,7 +14,7 @@
 import { NSelect } from 'naive-ui';
 import PropertyContainer from './components/containers/PropertyContainer.vue';
 import { ArrowSelectItem } from '@/components';
-import type { IArrowType, IPathDataArrow } from 'leafer-ui';
+import type { IArrowType, IPathDataArrow } from 'leafer-editor';
 
 const props = defineProps<{
   label?: string;

@@ -1,4 +1,4 @@
-import { UICreator } from 'leafer-ui';
+import { UICreator } from 'leafer-editor';
 import type { Ref } from 'vue';
 
 /** 更新 proxyData 中的 data 对象的字段，并产生响应式 */

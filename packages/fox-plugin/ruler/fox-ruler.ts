@@ -1,6 +1,5 @@
-import type { ICanvasContext2D, IUI } from '@leafer-ui/interface';
-import { App, LayoutEvent, Leafer, RenderEvent, ResizeEvent } from '@leafer-ui/core';
-import { EditorEvent } from '@leafer-in/editor';
+import type { ICanvasContext2D, IUI } from 'leafer-editor';
+import { App, LayoutEvent, Leafer, RenderEvent, ResizeEvent, EditorEvent } from 'leafer-editor';
 import type { ThemeOption, RulerConfig, RulerOptions } from './types';
 
 type TAxis = 'x' | 'y';

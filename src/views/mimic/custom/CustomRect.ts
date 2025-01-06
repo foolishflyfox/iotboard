@@ -6,7 +6,7 @@ import {
   registerUI,
   type IRectData,
   type IRectInputData,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import { customMetas } from '@mimic/utils';
 import { getCommonAppearanceTypes } from '@mimic/types';
 import { autoId } from '@mimic/decorates';

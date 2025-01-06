@@ -1,5 +1,5 @@
-import { UI, registerUI, dataProcessor, UIData } from 'leafer-ui';
-import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData } from 'leafer-editor';
+import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-editor';
 
 // 定义数据
 

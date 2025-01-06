@@ -11,30 +11,12 @@ importers:
       '@leafer-in/animate':
         specifier: ^1.2.1
         version: 1.2.1(@leafer-in/color@1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1))(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-in/arrow':
-        specifier: ^1.2.1
-        version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-in/editor':
-        specifier: ^1.2.1
-        version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-in/resize@1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1))(@leafer-ui/core@1.2.1)(@leafer-ui/interface@1.2.1)
       '@leafer-in/flow':
         specifier: ^1.2.1
         version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-in/resize@1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-in/html':
-        specifier: ^1.2.1
-        version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)
       '@leafer-in/state':
         specifier: ^1.2.1
         version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/core@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-in/text-editor':
-        specifier: ^1.2.1
-        version: 1.2.1(@leafer-in/editor@1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-in/resize@1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1))(@leafer-ui/core@1.2.1)(@leafer-ui/interface@1.2.1))(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/core@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-in/view':
-        specifier: ^1.2.1
-        version: 1.2.1(@leafer-in/interface@1.2.1(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1))(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)
-      '@leafer-ui/core':
-        specifier: ^1.2.1
-        version: 1.2.1
       '@vueuse/core':
         specifier: ^11.3.0
         version: 11.3.0(vue@3.5.13(typescript@5.5.4))
@@ -53,9 +35,6 @@ importers:
       leafer-editor:
         specifier: ^1.2.1
         version: 1.2.1(@leafer-ui/core@1.2.1)(@leafer-ui/draw@1.2.1)(@leafer-ui/interface@1.2.1)(@leafer/interface@1.2.1)
-      leafer-ui:
-        specifier: ^1.2.1
-        version: 1.2.1
       leafer-vue:
         specifier: ^3.1.1
         version: 3.1.1(leafer-ui@1.2.1)(typescript@5.5.4)
@@ -87,9 +66,6 @@ importers:
       '@antfu/eslint-config':
         specifier: ^3.12.1
         version: 3.12.1(@typescript-eslint/utils@8.18.2(eslint@9.17.0(jiti@2.0.0-beta.3))(typescript@5.5.4))(@vue/compiler-sfc@3.5.13)(eslint-plugin-format@0.1.3(eslint@9.17.0(jiti@2.0.0-beta.3)))(eslint@9.17.0(jiti@2.0.0-beta.3))(typescript@5.5.4)(vitest@2.1.8(@types/node@20.17.10)(jsdom@25.0.1))
-      '@leafer-ui/interface':
-        specifier: ^1.2.1
-        version: 1.2.1
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4

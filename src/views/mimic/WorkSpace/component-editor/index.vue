@@ -10,13 +10,12 @@
 
 <script setup lang="ts">
 import { useDropZone } from '@vueuse/core';
-import { App, ResizeEvent } from 'leafer-ui';
+import { App, ResizeEvent, EditorEvent } from 'leafer-editor';
 import { mimicVar } from '@mimic/global';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { useMimicWorkspaceStatus, useMimicComponentStatus } from '@mimic/stores';
 import { rulerTheme } from '@mimic/constant';
 import ContextMenu from './ContextMenu.vue';
-import { EditorEvent } from 'leafer-editor';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 
 const componentEditorWorkspace = ref<HTMLElement>();

@@ -1,4 +1,4 @@
-import type { App } from 'leafer-ui';
+import type { App } from 'leafer-editor';
 import { registerUiClass } from '@mimic/custom/registrar';
 
 export class ComponentEditor {

@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IArrowType, IPathDataArrow } from 'leafer-ui';
+import type { IArrowType, IPathDataArrow } from 'leafer-editor';
 
 withDefaults(
   defineProps<{

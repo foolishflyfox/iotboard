@@ -1,4 +1,4 @@
-import { dataProcessor, Polygon, PolygonData, registerUI, type IPolygonData } from 'leafer-ui';
+import { dataProcessor, Polygon, PolygonData, registerUI, type IPolygonData } from 'leafer-editor';
 import type { UiCustomCfg } from './custom-ui';
 import { autoId } from '@mimic/decorates';
 

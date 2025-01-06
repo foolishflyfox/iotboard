@@ -1,4 +1,4 @@
-import { dataProcessor, Image, ImageData, registerUI } from 'leafer-ui';
+import { dataProcessor, Image, ImageData, registerUI } from 'leafer-editor';
 import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
 import { autoId } from '../../decorates';
 

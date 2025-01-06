@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IStrokeJoin } from 'leafer-ui';
+import type { IStrokeJoin } from 'leafer-editor';
 
 defineProps<{
   type: IStrokeJoin;

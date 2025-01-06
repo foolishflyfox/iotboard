@@ -1,4 +1,4 @@
-import type { UI } from 'leafer-ui';
+import type { UI } from 'leafer-editor';
 import { useMimicDisplayStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
 

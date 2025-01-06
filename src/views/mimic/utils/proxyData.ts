@@ -1,6 +1,6 @@
 import { shallowReactive, watch } from 'vue';
 
-import { UI, defineKey } from 'leafer-ui';
+import { UI, defineKey } from 'leafer-editor';
 
 // 定义proxyData
 

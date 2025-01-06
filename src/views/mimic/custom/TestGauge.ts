@@ -1,4 +1,4 @@
-import type { ILeaferCanvas, IRadiusPointData } from 'leafer-ui';
+import type { ILeaferCanvas, IRadiusPointData } from 'leafer-editor';
 
 const cfg: any = {
   tag: 'testGauge',

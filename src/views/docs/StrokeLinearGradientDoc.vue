@@ -303,7 +303,7 @@
 
 <script setup lang="ts">
 import VCodeBlock from '@wdns/vue-code-block';
-import { Leafer, Rect, type IAlign } from 'leafer-ui';
+import { Leafer, Rect, type IAlign } from 'leafer-editor';
 import { LeaferApp } from 'leafer-vue';
 import { NSelect, NInputNumber, NDynamicTags, NTag, NSlider } from 'naive-ui';
 import { h } from 'vue';

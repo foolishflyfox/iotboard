@@ -128,7 +128,7 @@ import {
   eventBus,
   getUiClassByTag,
 } from '@mimic/utils';
-import { App, ResizeEvent, type IUI } from 'leafer-ui';
+import { App, ResizeEvent, type IUI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { registerTestUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';

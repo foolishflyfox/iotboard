@@ -28,7 +28,7 @@ import type { SelectOption } from 'naive-ui';
 import SelectProperty from './components/SelectProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import JsonProperty from './components/JsonProperty.vue';
-import type { IPaint, IPaintType, ISolidPaint } from 'leafer-ui';
+import type { IPaint, IPaintType, ISolidPaint } from 'leafer-editor';
 import * as _ from 'lodash-es';
 
 const props = defineProps<{

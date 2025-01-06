@@ -10,10 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText } from 'leafer-editor';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
-import '@leafer-in/view';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import {
   selectHandler,
@@ -36,7 +35,6 @@ import * as _ from 'lodash-es';
 import loadjs from 'loadjs';
 import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
-import { HTMLText } from '@leafer-in/html';
 import { mimicDisplayTreeExpose } from '@mimic/LeftPanel/mimic-display-tree/expose';
 import { keyboardKeys } from '@/constant';
 

@@ -1,4 +1,4 @@
-import { dataProcessor, Ellipse, Group, GroupData, Rect, registerUI } from 'leafer-ui';
+import { dataProcessor, Ellipse, Group, GroupData, Rect, registerUI } from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import type { UiCustomCfg } from './custom-ui';
 

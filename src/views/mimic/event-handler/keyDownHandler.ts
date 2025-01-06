@@ -1,4 +1,4 @@
-import type { KeyEvent } from 'leafer-ui';
+import type { KeyEvent } from 'leafer-editor';
 import { doContextMenuAction } from '@mimic/WorkSpace/canvas-container/context-menu-action';
 import { useMimicWorkspaceStatus } from '../stores';
 import { mimicVar } from '../global';

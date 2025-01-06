@@ -1,4 +1,4 @@
-import { Line, type IPointData, type IUI } from 'leafer-ui';
+import { Line, type IPointData, type IUI } from 'leafer-editor';
 import { mimicVar } from '../global';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import type { Action } from '@mimic/global/action-manager';

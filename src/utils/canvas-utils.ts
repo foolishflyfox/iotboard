@@ -1,4 +1,4 @@
-import type { IMatrixData } from 'leafer-ui';
+import type { IMatrixData } from 'leafer-editor';
 
 /**
  * 获取水平方向的缩放因子（X 轴的缩放比例）

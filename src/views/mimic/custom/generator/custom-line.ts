@@ -6,7 +6,7 @@ import {
   surfaceType,
   type ILineData,
   type ILineInputData,
-} from 'leafer-ui';
+} from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
 

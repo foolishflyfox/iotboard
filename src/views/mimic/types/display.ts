@@ -1,4 +1,4 @@
-import type { IUIJSONData } from 'leafer-ui';
+import type { IUIJSONData } from 'leafer-editor';
 
 export interface DisplayData {
   /** 底图 */

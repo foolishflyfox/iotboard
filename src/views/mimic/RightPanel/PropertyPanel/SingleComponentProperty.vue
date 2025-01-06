@@ -87,7 +87,7 @@ import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
 import * as _ from 'lodash-es';
-import { UI, type IArrowType, type IPaintType, type IUI } from 'leafer-ui';
+import { UI, type IArrowType, type IPaintType, type IUI } from 'leafer-editor';
 import { customCfgService, type CustomPropertyCfgs } from '@mimic/custom/generator';
 import type { AppearanceType } from '@mimic/types';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';

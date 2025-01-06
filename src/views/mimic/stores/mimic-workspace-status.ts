@@ -3,7 +3,7 @@ import * as _ from 'lodash-es';
 import { mimicVar } from '@mimic/global';
 import { mimicFileApi } from '@/service/api';
 import { componentPathToTag } from '@mimic/utils';
-import type { IPointData } from 'leafer-ui';
+import type { IPointData } from 'leafer-editor';
 import { useMimicDisplayStatus } from './mimic-display-status';
 import { displayBaseMapId } from '@mimic/constant';
 

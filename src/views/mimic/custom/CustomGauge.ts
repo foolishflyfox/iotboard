@@ -1,5 +1,5 @@
-import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-ui';
-import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-ui';
+import { UI, registerUI, dataProcessor, UIData, boundsType } from 'leafer-editor';
+import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import { customMetas } from '@mimic/utils';
 import { getCommonAppearanceTypes } from '../types';

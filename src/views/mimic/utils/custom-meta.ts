@@ -1,4 +1,4 @@
-import type { UI } from 'leafer-ui';
+import type { UI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import type { AppearanceType } from '../types';
 import { getUiClassByTag } from './element-util';

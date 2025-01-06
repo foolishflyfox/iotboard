@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { NSelect } from 'naive-ui';
-import type { IStrokeJoin } from 'leafer-ui';
+import type { IStrokeJoin } from 'leafer-editor';
 import { PropertyContainer } from './components/containers';
 import StrokeJoinSelectItem from '@/components/StrokeJoinSelectItem.vue';
 
