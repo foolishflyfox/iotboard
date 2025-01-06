@@ -68,6 +68,7 @@
               class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
               :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
               :key="e.id"
+              @click="clickUiLayer(e)"
             >
               <div class="bg-#fff text-black font-bold mr-3px">
                 <template v-if="e.tag.startsWith('element:')">
@@ -88,7 +89,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-#ddd mb-3px">
+          <div class="bg-#eee mb-3px">
             坐标: {{ cursorPos ? `${cursorPos.x.toFixed(3)}, ${cursorPos.y.toFixed(3)}` : '' }}
           </div>
         </div>
@@ -104,7 +105,7 @@ import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
-import { mimicVar } from '@mimic/global';
+import { mimicVar, type UiLayer } from '@mimic/global';
 import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
 import {
   AlignHorizontalLeftRound,
@@ -144,6 +145,10 @@ const selectedSingleUi = computed(() => {
 });
 
 const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
+
+function clickUiLayer(uiLayer: UiLayer) {
+  mimicVar.displayEditor.selectWithId(uiLayer.id);
+}
 </script>
 
 <style scoped>

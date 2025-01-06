@@ -324,4 +324,12 @@ export class DisplayEditor {
     }
     return this.app?.tree.findId(id);
   }
+
+  /** 设置指定id的组件为选中状态 */
+  selectWithId(id: string) {
+    const ui = this.app?.tree.findId(id);
+    if (ui) {
+      this.app!.editor.select(ui);
+    }
+  }
 }

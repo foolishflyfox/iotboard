@@ -5,6 +5,8 @@ import { BaselineManagerContainer } from './baseline-manager-container';
 import { ActionManagerContainer } from './action-manager-container';
 import { UiLayerManagerContainer } from './ui-layer-manager-container';
 
+export * from './ui-layer-manager';
+
 interface MimicVar {
   /** 存放组件 tag 与对应 json 字符串之间的映射关系 */
   componentJsonStrDict: Record<string, string>;
