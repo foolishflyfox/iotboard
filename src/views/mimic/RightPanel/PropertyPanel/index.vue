@@ -85,7 +85,7 @@
                 </template>
               </div>
               <div>
-                {{ e.id }}
+                {{ e.id }} / {{ e.zIndex }}
               </div>
             </div>
           </div>

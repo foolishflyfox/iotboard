@@ -3,6 +3,7 @@ import { mimicVar } from '.';
 export interface UiLayer {
   tag: string;
   id: string;
+  zIndex?: number;
 }
 
 export class UiLayerManager {
@@ -11,8 +12,7 @@ export class UiLayerManager {
   /** 根据实际情况更新图层信息 */
   update() {
     const { subUis } = mimicVar.displayEditor.getTreeUis();
-    console.log('@@@@ subUis', subUis.length);
-    this.uiLayers.value = subUis.map(e => ({ tag: e.tag, id: e.id! }));
+    this.uiLayers.value = subUis.map(e => ({ tag: e.tag, id: e.id!, zindex: e.zIndex }));
   }
 
   getUiLayers() {
