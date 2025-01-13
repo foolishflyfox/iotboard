@@ -84,6 +84,22 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
         }
       }
     });
+  } else if (action === 'up') {
+    singleTargetHandler((ui) => {
+      mimicVar.uiLayerManagerContainer.upward(ui.id!);
+    });
+  } else if (action === 'down') {
+    singleTargetHandler((ui) => {
+      mimicVar.uiLayerManagerContainer.downward(ui.id!);
+    });
+  } else if (action === 'top') {
+    singleTargetHandler((ui) => {
+      mimicVar.uiLayerManagerContainer.toTop(ui.id!);
+    });
+  } else if (action === 'bottom') {
+    singleTargetHandler((ui) => {
+      mimicVar.uiLayerManagerContainer.toBottom(ui.id!);
+    });
   }
 }
 

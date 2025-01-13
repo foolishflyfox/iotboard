@@ -4,7 +4,6 @@ import { lazyGetMimicWorkspaceStatus } from '@mimic/stores';
 export interface UiLayer {
   tag: string;
   id: string;
-  zIndex?: number;
 }
 
 export class UiLayerManager {
