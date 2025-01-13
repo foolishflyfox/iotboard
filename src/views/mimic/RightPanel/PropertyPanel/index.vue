@@ -51,6 +51,7 @@
           <NSpace :size="5">
             <HeadIconContainer
               :vicons="KeyboardArrowUpRound" tooltip="上移" :disabled="!selectedSingleUi"
+              @click="() => mimicVar.uiLayerManagerContainer.upper(selectedUiId as string)"
             />
             <HeadIconContainer
               :vicons="KeyboardDoubleArrowUpRound" tooltip="移至顶层" :disabled="!selectedSingleUi"
@@ -64,7 +65,7 @@
           </NSpace>
           <div class="flex-1 overflow-auto">
             <div
-              v-for="e of uiLayers"
+              v-for="e of uiLayers.slice().reverse()"
               class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
               :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
               :key="e.id"
@@ -85,7 +86,7 @@
                 </template>
               </div>
               <div>
-                {{ e.id }} / {{ e.zIndex }}
+                {{ e.id }}
               </div>
             </div>
           </div>

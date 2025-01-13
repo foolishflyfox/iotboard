@@ -7,6 +7,14 @@ import type { IPointData } from 'leafer-editor';
 import { useMimicDisplayStatus } from './mimic-display-status';
 import { displayBaseMapId } from '@mimic/constant';
 
+let mimicWorkspaceStatus: ReturnType<typeof useMimicWorkspaceStatus>;
+export function lazyGetMimicWorkspaceStatus() {
+  if (!mimicWorkspaceStatus) {
+    mimicWorkspaceStatus = useMimicWorkspaceStatus();
+  }
+  return mimicWorkspaceStatus;
+}
+
 export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () => {
   const mimicDisplayStatus = useMimicDisplayStatus();
   // 工作区标尺是否可见
