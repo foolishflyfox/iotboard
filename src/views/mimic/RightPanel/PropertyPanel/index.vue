@@ -51,16 +51,19 @@
           <NSpace :size="5">
             <HeadIconContainer
               :vicons="KeyboardArrowUpRound" tooltip="上移" :disabled="!selectedSingleUi"
-              @click="() => mimicVar.uiLayerManagerContainer.upper(selectedUiId as string)"
+              @click="() => mimicVar.uiLayerManagerContainer.upward(selectedUiId as string)"
             />
             <HeadIconContainer
               :vicons="KeyboardDoubleArrowUpRound" tooltip="移至顶层" :disabled="!selectedSingleUi"
+              @click="() => mimicVar.uiLayerManagerContainer.toTop(selectedUiId as string)"
             />
             <HeadIconContainer
               :vicons="KeyboardArrowDownRound" tooltip="下移" :disabled="!selectedSingleUi"
+              @click="() => mimicVar.uiLayerManagerContainer.downward(selectedUiId as string)"
             />
             <HeadIconContainer
               :vicons="KeyboardDoubleArrowDownRound" tooltip="移至底层" :disabled="!selectedSingleUi"
+              @click="() => mimicVar.uiLayerManagerContainer.toBottom(selectedUiId as string)"
             />
           </NSpace>
           <div class="flex-1 overflow-auto">

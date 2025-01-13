@@ -24,7 +24,19 @@ export class UiLayerManagerContainer extends BaseContainer<UiLayerManager> {
     return this.currentUiLayers;
   }
 
-  upper(uiId: string) {
-    this.currentUiLayerManager.value?.upper(uiId);
+  upward(uiId: string) {
+    this.currentUiLayerManager.value?.upward(uiId);
+  }
+
+  toTop(uiId: string) {
+    this.currentUiLayerManager.value?.toTop(uiId);
+  }
+
+  downward(uiId: string) {
+    this.currentUiLayerManager.value?.downward(uiId);
+  }
+
+  toBottom(uiId: string) {
+    this.currentUiLayerManager.value?.toBottom(uiId);
   }
 }
