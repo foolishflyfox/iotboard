@@ -151,7 +151,9 @@ onMounted(() => {
   app = new App({
     view: 'mimicCanvasContainer',
     ground: {},
-    tree: { usePartRender: true, type: 'viewport' },
+    // 设置 type 为 design，增加“按住鼠标中键/空格键+拖拽” 平移视图的功能
+    // 限制缩放范围为 0.01 ~ 256
+    tree: { usePartRender: true, type: 'design' },
     // sky: { type: 'draw', usePartRender: false },
     editor: {
       // circle: {
