@@ -116,7 +116,7 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
     });
   } else if (action === 'group') {
     multiTargetHandler((uis) => {
-      const group = new Group();
+      const group = new Group({ id: getUniqueId() });
       mimicVar.displayEditor.app?.editor.group(group);
       const mimicWorkspaceStatus = useMimicWorkspaceStatus();
       mimicWorkspaceStatus.setCurrentDisplayUnsave();

@@ -9,19 +9,26 @@
     <div class="flex-1 flex">
       <slot />
     </div>
+    <div class="w-20px">
+      <NButton v-if="!unbindable" text class="pl-3px pr-3px">
+        <NIcon :component="Link" :size="16" />
+      </NButton>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es';
-import { NIcon } from 'naive-ui';
+import { NIcon, NButton } from 'naive-ui';
 import { QuestionCircle16Filled } from '@vicons/fluent';
 import { useRouter } from 'vue-router';
+import { Link } from '@vicons/tabler';
 import * as _ from 'lodash-es';
 
 const props = defineProps<{
   label?: string;
   routeName?: string;
+  unbindable?: boolean;
 }>();
 
 const router = useRouter();

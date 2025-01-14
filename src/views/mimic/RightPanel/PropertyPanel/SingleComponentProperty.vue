@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pr-10px">
     <!-- <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div> -->
     <NCollapse :default-expanded-names="['base', 'custom']">
       <NCollapseItem name="base">
@@ -21,7 +21,10 @@
             <StrokeProperty :stroke="stroke" @update:value="v => (stroke = v)" />
           </template>
           <template v-else-if="pt === 'strokeWidth'">
-            <NumberProperty v-if="stroke.type" v-model:value="strokeWidth" label="线宽" :min="0" />
+            <NumberProperty
+              v-if="stroke.type"
+              v-model:value="strokeWidth" label="线宽" :min="0" unbindable
+            />
           </template>
           <template v-else-if="pt === 'fill'">
             <template v-if="_.isString(fill)">
