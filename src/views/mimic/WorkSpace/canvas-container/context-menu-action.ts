@@ -115,11 +115,15 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
       mimicVar.uiLayerManagerContainer.toBottom(ui.id!);
     });
   } else if (action === 'group') {
-    multiTargetHandler((uis) => {
+    multiTargetHandler(() => {
       const group = new Group({ id: getUniqueId() });
       mimicVar.displayEditor.app?.editor.group(group);
-      const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-      mimicWorkspaceStatus.setCurrentDisplayUnsave();
+      useMimicWorkspaceStatus().setCurrentDisplayUnsave();
+    });
+  } else if (action === 'ungroup') {
+    singleTargetHandler(() => {
+      mimicVar.displayEditor.app?.editor.ungroup();
+      useMimicWorkspaceStatus().setCurrentDisplayUnsave();
     });
   }
 }

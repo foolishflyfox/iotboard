@@ -68,32 +68,37 @@
             />
           </NSpace>
           <div class="flex-1 overflow-auto">
-            <div
-              v-for="e of uiLayers.slice().reverse()"
-              class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
-              :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
-              :key="e.id"
-              @click="clickUiLayer(e)"
-            >
-              <div class="bg-#fff text-black font-bold mr-3px">
-                <template v-if="e.tag.startsWith('element:')">
-                  <img
-                    style="height: 16px"
-                    :src="getElementPreview(e.tag.slice('element:'.length))"
-                  >
-                </template>
-                <template v-else-if="e.tag.startsWith('component/')">
-                  <img style="height: 16px" :src="`${getDataUrl()}/${e.tag}.png`">
-                </template>
-                <template v-else>
-                  {{ e.tag }}
-                </template>
+            <template v-for="e of uiLayers.slice().reverse()" :key="e.id">
+              <div
+                v-if="e.id"
+                class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
+                :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
+                @click="clickUiLayer(e)"
+              >
+                <div class="bg-#fff text-black font-bold mr-3px">
+                  <template v-if="e.tag.startsWith('element:')">
+                    <img
+                      style="height: 16px"
+                      :src="getElementPreview(e.tag.slice('element:'.length))"
+                    >
+                  </template>
+                  <template v-else-if="e.tag.startsWith('component/')">
+                    <img style="height: 16px" :src="`${getDataUrl()}/${e.tag}.png`">
+                  </template>
+                  <template v-else-if="e.tag === 'Group'">
+                    <img style="height: 16px" src="/preview/group.png">
+                  </template>
+                  <template v-else>
+                    {{ e.tag }}
+                  </template>
+                </div>
+                <div>
+                  {{ e.id }}
+                </div>
               </div>
-              <div>
-                {{ e.id }}
-              </div>
-            </div>
+            </template>
           </div>
+
           <div class="bg-#eee mb-3px">
             坐标: {{ cursorPos ? `${cursorPos.x.toFixed(3)}, ${cursorPos.y.toFixed(3)}` : '' }}
           </div>

@@ -1,5 +1,6 @@
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar } from '@mimic/global';
+import type { UI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 
 /** 图纸编辑器相关状态 */
@@ -50,6 +51,10 @@ export const useMimicDisplayStatus = defineStore('mimic-display-status', () => {
       result.down = false;
       result.copyStyle = false;
       result.pasteStyle = false;
+      console.log('@@@###', (curUi.value as UI).tag);
+      if ((curUi.value as UI).tag === 'Group') {
+        result.ungroup = false;
+      }
     }
     return result;
   });
