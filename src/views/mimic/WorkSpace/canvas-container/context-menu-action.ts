@@ -1,4 +1,4 @@
-import type { IClientPointData, IUI } from 'leafer-editor';
+import { Group, type IClientPointData, type IUI } from 'leafer-editor';
 import * as _ from 'lodash-es';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 import { mimicVar } from '@mimic/global';
@@ -113,6 +113,13 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
   } else if (action === 'bottom') {
     singleTargetHandler((ui) => {
       mimicVar.uiLayerManagerContainer.toBottom(ui.id!);
+    });
+  } else if (action === 'group') {
+    multiTargetHandler((uis) => {
+      const group = new Group();
+      mimicVar.displayEditor.app?.editor.group(group);
+      const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+      mimicWorkspaceStatus.setCurrentDisplayUnsave();
     });
   }
 }

@@ -1,5 +1,6 @@
 <template>
-  <div class="h-full">
+  <!-- 高度计算: 32px 为头部高度， 42px 为 tab 头高度，12px 为 tab 内容的 padding -->
+  <div class="h-full xxxx" style="height: calc(100vh - 32px - 42px - 12px)">
     <NSplit
       direction="vertical"
       :resize-trigger-size="2"
