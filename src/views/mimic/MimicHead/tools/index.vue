@@ -1,38 +1,38 @@
 <template>
   <div class="h-full flex-y-center tool-container">
-    <HeadIconContainer
+    <IconContainer
       :vicons="Keyboard24Regular"
       tooltip="快捷键"
       @click="() => hotkeyModalVisible = true"
     />
     <HeadVerticalDivider />
-    <HeadIconContainer
+    <IconContainer
       :vicons="PageFit16Regular"
       tooltip="窗口自适应大小"
       @click="() => mimicVar.displayEditor.viewAutoFit()"
     />
-    <HeadIconContainer
+    <IconContainer
       :vicons="Ruler"
       tooltip="显示 / 隐藏标尺"
       :is-active="rulerVisible"
       @click="changeRulerVisible"
     />
-    <HeadIconContainer
+    <IconContainer
       :vicons="GridDots20Filled"
       tooltip="显示 / 隐藏点阵"
       :is-active="dotMatrixVisible"
       @click="changeDotMatrixVisible"
     />
     <HeadVerticalDivider />
-    <HeadIconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" disabled />
-    <HeadIconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" disabled />
-    <HeadIconContainer :vicons="Send20Regular" tooltip="发布" disabled />
+    <IconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" disabled />
+    <IconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" disabled />
+    <IconContainer :vicons="Send20Regular" tooltip="发布" disabled />
   </div>
   <HotkeyHelp v-model:show="hotkeyModalVisible" />
 </template>
 
 <script setup lang="ts">
-import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import IconContainer from '@/views/mimic/components/IconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular } from '@vicons/fluent';

@@ -6,13 +6,13 @@
     <div>导出</div>
     <HeadVerticalDivider />
     <NSpace size="small">
-      <HeadIconContainer
+      <IconContainer
         tooltip="撤销"
         :vicons="UndoRound"
         :disabled="!currentUndoEnable"
         @click="undo"
       />
-      <HeadIconContainer
+      <IconContainer
         tooltip="重做"
         :vicons="RedoRound"
         :disabled="!currentRedoEnable"
@@ -27,7 +27,7 @@
     <div>颜色</div>
     <HeadVerticalDivider />
     <NSpace size="small">
-      <HeadIconContainer
+      <IconContainer
         v-for="o of drawingToolOptions"
         :key="o.tooltip"
         :vicons="o.icon"
@@ -37,14 +37,14 @@
       />
     </NSpace>
     <HeadVerticalDivider />
-    <HeadIconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
+    <IconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
     <HeadVerticalDivider />
   </div>
 </template>
 
 <script setup lang="ts">
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
-import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import IconContainer from '@/views/mimic/components/IconContainer.vue';
 import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
 import { RedoRound, UndoRound } from '@vicons/material';

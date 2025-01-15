@@ -17,25 +17,25 @@
           <template v-else-if="_.isArray(selectedUI)">
             <div class="px-1em flex justify-between">
               <NSpace>
-                <HeadIconContainer :vicons="AlignHorizontalLeftRound" tooltip="左对齐" />
-                <HeadIconContainer :vicons="AlignHorizontalCenterRound" tooltip="水平居中" />
-                <HeadIconContainer :vicons="AlignHorizontalRightRound" tooltip="右对齐" />
+                <IconContainer :vicons="AlignHorizontalLeftRound" tooltip="左对齐" />
+                <IconContainer :vicons="AlignHorizontalCenterRound" tooltip="水平居中" />
+                <IconContainer :vicons="AlignHorizontalRightRound" tooltip="右对齐" />
               </NSpace>
               <NSpace>
-                <HeadIconContainer :vicons="AlignVerticalTopRound" tooltip="上对齐" />
-                <HeadIconContainer :vicons="AlignVerticalCenterRound" tooltip="垂直居中" />
-                <HeadIconContainer :vicons="AlignVerticalBottomRound" tooltip="下对齐" />
+                <IconContainer :vicons="AlignVerticalTopRound" tooltip="上对齐" />
+                <IconContainer :vicons="AlignVerticalCenterRound" tooltip="垂直居中" />
+                <IconContainer :vicons="AlignVerticalBottomRound" tooltip="下对齐" />
               </NSpace>
             </div>
             <hr class="text-#ddd my-5px">
             <div class="px-1em flex justify-between">
               <NSpace>
-                <HeadIconContainer :vicons="HorizontalDistributeRound" tooltip="水平等距" />
-                <HeadIconContainer :vicons="VerticalDistributeRound" tooltip="垂直等距" />
+                <IconContainer :vicons="HorizontalDistributeRound" tooltip="水平等距" />
+                <IconContainer :vicons="VerticalDistributeRound" tooltip="垂直等距" />
               </NSpace>
               <NSpace>
-                <HeadIconContainer :vicons="AutoFitWidth20Filled" tooltip="等宽" />
-                <HeadIconContainer :vicons="AutoFitHeight20Filled" tooltip="等高" />
+                <IconContainer :vicons="AutoFitWidth20Filled" tooltip="等宽" />
+                <IconContainer :vicons="AutoFitHeight20Filled" tooltip="等高" />
               </NSpace>
             </div>
           </template>
@@ -50,19 +50,19 @@
       <template #2>
         <div class="flex flex-col h-100%">
           <NSpace :size="5">
-            <HeadIconContainer
+            <IconContainer
               :vicons="KeyboardArrowUpRound" tooltip="上移" :disabled="!selectedSingleUi"
               @click="() => mimicVar.uiLayerManagerContainer.upward(selectedUiId as string)"
             />
-            <HeadIconContainer
+            <IconContainer
               :vicons="KeyboardDoubleArrowUpRound" tooltip="移至顶层" :disabled="!selectedSingleUi"
               @click="() => mimicVar.uiLayerManagerContainer.toTop(selectedUiId as string)"
             />
-            <HeadIconContainer
+            <IconContainer
               :vicons="KeyboardArrowDownRound" tooltip="下移" :disabled="!selectedSingleUi"
               @click="() => mimicVar.uiLayerManagerContainer.downward(selectedUiId as string)"
             />
-            <HeadIconContainer
+            <IconContainer
               :vicons="KeyboardDoubleArrowDownRound" tooltip="移至底层" :disabled="!selectedSingleUi"
               @click="() => mimicVar.uiLayerManagerContainer.toBottom(selectedUiId as string)"
             />
@@ -75,25 +75,27 @@
                 :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
                 @click="clickUiLayer(e)"
               >
-                <div class="bg-#fff text-black font-bold mr-3px">
-                  <template v-if="e.tag.startsWith('element:')">
-                    <img
-                      style="height: 16px"
-                      :src="getElementPreview(e.tag.slice('element:'.length))"
-                    >
-                  </template>
-                  <template v-else-if="e.tag.startsWith('component/')">
-                    <img style="height: 16px" :src="`${getDataUrl()}/${e.tag}.png`">
-                  </template>
-                  <template v-else-if="e.tag === 'Group'">
-                    <img style="height: 16px" src="/preview/group.png">
-                  </template>
-                  <template v-else>
-                    {{ e.tag }}
-                  </template>
-                </div>
-                <div>
-                  {{ e.id }}
+                <div class="flex flex-y-center">
+                  <div class="bg-#fff text-black font-bold mr-3px">
+                    <template v-if="e.tag.startsWith('element:')">
+                      <img
+                        style="height: 16px"
+                        :src="getElementPreview(e.tag.slice('element:'.length))"
+                      >
+                    </template>
+                    <template v-else-if="e.tag.startsWith('component/')">
+                      <img style="height: 16px" :src="`${getDataUrl()}/${e.tag}.png`">
+                    </template>
+                    <template v-else-if="e.tag === 'Group'">
+                      <img style="height: 16px" src="/preview/group.png">
+                    </template>
+                    <template v-else>
+                      {{ e.tag }}
+                    </template>
+                  </div>
+                  <div>
+                    {{ e.id }}
+                  </div>
                 </div>
               </div>
             </template>
@@ -116,7 +118,7 @@ import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar, type UiLayer } from '@mimic/global';
-import HeadIconContainer from '@mimic/components/HeadIconContainer.vue';
+import IconContainer from '@/views/mimic/components/IconContainer.vue';
 import {
   AlignHorizontalLeftRound,
   AlignHorizontalCenterRound,
