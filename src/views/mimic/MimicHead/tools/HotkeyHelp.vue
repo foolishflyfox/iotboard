@@ -16,7 +16,7 @@
           </div>
         </NDivider>
         <div
-          class="flex-y-center text-16px my-3px px-1em"
+          class="flex-y-center text-16px my-12px px-1em"
           v-for="(item, i) of group.items"
           :key="item.value"
           :style="{ backgroundColor: i % 2 === 1 ? '#fff' : undefined }"
@@ -64,7 +64,8 @@ const hotKeyGroups = [{
     { label: '视图缩小', value: 'ctrl/cmd + 鼠标滚轮↓' },
     { label: '视图拖动', value: '按下鼠标中键 + 移动' },
     { label: '添加辅助线', value: '单击标尺' },
-    { label: '删除辅助线', value: '双击标尺' }
+    { label: '删除辅助线', value: '双击标尺' },
+    { label: '打开组', value: '双击组' }
   ]
 }, {
   group: '图纸',

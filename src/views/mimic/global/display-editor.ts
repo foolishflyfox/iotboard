@@ -1,6 +1,7 @@
 import type { DisplayData, OpenedTarget } from '@mimic/types';
 import {
   ChildEvent,
+  Group,
   Line,
   Polygon,
   PropertyEvent,
@@ -8,6 +9,7 @@ import {
   type App,
   type IPointData,
   type IUI,
+  type IUIJSONData,
 } from 'leafer-editor';
 import { displayBaseMapId } from '@mimic/constant';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
@@ -252,28 +254,32 @@ export class DisplayEditor {
     this.app?.tree.clear();
     this.app?.tree.add(displayBaseMap);
     // 加载子元素
-    for (const child of displayData.children || []) {
-      if (child.tag) {
-        if (child.tag.startsWith('element:')) {
-          const elementClass = getElementClassByTag(child.tag);
-          const element = new elementClass(child);
-          // 不用 nextTick，element 将不能添加到 tree
-          nextTick(() => {
-            this.app?.tree.add(element);
-          });
-        } else {
-          const componentClass = await registerUiClass(child.tag);
-          const component = new componentClass(child);
-          nextTick(() => {
-            this.app?.tree.add(component);
-          });
-        }
-      }
-
-      // this.app?.tree.add(child);
-    }
+    const uis = await this.createUis(displayData.children || []);
+    nextTick(() => this.app?.tree.add(uis));
 
     this.viewAutoFit();
+  }
+
+  private async createUis(uiJsons: IUIJSONData[]) {
+    const result: IUI[] = [];
+    for (const uiJson of uiJsons) {
+      if (uiJson.tag) {
+        if (uiJson.tag.startsWith('element:')) {
+          const elementClass = getElementClassByTag(uiJson.tag);
+          const element = new elementClass(uiJson);
+          result.push(element);
+        } else if (uiJson.tag === 'Group') {
+          const children = await this.createUis(uiJson.children || []);
+          const group = new Group({ ...uiJson, children });
+          result.push(group);
+        } else {
+          const componentClass = await registerUiClass(uiJson.tag);
+          const component = new componentClass(uiJson);
+          result.push(component);
+        }
+      }
+    }
+    return result;
   }
 
   /** 获取所有图层ui */
