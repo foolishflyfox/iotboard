@@ -7,8 +7,9 @@
       :filterable="true"
       v-model:value="sizeType"
       size="small"
+      unbindable
     />
-    <PropertyContainer unbindable>
+    <PropertyContainer :unbindable="{ hide: true }">
       <NumberProperty
         placeholder="宽"
         size="small"
@@ -16,7 +17,7 @@
         :value="width"
         :show-button="false"
         @update:value="changeWidth"
-        unbindable
+        :unbindable="{ hide: true }"
       >
         <template #suffix>
           <div><span class="text-12px">px</span><NDivider vertical />W</div>
@@ -34,7 +35,7 @@
         :value="height"
         :show-button="false"
         @update:value="changeHeight"
-        unbindable
+        :unbindable="{ hide: true }"
       >
         <template #suffix>
           <div>

@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Unbindable } from '@/views/mimic/types';
 import { PropertyContainer } from './containers';
 import { CfgInputNumber } from '@/components';
 
@@ -32,7 +33,7 @@ withDefaults(
     step?: number;
     placeholder?: string;
     showButton?: boolean;
-    unbindable?: boolean;
+    unbindable?: Unbindable;
   }>(),
   {
     stopKeyDownEvent: true,
