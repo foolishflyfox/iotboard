@@ -40,16 +40,10 @@ export class UiLayerManager {
 
   /** 将选中的 ui 移到顶层 */
   toTop(id: string) {
-    const index = this.findIndexById(id);
-    if (index === -1 || index === this.uiLayers.value.length - 1) return;
-    const curUi = mimicVar.displayEditor.app?.tree.findId(id);
-    const topUiId = this.uiLayers.value[this.uiLayers.value.length - 1].id;
-    const topUi = mimicVar.displayEditor.app?.tree.findId(topUiId);
-    if (!curUi || !topUi) return;
-    curUi.remove();
-    mimicVar.displayEditor.app!.tree.addAfter(curUi, topUi);
+    const mimicWorkspaceStatus = lazyGetMimicWorkspaceStatus();
+    mimicVar.displayEditor.app?.editor.toTop();
     this.update();
-    lazyGetMimicWorkspaceStatus().setCurrentDisplayUnsave();
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
 
   /** 将选中的 ui 向下移动 */
@@ -68,6 +62,7 @@ export class UiLayerManager {
 
   /** 将选中的 ui 移到底部 */
   toBottom(id: string) {
+    // 由于底图的存在，不能直接使用 editor.toBottom 方法
     const index = this.findIndexById(id);
     if (index === -1 || index === 0) return;
     const curUi = mimicVar.displayEditor.app?.tree.findId(id);
