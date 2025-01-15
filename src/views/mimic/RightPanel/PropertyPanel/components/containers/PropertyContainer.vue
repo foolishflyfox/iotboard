@@ -9,11 +9,14 @@
     <div class="flex-1 flex">
       <slot />
     </div>
-    <div class="w-20px">
+    <NButton v-if="!unbindable" text class="pl-3px pr-3px">
+      <NIcon :component="Link" :size="16" />
+    </NButton>
+    <!-- <div class="w-20px">
       <NButton v-if="!unbindable" text class="pl-3px pr-3px">
         <NIcon :component="Link" :size="16" />
       </NButton>
-    </div>
+    </div> -->
   </div>
 </template>
 
