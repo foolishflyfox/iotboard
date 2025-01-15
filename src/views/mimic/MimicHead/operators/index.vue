@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
-import IconContainer from '@/views/mimic/components/IconContainer.vue';
+import IconContainer from '@mimic/components/IconContainer.vue';
 import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
 import { RedoRound, UndoRound } from '@vicons/material';

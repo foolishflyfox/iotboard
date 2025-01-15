@@ -4,6 +4,7 @@ import { lazyGetMimicWorkspaceStatus } from '@mimic/stores';
 export interface UiLayer {
   tag: string;
   id: string;
+  locked?: boolean;
 }
 
 export class UiLayerManager {
@@ -12,7 +13,7 @@ export class UiLayerManager {
   /** 根据实际情况更新图层信息 */
   update() {
     const { subUis } = mimicVar.displayEditor.getTreeUis();
-    this.uiLayers.value = subUis.map(e => ({ tag: e.tag, id: e.id!, zindex: e.zIndex }));
+    this.uiLayers.value = subUis.map(e => ({ tag: e.tag, id: e.id!, locked: e.locked }));
   }
 
   /** 获取当前所有的图层信息 */

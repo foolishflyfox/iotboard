@@ -9,7 +9,7 @@
     <NButton text :focusable="false" :disabled>
       <template v-if="_.isNil(isActive)">
         <!-- 触发型图标 -->
-        <NIcon :component="vicons" :size="sideLength" />
+        <NIcon :component="vicons" :size="size || sideLength" />
       </template>
       <template v-else>
         <!-- 保持型图标 -->
@@ -30,13 +30,14 @@ import { headIconSetting } from '@mimic/settings';
 import type { Component } from 'vue';
 import * as _ from 'lodash-es';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     vicons: Component;
     isActive?: boolean;
     disabled?: boolean;
     tooltip?: string;
     hasHoverColor?: boolean;
+    size?: number;
   }>(),
   {
     isActive: undefined,
@@ -46,8 +47,8 @@ withDefaults(
 );
 
 const { hoverColor, activeColor, sideLength } = headIconSetting;
-const svgWidth = `${sideLength}px`;
-const svgHeight = svgWidth;
+// const svgWidth = computed(() => `${props.size || sideLength}px`);
+// const svgHeight = svgWidth;
 </script>
 
 <style scoped></style>

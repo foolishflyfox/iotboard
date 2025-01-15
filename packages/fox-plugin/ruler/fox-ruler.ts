@@ -437,7 +437,7 @@ export class FoxRuler {
         // 当前线段和下一个线段相交，合并宽度
         currentLine[length]
           = Math.max(currentLine[axis] + currentLine[length], line[axis] + line[length])
-          - currentLine[axis];
+            - currentLine[axis];
       } else {
         // 当前线段和下一个线段不相交，将当前线段加入结果数组中，并更新当前线段为下一个线段
         mergedLines.push(currentLine);

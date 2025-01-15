@@ -71,9 +71,9 @@
             <template v-for="e of uiLayers.slice().reverse()" :key="e.id">
               <div
                 v-if="e.id"
-                class="bg-#ddd mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8"
-                :style="{ backgroundColor: selectedUiId === e.id ? '#89ac52' : undefined }"
-                @click="clickUiLayer(e)"
+                class="mb-1px flex flex-y-center cursor-pointer hover:bg-#0bf8 justify-between"
+                :style="{ backgroundColor: selectedUiId === e.id ? '#E3F0AF' : '#ddd' }"
+                @click.capture="clickUiLayer(e)"
               >
                 <div class="flex flex-y-center">
                   <div class="bg-#fff text-black font-bold mr-3px">
@@ -97,6 +97,14 @@
                     {{ e.id }}
                   </div>
                 </div>
+                <div class="mr-5px">
+                  <IconContainer v-if="e.locked" :vicons="Lock" :size="18" @click="unlock" />
+                  <IconContainer
+                    v-else
+                    :vicons="LockOpen" :size="18"
+                    @click="lock"
+                  />
+                </div>
               </div>
             </template>
           </div>
@@ -118,7 +126,7 @@ import DisplayProperty from './DisplayProperty.vue';
 import SingleComponentProperty from './SingleComponentProperty.vue';
 import { displayBaseMapId } from '@mimic/constant';
 import { mimicVar, type UiLayer } from '@mimic/global';
-import IconContainer from '@/views/mimic/components/IconContainer.vue';
+import IconContainer from '@mimic/components/IconContainer.vue';
 import {
   AlignHorizontalLeftRound,
   AlignHorizontalCenterRound,
@@ -134,8 +142,11 @@ import {
   KeyboardDoubleArrowDownRound
 } from '@vicons/material';
 import { AutoFitWidth20Filled, AutoFitHeight20Filled } from '@vicons/fluent';
-import { getElementPreview } from '../../utils';
+import { getElementPreview } from '@mimic/utils';
 import { getDataUrl } from '@/utils';
+import { Lock, LockOpen } from '@vicons/tabler';
+
+;
 
 defineOptions({
   name: 'PropertyPanel',
@@ -160,6 +171,16 @@ const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
 
 function clickUiLayer(uiLayer: UiLayer) {
   mimicVar.displayEditor.selectWithId(uiLayer.id);
+  console.log('click ui layer');
+}
+
+function lock() {
+  mimicVar.displayEditor.app?.editor.lock();
+  useMimicWorkspaceStatus().setCurrentDisplayUnsave();
+}
+function unlock() {
+  mimicVar.displayEditor.app?.editor.unlock();
+  useMimicWorkspaceStatus().setCurrentDisplayUnsave();
 }
 </script>
 

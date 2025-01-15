@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import IconContainer from '@/views/mimic/components/IconContainer.vue';
+import IconContainer from '@mimic/components/IconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular } from '@vicons/fluent';
