@@ -203,8 +203,10 @@ function getCfgValue(cfgName: string): any {
   return curElementProxyData.value?.[cfgName];
 }
 
-watch([x, y, width, height], () => {
-  mimicWorkspaceStatus.setCurrentDisplayUnsave();
+watch([() => mimicDisplayStatus.selectedUiId, x, y, width, height], (nv, ov) => {
+  if (nv[0] === ov[0]) {
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
+  }
 });
 </script>
 
