@@ -9,8 +9,15 @@
           </div>
         </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
-          <NumberProperty v-if="pt === 'x'" v-model:value="x" label="X坐标" />
-          <NumberProperty v-else-if="pt === 'y'" v-model:value="y" label="Y坐标" />
+          <CheckboxProperty v-if="pt === 'visible'" v-model:value="visible" label="可见" />
+          <NumberProperty
+            v-else-if="pt === 'x'"
+            v-model:value="x" label="X坐标" :decimal-places="3"
+          />
+          <NumberProperty
+            v-else-if="pt === 'y'"
+            v-model:value="y" label="Y坐标" :decimal-places="3"
+          />
           <NumberProperty v-else-if="pt === 'width'" v-model:value="width" label="宽度" />
           <NumberProperty v-else-if="pt === 'height'" v-model:value="height" label="高度" />
           <NumberProperty v-else-if="pt === 'sides'" v-model:value="sides" label="边数" :min="3" />
@@ -149,6 +156,7 @@ interface Stroke extends Record<string, any> {
   type: IPaintType;
 }
 
+const visible = useAttrProxy('visible');
 const x = useAttrProxy('x');
 const y = useAttrProxy('y');
 const width = useAttrProxy('width');

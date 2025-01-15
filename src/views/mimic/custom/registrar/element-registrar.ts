@@ -20,7 +20,7 @@ const elementRegistrars: Record<string, () => void> = {};
 // const elementCustomPropertyCfgs: Record<string, CustomPropertyCfgs> = {};
 
 // 默认的基础属性
-const defaultAppearances: AppearanceType[] = ['x', 'y', 'width', 'height'];
+const defaultAppearances: AppearanceType[] = ['visible', 'x', 'y', 'width', 'height'];
 
 function addElementRegistrar(
   generator: (cfg: UiCustomCfg) => CustomPropertyCfgs | void,

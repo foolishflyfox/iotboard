@@ -10,6 +10,7 @@
       :step
       :placeholder
       :show-button
+      :decimal-places
     >
       <template #suffix>
         <slot name="suffix" />
@@ -23,7 +24,7 @@ import type { Unbindable } from '@/views/mimic/types';
 import { PropertyContainer } from './containers';
 import { CfgInputNumber } from '@/components';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     label?: string;
     stopKeyDownEvent?: boolean;
@@ -34,6 +35,8 @@ withDefaults(
     placeholder?: string;
     showButton?: boolean;
     unbindable?: Unbindable;
+    /** 小数位数 */
+    decimalPlaces?: number;
   }>(),
   {
     stopKeyDownEvent: true,

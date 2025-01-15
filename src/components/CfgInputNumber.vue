@@ -9,6 +9,7 @@
     :step
     :placeholder
     :show-button
+    :format
     @update:value="updateValue"
     @keydown.stop="cfgInputKeydown"
   >
@@ -28,11 +29,19 @@ const props = defineProps<{
   step?: number;
   placeholder?: string;
   showButton?: boolean;
+  decimalPlaces?: number;
 }>();
 
 const emit = defineEmits<{
   'update:value': [v: number | undefined | null];
 }>();
+
+const format = computed(() => {
+  if (props.decimalPlaces === undefined) return undefined;
+  return (v: number | null) => {
+    return v?.toFixed(props.decimalPlaces) || '';
+  };
+});
 
 const innerValue = ref(props.value);
 
