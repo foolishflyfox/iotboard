@@ -25,12 +25,15 @@
         </NIcon>
       </NSpace>
     </template>
-    <div class="h-full bg-#ccc flex">
+    <div class="h-full bg-#e4e4e4 flex">
       <div ref="svgContainerRef" class="bg-#eee w-60% flex-col justify-center">
         <div ref="svgTargetRef" class="chess" @click="svgClickHandler" />
       </div>
-      <div v-if="selectedElement" class="px-0.5em py-1em">
-        <NSpace :vertical="true">
+      <div class="px-0.5em py-1em flex-1">
+        <div class="text-22px bold b-b b-b-gray">
+          配置区
+        </div>
+        <NSpace v-if="selectedElement" :vertical="true" class="mt-0.8em">
           <div class="svg-element-attr">
             <div>元素类型:</div>
             <div>{{ selectedElement.tagName }}</div>
@@ -102,7 +105,6 @@ import { colord } from 'colord';
 import ColorProperty from './ColorProperty.vue';
 import { mimicFileApi } from '@/service/api';
 import { getDataUrl } from '@/utils';
-import { useCurElementProxyData } from '@mimic/hooks';
 
 const props = defineProps<{
   showModal?: boolean;
@@ -112,8 +114,7 @@ const emit = defineEmits<{
   'update:showModal': [v: boolean];
 }>();
 
-const { curUi } = toRefs(useMimicDisplayStatus());
-const curElementProxyData = useCurElementProxyData();
+const { curUi, selectedUiProxyData } = toRefs(useMimicDisplayStatus());
 const svgUrl = computed(() => (curUi.value as any).url);
 
 const svgTargetRef = ref<HTMLDivElement>();
@@ -235,8 +236,8 @@ async function updateSvgData() {
     const svgData = new XMLSerializer().serializeToString(svg);
     const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
     const svgUrlPath = await mimicFileApi.updateDisplaySvgData(targetPath, blob);
-    if (curElementProxyData.value) {
-      curElementProxyData.value.url = path.join(getDataUrl(), svgUrlPath);
+    if (selectedUiProxyData.value) {
+      selectedUiProxyData.value.url = path.join(getDataUrl(), svgUrlPath);
     }
   }
   close();

@@ -83,7 +83,7 @@
       <CustomCfgPanel
         :cfgs="customPropertyCfgs"
         :get-cfg-value
-        :default-group-name="path.basename(curElementProxyData?.tag)"
+        :default-group-name="path.basename(mimicDisplayStatus.selectedUiProxyData?.tag)"
         @update:cfg-value="handleCfgValueUpdate"
       />
     </NCollapse>
@@ -92,7 +92,6 @@
 
 <script setup lang="ts">
 import { NCollapse, NCollapseItem } from 'naive-ui';
-import { useCurElementProxyData } from '@mimic/hooks';
 import NumberProperty from './components/NumberProperty.vue';
 import ColorProperty from './components/ColorProperty.vue';
 import StrokeProperty from './StrokeProperty.vue';
@@ -117,11 +116,10 @@ import type { ActionItem } from '@mimic/global/action-manager';
 
 const mimicDisplayStatus = useMimicDisplayStatus();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const curElementProxyData = useCurElementProxyData();
 
 const curAppearancePropertyTypes = computed(() => {
   let result: AppearanceType[] = [];
-  const uiCustomCfg = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag);
+  const uiCustomCfg = customCfgService.getUiCustomCfg(mimicDisplayStatus.selectedUiProxyData?.tag);
   if (uiCustomCfg?.appearanceTypes) {
     result = uiCustomCfg.appearanceTypes;
   }
@@ -130,19 +128,19 @@ const curAppearancePropertyTypes = computed(() => {
 
 function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
   return computed({
-    get: () => curElementProxyData.value?.[attrName],
+    get: () => mimicDisplayStatus.selectedUiProxyData?.[attrName],
     set: (v: any) => {
       const actionItem: ActionItem = {
         type: 'set',
         uiId: mimicDisplayStatus.selectedUiId as string,
         attrName,
-        oldValue: curElementProxyData.value![attrName],
+        oldValue: mimicDisplayStatus.selectedUiProxyData![attrName],
         newValue: v
       };
       if (customSetter) {
         customSetter(v);
       } else {
-        curElementProxyData.value![attrName] = v;
+        mimicDisplayStatus.selectedUiProxyData![attrName] = v;
       }
       const actionManager = mimicVar.actionManagerContainer.getManager();
       actionManager?.addAction([actionItem]);
@@ -166,11 +164,11 @@ const stroke = useAttrProxy('stroke');
 const strokeWidth = useAttrProxy('strokeWidth');
 const fill = useAttrProxy('fill');
 const startArrow = useAttrProxy('startArrow', (v: IArrowType) => {
-  curElementProxyData.value!.startArrow = v;
+  mimicDisplayStatus.selectedUiProxyData!.startArrow = v;
   (mimicDisplayStatus.curUi as IUI).forceUpdate();
 });
 const endArrow = useAttrProxy('endArrow', (v: IArrowType) => {
-  curElementProxyData.value!.endArrow = v;
+  mimicDisplayStatus.selectedUiProxyData!.endArrow = v;
   // 存在修改了样式后，canvas 中绘制的样式没有变化的情况
   // (startArrow 和 endArrow 中的第一个修改生效，第二个修改不生效)
   (mimicDisplayStatus.curUi as IUI).forceUpdate();
@@ -192,7 +190,7 @@ const componentJson = computed(() => {
     if (mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]) {
       json = JSON.parse(mimicVar.componentJsonStrDict[mimicDisplayStatus.curUi.tag]);
     } else if (mimicDisplayStatus.curUi.tag?.startsWith('element:')) {
-      json = customCfgService.getUiCustomCfg(curElementProxyData.value?.tag) || {};
+      json = customCfgService.getUiCustomCfg(mimicDisplayStatus.selectedUiProxyData?.tag) || {};
     }
     return json;
   } else {
@@ -204,11 +202,11 @@ const customPropertyCfgs = computed(() => {
 });
 
 function handleCfgValueUpdate(cfgName: string, cfgValue: string) {
-  curElementProxyData.value![cfgName] = cfgValue;
+  mimicDisplayStatus.selectedUiProxyData![cfgName] = cfgValue;
 }
 
 function getCfgValue(cfgName: string): any {
-  return curElementProxyData.value?.[cfgName];
+  return mimicDisplayStatus.selectedUiProxyData?.[cfgName];
 }
 
 watch([() => mimicDisplayStatus.selectedUiId, x, y, width, height], (nv, ov) => {

@@ -7,6 +7,9 @@ import * as _ from 'lodash-es';
 export const useMimicDisplayStatus = defineStore('mimic-display-status', () => {
   // 当前选中的 UI
   const selectedUiId = ref<null | undefined | string | string[]>();
+  const selectedUiProxyData = computed(() => {
+    return (mimicVar.displayEditor.findUiById(selectedUiId.value) as UI)?.proxyData;
+  });
   const selectBaseMap = () => (selectedUiId.value = displayBaseMapId);
   const curUi = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
   // 右键菜单是否禁用
@@ -59,6 +62,7 @@ export const useMimicDisplayStatus = defineStore('mimic-display-status', () => {
   });
   return {
     selectedUiId,
+    selectedUiProxyData,
     selectBaseMap,
     contextMenuItemDisabled,
     curUi,

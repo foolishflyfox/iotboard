@@ -57,17 +57,16 @@ import SelectProperty from '../SelectProperty.vue';
 import { PropertyContainer } from '../containers';
 import { ArrowSwap24Filled } from '@vicons/fluent';
 import { titleSizeMap } from './misc';
-import { useCurElementProxyData } from '@mimic/hooks';
 import { updateElementData } from '@mimic/utils';
 import NumberProperty from '../NumberProperty.vue';
-import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 
 defineOptions({
   name: 'DisplaySizeProperty',
 });
 
-const curElementProxyData = useCurElementProxyData();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
+const { selectedUiProxyData } = toRefs(useMimicDisplayStatus());
 
 const sizeOptions: SelectOption[] = [...titleSizeMap.keys()].map(k => ({
   label: k,
@@ -77,7 +76,7 @@ sizeOptions.unshift({ label: '自定义', value: 'custom' });
 
 const sizeType = computed({
   get() {
-    return curElementProxyData.value!.data!.sizeType as string;
+    return selectedUiProxyData.value!.data!.sizeType as string;
   },
   set(v: string) {
     const size = titleSizeMap.get(v);
@@ -85,26 +84,26 @@ const sizeType = computed({
       width.value = size[0];
       height.value = size[1];
     }
-    updateElementData(curElementProxyData, 'sizeType', v);
+    updateElementData(selectedUiProxyData, 'sizeType', v);
   },
 });
 
 const width = computed({
   get() {
-    return curElementProxyData.value!.width as number;
+    return selectedUiProxyData.value!.width as number;
   },
   set(v: number) {
-    curElementProxyData.value!.width = v;
+    selectedUiProxyData.value!.width = v;
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   },
 });
 
 const height = computed({
   get() {
-    return curElementProxyData.value!.height as number;
+    return selectedUiProxyData.value!.height as number;
   },
   set(v: number) {
-    curElementProxyData.value!.height = v;
+    selectedUiProxyData.value!.height = v;
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   },
 });
