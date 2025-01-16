@@ -30,7 +30,7 @@
           <template v-else-if="pt === 'strokeWidth'">
             <NumberProperty
               v-if="stroke.type"
-              v-model:value="strokeWidth" label="线宽" :min="0" unbindable
+              v-model:value="strokeWidth" label="线宽" :min="0" :bindable="false"
             />
           </template>
           <template v-else-if="pt === 'fill'">

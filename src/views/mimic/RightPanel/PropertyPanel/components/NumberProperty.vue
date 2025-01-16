@@ -1,6 +1,6 @@
 <template>
   <!-- 添加 keydown.stop 是为了阻止事件被 leafer 捕获，导致选中的元素在按上下键时被移动 -->
-  <PropertyContainer :label :unbindable>
+  <PropertyContainer :label :bindable>
     <CfgInputNumber
       :value="value"
       @update:value="v => emit('update:value', v!)"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Unbindable } from '@/views/mimic/types';
+import type { Bindable } from '@/views/mimic/types';
 import { PropertyContainer } from './containers';
 import { CfgInputNumber } from '@/components';
 
@@ -34,7 +34,7 @@ const props = withDefaults(
     step?: number;
     placeholder?: string;
     showButton?: boolean;
-    unbindable?: Unbindable;
+    bindable?: Bindable;
     /** 小数位数 */
     decimalPlaces?: number;
   }>(),

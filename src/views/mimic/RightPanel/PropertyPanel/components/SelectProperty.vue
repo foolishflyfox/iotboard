@@ -1,5 +1,5 @@
 <template>
-  <PropertyContainer :label="label" :unbindable>
+  <PropertyContainer :label="label" :bindable>
     <NSelect
       :options
       :value="value"
@@ -17,7 +17,7 @@ import { NSelect } from 'naive-ui';
 import type { Size } from 'naive-ui/es/select/src/interface';
 import { PropertyContainer } from './containers';
 import type { SelectOption } from 'naive-ui';
-import type { Unbindable } from '@/views/mimic/types';
+import type { Bindable } from '@/views/mimic/types';
 
 defineProps<{
   value: any;
@@ -27,7 +27,7 @@ defineProps<{
   filterable?: boolean;
   size?: Size;
   clearable?: boolean;
-  unbindable?: Unbindable;
+  bindable?: Bindable;
 }>();
 const emit = defineEmits<{
   'update:value': [v: any];
