@@ -5,6 +5,7 @@ export interface UiLayer {
   tag: string;
   id: string;
   locked?: boolean;
+  visible?: boolean;
 }
 
 export class UiLayerManager {
@@ -13,7 +14,9 @@ export class UiLayerManager {
   /** 根据实际情况更新图层信息 */
   update() {
     const { subUis } = mimicVar.displayEditor.getTreeUis();
-    this.uiLayers.value = subUis.map(e => ({ tag: e.tag, id: e.id!, locked: e.locked }));
+    this.uiLayers.value = subUis.map((e) => {
+      return { tag: e.tag, id: e.id!, locked: e.locked, visible: Boolean(e.visible) };
+    });
   }
 
   /** 获取当前所有的图层信息 */

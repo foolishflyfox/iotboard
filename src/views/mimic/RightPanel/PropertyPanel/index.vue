@@ -101,14 +101,12 @@
                     {{ e.id }}
                   </div>
                 </div>
-                <div class="mr-5px">
+                <NSpace :size="5" class="mr-5px">
+                  <IconContainer v-if="e.visible" :vicons="Eye" :size="18" disabled />
+                  <IconContainer v-else :vicons="EyeOff" :size="18" disabled />
                   <IconContainer v-if="e.locked" :vicons="Lock" :size="18" @click="unlock" />
-                  <IconContainer
-                    v-else
-                    :vicons="LockOpen" :size="18"
-                    @click="lock"
-                  />
-                </div>
+                  <IconContainer v-else :vicons="LockOpen" :size="18" @click="lock" />
+                </NSpace>
               </div>
             </template>
           </div>
@@ -149,8 +147,7 @@ import { AutoFitWidth20Filled, AutoFitHeight20Filled } from '@vicons/fluent';
 import { getElementPreview } from '@mimic/utils';
 import { getDataUrl } from '@/utils';
 import { Lock, LockOpen } from '@vicons/tabler';
-
-;
+import { Eye, EyeOff } from '@vicons/ionicons5';
 
 defineOptions({
   name: 'PropertyPanel',
