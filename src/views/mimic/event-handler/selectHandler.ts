@@ -17,7 +17,6 @@ export function selectHandler(event: EditorEvent) {
   } else if (_.isArray(ui)) {
     if (_.isEmpty(ui)) {
       // 没有选中任何UI元素
-      // selectedUI.value =
       mimicDisplayStatus.selectedUiId = displayBaseMapId;
     } else if (ui.length === 1) {
       mimicDisplayStatus.selectedUiId = ui[0].id;

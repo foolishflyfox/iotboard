@@ -39,11 +39,15 @@
               </NSpace>
             </div>
           </template>
-          <template v-else-if="selectedUI?.id === displayBaseMapId">
+          <!-- 如果使用 v-else-if / v-else 会存在如下问题 -->
+          <!-- 第一步. 选中元素A; 2. 选中底图; 3. 选中元素A; 此时，元素A的属性配置将不能配置 -->
+          <!-- 初步怀疑是 vue 的什么机制导致的，因为元素的 id 没变，导致的缓存不能触发元素渲染 -->
+          <!-- <template v-else-if="selectedUI?.id === displayBaseMapId">
             <DisplayProperty />
-          </template>
+          </template> -->
           <template v-else>
-            <SingleComponentProperty />
+            <DisplayProperty v-show="selectedUI?.id === displayBaseMapId" />
+            <SingleComponentProperty v-show="selectedUI?.id !== displayBaseMapId" />
           </template>
         </NScrollbar>
       </template>
