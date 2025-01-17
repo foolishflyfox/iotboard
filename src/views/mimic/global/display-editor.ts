@@ -77,7 +77,7 @@ export class DisplayEditor {
     if (this.app?.tree) {
       const lineClass = getElementClassByTag('element:line');
       const line = new lineClass({
-        points: [point.x, point.y, point.x, point.y],
+        points: [{ ...point }, { ...point }],
         draggable: false,
         editable: false,
       });
@@ -103,15 +103,16 @@ export class DisplayEditor {
   /** 修改最后一个点的坐标 */
   moveLineEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
-      const newPoints = [...this.drawingToolStatus.line.ui.points!] as number[];
+      const newPoints = [...this.drawingToolStatus.line.ui.points!] as IPointData[];
       const len = newPoints.length;
-      newPoints[len - 2] = point.x;
-      newPoints[len - 1] = point.y;
-      if (shiftState.value && newPoints.length >= 4) {
-        const dx = Math.abs(newPoints[len - 2] - newPoints[len - 4]);
-        const dy = Math.abs(newPoints[len - 1] - newPoints[len - 3]);
-        if (dx > dy) newPoints[len - 1] = newPoints[len - 3];
-        else newPoints[len - 2] = newPoints[len - 4];
+      newPoints[len - 1].x = point.x;
+      newPoints[len - 1].y = point.y;
+      // 按住 shift 键时，保持 x 或 y 不变
+      if (shiftState.value && newPoints.length >= 2) {
+        const dx = Math.abs(newPoints[len - 1].x - newPoints[len - 2].x);
+        const dy = Math.abs(newPoints[len - 1].y - newPoints[len - 2].y);
+        if (dx > dy) newPoints[len - 1].y = newPoints[len - 2].y;
+        else newPoints[len - 1].x = newPoints[len - 2].x;
       }
       this.drawingToolStatus.line.ui.points = newPoints;
     }
@@ -136,9 +137,8 @@ export class DisplayEditor {
   /** 添加一个中转点 */
   addLineEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.line.ui) {
-      const newPoints = [...this.drawingToolStatus.line.ui.points!] as number[];
-      newPoints.push(point.x);
-      newPoints.push(point.y);
+      const newPoints = [...this.drawingToolStatus.line.ui.points!] as IPointData[];
+      newPoints.push({ ...point });
       this.drawingToolStatus.line.ui.points = newPoints;
     }
   }
