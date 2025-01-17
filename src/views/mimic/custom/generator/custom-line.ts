@@ -9,6 +9,7 @@ import {
 } from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
+import { LineInnerEditorTag } from '@mimic/editor';
 
 const FLOW_SPEED_MAX = 5;
 
@@ -99,6 +100,8 @@ export function customLineGenerate(lineCustomCfg: UiCustomCfg) {
       this.flowSpeed = flowSpeed;
     }
   }
+
+  InnerCustom.setEditInner(LineInnerEditorTag);
 
   let id = 1;
   const customCfgs: CustomPropertyCfgs = [
