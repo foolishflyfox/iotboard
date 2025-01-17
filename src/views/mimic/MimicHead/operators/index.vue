@@ -51,8 +51,8 @@ import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
 import IconContainer from '@mimic/components/IconContainer.vue';
 import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
-import { RedoRound, UndoRound } from '@vicons/material';
-import { ArrowBounce16Filled, SplitHorizontal16Regular, SplitVertical16Regular, FlipHorizontal20Filled, FlipVertical20Filled } from '@vicons/fluent';
+import { RedoRound, UndoRound, TimelineFilled } from '@vicons/material';
+import { SplitHorizontal16Regular, SplitVertical16Regular, FlipHorizontal20Filled, FlipVertical20Filled } from '@vicons/fluent';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
 import type { Component } from 'vue';
@@ -88,7 +88,7 @@ const drawingToolOptions: DrawingToolOption[] = [
     tooltip: '水平辅助线'
   },
   {
-    icon: ArrowBounce16Filled,
+    icon: TimelineFilled,
     type: 'line',
     tooltip: '折线(可带箭头)',
   },
