@@ -1,4 +1,4 @@
-import { Box, DragEvent, Editor, InnerEditor, Line, registerInnerEditor, type IPointData } from 'leafer-editor';
+import { Box, DragEvent, Editor, InnerEditor, Line, PointerEvent, registerInnerEditor, type IPointData } from 'leafer-editor';
 
 export const LineInnerEditorTag = 'LineInnerEditor';
 
@@ -60,6 +60,20 @@ export class LineInnerEditor extends InnerEditor {
                 // e.target.set({x: e.target.x + e.getPageMove().x, y: e.target.y + e.getPageMove().y})
               }
               // console.log('drag point', e.getPageMove());
+            },
+            [PointerEvent.DOUBLE_CLICK]: (e: PointerEvent) => {
+              if (this.points.length < 3) return;
+              // 找到要删除的的是哪个点
+              const targetIndex = this.points.findIndex(t => t === e.target);
+              if (targetIndex !== -1) {
+                const newPointDatas: IPointData[] = [];
+                for (let i = 0; i < (curLine.points?.length || 0); ++i) {
+                  if (i !== targetIndex) {
+                    newPointDatas.push(curLine.points![i] as IPointData);
+                  }
+                }
+                curLine.points = newPointDatas;
+              }
             }
           }
         });
@@ -71,6 +85,7 @@ export class LineInnerEditor extends InnerEditor {
       for (; i < this.points.length; i++) {
         this.points[i].destroy();
       }
+      this.points.length = pointDatas.length;
     }
   }
 }
