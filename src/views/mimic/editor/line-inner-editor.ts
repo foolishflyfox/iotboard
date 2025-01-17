@@ -21,6 +21,7 @@ export class LineInnerEditor extends InnerEditor {
   }
 
   public onUpdate(): void {
+    const { scaleX, scaleY } = this.editBox.app.tree!;
     const curLine = this.editor.element as Line;
     const pointDatas = curLine.points as IPointData[];
     let i = 0;
@@ -30,34 +31,30 @@ export class LineInnerEditor extends InnerEditor {
       minX = Math.min(minX, pointDatas[j].x);
       minY = Math.min(minY, pointDatas[j].y);
     }
-    console.log('minX, minY', minX, minY);
     for (; i < this.points.length && i < pointDatas.length; i++) {
-      this.points[i].set({ x: pointDatas[i].x - minX, y: pointDatas[i].y - minY });
+      this.points[i].set({
+        x: (pointDatas[i].x - minX) * scaleX!,
+        y: (pointDatas[i].y - minY) * scaleY!
+      });
     }
     if (i < pointDatas.length) {
       // 点数增多
       for (; i < pointDatas.length; i++) {
         const point = new Box({
-          // fill: 'red',
-          // width: 10,
-          // height: 10,
-          // cornerRadius: 5,
           ...this.editBox.getPointStyle(),
-          // editable: false,
-          // draggable: true,
           strokeWidth: 1,
-          x: pointDatas[i].x - minX,
-          y: pointDatas[i].y - minY,
+          x: (pointDatas[i].x - minX) * scaleX!,
+          y: (pointDatas[i].y - minY) * scaleY!,
           event: {
             [DragEvent.DRAG]: (e: DragEvent) => {
               // 找到移动的是哪个点
               const targetIndex = this.points.findIndex(t => t === e.target);
-              console.log('targetIndex =', targetIndex);
+              // console.log('targetIndex =', targetIndex);
               if (targetIndex !== -1) {
                 // console.log('app.editor.element', app.editor.element);
                 const newPointDatas = [...curLine.points as IPointData[]];
-                newPointDatas[targetIndex].x += e.getPageMove().x;
-                newPointDatas[targetIndex].y += e.getPageMove().y;
+                newPointDatas[targetIndex].x += e.getPageMove().x / this.editor.app.tree!.scaleX!;
+                newPointDatas[targetIndex].y += e.getPageMove().y / this.editor.app.tree!.scaleY!;
                 // (app.editor.element as Line).points = newPointDatas;
                 curLine.points = newPointDatas;
                 // e.target.set({x: e.target.x + e.getPageMove().x, y: e.target.y + e.getPageMove().y})

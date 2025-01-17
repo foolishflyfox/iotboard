@@ -12,6 +12,8 @@ export function keyDownHandler(keyEvent: KeyEvent) {
   } else if ((keyEvent.ctrlKey || keyEvent.metaKey) && keyEvent.key === 'v') {
     nextTick(() => doContextMenuAction('paste'));
   } else if (keyEvent.code === 'Escape') {
+    // 关闭内部编辑
+    mimicVar.displayEditor.app?.editor.closeInnerEditor();
     const mimicWorkspaceStatus = useMimicWorkspaceStatus();
     if (mimicWorkspaceStatus.drawingTool === 'line') {
       mimicVar.displayEditor.deleteDrawingLine();
