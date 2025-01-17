@@ -37,7 +37,11 @@
       />
     </NSpace>
     <HeadVerticalDivider />
-    <IconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
+    <NSpace size="small">
+      <IconContainer :vicons="Erase" tooltip="清除辅助线" @click="clearBaselinse" />
+      <IconContainer :vicons="FlipHorizontal20Filled" tooltip="水平方向翻转" @click="horizontalFlip" />
+      <IconContainer :vicons="FlipVertical20Filled" tooltip="垂直方向翻转" @click="verticalFlip" />
+    </NSpace>
     <HeadVerticalDivider />
   </div>
 </template>
@@ -48,12 +52,12 @@ import IconContainer from '@mimic/components/IconContainer.vue';
 import { Cursor1, Erase } from '@vicons/carbon';
 import { Polygon } from '@vicons/tabler';
 import { RedoRound, UndoRound } from '@vicons/material';
-import { ArrowBounce16Filled, SplitHorizontal16Regular, SplitVertical16Regular } from '@vicons/fluent';
+import { ArrowBounce16Filled, SplitHorizontal16Regular, SplitVertical16Regular, FlipHorizontal20Filled, FlipVertical20Filled } from '@vicons/fluent';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
 import type { DrawingTool } from '@mimic/types';
 import type { Component } from 'vue';
 import { NSpace } from 'naive-ui';
-import { mimicVar } from '../../global';
+import { mimicVar } from '@mimic/global';
 
 defineOptions({
   name: 'HeadOperators',
@@ -117,6 +121,20 @@ function undo() {
 
 function redo() {
   mimicVar.actionManagerContainer.getManager()?.redo();
+}
+
+function horizontalFlip() {
+  if (mimicVar.displayEditor.app?.editor.element) {
+    mimicVar.displayEditor.app?.editor.element.flip('x');
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
+  }
+}
+
+function verticalFlip() {
+  if (mimicVar.displayEditor.app?.editor.element) {
+    mimicVar.displayEditor.app?.editor.element.flip('y');
+    mimicWorkspaceStatus.setCurrentDisplayUnsave();
+  }
 }
 </script>
 
