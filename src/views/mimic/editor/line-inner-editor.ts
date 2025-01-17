@@ -1,4 +1,14 @@
-import { Box, DragEvent, Editor, InnerEditor, Line, PointerEvent, registerInnerEditor, type IPointData } from 'leafer-editor';
+import {
+  Box,
+  DragEvent,
+  Editor,
+  InnerEditor,
+  Line,
+  PointerEvent,
+  registerInnerEditor,
+  type IPointData
+} from 'leafer-editor';
+import '@leafer-in/state';
 
 export const LineInnerEditorTag = 'LineInnerEditor';
 
@@ -45,6 +55,9 @@ export class LineInnerEditor extends InnerEditor {
           strokeWidth: 1,
           x: (pointDatas[i].x - minX) * scaleX!,
           y: (pointDatas[i].y - minY) * scaleY!,
+          hoverStyle: {
+            fill: 'red'
+          },
           event: {
             [DragEvent.DRAG]: (e: DragEvent) => {
               // 找到移动的是哪个点
