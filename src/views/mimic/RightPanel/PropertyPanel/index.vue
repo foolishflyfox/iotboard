@@ -17,25 +17,55 @@
           <template v-else-if="_.isArray(selectedUI)">
             <div class="px-1em flex justify-between">
               <NSpace>
-                <IconContainer :vicons="AlignHorizontalLeftRound" tooltip="左对齐" />
-                <IconContainer :vicons="AlignHorizontalCenterRound" tooltip="水平居中" />
-                <IconContainer :vicons="AlignHorizontalRightRound" tooltip="右对齐" />
+                <IconContainer
+                  :vicons="AlignHorizontalLeftRound" tooltip="左对齐"
+                  @click="alignHorizontalLeft"
+                />
+                <IconContainer
+                  :vicons="AlignHorizontalCenterRound" tooltip="水平居中"
+                  @click="alignHorizontalCenter"
+                />
+                <IconContainer
+                  :vicons="AlignHorizontalRightRound" tooltip="右对齐"
+                  @click="alignHorizontalRight"
+                />
               </NSpace>
               <NSpace>
-                <IconContainer :vicons="AlignVerticalTopRound" tooltip="上对齐" />
-                <IconContainer :vicons="AlignVerticalCenterRound" tooltip="垂直居中" />
-                <IconContainer :vicons="AlignVerticalBottomRound" tooltip="下对齐" />
+                <IconContainer
+                  :vicons="AlignVerticalTopRound" tooltip="上对齐"
+                  @click="alignVerticalTop"
+                />
+                <IconContainer
+                  :vicons="AlignVerticalCenterRound" tooltip="垂直居中"
+                  @click="alignVerticalCenter"
+                />
+                <IconContainer
+                  :vicons="AlignVerticalBottomRound" tooltip="下对齐"
+                  @click="alignVerticalBottom"
+                />
               </NSpace>
             </div>
             <hr class="text-#ddd my-5px">
             <div class="px-1em flex justify-between">
               <NSpace>
-                <IconContainer :vicons="HorizontalDistributeRound" tooltip="水平等距" />
-                <IconContainer :vicons="VerticalDistributeRound" tooltip="垂直等距" />
+                <IconContainer
+                  :vicons="HorizontalDistributeRound" tooltip="水平等距"
+                  @click="horizontalDistribute"
+                />
+                <IconContainer
+                  :vicons="VerticalDistributeRound" tooltip="垂直等距"
+                  @click="verticalDistribute"
+                />
               </NSpace>
               <NSpace>
-                <IconContainer :vicons="AutoFitWidth20Filled" tooltip="等宽" />
-                <IconContainer :vicons="AutoFitHeight20Filled" tooltip="等高" />
+                <IconContainer
+                  :vicons="AutoFitWidth20Filled" tooltip="等宽"
+                  @click="setSameWidth"
+                />
+                <IconContainer
+                  :vicons="AutoFitHeight20Filled" tooltip="等高"
+                  @click="setSameHeight"
+                />
               </NSpace>
             </div>
           </template>
@@ -182,6 +212,140 @@ function lock() {
 function unlock() {
   mimicVar.displayEditor.app?.editor.unlock();
   useMimicWorkspaceStatus().setCurrentDisplayUnsave();
+}
+
+function alignHorizontalLeft() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let minX = selectedUis[0].x!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minX = Math.min(minX, selectedUis[i].x!);
+    }
+    selectedUis.forEach(e => e.x = minX);
+  }
+}
+
+function alignHorizontalCenter() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let minX = selectedUis[0].x!;
+    let maxX = selectedUis[0].x! + selectedUis[0].width!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minX = Math.min(minX, selectedUis[i].x!);
+      maxX = Math.max(maxX, selectedUis[i].x! + selectedUis[i].width!);
+    }
+    const centerX = (minX + maxX) / 2;
+    selectedUis.forEach(e => e.x = centerX - e.width! / 2);
+  }
+}
+
+function alignHorizontalRight() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let maxX = selectedUis[0].x! + selectedUis[0].width!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      maxX = Math.max(maxX, selectedUis[i].x! + selectedUis[i].width!);
+    }
+    selectedUis.forEach(e => e.x = maxX - e.width!);
+  }
+}
+
+function alignVerticalTop() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let minY = selectedUis[0].y!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minY = Math.min(minY, selectedUis[i].y!);
+    }
+    selectedUis.forEach(e => e.y = minY);
+  }
+}
+
+function alignVerticalCenter() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let minY = selectedUis[0].y!;
+    let maxY = selectedUis[0].y! + selectedUis[0].height!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minY = Math.min(minY, selectedUis[i].y!);
+      maxY = Math.max(maxY, selectedUis[i].y! + selectedUis[i].height!);
+    }
+    const centerY = (minY + maxY) / 2;
+    selectedUis.forEach(e => e.y = centerY - e.height! / 2);
+  }
+}
+
+function alignVerticalBottom() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    let maxY = selectedUis[0].y! + selectedUis[0].height!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      maxY = Math.max(maxY, selectedUis[i].y! + selectedUis[i].height!);
+    }
+    selectedUis.forEach(e => e.y = maxY - e.height!);
+  }
+}
+/** 设置元素间的间距相等 */
+function horizontalDistribute() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 2) {
+    let minX = selectedUis[0].x!;
+    let maxX = selectedUis[0].x! + selectedUis[0].width!;
+    let widthSum = selectedUis[0].width!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minX = Math.min(minX, selectedUis[i].x!);
+      maxX = Math.max(maxX, selectedUis[i].x! + selectedUis[i].width!);
+      widthSum += selectedUis[i].width!;
+    }
+    // 按 x 值从小到大排序
+    const sortedUis = _.orderBy(selectedUis, ['x'], ['asc']);
+    const interval = (maxX - minX - widthSum) / (selectedUis.length - 1);
+    let curX = minX;
+    for (let i = 0; i < sortedUis.length; ++i) {
+      sortedUis[i].x = curX;
+      curX += sortedUis[i].width! + interval;
+    }
+  }
+}
+
+function verticalDistribute() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 2) {
+    let minY = selectedUis[0].y!;
+    let maxY = selectedUis[0].y! + selectedUis[0].height!;
+    let heightSum = selectedUis[0].height!;
+    for (let i = 1; i < selectedUis.length; ++i) {
+      minY = Math.min(minY, selectedUis[i].y!);
+      maxY = Math.max(maxY, selectedUis[i].y! + selectedUis[i].height!);
+      heightSum += selectedUis[i].height!;
+    }
+    // 按 y 值从小到大排序
+    const sortedUis = _.orderBy(selectedUis, ['y'], ['asc']);
+    const interval = (maxY - minY - heightSum) / (selectedUis.length - 1);
+    let curY = minY;
+    for (let i = 0; i < sortedUis.length; ++i) {
+      sortedUis[i].y = curY;
+      curY += sortedUis[i].height! + interval;
+    }
+  }
+}
+
+/** 多元素设置同宽，以第一个选中的元素为准 */
+function setSameWidth() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    const width = selectedUis[0].width!;
+    selectedUis.forEach(e => e.width = width);
+  }
+}
+
+/** 多元素设置同高，以第一个选中的元素位置 */
+function setSameHeight() {
+  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  if (selectedUis && selectedUis.length > 1) {
+    const height = selectedUis[0].height!;
+    selectedUis.forEach(e => e.height = height);
+  }
 }
 </script>
 
