@@ -108,10 +108,11 @@ export class LineInnerEditor extends InnerEditor {
         if (pIndex > 0) {
           const line = new Line({
             stroke: 'red',
-            strokeWidth: 2,
+            strokeWidth: 3,
             zIndex: 0,
             hoverStyle: {
-              strokeWidth: 5
+              strokeWidth: 5,
+              cursor: 'crosshair'
             },
             points: [
               {
@@ -122,9 +123,41 @@ export class LineInnerEditor extends InnerEditor {
                 x: point.x!,
                 y: point.y!
               }
-            ]
+            ],
+            event: {
+              [PointerEvent.CLICK]: (e: PointerEvent) => {
+                console.log('######');
+                const lineIndex = this.lines.findIndex(t => t === e.target);
+                console.log('###### lineIndex:', lineIndex);
+                if (lineIndex === -1) return;
+                const line = this.lines[lineIndex];
+                const x1 = (line.points![0] as IPointData).x!;
+                const y1 = (line.points![0] as IPointData).y!;
+                const x2 = (line.points![1] as IPointData).x!;
+                const y2 = (line.points![1] as IPointData).y!;
+                const { x, y } = e.getBoxPoint();
+                const xRate = (x - x1) / (x2 - x1);
+                const yRate = (y - y1) / (y2 - y1);
+                console.log('@@@', xRate, yRate);
+                // 添加新的锚点
+                const pointDatas = curLine.points as IPointData[];
+                const newPointDatas: IPointData[] = [];
+
+                for (let i = 0; i < pointDatas.length; ++i) {
+                  newPointDatas.push(pointDatas[i]);
+                  if (i === lineIndex) {
+                    const curPointData = pointDatas[i];
+                    const nextPointData = pointDatas[i + 1];
+                    newPointDatas.push({
+                      x: curPointData.x + (nextPointData.x - curPointData.x) * xRate,
+                      y: curPointData.y + (nextPointData.y - curPointData.y) * yRate
+                    });
+                  }
+                }
+                curLine.points = newPointDatas;
+              }
+            }
           });
-          console.log('i = ', pIndex);
           this.view.add(line);
           this.lines.push(line);
         }
@@ -134,10 +167,14 @@ export class LineInnerEditor extends InnerEditor {
       }
     } else if (pIndex < this.points.length) {
       // 点数减少
-      for (; pIndex < this.points.length; pIndex++) {
-        this.points[pIndex].destroy();
+      for (let i = pIndex; i < this.points.length; i++) {
+        this.points[i].destroy();
+      }
+      for (let i = pIndex - 1; i < this.lines.length; i++) {
+        this.lines[i].destroy();
       }
       this.points.length = pointDatas.length;
+      this.lines.length = pointDatas.length - 1;
     }
   }
 
