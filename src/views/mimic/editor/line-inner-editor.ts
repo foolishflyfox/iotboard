@@ -20,10 +20,12 @@ export class LineInnerEditor extends InnerEditor {
 
   // 控制点
   public points: Box[];
+  public lines: Line[];
 
   constructor(editor: Editor) {
     super(editor);
     this.points = [];
+    this.lines = [];
   }
 
   public onLoad(): void {
@@ -34,27 +36,39 @@ export class LineInnerEditor extends InnerEditor {
     const { scaleX, scaleY } = this.editBox.app.tree!;
     const curLine = this.editor.element as Line;
     const pointDatas = curLine.points as IPointData[];
-    let i = 0;
+    let pIndex = 0;
     let minX = pointDatas[0].x;
     let minY = pointDatas[0].y;
     for (let j = 1; j < pointDatas.length; ++j) {
       minX = Math.min(minX, pointDatas[j].x);
       minY = Math.min(minY, pointDatas[j].y);
     }
-    for (; i < this.points.length && i < pointDatas.length; i++) {
-      this.points[i].set({
-        x: (pointDatas[i].x - minX) * scaleX!,
-        y: (pointDatas[i].y - minY) * scaleY!
-      });
+    for (; pIndex < this.points.length && pIndex < pointDatas.length; pIndex++) {
+      const x = (pointDatas[pIndex].x - minX) * scaleX!;
+      const y = (pointDatas[pIndex].y - minY) * scaleY!;
+      this.points[pIndex].set({ x, y });
     }
-    if (i < pointDatas.length) {
+    for (let i = 1; i < this.points.length; i++) {
+      this.lines[i - 1].points = [
+        {
+          x: this.points[i - 1].x!,
+          y: this.points[i - 1].y!
+        },
+        {
+          x: this.points[i].x!,
+          y: this.points[i].y!
+        }
+      ];
+    }
+
+    if (pIndex < pointDatas.length) {
       // 点数增多
-      for (; i < pointDatas.length; i++) {
+      for (; pIndex < pointDatas.length; pIndex++) {
         const point = new Box({
           ...this.editBox.getPointStyle(),
           strokeWidth: 1,
-          x: (pointDatas[i].x - minX) * scaleX!,
-          y: (pointDatas[i].y - minY) * scaleY!,
+          x: (pointDatas[pIndex].x - minX) * scaleX!,
+          y: (pointDatas[pIndex].y - minY) * scaleY!,
           hoverStyle: {
             fill: 'red'
           },
@@ -90,15 +104,44 @@ export class LineInnerEditor extends InnerEditor {
             }
           }
         });
+        point.zIndex = 1;
+        if (pIndex > 0) {
+          const line = new Line({
+            stroke: 'red',
+            strokeWidth: 2,
+            zIndex: 0,
+            hoverStyle: {
+              strokeWidth: 5
+            },
+            points: [
+              {
+                x: this.points[pIndex - 1].x!,
+                y: this.points[pIndex - 1].y!
+              },
+              {
+                x: point.x!,
+                y: point.y!
+              }
+            ]
+          });
+          console.log('i = ', pIndex);
+          this.view.add(line);
+          this.lines.push(line);
+        }
+
         this.view.add(point);
         this.points.push(point);
       }
-    } else if (i < this.points.length) {
+    } else if (pIndex < this.points.length) {
       // 点数减少
-      for (; i < this.points.length; i++) {
-        this.points[i].destroy();
+      for (; pIndex < this.points.length; pIndex++) {
+        this.points[pIndex].destroy();
       }
       this.points.length = pointDatas.length;
     }
+  }
+
+  public onUnload(): void {
+    this.editBox.remove(this.view);
   }
 }
