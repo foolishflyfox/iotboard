@@ -1,4 +1,4 @@
-import { Box, DragEvent, Editor, InnerEditor, Line, registerInnerEditor, type IPointData } from 'leafer-editor';
+import { Box, DragEvent, Editor, InnerEditor, Line, PointerEvent, registerInnerEditor, type IPointData } from 'leafer-editor';
 
 export const PolygonInnerEditorTag = 'PolygonInnerEditor';
 
@@ -58,6 +58,21 @@ export class PolygonInnerEditor extends InnerEditor {
                 curLine.points = newPointDatas;
               }
             },
+            [PointerEvent.DOUBLE_CLICK]: (e: PointerEvent) => {
+              console.log('dbclick:', this.points.length);
+              if (this.points.length < 4) return;
+              // 找到要删除的的是哪个点
+              const targetIndex = this.points.findIndex(t => t === e.target);
+              if (targetIndex !== -1) {
+                const newPointDatas: IPointData[] = [];
+                for (let i = 0; i < (curLine.points?.length || 0); ++i) {
+                  if (i !== targetIndex) {
+                    newPointDatas.push(curLine.points![i] as IPointData);
+                  }
+                }
+                curLine.points = newPointDatas;
+              }
+            }
           }
         });
         point.zIndex = 1;
@@ -76,13 +91,10 @@ export class PolygonInnerEditor extends InnerEditor {
     for (let i = 0; i < Math.max(this.points.length, this.lines.length); ++i) {
       if (i < this.points.length && i < this.lines.length) {
         this.lines[i].points = [
+          { x: this.points[i].x!, y: this.points[i].y! },
           {
-            x: this.points[(i + pts - 1) % pts].x!,
-            y: this.points[(i + pts - 1) % pts].y!
-          },
-          {
-            x: this.points[i].x!,
-            y: this.points[i].y!
+            x: this.points[(i + 1) % this.points.length!].x!,
+            y: this.points[(i + 1) % this.points.length!].y!
           }
         ];
       } else if (i >= this.points.length) {
@@ -107,7 +119,36 @@ export class PolygonInnerEditor extends InnerEditor {
               x: this.points[i].x!,
               y: this.points[i].y!
             }
-          ]
+          ],
+          event: {
+            [PointerEvent.CLICK]: (e: PointerEvent) => {
+              const lineIndex = this.lines.findIndex(t => t === e.target);
+              if (lineIndex === -1) return;
+              const line = this.lines[lineIndex];
+              const x1 = (line.points![0] as IPointData).x!;
+              const y1 = (line.points![0] as IPointData).y!;
+              const x2 = (line.points![1] as IPointData).x!;
+              const y2 = (line.points![1] as IPointData).y!;
+              const { x, y } = e.getLocalPoint();
+              const xRate = (x - x1) / (x2 - x1);
+              const yRate = (y - y1) / (y2 - y1);
+              // 添加新的锚点
+              const pointDatas = curLine.points as IPointData[];
+              const newPointDatas: IPointData[] = [];
+              for (let i = 0; i < pointDatas.length; ++i) {
+                newPointDatas.push(pointDatas[i]);
+                if (i === lineIndex) {
+                  const curPointData = pointDatas[i];
+                  const nextPointData = pointDatas[i + 1];
+                  newPointDatas.push({
+                    x: curPointData.x + (nextPointData.x - curPointData.x) * xRate,
+                    y: curPointData.y + (nextPointData.y - curPointData.y) * yRate
+                  });
+                }
+              }
+              curLine.points = newPointDatas;
+            }
+          }
         });
         this.view.add(line);
         this.lines.push(line);

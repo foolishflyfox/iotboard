@@ -80,9 +80,7 @@ export class LineInnerEditor extends InnerEditor {
                 const newPointDatas = [...curLine.points as IPointData[]];
                 newPointDatas[targetIndex].x += e.getPageMove().x / this.editor.app.tree!.scaleX!;
                 newPointDatas[targetIndex].y += e.getPageMove().y / this.editor.app.tree!.scaleY!;
-                // (app.editor.element as Line).points = newPointDatas;
                 curLine.points = newPointDatas;
-                // e.target.set({x: e.target.x + e.getPageMove().x, y: e.target.y + e.getPageMove().y})
               }
               // console.log('drag point', e.getPageMove());
             },
@@ -124,9 +122,7 @@ export class LineInnerEditor extends InnerEditor {
             ],
             event: {
               [PointerEvent.CLICK]: (e: PointerEvent) => {
-                console.log('######');
                 const lineIndex = this.lines.findIndex(t => t === e.target);
-                console.log('###### lineIndex:', lineIndex);
                 if (lineIndex === -1) return;
                 const line = this.lines[lineIndex];
                 const x1 = (line.points![0] as IPointData).x!;

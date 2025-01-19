@@ -162,19 +162,18 @@ export class DisplayEditor {
 
   endDrawPolygon(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
-      const points = this.drawingToolStatus.polygon.ui?.points;
-      if (points && points.length > 6) {
-        const newPoints = _.slice(points as number[], 2);
+      const points = this.drawingToolStatus.polygon.ui?.points as IPointData[];
+      if (points && points.length >= 4) {
+        const newPoints = _.slice(points, 1);
         const len = newPoints.length;
-        newPoints[len - 2] = point.x;
-        newPoints[len - 1] = point.y;
+        newPoints[len - 1] = { ...point };
         this.drawingToolStatus.polygon.ui.points = newPoints;
+        this.drawingToolStatus.polygon.ui.draggable = true;
+        this.drawingToolStatus.polygon.ui.editable = true;
+        this.drawingToolStatus.polygon.ui = undefined;
       } else {
         this.movePolygonEndPoint(point);
       }
-      this.drawingToolStatus.polygon.ui.draggable = true;
-      this.drawingToolStatus.polygon.ui.editable = true;
-      this.drawingToolStatus.polygon.ui = undefined;
     }
   }
 
