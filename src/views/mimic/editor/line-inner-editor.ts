@@ -76,9 +76,7 @@ export class LineInnerEditor extends InnerEditor {
             [DragEvent.DRAG]: (e: DragEvent) => {
               // 找到移动的是哪个点
               const targetIndex = this.points.findIndex(t => t === e.target);
-              // console.log('targetIndex =', targetIndex);
               if (targetIndex !== -1) {
-                // console.log('app.editor.element', app.editor.element);
                 const newPointDatas = [...curLine.points as IPointData[]];
                 newPointDatas[targetIndex].x += e.getPageMove().x / this.editor.app.tree!.scaleX!;
                 newPointDatas[targetIndex].y += e.getPageMove().y / this.editor.app.tree!.scaleY!;

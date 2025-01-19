@@ -1,4 +1,4 @@
-import { Box, Editor, InnerEditor, Line, registerInnerEditor, type IPointData } from 'leafer-editor';
+import { Box, DragEvent, Editor, InnerEditor, Line, registerInnerEditor, type IPointData } from 'leafer-editor';
 
 export const PolygonInnerEditorTag = 'PolygonInnerEditor';
 
@@ -47,6 +47,18 @@ export class PolygonInnerEditor extends InnerEditor {
           hoverStyle: {
             fill: 'red'
           },
+          event: {
+            [DragEvent.DRAG]: (e: DragEvent) => {
+              // 找到移动的是哪个点
+              const targetIndex = this.points.findIndex(t => t === e.target);
+              if (targetIndex !== -1) {
+                const newPointDatas = [...curLine.points as IPointData[]];
+                newPointDatas[targetIndex].x += e.getPageMove().x / this.editor.app.tree!.scaleX!;
+                newPointDatas[targetIndex].y += e.getPageMove().y / this.editor.app.tree!.scaleY!;
+                curLine.points = newPointDatas;
+              }
+            },
+          }
         });
         point.zIndex = 1;
         this.view.add(point);
