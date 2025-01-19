@@ -39,9 +39,9 @@ export class LineInnerEditor extends InnerEditor {
     let pIndex = 0;
     let minX = pointDatas[0].x;
     let minY = pointDatas[0].y;
-    for (let j = 1; j < pointDatas.length; ++j) {
-      minX = Math.min(minX, pointDatas[j].x);
-      minY = Math.min(minY, pointDatas[j].y);
+    for (let i = 1; i < pointDatas.length; ++i) {
+      minX = Math.min(minX, pointDatas[i].x);
+      minY = Math.min(minY, pointDatas[i].y);
     }
     for (; pIndex < this.points.length && pIndex < pointDatas.length; pIndex++) {
       const x = (pointDatas[pIndex].x - minX) * scaleX!;
@@ -66,7 +66,7 @@ export class LineInnerEditor extends InnerEditor {
       for (; pIndex < pointDatas.length; pIndex++) {
         const point = new Box({
           ...this.editBox.getPointStyle(),
-          strokeWidth: 1,
+          // strokeWidth: 1,
           x: (pointDatas[pIndex].x - minX) * scaleX!,
           y: (pointDatas[pIndex].y - minY) * scaleY!,
           hoverStyle: {

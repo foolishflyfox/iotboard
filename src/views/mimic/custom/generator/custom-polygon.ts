@@ -1,6 +1,7 @@
 import { dataProcessor, Polygon, PolygonData, registerUI, type IPolygonData, type IPolygonInputData } from 'leafer-editor';
 import type { UiCustomCfg } from './custom-ui';
 import { autoId } from '@mimic/decorates';
+import { PolygonInnerEditorTag } from '@mimic/editor';
 
 export function customPolygonGenerate(customCfg: UiCustomCfg) {
   interface CustomData {}
@@ -36,4 +37,6 @@ export function customPolygonGenerate(customCfg: UiCustomCfg) {
       });
     }
   }
+
+  InnerCustom.setEditInner(PolygonInnerEditorTag);
 }
