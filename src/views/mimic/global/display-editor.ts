@@ -91,7 +91,7 @@ export class DisplayEditor {
     if (this.app?.tree) {
       const polygonClass = getElementClassByTag('element:polygon');
       const polygon = new polygonClass({
-        points: [point.x, point.y + 0.1, point.x, point.y, point.x, point.y + 0.2],
+        points: [{ x: point.x, y: point.y + 0.1 }, { ...point }, { x: point.x, y: point.y + 0.2 }],
         draggable: false,
         editable: false
       });
@@ -120,15 +120,14 @@ export class DisplayEditor {
 
   movePolygonEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
-      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as number[];
+      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as IPointData[];
       const len = newPoints.length;
-      newPoints[len - 2] = point.x;
-      newPoints[len - 1] = point.y;
-      if (shiftState.value && newPoints.length >= 4) {
-        const dx = Math.abs(newPoints[len - 2] - newPoints[len - 4]);
-        const dy = Math.abs(newPoints[len - 1] - newPoints[len - 3]);
-        if (dx > dy) newPoints[len - 1] = newPoints[len - 3];
-        else newPoints[len - 2] = newPoints[len - 4];
+      newPoints[len - 1] = point;
+      if (shiftState.value && newPoints.length >= 2) {
+        const dx = Math.abs(newPoints[len - 1].x - newPoints[len - 2].x);
+        const dy = Math.abs(newPoints[len - 1].y - newPoints[len - 2].y);
+        if (dx > dy) newPoints[len - 1].y = newPoints[len - 2].y;
+        else newPoints[len - 1].x = newPoints[len - 2].x;
       }
       this.drawingToolStatus.polygon.ui.points = newPoints;
     }
@@ -145,9 +144,8 @@ export class DisplayEditor {
 
   addPolygonEndPoint(point: IPointData) {
     if (this.app?.tree && this.drawingToolStatus.polygon.ui) {
-      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as number[];
-      newPoints.push(point.x);
-      newPoints.push(point.y);
+      const newPoints = [...this.drawingToolStatus.polygon.ui.points!] as IPointData[];
+      newPoints.push(point);
       this.drawingToolStatus.polygon.ui.points = newPoints;
     }
   }
