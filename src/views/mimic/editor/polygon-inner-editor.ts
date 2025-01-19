@@ -59,6 +59,51 @@ export class PolygonInnerEditor extends InnerEditor {
       }
       this.points.length = pointDatas.length;
     }
+    // 绘制线
+    const pts = this.points.length;
+    for (let i = 0; i < Math.max(this.points.length, this.lines.length); ++i) {
+      if (i < this.points.length && i < this.lines.length) {
+        this.lines[i].points = [
+          {
+            x: this.points[(i + pts - 1) % pts].x!,
+            y: this.points[(i + pts - 1) % pts].y!
+          },
+          {
+            x: this.points[i].x!,
+            y: this.points[i].y!
+          }
+        ];
+      } else if (i >= this.points.length) {
+        // 线段过多，需要删除
+        this.lines[i].destroy();
+      } else {
+        // 线段过少，需要增加
+        const line = new Line({
+          stroke: 'red',
+          strokeWidth: 3,
+          zIndex: 0,
+          hoverStyle: {
+            strokeWidth: 5,
+            cursor: 'crosshair'
+          },
+          points: [
+            {
+              x: this.points[(i + pts - 1) % pts].x!,
+              y: this.points[(i + pts - 1) % pts].y!
+            },
+            {
+              x: this.points[i].x!,
+              y: this.points[i].y!
+            }
+          ]
+        });
+        this.view.add(line);
+        this.lines.push(line);
+      }
+    }
+    if (this.points.length !== this.lines.length) {
+      this.lines.length = this.points.length;
+    }
   }
 
   public onUnload(): void {
