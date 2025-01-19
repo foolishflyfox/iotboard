@@ -135,10 +135,9 @@ export class LineInnerEditor extends InnerEditor {
                 const y1 = (line.points![0] as IPointData).y!;
                 const x2 = (line.points![1] as IPointData).x!;
                 const y2 = (line.points![1] as IPointData).y!;
-                const { x, y } = e.getBoxPoint();
+                const { x, y } = e.getLocalPoint();
                 const xRate = (x - x1) / (x2 - x1);
                 const yRate = (y - y1) / (y2 - y1);
-                console.log('@@@', xRate, yRate);
                 // 添加新的锚点
                 const pointDatas = curLine.points as IPointData[];
                 const newPointDatas: IPointData[] = [];
