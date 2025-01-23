@@ -37,6 +37,7 @@ import { getElementClassByTag, registerUiClass } from '@mimic/custom/registrar';
 import { mimicFileApi } from '@/service/api';
 import { mimicDisplayTreeExpose } from '@mimic/LeftPanel/mimic-display-tree/expose';
 import { keyboardKeys } from '@/constant';
+import { mimicModuleTreeExpose } from '@mimic/LeftPanel/mimic-module-tree/expose';
 
 // loadScript();
 
@@ -138,8 +139,14 @@ async function handleSaveShortcut(e: KeyboardEvent) {
       const moduleData = mimicVar.canvasEditor.generateModuleData();
       if (moduleData && mimicWorkspaceStatus.currentTarget?.path) {
         await mimicFileApi.saveModule(mimicWorkspaceStatus.currentTarget.path, moduleData);
+        const blob = (await mimicVar.canvasEditor.app?.tree.export('png', { blob: true }))?.data;
+        if (blob) {
+          const pngPath = `${removeExtention(mimicWorkspaceStatus.currentTarget.path)}.png`;
+          await mimicFileApi.uploadPreviewPng('module', pngPath, blob);
+        }
         window.$message?.success(`模块 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
         mimicWorkspaceStatus.setCurrentCanvasSaved();
+        mimicModuleTreeExpose.updateModulePreview?.(mimicWorkspaceStatus.currentTarget.path);
       }
     }
   } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {

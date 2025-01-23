@@ -59,6 +59,8 @@ import { NInput, NSpace } from 'naive-ui';
 import type { FileItem, ModuleData } from '@mimic/types';
 import MimicModuleItem from './MimicModuleItem.vue';
 import { useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicModuleTreeExpose } from './expose';
+import * as path from 'pathe';
 
 defineOptions({
   name: 'MimicModuleTree',
@@ -113,6 +115,19 @@ async function confirmCreateModule() {
     mimicWorkspaceStatus.addOpenedTarget({ editorType: 'module', path: modulePath });
   }
 }
+
+mimicModuleTreeExpose.updateModulePreview = (modulePath: string) => {
+  if (currentTargets.value?.length) {
+    for (const t of currentTargets.value) {
+      if (`${path.join(currentTargetDirPath.value, t.name)}.json` === modulePath) {
+        t.hasPreview = false;
+        nextTick(() => {
+          t.hasPreview = true;
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style scoped></style>

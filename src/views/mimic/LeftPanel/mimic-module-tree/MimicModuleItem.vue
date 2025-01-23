@@ -32,7 +32,7 @@ function generateModulePath() {
 
 const imgSrc = computed(() => {
   return props.hasPreview
-    ? `${getDataUrl()}/module/${props.folderPath}/${props.fileName}.png?t`
+    ? `${getDataUrl()}/module/${props.folderPath}/${props.fileName}.png?t=${Date.now()}`
     : 'preview/miss.png';
 });
 
