@@ -87,8 +87,6 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         mimicDisplayStatus.selectedUiId = displayBaseMapId;
         mimicVar.uiLayerManagerContainer.getManager()?.update();
       });
-      setTimeout(() => {
-      }, 1000);
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);

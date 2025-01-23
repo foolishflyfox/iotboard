@@ -27,6 +27,16 @@
     <IconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" disabled />
     <IconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" disabled />
     <IconContainer :vicons="Send20Regular" tooltip="发布" disabled />
+    <HeadVerticalDivider />
+    <IconContainer :vicons="ImageArrowForward24Regular" tooltip="图扑格式转换" />
+    <!-- <NPopover trigger="click" ref="toolPopRef">
+      <template #trigger>
+        <div>
+          <IconContainer :vicons="ToolBox" />
+        </div>
+      </template>
+      <IconContainer :vicons="ImageArrowForward24Regular" />
+    </NPopover> -->
   </div>
   <HotkeyHelp v-model:show="hotkeyModalVisible" />
 </template>
@@ -35,11 +45,12 @@
 import IconContainer from '@mimic/components/IconContainer.vue';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
 import HeadVerticalDivider from '../components/HeadVerticalDivider.vue';
-import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular } from '@vicons/fluent';
+import { PageFit16Regular, Send20Regular, GridDots20Filled, Keyboard24Regular, ImageArrowForward24Regular } from '@vicons/fluent';
 import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
 import HotkeyHelp from './HotkeyHelp.vue';
+import { NPopover } from 'naive-ui';
 
 defineOptions({
   name: 'HeadTools',

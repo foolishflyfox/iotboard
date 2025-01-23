@@ -117,16 +117,19 @@ const options = computed(() => [
         label: '图纸',
         key: 'newDisplay',
         show: props.editorType === 'display',
+        disabled: targetDirPath.value === '',
       },
       {
         label: '模块',
         key: 'newModule',
         show: props.editorType === 'module',
+        disabled: targetDirPath.value === '',
       },
       {
         label: '组件',
         key: 'newCodeComponent',
         show: props.editorType === 'component',
+        disabled: targetDirPath.value === '',
       },
       // {
       //   label: '图形组件',
