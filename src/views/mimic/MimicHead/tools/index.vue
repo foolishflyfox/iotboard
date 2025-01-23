@@ -26,7 +26,11 @@
     <HeadVerticalDivider />
     <IconContainer :vicons="InstallDesktopRound" tooltip="下载PC应用" disabled />
     <IconContainer :vicons="InstallMobileRound" tooltip="下载手机应用" disabled />
-    <IconContainer :vicons="Send20Regular" tooltip="发布" disabled />
+    <IconContainer
+      :vicons="Send20Regular"
+      tooltip="发布"
+      :disabled="currentTarget?.editorType !== 'display'"
+    />
     <HeadVerticalDivider />
     <IconContainer :vicons="ImageArrowForward24Regular" tooltip="图扑格式转换" />
     <!-- <NPopover trigger="click" ref="toolPopRef">
@@ -56,7 +60,7 @@ defineOptions({
 });
 
 const hotkeyModalVisible = ref(false);
-const { rulerVisible, dotMatrixVisible } = toRefs(useMimicWorkspaceStatus());
+const { rulerVisible, dotMatrixVisible, currentTarget } = toRefs(useMimicWorkspaceStatus());
 
 function changeRulerVisible() {
   rulerVisible.value = !rulerVisible.value;

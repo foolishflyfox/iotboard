@@ -227,7 +227,6 @@ export class DisplayEditor {
 
   /** 载入图纸数据在编辑器中渲染 */
   async loadDisplayData(displayData: DisplayData) {
-    console.log('######', JSON.stringify(displayData));
     const { width, height, backgroundColor } = displayData.baseMap;
     const displayBaseMap = new Rect({
       id: displayBaseMapId,
