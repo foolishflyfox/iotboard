@@ -1,5 +1,5 @@
 import { CustomAxiosInstance } from '../request';
-import type { DisplayData, EditorType, FileItem, FileTreeNode } from '@/views/mimic/types';
+import type { DisplayData, EditorType, FileItem, FileTreeNode, ModuleData } from '@/views/mimic/types';
 import * as path from 'pathe';
 import { componentTagToPath } from '@/views/mimic/utils';
 
@@ -51,6 +51,12 @@ class MimicFileApi {
     await this.instance.post('create', { fileType: 'display', filePath: displayPath, content });
   }
 
+  async createModule(modulePath: string, moduleData: ModuleData) {
+    const content = JSON.stringify(moduleData, null, 2);
+    await this.instance.post('create', { fileType: 'module', filePath: modulePath, content });
+  }
+
+  /** 根据指定路径创建组件 */
   async createComponent(componentPath: string, componentJson: object) {
     const content = JSON.stringify(componentJson, null, 2);
     await this.instance.post('create', { fileType: 'component', filePath: componentPath, content });

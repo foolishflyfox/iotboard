@@ -21,7 +21,7 @@
     </div>
   </MimicObjectViewer>
   <QueryDialog
-    title="新建"
+    title="新建图纸"
     v-model:show-modal="showNewDisplayModal"
     :positive-btn-disabled="_.isEmpty(newDisplayName)"
     @positive-click="confirmCreateDisplay"
@@ -57,7 +57,7 @@ import { NInput, NSpace } from 'naive-ui';
 import * as _ from 'lodash-es';
 import { mimicFileApi } from '@/service/api';
 import { initDisplayData } from '@mimic/display';
-import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
+import { useMimicWorkspaceStatus } from '@mimic/stores';
 import MimicDisplayItem from './MimicDisplayItem.vue';
 import type { FileItem } from '@mimic/types';
 import { mimicDisplayTreeExpose } from './expose';
@@ -69,7 +69,6 @@ defineOptions({
 
 const mimicObjectViewerRef = ref<InstanceType<typeof MimicObjectViewer>>();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-const mimicDisplayStatus = useMimicDisplayStatus();
 
 const currentTargetDirPath = ref<string | null>();
 const currentTargets = ref<FileItem[]>();
@@ -102,7 +101,7 @@ function newDisplay(dirPath: string) {
 }
 async function confirmCreateDisplay() {
   if (!_.isEmpty(newDisplayName.value)) {
-    console.log(`在 ${targetFolderPath.value} 下新建图纸 ${newDisplayName.value}`);
+    // console.log(`在 ${targetFolderPath.value} 下新建图纸 ${newDisplayName.value}`);
     showNewDisplayModal.value = false;
     const displayPath = `${targetFolderPath.value}/${newDisplayName.value}.json`;
     await mimicFileApi.createDisplay(displayPath, initDisplayData);

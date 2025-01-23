@@ -90,6 +90,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);
+    } else if (currentTarget.value?.editorType === 'module') {
+      console.log('打开 module');
     }
   }
   async function selectDrawingTool(tool: DrawingTool) {
