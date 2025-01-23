@@ -13,12 +13,12 @@ export function keyDownHandler(keyEvent: KeyEvent) {
     nextTick(() => doContextMenuAction('paste'));
   } else if (keyEvent.code === 'Escape') {
     // 关闭内部编辑
-    mimicVar.displayEditor.app?.editor.closeInnerEditor();
+    mimicVar.canvasEditor.app?.editor.closeInnerEditor();
     const mimicWorkspaceStatus = useMimicWorkspaceStatus();
     if (mimicWorkspaceStatus.drawingTool === 'line') {
-      mimicVar.displayEditor.deleteDrawingLine();
+      mimicVar.canvasEditor.deleteDrawingLine();
     } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
-      mimicVar.displayEditor.deleteDrawingPolygon();
+      mimicVar.canvasEditor.deleteDrawingPolygon();
     } else if (['horizontalBase', 'verticalBase'].includes(mimicWorkspaceStatus.drawingTool)) {
       if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
         mimicVar.baselineManagerContainer.getManager()?.deleteCurHorizontalLine();

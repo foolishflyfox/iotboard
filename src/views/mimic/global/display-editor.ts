@@ -20,7 +20,7 @@ import { useKeyModifier } from '@vueuse/core';
 
 const shiftState = useKeyModifier('Shift');
 
-export class DisplayEditor {
+export class CanvasEditor {
   app?: App;
   /** 正在拖拽的对象的 tag */
   draggingTag?: string;

@@ -186,7 +186,7 @@ defineOptions({
 const { selectedUiId } = toRefs(useMimicDisplayStatus());
 const { cursorPos } = toRefs(useMimicWorkspaceStatus());
 
-const selectedUI = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
+const selectedUI = computed(() => mimicVar.canvasEditor.findUiById(selectedUiId.value));
 const selectedSingleUi = computed(() => {
   if (!selectedUiId.value) {
     return false;
@@ -201,21 +201,21 @@ const selectedSingleUi = computed(() => {
 const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
 
 function clickUiLayer(uiLayer: UiLayer) {
-  mimicVar.displayEditor.selectWithId(uiLayer.id);
+  mimicVar.canvasEditor.selectWithId(uiLayer.id);
   console.log('click ui layer');
 }
 
 function lock() {
-  mimicVar.displayEditor.app?.editor.lock();
+  mimicVar.canvasEditor.app?.editor.lock();
   useMimicWorkspaceStatus().setCurrentDisplayUnsave();
 }
 function unlock() {
-  mimicVar.displayEditor.app?.editor.unlock();
+  mimicVar.canvasEditor.app?.editor.unlock();
   useMimicWorkspaceStatus().setCurrentDisplayUnsave();
 }
 
 function alignHorizontalLeft() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let minX = selectedUis[0].x!;
     for (let i = 1; i < selectedUis.length; ++i) {
@@ -226,7 +226,7 @@ function alignHorizontalLeft() {
 }
 
 function alignHorizontalCenter() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let minX = selectedUis[0].x!;
     let maxX = selectedUis[0].x! + selectedUis[0].width!;
@@ -240,7 +240,7 @@ function alignHorizontalCenter() {
 }
 
 function alignHorizontalRight() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let maxX = selectedUis[0].x! + selectedUis[0].width!;
     for (let i = 1; i < selectedUis.length; ++i) {
@@ -251,7 +251,7 @@ function alignHorizontalRight() {
 }
 
 function alignVerticalTop() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let minY = selectedUis[0].y!;
     for (let i = 1; i < selectedUis.length; ++i) {
@@ -262,7 +262,7 @@ function alignVerticalTop() {
 }
 
 function alignVerticalCenter() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let minY = selectedUis[0].y!;
     let maxY = selectedUis[0].y! + selectedUis[0].height!;
@@ -276,7 +276,7 @@ function alignVerticalCenter() {
 }
 
 function alignVerticalBottom() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     let maxY = selectedUis[0].y! + selectedUis[0].height!;
     for (let i = 1; i < selectedUis.length; ++i) {
@@ -287,7 +287,7 @@ function alignVerticalBottom() {
 }
 /** 设置元素间的间距相等 */
 function horizontalDistribute() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 2) {
     let minX = selectedUis[0].x!;
     let maxX = selectedUis[0].x! + selectedUis[0].width!;
@@ -309,7 +309,7 @@ function horizontalDistribute() {
 }
 
 function verticalDistribute() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 2) {
     let minY = selectedUis[0].y!;
     let maxY = selectedUis[0].y! + selectedUis[0].height!;
@@ -332,7 +332,7 @@ function verticalDistribute() {
 
 /** 多元素设置同宽，以第一个选中的元素为准 */
 function setSameWidth() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     const width = selectedUis[0].width!;
     selectedUis.forEach(e => e.width = width);
@@ -341,7 +341,7 @@ function setSameWidth() {
 
 /** 多元素设置同高，以第一个选中的元素位置 */
 function setSameHeight() {
-  const selectedUis = mimicVar.displayEditor.app?.editor.list;
+  const selectedUis = mimicVar.canvasEditor.app?.editor.list;
   if (selectedUis && selectedUis.length > 1) {
     const height = selectedUis[0].height!;
     selectedUis.forEach(e => e.height = height);

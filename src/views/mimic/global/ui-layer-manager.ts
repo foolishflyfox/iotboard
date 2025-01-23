@@ -13,7 +13,7 @@ export class UiLayerManager {
 
   /** 根据实际情况更新图层信息 */
   update() {
-    const { subUis } = mimicVar.displayEditor.getTreeUis();
+    const { subUis } = mimicVar.canvasEditor.getTreeUis();
     this.uiLayers.value = subUis.map((e) => {
       return { tag: e.tag, id: e.id!, locked: e.locked, visible: Boolean(e.visible) };
     });
@@ -33,11 +33,11 @@ export class UiLayerManager {
     const index = this.findIndexById(id);
     if (index === -1 || index === this.uiLayers.value.length - 1) return;
     const nextUiId = this.uiLayers.value[index + 1].id;
-    const curUi = mimicVar.displayEditor.app?.tree.findId(id);
-    const nextUi = mimicVar.displayEditor.app?.tree.findId(nextUiId);
+    const curUi = mimicVar.canvasEditor.app?.tree.findId(id);
+    const nextUi = mimicVar.canvasEditor.app?.tree.findId(nextUiId);
     if (!curUi || !nextUi) return;
     curUi.remove();
-    mimicVar.displayEditor.app!.tree.addAfter(curUi, nextUi);
+    mimicVar.canvasEditor.app!.tree.addAfter(curUi, nextUi);
     this.update();
     lazyGetMimicWorkspaceStatus().setCurrentDisplayUnsave();
   }
@@ -45,7 +45,7 @@ export class UiLayerManager {
   /** 将选中的 ui 移到顶层 */
   toTop(id: string) {
     const mimicWorkspaceStatus = lazyGetMimicWorkspaceStatus();
-    mimicVar.displayEditor.app?.editor.toTop();
+    mimicVar.canvasEditor.app?.editor.toTop();
     this.update();
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
@@ -55,11 +55,11 @@ export class UiLayerManager {
     const index = this.findIndexById(id);
     if (index === -1 || index === 0) return;
     const preUiId = this.uiLayers.value[index - 1].id;
-    const curUi = mimicVar.displayEditor.app?.tree.findId(id);
-    const preUi = mimicVar.displayEditor.app?.tree.findId(preUiId);
+    const curUi = mimicVar.canvasEditor.app?.tree.findId(id);
+    const preUi = mimicVar.canvasEditor.app?.tree.findId(preUiId);
     if (!curUi || !preUi) return;
     curUi.remove();
-    mimicVar.displayEditor.app!.tree.addBefore(curUi, preUi);
+    mimicVar.canvasEditor.app!.tree.addBefore(curUi, preUi);
     this.update();
     lazyGetMimicWorkspaceStatus().setCurrentDisplayUnsave();
   }
@@ -69,12 +69,12 @@ export class UiLayerManager {
     // 由于底图的存在，不能直接使用 editor.toBottom 方法
     const index = this.findIndexById(id);
     if (index === -1 || index === 0) return;
-    const curUi = mimicVar.displayEditor.app?.tree.findId(id);
+    const curUi = mimicVar.canvasEditor.app?.tree.findId(id);
     const bottomUiId = this.uiLayers.value[0].id;
-    const bottomUi = mimicVar.displayEditor.app?.tree.findId(bottomUiId);
+    const bottomUi = mimicVar.canvasEditor.app?.tree.findId(bottomUiId);
     if (!curUi || !bottomUi) return;
     curUi.remove();
-    mimicVar.displayEditor.app!.tree.addBefore(curUi, bottomUi);
+    mimicVar.canvasEditor.app!.tree.addBefore(curUi, bottomUi);
     this.update();
     lazyGetMimicWorkspaceStatus().setCurrentDisplayUnsave();
   }

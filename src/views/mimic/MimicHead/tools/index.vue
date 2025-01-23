@@ -9,7 +9,7 @@
     <IconContainer
       :vicons="PageFit16Regular"
       tooltip="窗口自适应大小"
-      @click="() => mimicVar.displayEditor.viewAutoFit()"
+      @click="() => mimicVar.canvasEditor.viewAutoFit()"
     />
     <IconContainer
       :vicons="Ruler"

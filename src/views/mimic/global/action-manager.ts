@@ -54,7 +54,7 @@ export class ActionManager {
     }
     for (const delta of diff) {
       if (_.isEmpty(delta.uiId)) continue;
-      const ui = mimicVar.displayEditor.app?.tree.findId(delta.uiId);
+      const ui = mimicVar.canvasEditor.app?.tree.findId(delta.uiId);
       if (ui && ui.proxyData) {
         ui.proxyData[delta.attrName] = delta.oldValue;
       }
@@ -70,7 +70,7 @@ export class ActionManager {
     }
     for (const delta of diff) {
       if (_.isEmpty(delta.uiId)) continue;
-      const ui = mimicVar.displayEditor.app?.tree.findId(delta.uiId);
+      const ui = mimicVar.canvasEditor.app?.tree.findId(delta.uiId);
       if (ui && ui.proxyData) {
         ui.proxyData[delta.attrName] = delta.newValue;
       }

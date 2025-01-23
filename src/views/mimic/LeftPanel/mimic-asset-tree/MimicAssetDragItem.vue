@@ -59,8 +59,8 @@ async function deleteAsset() {
 }
 
 function assetStartDragHandler() {
-  mimicVar.displayEditor.draggingType = 'asset';
-  mimicVar.displayEditor.draggingTag = props.imgSrc;
+  mimicVar.canvasEditor.draggingType = 'asset';
+  mimicVar.canvasEditor.draggingTag = props.imgSrc;
 }
 </script>
 

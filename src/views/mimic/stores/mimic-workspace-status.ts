@@ -46,7 +46,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       if (currentTarget.value?.editorType === 'display') {
         mimicVar.baselineManagerContainer.removeManager(currentTarget.value.path);
         mimicVar.actionManagerContainer.removeManager(currentTarget.value.path);
-        mimicVar.displayEditor.delDisplayData(currentTarget.value);
+        mimicVar.canvasEditor.delDisplayData(currentTarget.value);
       }
       if (newTargetIndex < 0) {
         currentTarget.value = undefined;
@@ -59,11 +59,11 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   async function setCurrentTarget(target: OpenedTarget) {
     if (currentTarget.value?.editorType === 'display') {
       // 取消选中的元素
-      mimicVar.displayEditor.app?.editor.cancel();
+      mimicVar.canvasEditor.app?.editor.cancel();
       // 将原有图纸数据保存在内存中
-      const data = mimicVar.displayEditor.generateDisplayData();
+      const data = mimicVar.canvasEditor.generateDisplayData();
       if (data) {
-        mimicVar.displayEditor.setDisplayData(
+        mimicVar.canvasEditor.setDisplayData(
           currentTarget.value,
           data
         );
@@ -72,14 +72,14 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
-      let displayData = mimicVar.displayEditor.getDisplayData(currentTarget.value!);
+      let displayData = mimicVar.canvasEditor.getDisplayData(currentTarget.value!);
       if (!displayData) {
         // 打开新的图纸
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
-        mimicVar.displayEditor.setDisplayData(currentTarget.value!, displayData);
+        mimicVar.canvasEditor.setDisplayData(currentTarget.value!, displayData);
         mimicVar.baselineManagerContainer.addManager(currentTarget.value.path);
       }
-      await mimicVar.displayEditor.loadDisplayData(displayData);
+      await mimicVar.canvasEditor.loadDisplayData(displayData);
       mimicVar.actionManagerContainer.switchActionManager(currentTarget.value.path);
       mimicVar.baselineManagerContainer.getManager()?.showAllBaselines();
       mimicVar.uiLayerManagerContainer.switchUiLayerManager(currentTarget.value.path);

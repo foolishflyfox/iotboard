@@ -14,18 +14,18 @@ const oldUiPosSize = {
 export function appMouseTapHandler(e: PointerEvent) {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   if (mimicWorkspaceStatus.drawingTool === 'line') {
-    const point = mimicVar.displayEditor.app?.getPagePoint(e);
-    if (mimicVar.displayEditor.getDrawLineStatus() === 'end') {
-      mimicVar.displayEditor.beginDrawLine(point!);
-    } else if (mimicVar.displayEditor.getDrawLineStatus() === 'start') {
-      mimicVar.displayEditor.addLineEndPoint(point!);
+    const point = mimicVar.canvasEditor.app?.getPagePoint(e);
+    if (mimicVar.canvasEditor.getDrawLineStatus() === 'end') {
+      mimicVar.canvasEditor.beginDrawLine(point!);
+    } else if (mimicVar.canvasEditor.getDrawLineStatus() === 'start') {
+      mimicVar.canvasEditor.addLineEndPoint(point!);
     }
   } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
-    const point = mimicVar.displayEditor.app?.getPagePoint(e);
-    if (mimicVar.displayEditor.getDrawPolygonStatus() === 'end') {
-      mimicVar.displayEditor.beginDrawPolygon(point!);
-    } else if (mimicVar.displayEditor.getDrawPolygonStatus() === 'start') {
-      mimicVar.displayEditor.addPolygonEndPoint(point!);
+    const point = mimicVar.canvasEditor.app?.getPagePoint(e);
+    if (mimicVar.canvasEditor.getDrawPolygonStatus() === 'end') {
+      mimicVar.canvasEditor.beginDrawPolygon(point!);
+    } else if (mimicVar.canvasEditor.getDrawPolygonStatus() === 'start') {
+      mimicVar.canvasEditor.addPolygonEndPoint(point!);
     }
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
     mimicVar.baselineManagerContainer.getManager()?.addHorizontalLine();
@@ -60,7 +60,7 @@ export function appMouseDownHandler(e: PointerEvent) {
 
 export function appMouseMoveHandler(e: PointerEvent) {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
-  const point = mimicVar.displayEditor.app!.getPagePoint(e);
+  const point = mimicVar.canvasEditor.app!.getPagePoint(e);
   mimicWorkspaceStatus.cursorPos = point;
   if (mimicWorkspaceStatus.drawingTool === 'cursor') {
     if (mimicWorkspaceStatus.rulerVisible) {
@@ -83,9 +83,9 @@ export function appMouseMoveHandler(e: PointerEvent) {
     return;
   }
   if (mimicWorkspaceStatus.drawingTool === 'line') {
-    mimicVar.displayEditor.moveLineEndPoint(point!);
+    mimicVar.canvasEditor.moveLineEndPoint(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
-    mimicVar.displayEditor.movePolygonEndPoint(point!);
+    mimicVar.canvasEditor.movePolygonEndPoint(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
     moveHorizontalBaseline(point);
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {
@@ -96,11 +96,11 @@ export function appMouseMoveHandler(e: PointerEvent) {
 export function appMouseDoubleTapHandler(e: PointerEvent) {
   const mimicWorkspaceStatus = useMimicWorkspaceStatus();
   if (mimicWorkspaceStatus.drawingTool === 'line') {
-    const point = mimicVar.displayEditor.app?.getPagePoint(e);
-    mimicVar.displayEditor.endDrawLine(point!);
+    const point = mimicVar.canvasEditor.app?.getPagePoint(e);
+    mimicVar.canvasEditor.endDrawLine(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'polygon') {
-    const point = mimicVar.displayEditor.app?.getPagePoint(e);
-    mimicVar.displayEditor.endDrawPolygon(point!);
+    const point = mimicVar.canvasEditor.app?.getPagePoint(e);
+    mimicVar.canvasEditor.endDrawPolygon(point!);
   } else if (mimicWorkspaceStatus.drawingTool === 'horizontalBase') {
     mimicVar.baselineManagerContainer.getManager()?.deleteHorizontalLine();
   } else if (mimicWorkspaceStatus.drawingTool === 'verticalBase') {

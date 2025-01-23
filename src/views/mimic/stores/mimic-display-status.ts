@@ -8,10 +8,10 @@ export const useMimicDisplayStatus = defineStore('mimic-display-status', () => {
   // 当前选中的 UI
   const selectedUiId = ref<null | undefined | string | string[]>();
   const selectedUiProxyData = computed(() => {
-    return (mimicVar.displayEditor.findUiById(selectedUiId.value) as UI)?.proxyData;
+    return (mimicVar.canvasEditor.findUiById(selectedUiId.value) as UI)?.proxyData;
   });
   const selectBaseMap = () => (selectedUiId.value = displayBaseMapId);
-  const curUi = computed(() => mimicVar.displayEditor.findUiById(selectedUiId.value));
+  const curUi = computed(() => mimicVar.canvasEditor.findUiById(selectedUiId.value));
   // 右键菜单是否禁用
   const contextMenuItemDisabled = computed(() => {
     const result = {

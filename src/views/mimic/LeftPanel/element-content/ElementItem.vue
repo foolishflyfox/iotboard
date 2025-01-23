@@ -40,8 +40,8 @@ const draggable = computed(() => {
 
 function startDragElement(e: any) {
   // mimicVar.componentEditor.draggingTag = `${props.type}:${props.path}`;
-  mimicVar.displayEditor.draggingType = 'element';
-  mimicVar.displayEditor.draggingTag = `${props.type}:${props.path}`;
+  mimicVar.canvasEditor.draggingType = 'element';
+  mimicVar.canvasEditor.draggingTag = `${props.type}:${props.path}`;
 }
 </script>
 

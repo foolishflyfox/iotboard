@@ -42,7 +42,7 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
       if (ui.id !== displayBaseMapId) {
         ui.destroy();
         mimicDisplayStatus.selectBaseMap();
-        mimicVar.displayEditor.app?.editor?.cancel();
+        mimicVar.canvasEditor.app?.editor?.cancel();
         const mimicWorkspaceStatus = useMimicWorkspaceStatus();
         mimicWorkspaceStatus.setCurrentDisplayUnsave();
       }
@@ -68,8 +68,8 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
 
       if (uiJsons && uiJsons.length > 0) {
         let pagePoint = { x: 0, y: 0 };
-        if (clientPointData && mimicVar.displayEditor.app) {
-          pagePoint = mimicVar.displayEditor.app.getPagePointByClient(clientPointData);
+        if (clientPointData && mimicVar.canvasEditor.app) {
+          pagePoint = mimicVar.canvasEditor.app.getPagePointByClient(clientPointData);
         }
         let srcOriginLeft: number = uiJsons[0].x;
         let srcOriginTop: number = uiJsons[0].y;
@@ -86,13 +86,13 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
             const elementClass = getElementClassByTag(uiJson.tag);
             const element = new elementClass(uiJson);
             // nextTick(() => {
-            mimicVar.displayEditor.app?.tree.add(element);
+            mimicVar.canvasEditor.app?.tree.add(element);
             // });
           } else {
             const componentClass = await registerUiClass(uiJson.tag);
             const component = new componentClass(uiJson);
             nextTick(() => {
-              mimicVar.displayEditor.app?.tree.add(component);
+              mimicVar.canvasEditor.app?.tree.add(component);
             });
           }
         }
@@ -117,12 +117,12 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
   } else if (action === 'group') {
     multiTargetHandler(() => {
       const group = new Group({ id: getUniqueId() });
-      mimicVar.displayEditor.app?.editor.group(group);
+      mimicVar.canvasEditor.app?.editor.group(group);
       useMimicWorkspaceStatus().setCurrentDisplayUnsave();
     });
   } else if (action === 'ungroup') {
     singleTargetHandler(() => {
-      mimicVar.displayEditor.app?.editor.ungroup();
+      mimicVar.canvasEditor.app?.editor.ungroup();
       useMimicWorkspaceStatus().setCurrentDisplayUnsave();
     });
   }

@@ -24,7 +24,7 @@ export class BaselineManager {
       visible: false,
       fontSize
     });
-    mimicVar.displayEditor.app!.sky.add(this.posText);
+    mimicVar.canvasEditor.app!.sky.add(this.posText);
     return this.posText;
   }
 
@@ -54,7 +54,7 @@ export class BaselineManager {
       posText.y = cursorPos.value.y + 3;
       posText.visible = true;
       const newFontSize = Math.round(
-        fontSize / getScaleX(mimicVar.displayEditor.app!.sky.getTransform()) * 3
+        fontSize / getScaleX(mimicVar.canvasEditor.app!.sky.getTransform()) * 3
       );
       if (newFontSize !== posText.fontSize) {
         posText.fontSize = newFontSize;
@@ -69,7 +69,7 @@ export class BaselineManager {
 
   setCurHorizontalLine(line: Line) {
     this.curHorizontalLine = line;
-    mimicVar.displayEditor.app!.sky.add(line);
+    mimicVar.canvasEditor.app!.sky.add(line);
     this.movePosText();
   }
 
@@ -79,7 +79,7 @@ export class BaselineManager {
 
   deleteCurHorizontalLine() {
     if (this.curHorizontalLine) {
-      mimicVar.displayEditor.app?.sky.remove(this.curHorizontalLine);
+      mimicVar.canvasEditor.app?.sky.remove(this.curHorizontalLine);
       this.curHorizontalLine = undefined;
       this.hidePosText();
     }
@@ -93,7 +93,7 @@ export class BaselineManager {
       const lineY = line.proxyData!.points![1] as number;
       if (Math.abs(curY - lineY) < 3) {
         // 删除线
-        mimicVar.displayEditor.app?.sky.remove(line);
+        mimicVar.canvasEditor.app?.sky.remove(line);
       } else {
         newHorizontalLines.push(line);
       }
@@ -105,7 +105,7 @@ export class BaselineManager {
     if (!this.curHorizontalLine) return;
     const newLine = this.curHorizontalLine.clone() as Line;
     newLine.dashPattern = undefined;
-    mimicVar.displayEditor.app?.sky.add(newLine);
+    mimicVar.canvasEditor.app?.sky.add(newLine);
     this.horizontalLines.push(newLine);
   }
 
@@ -116,7 +116,7 @@ export class BaselineManager {
     for (const line of this.verticalLines) {
       const lineX = line.proxyData!.points![0] as number;
       if (Math.abs(curX - lineX) < 3) {
-        mimicVar.displayEditor.app?.sky.remove(line);
+        mimicVar.canvasEditor.app?.sky.remove(line);
       } else {
         newVerticalLines.push(line);
       }
@@ -128,13 +128,13 @@ export class BaselineManager {
     if (!this.curVerticalLine) return;
     const newLine = this.curVerticalLine.clone() as Line;
     newLine.dashPattern = undefined;
-    mimicVar.displayEditor.app?.sky.add(newLine);
+    mimicVar.canvasEditor.app?.sky.add(newLine);
     this.verticalLines.push(newLine);
   }
 
   setCurVerticalLine(line: Line) {
     this.curVerticalLine = line;
-    mimicVar.displayEditor.app!.sky.add(line);
+    mimicVar.canvasEditor.app!.sky.add(line);
     this.movePosText();
   }
 
@@ -144,7 +144,7 @@ export class BaselineManager {
 
   deleteCurVerticalLine() {
     if (this.curVerticalLine) {
-      mimicVar.displayEditor.app?.sky.remove(this.curVerticalLine);
+      mimicVar.canvasEditor.app?.sky.remove(this.curVerticalLine);
       this.curVerticalLine = undefined;
       this.hidePosText();
     }
@@ -152,7 +152,7 @@ export class BaselineManager {
 
   clearAllBaselines() {
     for (const line of [...this.horizontalLines, ...this.verticalLines]) {
-      mimicVar.displayEditor.app?.sky.remove(line);
+      mimicVar.canvasEditor.app?.sky.remove(line);
     }
     this.horizontalLines = [];
     this.verticalLines = [];

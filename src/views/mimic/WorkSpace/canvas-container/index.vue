@@ -67,47 +67,47 @@ const displayEditorWorkspace = ref<HTMLElement>();
 useDropZone(displayEditorWorkspace);
 
 async function onDisplayEditorDrop(e: MouseEvent) {
-  if (!mimicVar.displayEditor.draggingTag) return;
+  if (!mimicVar.canvasEditor.draggingTag) return;
   let displayDataChanged = true;
-  if (mimicVar.displayEditor.draggingType === 'component') {
-    console.log(`将组件 ${mimicVar.displayEditor.draggingTag} 拖放到图纸`);
-    const componentClass = await registerUiClass(mimicVar.displayEditor.draggingTag);
+  if (mimicVar.canvasEditor.draggingType === 'component') {
+    console.log(`将组件 ${mimicVar.canvasEditor.draggingTag} 拖放到图纸`);
+    const componentClass = await registerUiClass(mimicVar.canvasEditor.draggingTag);
     const newComponent = new componentClass({
-      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+      ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
       draggable: true,
       editable: true,
     });
     if (_.isEmpty(newComponent.id)) {
       newComponent.id = getUniqueId();
     }
-    mimicVar.displayEditor.app?.tree.add(newComponent);
-  } else if (mimicVar.displayEditor.draggingType === 'element') {
-    const elementClass = getElementClassByTag(mimicVar.displayEditor.draggingTag);
+    mimicVar.canvasEditor.app?.tree.add(newComponent);
+  } else if (mimicVar.canvasEditor.draggingType === 'element') {
+    const elementClass = getElementClassByTag(mimicVar.canvasEditor.draggingTag);
     const newElement = new elementClass({
-      ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+      ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
       draggable: true,
       editable: true,
     });
-    mimicVar.displayEditor.app?.tree.add(newElement);
-  } else if (mimicVar.displayEditor.draggingType === 'asset') {
-    if (mimicVar.displayEditor.draggingTag.endsWith('.svg')) {
+    mimicVar.canvasEditor.app?.tree.add(newElement);
+  } else if (mimicVar.canvasEditor.draggingType === 'asset') {
+    if (mimicVar.canvasEditor.draggingTag.endsWith('.svg')) {
       const elementClass = getElementClassByTag('element:svg');
       const newElement = new elementClass({
-        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
-        url: mimicVar.displayEditor.draggingTag,
+        ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
+        url: mimicVar.canvasEditor.draggingTag,
         draggable: true,
         editable: true,
       });
-      mimicVar.displayEditor.app?.tree.add(newElement);
+      mimicVar.canvasEditor.app?.tree.add(newElement);
     } else {
       const elementClass = getElementClassByTag('element:img');
       const newElement = new elementClass({
-        url: mimicVar.displayEditor.draggingTag,
-        ...mimicVar.displayEditor.app?.getPagePointByClient(e),
+        url: mimicVar.canvasEditor.draggingTag,
+        ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
         draggable: true,
         editable: true,
       });
-      mimicVar.displayEditor.app?.tree.add(newElement);
+      mimicVar.canvasEditor.app?.tree.add(newElement);
     }
   } else {
     displayDataChanged = false;
@@ -121,14 +121,14 @@ async function handleSaveShortcut(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.S) {
     /** 处理图纸保存事件 */
     e.preventDefault();
-    const displayData = mimicVar.displayEditor.generateDisplayData();
+    const displayData = mimicVar.canvasEditor.generateDisplayData();
     if (
       displayData
       && mimicWorkspaceStatus.currentTarget?.editorType === 'display'
       && mimicWorkspaceStatus.currentTarget?.path
     ) {
       await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
-      const blob = (await mimicVar.displayEditor.app?.tree.export('png', { blob: true }))?.data;
+      const blob = (await mimicVar.canvasEditor.app?.tree.export('png', { blob: true }))?.data;
       if (blob) {
         const pngPath = `${removeExtention(mimicWorkspaceStatus.currentTarget.path)}.png`;
         await mimicFileApi.uploadPreviewPng('display', pngPath, blob);
@@ -169,7 +169,7 @@ onMounted(() => {
   });
   app.tree.name = 'tree';
   app.tree.zIndex = 0;
-  mimicVar.displayEditor.app = app;
+  mimicVar.canvasEditor.app = app;
   app.tree.on(ResizeEvent.RESIZE, resizeHandler);
   app.tree.on(LayoutEvent.AFTER, layoutAfterHandler);
   app.on(PointerEvent.TAP, appMouseTapHandler);

@@ -124,15 +124,15 @@ function redo() {
 }
 
 function horizontalFlip() {
-  if (mimicVar.displayEditor.app?.editor.element) {
-    mimicVar.displayEditor.app?.editor.element.flip('x');
+  if (mimicVar.canvasEditor.app?.editor.element) {
+    mimicVar.canvasEditor.app?.editor.element.flip('x');
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
 }
 
 function verticalFlip() {
-  if (mimicVar.displayEditor.app?.editor.element) {
-    mimicVar.displayEditor.app?.editor.element.flip('y');
+  if (mimicVar.canvasEditor.app?.editor.element) {
+    mimicVar.canvasEditor.app?.editor.element.flip('y');
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
 }
