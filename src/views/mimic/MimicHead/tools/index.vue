@@ -50,7 +50,6 @@ import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
 import HotkeyHelp from './HotkeyHelp.vue';
-import { NPopover } from 'naive-ui';
 
 defineOptions({
   name: 'HeadTools',
