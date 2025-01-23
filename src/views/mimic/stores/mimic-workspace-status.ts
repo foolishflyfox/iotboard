@@ -79,6 +79,7 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
           data
         );
       }
+      mimicVar.baselineManagerContainer.getManager()?.hideAllBaselines();
     }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
@@ -103,7 +104,15 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         // 从文件中读取模块数据
         moduleData = await mimicFileApi.openModule(currentTarget.value.path);
         mimicVar.canvasEditor.setModuleData(currentTarget.value, moduleData);
+        mimicVar.baselineManagerContainer.addManager(currentTarget.value);
       }
+      await mimicVar.canvasEditor.loadModuleData(moduleData);
+      mimicVar.actionManagerContainer.switchActionManager(currentTarget.value);
+      mimicVar.baselineManagerContainer.getManager()?.showAllBaselines();
+      mimicVar.uiLayerManagerContainer.switchUiLayerManager(currentTarget.value);
+      nextTick(() => {
+        mimicVar.uiLayerManagerContainer.getManager()?.update();
+      });
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);

@@ -8,7 +8,7 @@ export class CustomCfgService {
   }
 
   addUiCustomCfg(tag: string, cfg: UiCustomCfg) {
-    console.log(`${tag} add cfg:`, cfg);
+    // console.log(`${tag} add cfg:`, cfg);
     if (cfg && !_.isEmpty(tag)) {
       this.cfgDict[tag] = cfg;
     }
