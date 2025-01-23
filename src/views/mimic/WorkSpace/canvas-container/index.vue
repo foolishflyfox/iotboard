@@ -206,20 +206,7 @@ onMounted(() => {
     draggable: true
   });
 
-  // watch(
-  //   () => mimicWorkspaceStatus.currentTarget,
-  //   (nv) => {
-  //     if (nv) {
-  //       // mimicVar.displayEditor.loadOpenedDisplay(nv);
-  //     }
-  //   },
-  //   {
-  //     immediate: true,
-  //   },
-  // );
   window.addEventListener('keydown', handleSaveShortcut);
-  // const image = new Image({ url: '/data/component/基础/gauge.png', draggable: true });
-  // app.tree.add(image);
 });
 
 onUnmounted(() => {

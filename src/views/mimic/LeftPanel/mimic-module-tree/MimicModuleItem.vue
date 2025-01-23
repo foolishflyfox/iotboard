@@ -11,6 +11,8 @@
 <script setup lang="ts">
 import { getDataUrl } from '@/utils';
 import { MimicItem } from '../components';
+import type { OpenedTarget } from '@mimic/types';
+import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
 
 const props = defineProps<{
   /** 当前选中的文件夹 */
@@ -20,6 +22,9 @@ const props = defineProps<{
   /** 是否生成预览图 */
   hasPreview?: boolean;
 }>();
+
+const mimicDisplayStatus = useMimicDisplayStatus();
+const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
 function generateModulePath() {
   return `${props.folderPath}/${props.fileName}.json`;
@@ -38,7 +43,13 @@ async function deleteModule() {
 
 async function openModule() {
   const modulePath = generateModulePath();
-  console.log('打开模块', modulePath);
+  // console.log('打开模块', modulePath);
+  const openedModule: OpenedTarget = {
+    editorType: 'module',
+    path: modulePath
+  };
+  mimicDisplayStatus.selectedUiId = null;
+  mimicWorkspaceStatus.addOpenedTarget(openedModule);
 }
 </script>
 
