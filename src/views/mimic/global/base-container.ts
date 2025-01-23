@@ -1,4 +1,5 @@
 import { useMimicWorkspaceStatus } from '@mimic/stores';
+import type { OpenedTarget } from '../types';
 
 export abstract class BaseContainer<T> {
   protected managerMap: Map<string, T>;
@@ -15,32 +16,36 @@ export abstract class BaseContainer<T> {
     return this.mimicWorkspaceStatus;
   }
 
-  addManager(targetPath: string, manager?: T) {
+  protected generateKey(target: OpenedTarget) {
+    return `${target.editorType}:${target.path}`;
+  }
+
+  addManager(target: OpenedTarget, manager?: T) {
     if (manager) {
-      this.managerMap.set(targetPath, manager);
+      this.managerMap.set(this.generateKey(target), manager);
     } else {
-      this.managerMap.set(targetPath, new this.cls());
+      this.managerMap.set(this.generateKey(target), new this.cls());
     }
   }
 
-  removeManager(targetPath?: string) {
-    if (targetPath) {
-      this.managerMap.delete(targetPath);
+  removeManager(target?: OpenedTarget) {
+    if (target?.path) {
+      this.managerMap.delete(this.generateKey(target));
     } else {
       const mimicWorkspaceStatus = this.getMimicWorkspaceStatus();
       if (mimicWorkspaceStatus.currentTarget?.path) {
-        this.removeManager(mimicWorkspaceStatus.currentTarget.path);
+        this.removeManager(mimicWorkspaceStatus.currentTarget);
       }
     }
   }
 
-  getManager(targetPath?: string): T | undefined {
-    if (targetPath) {
-      return this.managerMap.get(targetPath);
+  getManager(target?: OpenedTarget): T | undefined {
+    if (target?.path) {
+      return this.managerMap.get(this.generateKey(target));
     } else {
       const mimicWorkspaceStatus = this.getMimicWorkspaceStatus();
       if (mimicWorkspaceStatus.currentTarget?.path) {
-        return this.getManager(mimicWorkspaceStatus.currentTarget.path);
+        return this.getManager(mimicWorkspaceStatus.currentTarget);
       }
     }
   }

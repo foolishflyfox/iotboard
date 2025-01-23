@@ -1,4 +1,4 @@
-import type { DisplayData, OpenedTarget } from '@mimic/types';
+import type { DisplayData, ModuleData, OpenedTarget } from '@mimic/types';
 import {
   ChildEvent,
   Group,
@@ -27,7 +27,7 @@ export class CanvasEditor {
   /** 正在拖拽的类型 */
   draggingType?: 'component' | 'module' | 'element' | 'asset';
 
-  private displayDataDict: Record<string, DisplayData>;
+  private canvasDataDict: Record<string, DisplayData | ModuleData>;
 
   private drawingToolStatus: {
     line: {
@@ -55,7 +55,7 @@ export class CanvasEditor {
   }
 
   constructor() {
-    this.displayDataDict = {};
+    this.canvasDataDict = {};
     this.drawingToolStatus = {
       line: {},
       polygon: {}
@@ -197,26 +197,50 @@ export class CanvasEditor {
     this.app?.tree?.zoom('fit', 23);
   }
 
-  /** 根据目标从内存中获取图纸信息 */
-  getDisplayData(target: OpenedTarget) {
+  private getCanvasData(target: OpenedTarget) {
     const key = generateTargetKey(target);
-    return this.displayDataDict[key];
+    return this.canvasDataDict[key];
   }
 
-  /** 将图纸信息存入内存 */
-  setDisplayData(target: OpenedTarget, data: DisplayData) {
+  /** 根据目标从内存中获取图纸信息 */
+  getDisplayData(target: OpenedTarget) {
+    return this.getCanvasData(target) as DisplayData;
+  }
+
+  getModuleData(target: OpenedTarget) {
+    return this.getCanvasData(target) as ModuleData;
+  }
+
+  private setCanvasData(target: OpenedTarget, data: DisplayData | ModuleData) {
     if (data) {
       const key = generateTargetKey(target);
-      this.displayDataDict[key] = data;
+      this.canvasDataDict[key] = data;
+    }
+  }
+
+  setDisplayData(target: OpenedTarget, data: DisplayData) {
+    this.setCanvasData(target, data);
+  }
+
+  /** 将模块信息存入内存 */
+  setModuleData(target: OpenedTarget, data: ModuleData) {
+    this.setCanvasData(target, data);
+  }
+
+  private delCanvasData(target: OpenedTarget) {
+    const key = generateTargetKey(target);
+    if (this.canvasDataDict[key]) {
+      delete this.canvasDataDict[key];
     }
   }
 
   /** 将图纸信息从内存中删除 */
   delDisplayData(target: OpenedTarget) {
-    const key = generateTargetKey(target);
-    if (this.displayDataDict[key]) {
-      delete this.displayDataDict[key];
-    }
+    this.delCanvasData(target);
+  }
+
+  delModuleData(target: OpenedTarget) {
+    this.delCanvasData(target);
   }
 
   loadOpenedDisplay(openedTarget: OpenedTarget) {
@@ -259,6 +283,24 @@ export class CanvasEditor {
     });
 
     this.viewAutoFit();
+  }
+
+  loadOpenedModule(openedTarget: OpenedTarget) {
+    const moduleData = this.getModuleData(openedTarget);
+    if (!moduleData) return;
+    this.loadModuleData(moduleData);
+  }
+
+  /** 载入模块数据在编辑器中渲染 */
+  async loadModuleData(moduleData: ModuleData) {
+    this.app?.tree.clear();
+    const uis = await this.createUis(moduleData.children || []);
+    if (uis.length > 0) {
+      nextTick(() => {
+        this.app?.tree.add(uis);
+        this.viewAutoFit();
+      });
+    }
   }
 
   private async createUis(uiJsons: IUIJSONData[]) {
@@ -306,7 +348,6 @@ export class CanvasEditor {
   /** 根据编辑器状态生成图纸数据 */
   generateDisplayData() {
     if (!this.app?.tree) return null;
-    const allUi = this.app?.tree.find(() => 1);
     const displayData = { baseMap: {}, children: ([] as object) } as DisplayData;
     const { baseMap, subUis } = this.getTreeUis();
     if (baseMap) {
@@ -319,6 +360,15 @@ export class CanvasEditor {
       displayData.children!.push(ui.toJSON());
     }
     return displayData;
+  }
+
+  /** 根据编辑器状态生成模块数据 */
+  generateModuleData() {
+    if (!this.app?.tree) return null;
+    const moduleData = { children: [] } as ModuleData;
+    const { subUis } = this.getTreeUis();
+    subUis.forEach(ui => moduleData.children!.push(ui.toJSON()));
+    return moduleData;
   }
 
   /** 根据元素 id 查询 UI 对象 */

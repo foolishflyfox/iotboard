@@ -1,6 +1,7 @@
 import type { ShallowRef } from 'vue';
 import { BaseContainer } from './base-container';
 import { UiLayerManager, type UiLayer } from './ui-layer-manager';
+import type { OpenedTarget } from '../types';
 
 export class UiLayerManagerContainer extends BaseContainer<UiLayerManager> {
   private currentUiLayerManager: ShallowRef<UiLayerManager | undefined>;
@@ -13,11 +14,11 @@ export class UiLayerManagerContainer extends BaseContainer<UiLayerManager> {
     });
   }
 
-  switchUiLayerManager(target: string, manager?: UiLayerManager) {
-    if (!this.managerMap.has(target)) {
+  switchUiLayerManager(target: OpenedTarget, manager?: UiLayerManager) {
+    if (!this.getManager(target)) {
       this.addManager(target, manager);
     }
-    this.currentUiLayerManager.value = this.managerMap.get(target);
+    this.currentUiLayerManager.value = this.getManager(target);
   }
 
   getCurrentUiLayers() {

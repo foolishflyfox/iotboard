@@ -44,8 +44,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
       let newTargetIndex = _.findIndex(openedTargets.value, e => _.isEqual(e, openedTarget)) + 1;
       if (newTargetIndex >= openedTargets.value.length) newTargetIndex -= 2;
       if (currentTarget.value?.editorType === 'display') {
-        mimicVar.baselineManagerContainer.removeManager(currentTarget.value.path);
-        mimicVar.actionManagerContainer.removeManager(currentTarget.value.path);
+        mimicVar.baselineManagerContainer.removeManager(currentTarget.value);
+        mimicVar.actionManagerContainer.removeManager(currentTarget.value);
         mimicVar.canvasEditor.delDisplayData(currentTarget.value);
       }
       if (newTargetIndex < 0) {
@@ -69,6 +69,16 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         );
       }
       mimicVar.baselineManagerContainer.getManager()?.hideAllBaselines();
+    } else if (currentTarget.value?.editorType === 'module') {
+      mimicVar.canvasEditor.app?.editor.cancel();
+      // 将原有模块数据保存在内存中
+      const data = mimicVar.canvasEditor.generateModuleData();
+      if (data) {
+        mimicVar.canvasEditor.setModuleData(
+          currentTarget.value,
+          data
+        );
+      }
     }
     currentTarget.value = target;
     if (currentTarget.value?.editorType === 'display') {
@@ -77,21 +87,26 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
         // 打开新的图纸
         displayData = await mimicFileApi.openDisplay(currentTarget.value?.path);
         mimicVar.canvasEditor.setDisplayData(currentTarget.value!, displayData);
-        mimicVar.baselineManagerContainer.addManager(currentTarget.value.path);
+        mimicVar.baselineManagerContainer.addManager(currentTarget.value);
       }
       await mimicVar.canvasEditor.loadDisplayData(displayData);
-      mimicVar.actionManagerContainer.switchActionManager(currentTarget.value.path);
+      mimicVar.actionManagerContainer.switchActionManager(currentTarget.value);
       mimicVar.baselineManagerContainer.getManager()?.showAllBaselines();
-      mimicVar.uiLayerManagerContainer.switchUiLayerManager(currentTarget.value.path);
+      mimicVar.uiLayerManagerContainer.switchUiLayerManager(currentTarget.value);
       nextTick(() => {
         mimicDisplayStatus.selectedUiId = displayBaseMapId;
         mimicVar.uiLayerManagerContainer.getManager()?.update();
       });
+    } else if (currentTarget.value?.editorType === 'module') {
+      let moduleData = mimicVar.canvasEditor.getModuleData(currentTarget.value);
+      if (!moduleData) {
+        // 从文件中读取模块数据
+        moduleData = await mimicFileApi.openModule(currentTarget.value.path);
+        mimicVar.canvasEditor.setModuleData(currentTarget.value, moduleData);
+      }
     } else if (currentTarget.value?.editorType === 'component') {
       const tag = componentPathToTag(currentTarget.value.path);
       mimicVar.componentEditor.loadComponent(tag);
-    } else if (currentTarget.value?.editorType === 'module') {
-      console.log('打开 module');
     }
   }
   async function selectDrawingTool(tool: DrawingTool) {

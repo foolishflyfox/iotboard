@@ -1,6 +1,7 @@
 import { ActionManager } from './action-manager';
 import type { ShallowRef } from 'vue';
 import { BaseContainer } from './base-container';
+import type { OpenedTarget } from '../types';
 
 /** display 和 module 使用不同的 container 实例 */
 export class ActionManagerContainer extends BaseContainer<ActionManager> {
@@ -19,11 +20,11 @@ export class ActionManagerContainer extends BaseContainer<ActionManager> {
     });
   }
 
-  switchActionManager(target: string, manager?: ActionManager) {
-    if (!this.managerMap.has(target)) {
+  switchActionManager(target: OpenedTarget, manager?: ActionManager) {
+    if (!this.getManager(target)) {
       this.addManager(target, manager);
     }
-    this.currentActionManager.value = this.managerMap.get(target);
+    this.currentActionManager.value = this.getManager(target);
   }
 
   getCurrentUndoEnable() {

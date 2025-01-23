@@ -94,6 +94,15 @@ class MimicFileApi {
     return displayData;
   }
 
+  async openModule(modulePath: string) {
+    const content = await this.instance.post<string>('open', {
+      fileType: 'module',
+      filePath: modulePath,
+    });
+    const moduleData: ModuleData = JSON.parse(content);
+    return moduleData;
+  }
+
   /** 获取组件的 JSON 文件 */
   async getComponentJsonString(tag: string) {
     const filePath = componentTagToPath(tag);
