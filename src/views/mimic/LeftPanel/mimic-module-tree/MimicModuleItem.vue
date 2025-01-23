@@ -3,6 +3,7 @@
     editor-type="module"
     :img-src
     :file-name
+    :draggable="true"
     @delete="deleteModule"
     @open="openModule"
   />
