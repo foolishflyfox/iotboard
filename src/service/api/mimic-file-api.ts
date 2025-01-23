@@ -68,6 +68,11 @@ class MimicFileApi {
     await this.instance.post('save', { fileType: 'display', filePath: displayPath, content });
   }
 
+  async saveModule(modulePath: string, moduleData: ModuleData) {
+    const content = JSON.stringify(moduleData, null, 2);
+    await this.instance.post('save', { fileType: 'module', filePath: modulePath, content });
+  }
+
   async saveComponent(componentPath: string, componentJson: object) {
     const content = JSON.stringify(componentJson, null, 2);
     await this.instance.post('save', { fileType: 'component', filePath: componentPath, content });

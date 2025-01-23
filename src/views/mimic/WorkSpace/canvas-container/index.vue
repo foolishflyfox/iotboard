@@ -121,21 +121,26 @@ async function handleSaveShortcut(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.S) {
     /** 处理图纸保存事件 */
     e.preventDefault();
-    const displayData = mimicVar.canvasEditor.generateDisplayData();
-    if (
-      displayData
-      && mimicWorkspaceStatus.currentTarget?.editorType === 'display'
-      && mimicWorkspaceStatus.currentTarget?.path
-    ) {
-      await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
-      const blob = (await mimicVar.canvasEditor.app?.tree.export('png', { blob: true }))?.data;
-      if (blob) {
-        const pngPath = `${removeExtention(mimicWorkspaceStatus.currentTarget.path)}.png`;
-        await mimicFileApi.uploadPreviewPng('display', pngPath, blob);
+    if (mimicWorkspaceStatus.currentTarget?.editorType === 'display') {
+      const displayData = mimicVar.canvasEditor.generateDisplayData();
+      if (displayData && mimicWorkspaceStatus.currentTarget?.path) {
+        await mimicFileApi.saveDisplay(mimicWorkspaceStatus.currentTarget.path, displayData);
+        const blob = (await mimicVar.canvasEditor.app?.tree.export('png', { blob: true }))?.data;
+        if (blob) {
+          const pngPath = `${removeExtention(mimicWorkspaceStatus.currentTarget.path)}.png`;
+          await mimicFileApi.uploadPreviewPng('display', pngPath, blob);
+        }
+        window.$message?.success(`图纸 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
+        mimicWorkspaceStatus.setCurrentCanvasSaved();
+        mimicDisplayTreeExpose.updateDisplayPreview?.(mimicWorkspaceStatus.currentTarget.path);
       }
-      window.$message?.success(`文件 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
-      mimicWorkspaceStatus.setCurrentDisplaySaved();
-      mimicDisplayTreeExpose.updateDisplayPreview?.(mimicWorkspaceStatus.currentTarget.path);
+    } else if (mimicWorkspaceStatus.currentTarget?.editorType === 'module') {
+      const moduleData = mimicVar.canvasEditor.generateModuleData();
+      if (moduleData && mimicWorkspaceStatus.currentTarget?.path) {
+        await mimicFileApi.saveModule(mimicWorkspaceStatus.currentTarget.path, moduleData);
+        window.$message?.success(`模块 ${mimicWorkspaceStatus.currentTarget.path} 保存成功`);
+        mimicWorkspaceStatus.setCurrentCanvasSaved();
+      }
     }
   } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
     // 处理重做动作

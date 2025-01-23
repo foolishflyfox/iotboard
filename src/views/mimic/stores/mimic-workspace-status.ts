@@ -123,16 +123,16 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
   }
 
   // 没保存的图纸
-  const unsavedDisplayPaths = ref<Set<string>>(new Set());
+  const unsavedCanvasPaths = ref<Set<string>>(new Set());
   function setCurrentDisplayUnsave() {
     if (currentTarget.value?.path) {
-      unsavedDisplayPaths.value.add(currentTarget.value.path);
+      unsavedCanvasPaths.value.add(currentTarget.value.path);
       mimicVar.uiLayerManagerContainer.getManager()?.update();
     }
   }
-  function setCurrentDisplaySaved() {
+  function setCurrentCanvasSaved() {
     if (currentTarget.value?.path) {
-      unsavedDisplayPaths.value.delete(currentTarget.value.path);
+      unsavedCanvasPaths.value.delete(currentTarget.value.path);
     }
   }
 
@@ -148,8 +148,8 @@ export const useMimicWorkspaceStatus = defineStore('mimic-workspace-status', () 
     closeOpenedTarget,
     drawingTool,
     selectDrawingTool,
-    unsavedDisplayPaths,
-    setCurrentDisplaySaved,
+    unsavedDisplayPaths: unsavedCanvasPaths,
+    setCurrentCanvasSaved,
     setCurrentDisplayUnsave
   };
 });
