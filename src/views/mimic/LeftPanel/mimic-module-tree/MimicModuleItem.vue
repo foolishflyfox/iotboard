@@ -6,6 +6,7 @@
     :draggable="true"
     @delete="deleteModule"
     @open="openModule"
+    @drag-start="moduleStartDragHandler"
   />
 </template>
 
@@ -14,6 +15,7 @@ import { getDataUrl } from '@/utils';
 import { MimicItem } from '../components';
 import type { OpenedTarget } from '@mimic/types';
 import { useMimicDisplayStatus, useMimicWorkspaceStatus } from '@mimic/stores';
+import { mimicVar } from '@mimic/global';
 
 const props = defineProps<{
   /** 当前选中的文件夹 */
@@ -51,6 +53,11 @@ async function openModule() {
   };
   mimicDisplayStatus.selectedUiId = null;
   mimicWorkspaceStatus.addOpenedTarget(openedModule);
+}
+
+function moduleStartDragHandler() {
+  mimicVar.canvasEditor.draggingType = 'module';
+  mimicVar.canvasEditor.draggingTag = `${props.folderPath}/${props.fileName}`;
 }
 </script>
 

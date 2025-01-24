@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText, type IPointData, type IUI } from 'leafer-editor';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -67,53 +67,51 @@ const displayEditorWorkspace = ref<HTMLElement>();
 
 useDropZone(displayEditorWorkspace);
 
-async function onDisplayEditorDrop(e: MouseEvent) {
-  if (!mimicVar.canvasEditor.draggingTag) return;
-  let displayDataChanged = true;
-  if (mimicVar.canvasEditor.draggingType === 'component') {
-    console.log(`将组件 ${mimicVar.canvasEditor.draggingTag} 拖放到图纸`);
-    const componentClass = await registerUiClass(mimicVar.canvasEditor.draggingTag);
-    const newComponent = new componentClass({
-      ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
-      draggable: true,
-      editable: true,
-    });
-    if (_.isEmpty(newComponent.id)) {
-      newComponent.id = getUniqueId();
-    }
-    mimicVar.canvasEditor.app?.tree.add(newComponent);
-  } else if (mimicVar.canvasEditor.draggingType === 'element') {
-    const elementClass = getElementClassByTag(mimicVar.canvasEditor.draggingTag);
-    const newElement = new elementClass({
-      ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
-      draggable: true,
-      editable: true,
-    });
-    mimicVar.canvasEditor.app?.tree.add(newElement);
-  } else if (mimicVar.canvasEditor.draggingType === 'asset') {
-    if (mimicVar.canvasEditor.draggingTag.endsWith('.svg')) {
+async function createUi(draggingType: string, draggingTag: string, pointData?: IPointData) {
+  let ui: IUI | undefined;
+  if (draggingType === 'component') {
+    const componentClass = await registerUiClass(draggingTag);
+    ui = new componentClass({ ...pointData });
+  } else if (draggingType === 'module') {
+    console.log('添加模块', draggingType, draggingTag);
+  } else if (draggingType === 'element') {
+    const elementClass = getElementClassByTag(draggingTag);
+    ui = new elementClass({ ...pointData });
+  } else if (draggingType === 'asset') {
+    if (draggingTag.endsWith('.svg')) {
       const elementClass = getElementClassByTag('element:svg');
-      const newElement = new elementClass({
-        ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
-        url: mimicVar.canvasEditor.draggingTag,
-        draggable: true,
-        editable: true,
+      ui = new elementClass({
+        ...pointData,
+        url: draggingTag,
       });
-      mimicVar.canvasEditor.app?.tree.add(newElement);
     } else {
       const elementClass = getElementClassByTag('element:img');
-      const newElement = new elementClass({
-        url: mimicVar.canvasEditor.draggingTag,
-        ...mimicVar.canvasEditor.app?.getPagePointByClient(e),
-        draggable: true,
-        editable: true,
+      ui = new elementClass({
+        ...pointData,
+        url: draggingTag,
       });
-      mimicVar.canvasEditor.app?.tree.add(newElement);
     }
-  } else {
-    displayDataChanged = false;
   }
-  if (displayDataChanged) {
+  if (ui) {
+    ui.draggable = true;
+    ui.editable = true;
+    if (_.isEmpty(ui.id)) {
+      ui.id = getUniqueId();
+    }
+  }
+  return ui;
+}
+
+async function onDisplayEditorDrop(e: MouseEvent) {
+  if (!mimicVar.canvasEditor.draggingTag) return;
+  console.log('draggingType =', mimicVar.canvasEditor.draggingType, mimicVar.canvasEditor.draggingTag);
+  const ui = await createUi(
+    mimicVar.canvasEditor.draggingType!,
+    mimicVar.canvasEditor.draggingTag,
+    mimicVar.canvasEditor.app?.getPagePointByClient(e),
+  );
+  if (ui) {
+    mimicVar.canvasEditor.app?.tree.add(ui);
     mimicWorkspaceStatus.setCurrentDisplayUnsave();
   }
 }
