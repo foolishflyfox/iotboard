@@ -78,6 +78,7 @@ export interface CustomPropertyMeta {
 // 通用属性定义
 export const allCommonAppearanceType = [
   'visible', // 是否可见
+  'editable', // 是否可编辑
   'x', // 横坐标
   'y', // 纵坐标
   'width', // 宽度

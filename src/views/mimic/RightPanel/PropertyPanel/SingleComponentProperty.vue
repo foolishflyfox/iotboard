@@ -10,6 +10,7 @@
         </template>
         <template v-for="pt of curAppearancePropertyTypes" :key="pt">
           <CheckboxProperty v-if="pt === 'visible'" v-model:value="visible" label="可见" />
+          <CheckboxProperty v-if="pt === 'editable'" v-model:value="editable" label="可选" />
           <NumberProperty
             v-else-if="pt === 'x'"
             v-model:value="x" label="X坐标" :decimal-places="3"
@@ -155,6 +156,7 @@ interface Stroke extends Record<string, any> {
 }
 
 const visible = useAttrProxy('visible');
+const editable = useAttrProxy('editable');
 const x = useAttrProxy('x');
 const y = useAttrProxy('y');
 const width = useAttrProxy('width');
