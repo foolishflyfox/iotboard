@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText, type IPointData, type IUI } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText, type IPointData, type IUI, Group } from 'leafer-editor';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -38,6 +38,7 @@ import { mimicFileApi } from '@/service/api';
 import { mimicDisplayTreeExpose } from '@mimic/LeftPanel/mimic-display-tree/expose';
 import { keyboardKeys } from '@/constant';
 import { mimicModuleTreeExpose } from '@mimic/LeftPanel/mimic-module-tree/expose';
+import type { OpenedTarget } from '@mimic/types';
 
 // loadScript();
 
@@ -68,12 +69,54 @@ const displayEditorWorkspace = ref<HTMLElement>();
 useDropZone(displayEditorWorkspace);
 
 async function createUi(draggingType: string, draggingTag: string, pointData?: IPointData) {
+  // console.log('createUi:', draggingType, draggingTag);
   let ui: IUI | undefined;
   if (draggingType === 'component') {
     const componentClass = await registerUiClass(draggingTag);
     ui = new componentClass({ ...pointData });
   } else if (draggingType === 'module') {
-    console.log('添加模块', draggingType, draggingTag);
+    const moduleTarget: OpenedTarget = {
+      editorType: 'module',
+      path: `${draggingTag}.json`,
+    };
+    let moduleData = mimicVar.canvasEditor.getModuleData(moduleTarget);
+    if (!moduleData) {
+      moduleData = await mimicFileApi.openModule(moduleTarget.path);
+    }
+    console.log('moduleTarget 结果', moduleData);
+    const children: IUI[] = [];
+
+    for (const childData of moduleData.children || []) {
+      let childType: string | undefined;
+      let childTag: string | undefined = childData.tag;
+      if (childData.tag) {
+        if (childData.tag.startsWith('component/')) {
+          childType = 'component';
+        } else if (childData.tag === 'element:img') {
+          childType = 'asset';
+          childTag = childData.url;
+        } else if (childData.tag === 'element:svg') {
+          childType = 'asset';
+          childTag = childData.url;
+        } else if (childData.tag.startsWith('element:')) {
+          childType = 'element';
+        }
+      }
+      if (childType && childTag) {
+        console.log('childeType/tag', childType, childData.tag);
+        const ui = await createUi(
+          childType,
+          childTag,
+          { x: childData.x || 0, y: childData.y || 0 },
+        );
+        if (ui) {
+          children.push(ui);
+        }
+      }
+    }
+    const elementClass = getElementClassByTag('element:module');
+    const moduleUi = new elementClass({ ...pointData, children }) as Group;
+    ui = moduleUi;
   } else if (draggingType === 'element') {
     const elementClass = getElementClassByTag(draggingTag);
     ui = new elementClass({ ...pointData });

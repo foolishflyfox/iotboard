@@ -1,6 +1,5 @@
-import { Group, GroupData, registerUI, type IGroupData, type IGroupInputData } from 'leafer-editor';
+import { dataProcessor, Group, GroupData, registerUI, type IGroupData, type IGroupInputData } from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
-import { getCommonAppearanceTypes } from '@mimic/types';
 import type { UiCustomCfg } from './custom-ui';
 
 export function customModuleGenerate(customCfg: UiCustomCfg) {
@@ -11,6 +10,17 @@ export function customModuleGenerate(customCfg: UiCustomCfg) {
   @registerUI()
   @autoId()
   class InnerCustom extends Group {
+    static appearanceTypes = customCfg.appearanceTypes || ['x', 'y', 'width', 'height'];
 
+    public get __tag() {
+      return customCfg.tag;
+    }
+
+    @dataProcessor(InnerData)
+    declare public __: any;
+
+    constructor(data: ICustomModuleInputData) {
+      super({ ...data, hitChildren: false });
+    }
   }
 }

@@ -41,7 +41,7 @@
         <NTabPane name="module" display-directive="show">
           <template #tab>
             <div>
-              <NIcon size="26" :component="GroupObjects" />
+              <NIcon size="26" :component="ViewModuleRound" />
               <div>模块</div>
             </div>
           </template>
@@ -91,7 +91,7 @@ import { ElementContent } from './element-content';
 import { AppGeneric24Filled } from '@vicons/fluent';
 import { Components, ChevronsLeft, ChevronsRight, Atom } from '@vicons/tabler';
 import { ImagesOutline } from '@vicons/ionicons5';
-import { GroupObjects } from '@vicons/carbon';
+import { ViewModuleRound } from '@vicons/material';
 import { leftPanel } from '@/views/mimic/settings';
 import { TransitionPresets, useTransition } from '@vueuse/core';
 

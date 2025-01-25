@@ -13,6 +13,7 @@ import { customTextBoxGenerate } from '../generator/custom-text-box';
 import { customButtonGenerate } from '../generator/custom-button';
 import { customSvgGenerate } from '../generator/custom-svg';
 import { customImgGenerate } from '../generator/custom-img';
+import { customModuleGenerate } from '../generator/custom-module';
 import { customRegularPolygonGenerate } from '../generator/custom-regular-polygon';
 import { customPolygonGenerate } from '../generator/custom-polygon';
 
@@ -129,6 +130,10 @@ addElementRegistrar(customSvgGenerate, {
 });
 addElementRegistrar(customImgGenerate, {
   tag: 'element:img',
+  appearanceTypes: [...defaultAppearances]
+});
+addElementRegistrar(customModuleGenerate, {
+  tag: 'element:module',
   appearanceTypes: [...defaultAppearances]
 });
 

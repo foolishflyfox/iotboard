@@ -303,22 +303,42 @@ export class CanvasEditor {
     }
   }
 
-  private async createUis(uiJsons: IUIJSONData[]) {
+  /**
+   * 根据 json 生成 ui
+   * @param uiJsons json 数据
+   * @param onlyRegister 是否只注册，不生成 ui
+   * @returns 返回生成的子UI数组，若只注册，则子数组为空
+   */
+  private async createUis(uiJsons: IUIJSONData[], onlyRegister: boolean = false) {
     const result: IUI[] = [];
     for (const uiJson of uiJsons) {
       if (uiJson.tag) {
-        if (uiJson.tag.startsWith('element:')) {
+        if (uiJson.tag === 'element:module') {
+          /** 主要为了注册各种元素 */
+          await this.createUis(uiJson.children || [], true);
+          const componentClass = getElementClassByTag(uiJson.tag);
+          if (!onlyRegister) {
+            const component = new componentClass(uiJson);
+            result.push(component);
+          }
+        } else if (uiJson.tag.startsWith('element:')) {
           const elementClass = getElementClassByTag(uiJson.tag);
-          const element = new elementClass(uiJson);
-          result.push(element);
+          if (!onlyRegister) {
+            const element = new elementClass(uiJson);
+            result.push(element);
+          }
         } else if (uiJson.tag === 'Group') {
-          const children = await this.createUis(uiJson.children || []);
-          const group = new Group({ ...uiJson, children });
-          result.push(group);
+          const children = await this.createUis(uiJson.children || [], onlyRegister);
+          if (!onlyRegister) {
+            const group = new Group({ ...uiJson, children });
+            result.push(group);
+          }
         } else {
           const componentClass = await registerUiClass(uiJson.tag);
-          const component = new componentClass(uiJson);
-          result.push(component);
+          if (!onlyRegister) {
+            const component = new componentClass(uiJson);
+            result.push(component);
+          }
         }
       }
     }
