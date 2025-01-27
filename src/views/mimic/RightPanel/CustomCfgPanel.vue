@@ -11,7 +11,7 @@
           <template v-for="cfg of groupedCfgs[groupName]" :key="cfg.id">
             <template v-if="cfg.variable">
               <StringProperty
-                v-if="cfg.type === 'string'"
+                v-if="cfg.type === 'string' && cfgVisible[cfg.name] !== false"
                 :label="generateCfgLabel(cfg)"
                 :value="getCfgValue?.(cfg.name)"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
@@ -100,6 +100,7 @@ import FontWeightProperty from './PropertyPanel/FontWeightProperty.vue';
 import TextDecorationProperty from './PropertyPanel/TextDecorationProperty.vue';
 import CheckboxProperty from './PropertyPanel/components/CheckboxProperty.vue';
 import SvgColorProperty from './PropertyPanel/SvgColorProperty.vue';
+import { emitter } from '@/utils';
 
 const props = defineProps<{
   cfgs: CustomPropertyCfgs;
@@ -115,6 +116,14 @@ const emit = defineEmits<{
 
 const groupedCfgs = computed(() => groupCustomPropertyCfgs(props.cfgs));
 
+const cfgVisible = ref<Record<string, boolean>>({});
+function updateCfg(attrName: string) {
+  cfgVisible.value[attrName] = false;
+  nextTick(() => {
+    cfgVisible.value[attrName] = true;
+  });
+}
+
 function cfgValueUpdate(cfgName: string, v: any) {
   emit('update:cfgValue', cfgName, v);
 }
@@ -124,6 +133,14 @@ function generateCfgLabel(cfg: CustomPropertyCfg) {
   if (props.showCfgName) return `(${cfg.name})${cfg.label}`;
   return cfg.label;
 }
+
+onMounted(() => {
+  emitter.on('mimicUpdateAttr', updateCfg);
+});
+
+onUnmounted(() => {
+  emitter.off('mimicUpdateAttr', updateCfg);
+});
 </script>
 
 <style scoped>

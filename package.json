@@ -27,6 +27,7 @@
     "leafer-x-dot-matrix": "^1.0.2",
     "loadjs": "^4.3.0",
     "lodash-es": "^4.17.21",
+    "mitt": "^3.0.1",
     "pathe": "^1.1.2",
     "pinia": "^2.3.0",
     "vue": "^3.5.13",

@@ -17,6 +17,7 @@ import {
 import { autoId } from '@mimic/decorates';
 import * as _ from 'lodash-es';
 import type { CustomPropertyCfgs, UiCustomCfg } from './custom-ui';
+import { emitter } from '@/utils';
 
 export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
   interface CustomData {
@@ -187,7 +188,17 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
           padding: textPadding,
           italic: textItalic,
           width: data.width,
-          height: data.height
+          height: data.height,
+          event: {
+            [PropertyEvent.CHANGE]: (e: PropertyEvent) => {
+              if (e.attrName === 'text') {
+                if (this.proxyData) {
+                  this.proxyData.textContent = e.newValue as string;
+                  emitter.emit('mimicUpdateAttr', 'textContent');
+                }
+              }
+            }
+          }
         },
       ];
 
