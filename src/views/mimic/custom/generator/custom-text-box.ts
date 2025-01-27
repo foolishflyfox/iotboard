@@ -148,6 +148,8 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
         strokeWidth: 3,
         fill: '#FF4B4B',
         cornerRadius: 3,
+        width: 80,
+        height: 40,
         ...data,
       };
       const textContent = data.textContent || 'Text';
