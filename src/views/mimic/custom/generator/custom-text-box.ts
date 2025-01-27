@@ -12,6 +12,7 @@ import {
   type IFontWeight,
   surfaceType,
   type ITextDecoration,
+  PropertyEvent,
 } from 'leafer-editor';
 import { autoId } from '@mimic/decorates';
 import * as _ from 'lodash-es';
@@ -150,6 +151,16 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
         cornerRadius: 3,
         width: 80,
         height: 40,
+        event: {
+          [PropertyEvent.CHANGE]: (e: PropertyEvent) => {
+            const text = this.children[0] as Text;
+            if (e.attrName === 'width') {
+              text.width = e.newValue as any;
+            } else if (e.attrName === 'height') {
+              text.height = e.newValue as any;
+            }
+          }
+        },
         ...data,
       };
       const textContent = data.textContent || 'Text';
@@ -175,6 +186,8 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
           textDecoration,
           padding: textPadding,
           italic: textItalic,
+          width: data.width,
+          height: data.height
         },
       ];
 
