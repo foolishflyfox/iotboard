@@ -27,6 +27,7 @@ const emit = defineEmits<{
 
 const swatches = [
   '#FFFFFF',
+  '#CDCDCD',
   '#18A058',
   '#2080F0',
   '#F0A020',

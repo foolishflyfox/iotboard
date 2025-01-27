@@ -151,14 +151,14 @@ export function customTextBoxGenerate(textBoxCustomCfg: UiCustomCfg) {
         ...data,
       };
       const textContent = data.textContent || 'Text';
-      const textFontSize = 22;
-      const textFontWeight = 400;
+      const textFontSize = data.textFontSize || 22;
+      const textFontWeight = data.textFontWeight || 400;
       const textFill = data.textFill || '#00FF00';
       const textPadding = data.textPadding || [3, 5];
-      const textAlign = 'left';
-      const textVerticalAlign = 'top';
-      const textDecoration = 'none';
-      const textItalic = false;
+      const textAlign = data.textAlign || 'left';
+      const textVerticalAlign = data.textVerticalAlign || 'top';
+      const textDecoration = data.textDecoration || 'none';
+      const textItalic = data.textItalic || false;
       // const newData = _.omit(data, ['textContent', 'textFill']);
       const newData = _.cloneDeep(data);
       newData.children = [
