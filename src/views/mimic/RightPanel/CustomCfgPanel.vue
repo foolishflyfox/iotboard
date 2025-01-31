@@ -19,9 +19,9 @@
               <NumberProperty
                 v-else-if="cfg.type === 'number'"
                 :label="generateCfgLabel(cfg)"
-                :value="getCfgValue?.(cfg.name)"
-                :min="cfg.extra?.min"
-                :max="cfg.extra?.max"
+                :value="Number(getCfgValue?.(cfg.name))"
+                :min="Number(cfg.extra?.min)"
+                :max="Number(cfg.extra?.max)"
                 :step="cfg.extra?.step"
                 @update:value="v => cfgValueUpdate(cfg.name, v!)"
               />
