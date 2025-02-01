@@ -1,5 +1,7 @@
 {
   "appearanceTypes": [
+    "visible",
+    "editable",
     "height",
     "width",
     "x",

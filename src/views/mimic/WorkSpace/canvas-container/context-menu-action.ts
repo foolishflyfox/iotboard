@@ -65,7 +65,6 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
   } else if (action === 'paste') {
     noTargetHandler(async () => {
       const uiJsons = uiStorage.getUi();
-
       if (uiJsons && uiJsons.length > 0) {
         let pagePoint = { x: 0, y: 0 };
         if (clientPointData && mimicVar.canvasEditor.app) {
@@ -79,10 +78,10 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
         }
         for (let i = 0; i < uiJsons.length; i++) {
           const uiJson = uiJsons[i];
+          uiJson.id = getUniqueId();
           uiJson.x = uiJson.x - srcOriginLeft + pagePoint.x;
           uiJson.y = uiJson.y - srcOriginTop + pagePoint.y;
           if (uiJson.tag.startsWith('element:')) {
-            uiJson.id = getUniqueId();
             const elementClass = getElementClassByTag(uiJson.tag);
             const element = new elementClass(uiJson);
             // nextTick(() => {
