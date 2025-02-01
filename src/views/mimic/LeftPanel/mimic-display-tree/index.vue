@@ -80,11 +80,11 @@ async function updateCurrentTargets() {
   }
 }
 async function onChangeSelectedFolder(targetDirPath: string | null) {
+  currentTargets.value = [];
   if (targetDirPath) {
     currentTargetDirPath.value = targetDirPath;
     updateCurrentTargets();
   } else {
-    currentTargets.value = [];
     currentTargetDirPath.value = null;
   }
 }
