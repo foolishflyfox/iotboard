@@ -4,7 +4,9 @@ import * as _ from 'lodash-es';
 export class CustomCfgService {
   private cfgDict: Record<string, UiCustomCfg>;
   constructor() {
-    this.cfgDict = {};
+    this.cfgDict = {
+      Group: { tag: 'Group', appearanceTypes: ['visible', 'editable'] },
+    };
   }
 
   addUiCustomCfg(tag: string, cfg: UiCustomCfg) {
