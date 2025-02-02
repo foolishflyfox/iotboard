@@ -87,6 +87,11 @@ export function doContextMenuAction(action: string, clientPointData?: IClientPoi
             // nextTick(() => {
             mimicVar.canvasEditor.app?.tree.add(element);
             // });
+          } else if (uiJson.tag === 'Group') {
+            const group = new Group(uiJson);
+            nextTick(() => {
+              mimicVar.canvasEditor.app?.tree.add(group);
+            });
           } else {
             const componentClass = await registerUiClass(uiJson.tag);
             const component = new componentClass(uiJson);
