@@ -119,13 +119,28 @@ import type { ActionItem } from '@mimic/global/action-manager';
 const mimicDisplayStatus = useMimicDisplayStatus();
 const mimicWorkspaceStatus = useMimicWorkspaceStatus();
 
-const curAppearancePropertyTypes = computed(() => {
-  let result: AppearanceType[] = [];
-  const uiCustomCfg = customCfgService.getUiCustomCfg(mimicDisplayStatus.selectedUiProxyData?.tag);
-  if (uiCustomCfg?.appearanceTypes) {
-    result = uiCustomCfg.appearanceTypes;
+// const curAppearancePropertyTypes = computed(() => {
+//   let result: AppearanceType[] = [];
+//   const uiCustomCfg = customCfgService.getUiCustomCfg(mimicDisplayStatus.selectedUiProxyData?.tag);
+//   if (uiCustomCfg?.appearanceTypes) {
+//     result = uiCustomCfg.appearanceTypes;
+//   }
+//   return result;
+// });
+const curAppearancePropertyTypes = ref<AppearanceType[]>([]);
+watch(() => mimicDisplayStatus.selectedUiId, (newVal, oldVal) => {
+  // 销毁所有属性配置重新加载，解决文本内容不能更新问题
+  curAppearancePropertyTypes.value = [];
+  if (newVal) {
+    const uiCustomCfg = customCfgService.getUiCustomCfg(
+      mimicDisplayStatus.selectedUiProxyData?.tag
+    );
+    if (uiCustomCfg?.appearanceTypes) {
+      nextTick(() => {
+        curAppearancePropertyTypes.value = uiCustomCfg.appearanceTypes!;
+      });
+    }
   }
-  return result;
 });
 
 function useAttrProxy(attrName: string, customSetter?: (v: any) => void) {
