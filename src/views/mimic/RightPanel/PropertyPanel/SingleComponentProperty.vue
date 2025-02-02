@@ -1,6 +1,7 @@
 <template>
   <div class="pr-10px">
     <!-- <div class="m-0.2em font-bold text-center">{{ curElementLabel }}</div> -->
+    <!-- <div>{{ mimicDisplayStatus.selectedUiId }}</div> -->
     <NCollapse :default-expanded-names="['base', 'custom']">
       <NCollapseItem name="base">
         <template #header>
