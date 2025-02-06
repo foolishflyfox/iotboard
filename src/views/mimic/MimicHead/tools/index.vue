@@ -32,7 +32,11 @@
       :disabled="currentTarget?.editorType !== 'display'"
     />
     <HeadVerticalDivider />
-    <IconContainer :vicons="ImageArrowForward24Regular" tooltip="图扑格式转换" />
+    <IconContainer
+      :vicons="ImageArrowForward24Regular"
+      tooltip="图扑格式转换"
+      @click="() => htJsonConvertVisible = true"
+    />
     <!-- <NPopover trigger="click" ref="toolPopRef">
       <template #trigger>
         <div>
@@ -43,6 +47,7 @@
     </NPopover> -->
   </div>
   <HotkeyHelp v-model:show="hotkeyModalVisible" />
+  <HtJsonConvert v-model:show="htJsonConvertVisible" />
 </template>
 
 <script setup lang="ts">
@@ -54,12 +59,14 @@ import { InstallDesktopRound, InstallMobileRound } from '@vicons/material';
 import { Ruler } from '@vicons/tabler';
 import { mimicVar } from '@mimic/global';
 import HotkeyHelp from './HotkeyHelp.vue';
+import HtJsonConvert from './HtJsonConvert.vue';
 
 defineOptions({
   name: 'HeadTools',
 });
 
 const hotkeyModalVisible = ref(false);
+const htJsonConvertVisible = ref(false);
 const { rulerVisible, dotMatrixVisible, currentTarget } = toRefs(useMimicWorkspaceStatus());
 
 function changeRulerVisible() {

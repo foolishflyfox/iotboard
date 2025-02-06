@@ -7,7 +7,7 @@
     :show-icon="false"
     class="flex flex-col px-8px py-10px"
     :style="modalStyle"
-    content-class="flex-1 "
+    content-class="flex-1"
   >
     <template #header>
       <div>编辑组件</div>
