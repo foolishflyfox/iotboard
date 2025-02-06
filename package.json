@@ -22,6 +22,7 @@
     "ace-builds": "~1.36.5",
     "axios": "^1.7.9",
     "colord": "^2.9.3",
+    "dayjs": "^1.11.13",
     "leafer-editor": "^1.2.1",
     "leafer-vue": "^3.1.1",
     "leafer-x-dot-matrix": "^1.0.2",

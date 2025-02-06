@@ -50,6 +50,8 @@ import { NModal, NButton, NSpace } from 'naive-ui';
 import '@mimic/utils/ace-config';
 import { VAceEditor } from 'vue3-ace-editor';
 import type { Ace } from 'ace-builds';
+import dayjs from 'dayjs';
+// import * as dayjs from 'dayjs';
 
 defineProps<{
   showModal?: boolean;
@@ -130,7 +132,8 @@ function downloadSvg() {
   // 创建一个下载链接
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = 'image.svg'; // 默认文件名为 image.svg
+  // dayjs();
+  link.download = `${dayjs().format('YYYYMMDDHHmmss')}.svg`;
 
   // 触发下载
   document.body.appendChild(link);
