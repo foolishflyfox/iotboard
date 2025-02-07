@@ -118,7 +118,13 @@ export function customUiGenerate(uiCustomCfg: UiCustomCfg) {
   }
 
   if (uiCustomCfg.draw) {
-    InnerCustom.prototype.__draw = uiCustomCfg.draw;
+    // InnerCustom.prototype.__draw = uiCustomCfg.draw;
+    InnerCustom.prototype.__draw = function (canvas) {
+      canvas.context.save();
+      canvas.context.setLineDash([]);
+      uiCustomCfg.draw?.call(this, canvas);
+      canvas.context.restore();
+    };
   }
 
   // 设置自定义属性的初始化值
