@@ -65,7 +65,8 @@ const hotKeyGroups = [{
     { label: '视图拖动', value: '按下鼠标中键 + 移动' },
     { label: '添加辅助线', value: '单击标尺' },
     { label: '删除辅助线', value: '双击标尺' },
-    { label: '打开组', value: '双击组' }
+    { label: '打开组', value: '双击组' },
+    { label: '全选', value: 'ctrl/cmd + A' }
   ]
 }, {
   group: '图纸',

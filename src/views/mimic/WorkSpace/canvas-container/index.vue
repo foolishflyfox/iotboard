@@ -196,6 +196,15 @@ async function handleSaveShortcut(e: KeyboardEvent) {
   } else if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.Z) {
     // 处理撤销动作
     mimicVar.actionManagerContainer.getManager()?.undo();
+  } else if ((e.ctrlKey || e.metaKey) && e.key === keyboardKeys.A) {
+    e.preventDefault();
+    const uiLayers = mimicVar.uiLayerManagerContainer.getCurrentUiLayers();
+    const uiIds = new Set<string>();
+    uiLayers.value.forEach(e => uiIds.add(e.id));
+    const selectedUis: IUI[] = mimicVar.canvasEditor.app?.tree.find((e) => {
+      return uiIds.has(e.id || '') ? 1 : 0;
+    }) as IUI[];
+    mimicVar.canvasEditor.app?.editor.select(selectedUis);
   }
 }
 
