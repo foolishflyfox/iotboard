@@ -111,12 +111,12 @@ function convertJson() {
       }
       svg += `<polygon points="${pts.join(' ')}" fill="${
         background.value
-      }" stroke="${borderColor}" stroke-width="${borderWidth}" />`;
+      }" stroke="${borderColor}" stroke-width="${borderWidth ?? 0}" />`;
     } else if (type === 'rect') {
       // 处理矩形
       const [x, y, width, height] = rect;
       svg += `<rect x="${x}" y="${y}" width="${width}" height="${height}"
-        fill="${background.value}" stroke="${borderColor}" stroke-width="${borderWidth}" />`;
+        fill="${background.value}" stroke="${borderColor}" stroke-width="${borderWidth ?? 0}" />`;
     }
   });
 
