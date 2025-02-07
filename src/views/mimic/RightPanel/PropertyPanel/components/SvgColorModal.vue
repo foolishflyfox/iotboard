@@ -148,12 +148,26 @@ async function loadSvg() {
       const svg = dom.getElementsByTagName('svg');
       const svgItem0 = svg[0];
       const svgAttributes = svgItem0.attributes as any;
+      let w = svgAttributes.width?.value;
+      let h = svgAttributes.height?.value;
+      if (!w || !h) {
+        const viewBox = svgAttributes.viewBox?.value;
+        if (viewBox) {
+          const viewBoxArr = viewBox.split(' ');
+          if (viewBoxArr.length >= 3 && !w) {
+            w = Number(viewBoxArr[2]);
+          }
+          if (viewBoxArr.length >= 4 && !h) {
+            h = Number(viewBoxArr[3]);
+          }
+        }
+      }
 
       let nw = svgContainerWidth.value;
-      let nh = nw * svgAttributes.height.value / svgAttributes.width.value;
+      let nh = nw * h / w;
       if (nh > svgContainerHeight.value) {
         nh = svgContainerHeight.value;
-        nw = nh * svgAttributes.width.value / svgAttributes.height.value;
+        nw = nh * w / h;
       }
       svgItem0.style.width = `${nw}px`;
       svgItem0.style.height = `${nh}px`;
