@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText, type IPointData, type IUI, Group } from 'leafer-editor';
+import { App, EditorEvent, ResizeEvent, KeyEvent, PointerEvent, LayoutEvent, HTMLText, type IUI, Group } from 'leafer-editor';
 import { FoxRuler as Ruler } from '@fox-plugin/ruler';
 import { DotMatrix } from 'leafer-x-dot-matrix';
 import { useMimicWorkspaceStatus } from '@/views/mimic/stores';
@@ -68,12 +68,12 @@ const displayEditorWorkspace = ref<HTMLElement>();
 
 useDropZone(displayEditorWorkspace);
 
-async function createUi(draggingType: string, draggingTag: string, pointData?: IPointData) {
+async function createUi(draggingType: string, draggingTag: string, data?: any) {
   // console.log('createUi:', draggingType, draggingTag);
   let ui: IUI | undefined;
   if (draggingType === 'component') {
     const componentClass = await registerUiClass(draggingTag);
-    ui = new componentClass({ ...pointData });
+    ui = new componentClass({ ...data });
   } else if (draggingType === 'module') {
     const moduleTarget: OpenedTarget = {
       editorType: 'module',
@@ -107,7 +107,7 @@ async function createUi(draggingType: string, draggingTag: string, pointData?: I
         const ui = await createUi(
           childType,
           childTag,
-          { x: childData.x || 0, y: childData.y || 0 },
+          { ...childData, x: childData.x || 0, y: childData.y || 0 },
         );
         if (ui) {
           children.push(ui);
@@ -115,22 +115,22 @@ async function createUi(draggingType: string, draggingTag: string, pointData?: I
       }
     }
     const elementClass = getElementClassByTag('element:module');
-    const moduleUi = new elementClass({ ...pointData, children }) as Group;
+    const moduleUi = new elementClass({ ...data, children }) as Group;
     ui = moduleUi;
   } else if (draggingType === 'element') {
     const elementClass = getElementClassByTag(draggingTag);
-    ui = new elementClass({ ...pointData });
+    ui = new elementClass({ ...data });
   } else if (draggingType === 'asset') {
     if (draggingTag.endsWith('.svg')) {
       const elementClass = getElementClassByTag('element:svg');
       ui = new elementClass({
-        ...pointData,
+        ...data,
         url: draggingTag,
       });
     } else {
       const elementClass = getElementClassByTag('element:img');
       ui = new elementClass({
-        ...pointData,
+        ...data,
         url: draggingTag,
       });
     }
