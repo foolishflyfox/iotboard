@@ -36,7 +36,9 @@ export class FoxRuler {
 
   constructor(app: App, config?: RulerConfig, options?: RulerOptions) {
     this.app = app;
+    // 在 app 中添加一个 Leafer 层，app.children 中的层级为 ground / tree / sky /rulerLeafer
     this.rulerLeafer = app.addLeafer();
+    // 获取 canvas 的 2d context
     this.contextContainer = this.rulerLeafer.canvas.context;
     this.options = options || {
       ruleSize: 20,
@@ -57,8 +59,8 @@ export class FoxRuler {
       ])
     };
     this.config = config || { enabled: true, theme: 'light' };
-    this.forceRender = this.forceRender.bind(this);
-    this.resize = this.resize.bind(this);
+    // this.forceRender = this.forceRender.bind(this);
+    // this.resize = this.resize.bind(this);
     this.enabled = this.config.enabled;
   }
 
