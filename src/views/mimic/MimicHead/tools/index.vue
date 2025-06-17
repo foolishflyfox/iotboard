@@ -15,7 +15,7 @@
       :vicons="Ruler"
       tooltip="显示 / 隐藏标尺"
       :is-active="rulerVisible"
-      @click="changeRulerVisible"
+      @click="toggleRulerVisible"
     />
     <IconContainer
       :vicons="GridDots20Filled"
@@ -69,7 +69,7 @@ const hotkeyModalVisible = ref(false);
 const htJsonConvertVisible = ref(false);
 const { rulerVisible, dotMatrixVisible, currentTarget } = toRefs(useMimicWorkspaceStatus());
 
-function changeRulerVisible() {
+function toggleRulerVisible() {
   rulerVisible.value = !rulerVisible.value;
 }
 
