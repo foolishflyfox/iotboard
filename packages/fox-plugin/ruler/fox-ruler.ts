@@ -120,7 +120,6 @@ export class FoxRuler {
 
   public forceRender() {
     if (this.enabled) {
-      console.log('ruler render');
       this.render({ ctx: this.contextContainer });
     }
   }
