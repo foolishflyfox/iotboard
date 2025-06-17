@@ -59,8 +59,9 @@ export class FoxRuler {
       ])
     };
     this.config = config || { enabled: true, theme: 'light' };
-    // this.forceRender = this.forceRender.bind(this);
-    // this.resize = this.resize.bind(this);
+    // 因为要传给其他对象使用，不 bind 时，函数调用时 this 可以会出错
+    this.forceRender = this.forceRender.bind(this);
+    this.resize = this.resize.bind(this);
     this.enabled = this.config.enabled;
   }
 
@@ -119,6 +120,7 @@ export class FoxRuler {
 
   public forceRender() {
     if (this.enabled) {
+      console.log('ruler render');
       this.render({ ctx: this.contextContainer });
     }
   }
