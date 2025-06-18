@@ -18,6 +18,7 @@
       theme="tomorrow"
       :options="aceEditorOptions"
       class="w-full flex-1"
+      @wheel.prevent
     />
     <div>
       <VCodeBlock
