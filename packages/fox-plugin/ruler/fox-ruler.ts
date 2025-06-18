@@ -147,6 +147,8 @@ export class FoxRuler {
     this.rulerLeafer.canvas.setWorld({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 });
 
     const { worldTransform } = this.app.tree;
+    // tree 的变换参数，context 的变换顺序是先进行线性变换（缩放、旋转、斜切等），再进行平移
+    // vpt[4]/vpt[5] 表示最后水平/垂直移动的像素数，
     const vpt = [
       worldTransform.a,
       worldTransform.b,
@@ -199,16 +201,18 @@ export class FoxRuler {
   }
 
   private draw(opt: {
-    ctx: ICanvasContext2D
-    isHorizontal: boolean
-    rulerLength: number
-    startCalibration: number
+    ctx: ICanvasContext2D;
+    isHorizontal: boolean; // 水平标尺 - true, 垂直标尺 - false
+    rulerLength: number; // 标尺的实际长度，单位: 像素
+    startCalibration: number; // 右上角点的逻辑坐标值
   }) {
     const { ctx, isHorizontal, rulerLength, startCalibration } = opt;
     const zoom = this.getZoom();
 
     const gap = this.getGap(zoom);
+    // 计算标尺经过缩放后的逻辑长度
     const unitLength = Math.ceil(rulerLength / zoom);
+    // 计算绘制标尺的起始值
     const startValue = Math.floor(startCalibration / gap) * gap;
     const startOffset = startValue - startCalibration;
     const canvasSize = this.getSize();
@@ -293,6 +297,11 @@ export class FoxRuler {
     // draw end
   }
 
+  /**
+   * 根据缩放大小计算一个大格的逻辑长度，一个大格有10个小格
+   * @param zoom 缩放大小
+   * @returns 一个大格的逻辑长度
+   */
   private getGap(zoom: number) {
     const zooms = [0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5];
     const gaps = [5000, 2500, 1000, 500, 200, 100, 50, 20, 10];
@@ -452,6 +461,10 @@ export class FoxRuler {
     return mergedLines;
   }
 
+  /**
+   * 获取 tree 视图的缩放大小，大于1表示放大，小于1表示缩小
+   * @returns
+   */
   public getZoom(): number {
     if (this.app.tree) {
       if (typeof this.app.tree.scale === 'number') {
