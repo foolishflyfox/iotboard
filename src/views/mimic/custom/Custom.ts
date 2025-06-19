@@ -16,6 +16,12 @@ export class Custom extends UI {
     return 'Custom';
   }
 
+  /**
+   * dataProcessor 修饰器会在创建类(注意不是创建类实例)后，执行 dataProcessor 函数
+   * 作用是将修饰器中的类参数绑定到 __DataProcessor getter 属性上
+   * 在创建 UI 实例时，Leaf 中的 reset 函数中会调用 new this.__DataProcessor(this) 创建
+   * 数据处理器，并赋值给 this.__ 成员变量
+   */
   @dataProcessor(CustomData)
   public declare __: ICustomData;
 
