@@ -6,10 +6,13 @@ import type { IUIInputData, ILeaferCanvas, IRadiusPointData, IUIData } from 'lea
 interface ICustomInputData extends IUIInputData {}
 interface ICustomData extends IUIData {}
 
+/**
+ * UIData 继承自 LeafData，LeafData 的构造函数接受一个参数，表示其作用的 UI 对象
+ * 传入参数将被设置到 __leaf 成员变量下
+ */
 class CustomData extends UIData implements ICustomData {}
 
-// 定义类
-
+// 定义自定义 UI 类
 @registerUI()
 export class Custom extends UI {
   public get __tag() {
