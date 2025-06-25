@@ -11,7 +11,7 @@ import { isCustomElement } from 'leafer-vue/compiler';
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    port: 5177777770,
+    port: 5170,
     host: '0.0.0.0',
     proxy: {
       '/mimic': 'http://localhost:3000',
